@@ -2,3 +2,7 @@ Jo|Happy
 Tri|Sad
 Ra|Angry
 Pa|Peaceful
+Gran|Big
+Peti|Small
+Rap|Fast
+Len|Slow
