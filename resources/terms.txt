@@ -1,0 +1,4 @@
+Jo|Happy
+Tri|Sad
+Ra|Angry
+Pa|Peaceful
