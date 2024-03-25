@@ -28,11 +28,25 @@
                     .sort((a, b) => a.querySelector("h2").textContent.localeCompare(b.querySelector("h2").textContent))
                     .forEach(term => termContainer.appendChild(term));
             }
+
+            function search() {
+                const searchTerm = document.getElementById("searchBox").value.toLowerCase();
+                const terms = document.querySelectorAll(".term");
+                terms.forEach(term => {
+                    const definition = term.querySelector("p").textContent.toLowerCase();
+                    if (definition.includes(searchTerm)) {
+                        term.style.display = "block";
+                    } else {
+                        term.style.display = "none";
+                    }
+                });
+            }
     
             // Example of adding terms
-            addTerm("Term 3", "Definition of term 3 goes here.");
-            addTerm("Term 1", "Definition of term 1 goes here.");
-            addTerm("Term 2", "Definition of term 2 goes here.");
+            addTerm("Jo", "Happy");
+            addTerm("Tri", "Sad");
+            addTerm("Ra", "Angry");
+            addTerm("Pa", "Peaceful");
         </script>
     </body>
 </html>
