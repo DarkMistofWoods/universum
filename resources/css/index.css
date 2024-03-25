@@ -42,3 +42,11 @@ h1 {
 .term h2 {
     margin-top: 0;
 }
+#searchBox {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
