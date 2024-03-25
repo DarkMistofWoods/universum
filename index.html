@@ -1,8 +1,248 @@
-<html>
-
-<body>
-  <h1>UNIVERSUM</h1>
-  <p>Welcome to my website!</p>
-</body>
-
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./resources/css/index.css" type="text/css">
+        <title>Universum</title>
+    </head>
+    <body>
+        <header>
+            <h1>Phonetics</h1>
+        </header>
+        <section id="semantic">
+            <h2>Semantic Elements</h2>
+            <a href="#non_semantic">Non-Semantic Elements</a>
+            <h3>General</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Element</th>
+                        <th>Typical Parent</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span class="code">&lt;header&gt;</span>
+                        </td>
+                        <td><span class="code">&lt;body&gt;</span></td>
+                        <td>The topmost visible element.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="code">&lt;nav&gt;</span>
+                        </td>
+                        <td><span class="code">&lt;header&gt;</span></td>
+                        <td>The site navigation links.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="code">&lt;section&gt;</span>
+                        </td>
+                        <td><span class="code">&lt;body&gt;</span></td>
+                        <td>A thematic grouping of elements</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="code">&lt;article&gt;</span>
+                        </td>
+                        <td><span class="code">&lt;body&gt;</span></td>
+                        <td>Independent self-contained content.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="code">&lt;aside&gt;</span>
+                        </td>
+                        <td><span class="code">&lt;section&gt; &lt;body&gt;</span></td>
+                        <td>Indirectly related to surrounding content.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="code">&lt;details&gt;</span>
+                        </td>
+                        <td><span class="code">&lt;article&gt; &lt;section&gt;</span></td>
+                        <td>Toggleable additional details.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="code">&lt;footer&gt;</span>
+                        </td>
+                        <td><span class="code">&lt;body&gt;</span></td>
+                        <td>Footer for a document or section.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="code">&lt;figure&gt;</span>
+                        </td>
+                        <td><span class="code">&lt;body&gt; &lt;section&gt;</span></td>
+                        <td>Self-contained content, i.e. photos, illustrations, etc.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="code">&lt;figcaption&gt;</span>
+                        </td>
+                        <td><span class="code">&lt;figure&gt;</span></td>
+                        <td>Defines a caption for a photo.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="code">&lt;main&gt;</span>
+                        </td>
+                        <td><span class="code">&lt;body&gt;</span></td>
+                        <td>Specifies the main content.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="code">&lt;mark&gt;</span>
+                        </td>
+                        <td><span class="code">ANY</span></td>
+                        <td>Defines text to be marked or highlighted.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="code">&lt;summary&gt;</span>
+                        </td>
+                        <td><span class="code">&lt;details&gt;</span></td>
+                        <td>Defines a visible heading for the <span class="code">&lt;details&gt;</span> element.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="code">&lt;time&gt;</span>
+                        </td>
+                        <td><span class="code">ANY</span></td>
+                        <td>Defines a specific time/datetime.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Text</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Element</th>
+                        <th>Typical Parent</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="code">&lt;h1&gt;</span></td>
+                        <td><span class="code">ANY</span></td>
+                        <td>Main heading element.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="code">&lt;h2&gt;</span></td>
+                        <td><span class="code">ANY</span></td>
+                        <td>Secondary heading element.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="code">&lt;h3&gt;</span></td>
+                        <td><span class="code">ANY</span></td>
+                        <td>Sub-heading element.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Multimedia</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Element</th>
+                        <th>Typical Parent</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="code">&lt;audio&gt;</span></td>
+                        <td><span class="code">ANY</span></td>
+                        <td>Embed sound in a document.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="code">&lt;img&gt;</span></td>
+                        <td><span class="code">ANY</span></td>
+                        <td>Embed an image in a document.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="code">&lt;video&gt;</span></td>
+                        <td><span class="code">ANY</span></td>
+                        <td>Embed a media player to play a video.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Table</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Element</th>
+                        <th>Typical Parent</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="code">&lt;table&gt;</span></td>
+                        <td><span class="code">ANY</span></td>
+                        <td>Wrapper for elements to display in table format.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="code">&lt;thead&gt;</span></td>
+                        <td><span class="code">&lt;table&gt;</span></td>
+                        <td>Set of rows defining column headers in a table.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="code">&lt;tbody&gt;</span></td>
+                        <td><span class="code">&lt;table&gt;</span></td>
+                        <td>The set of rows containing table data.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="code">&lt;tr&gt;</span></td>
+                        <td><span class="code">&lt;tbody&gt;</span></td>
+                        <td>Table row container.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="code">&lt;td&gt;</span></td>
+                        <td><span class="code">&lt;tr&gt;</span></td>
+                        <td>Table cell data container.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="code">&lt;tfoot&gt;</span></td>
+                        <td><span class="code">&lt;tbody&gt;</span></td>
+                        <td>Set of rows that define the table footer.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section id="non_semantic">
+            <h2>Non-Semantic Elements</h2>
+            <a href="#semantic">Semantic Elements</a>
+            <h3>General</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Element</th>
+                        <th>Typical Parent</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span class="code">&lt;div&gt;</span>
+                        </td>
+                        <td><span class="code">N/A</span></td>
+                        <td>N/A</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="code">&lt;span&gt;</span>
+                        </td>
+                        <td><span class="code">N/A</span></td>
+                        <td>N/A</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </body>
 </html>
