@@ -11,16 +11,28 @@
         <header>
             <h1>The Official Lexicon</h1>
         </header>
-        <div class="container">
-            <div class="term">
-                <h2>Term 1</h2>
-                <p>Definition of term 1 goes here.</p>
-            </div>
-            <div class="term">
-                <h2>Term 2</h2>
-                <p>Definition of term 2 goes here.</p>
-            </div>
-            <!-- Add more terms and definitions as needed -->
+        <div class="container" id="termsContainer">
+        <!-- Terms will be dynamically added here -->
         </div>
+    
+        <script>
+            function addTerm(termName, definition) {
+                const termContainer = document.getElementById("termsContainer");
+                const newTerm = document.createElement("div");
+                newTerm.classList.add("term");
+                newTerm.innerHTML = `<h2>${termName}</h2><p>${definition}</p>`;
+                termContainer.appendChild(newTerm);
+    
+                // Sort terms alphabetically
+                Array.from(termContainer.children)
+                    .sort((a, b) => a.querySelector("h2").textContent.localeCompare(b.querySelector("h2").textContent))
+                    .forEach(term => termContainer.appendChild(term));
+            }
+    
+            // Example of adding terms
+            addTerm("Term 3", "Definition of term 3 goes here.");
+            addTerm("Term 1", "Definition of term 1 goes here.");
+            addTerm("Term 2", "Definition of term 2 goes here.");
+        </script>
     </body>
 </html>
