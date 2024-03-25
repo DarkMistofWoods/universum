@@ -1,0 +1,59 @@
+/* Colors:
+#BFBFBF
+#737373
+#595959
+#404040
+#262626
+*/
+
+* {
+    font-family: sans-serif;
+    background-color: #262626;
+    color: #BFBFBF;
+}
+
+a {
+    text-align: center;
+    display: block;
+    color: #737373;
+    cursor: pointer;
+}
+
+a:hover {
+    color: orange;
+}
+
+h1 {
+    text-align: center;
+    color: #BFBFBF;
+}
+
+h2 {
+    text-align: center;
+    color: #BFBFBF;
+    border: 2px solid;
+    border-color: #BFBFBF;
+    margin-bottom: 5px;
+    margin-top: 2em;
+}
+
+h3 {
+    text-align: center;
+    margin: 25px;
+}
+
+table {
+    border: 3px solid;
+    width: 650px;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+td {
+    border-top: 1px solid;
+}
+
+.code {
+    font-family: monospace;
+    background-color: #404040;
+}
