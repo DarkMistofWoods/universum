@@ -34,8 +34,11 @@ h1 {
     margin: 20px auto;
     padding: 0 20px;
 }
+#termsContainer {
+    background-color: #262626;
+}    
 .term {
-    background-color: #fff;
+    background-color: #333;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
