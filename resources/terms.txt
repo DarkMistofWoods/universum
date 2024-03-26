@@ -23,13 +23,13 @@ Arb|Tree|Nature and Environment
 Aq|Water|Nature and Environment
 Mon|Mountain|Nature and Environment
 Mar|Sea|Nature and Environment
-Prad|Meadow||Nature and Environment
+Prad|Meadow|Nature and Environment
 Dom|House|Everyday Objects
 Lib|Book|Everyday Objects
 Tel|Phone|Everyday Objects
 Aut|Car|Everyday Objects
 Libtel|Book-phone|Compound Example
-Rapaut|Fast-car||Compound Example
+Rapaut|Fast-car|Compound Example
 Granarb|Big-tree|Compound Example
 Pedgo|Foot-go|Compound Example
 Comp|Computer|Technology
