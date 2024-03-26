@@ -28,6 +28,18 @@ nav ul li a:hover {
     background-color: #111;
 }
 
+#searchBox, #lexicon {
+    text-align: center;
+    margin: 20px auto;
+}
+
+#searchBox {
+    display: inline-block;
+    width: 50%; /* Adjust if necessary for smaller screens */
+    padding: 10px;
+    font-size: 16px;
+}
+
 .universum {
     display: block;
     text-align: center;
@@ -41,11 +53,18 @@ nav ul li a:hover {
     text-decoration: underline;
 }
 
-#searchBox {
-    display: block;
-    margin: 20px auto;
-    padding: 10px;
-    font-size: 16px;
+.category-section, .universum {
+    text-align: center;
+    width: 100%;
+}
+
+.category-section h2 {
+    margin: 0 auto; /* Ensures headers are centered */
+}
+
+/* Styles for individual term entries */
+.category-section p {
+    margin: 5px 0; /* Adjust spacing around terms */
 }
 
 /* Additional styles for responsiveness and aesthetics */
