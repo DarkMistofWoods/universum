@@ -7,7 +7,7 @@ Peti|Small|Adjective
 Rap|Fast|Adjective
 Len|Slow|Adjective
 Oc|Eye|Body Part
-Man|Hand|Body Part
+Pal|Hand|Body Part
 Ped|Foot|Body Part
 Cor|Heart|Body Part
 Sonri|Smile|Body Part
@@ -48,6 +48,7 @@ Via|Travel|Activity
 Cam|Shirt|Clothing
 Pan|Pants|Clothing
 Sca|Shoes|Clothing
+Covri|Coat|Clothing
 Pan|Bread|Food
 Cas|Cheese|Food
 Fru|Fruit|Food
@@ -57,3 +58,21 @@ Dark|Noc|Nouns/Adjectives
 Frig|Cold|Nouns/Adjectives
 Cal|Hot|Nouns/Adjectives
 Nom|Name|Nouns/Adjectives
+Nul (0)|Zero (0)|Number
+Un (1)|One (1)|Number
+Do (2)|Two (2)|Number
+Tri (3)|Three (3)|Number
+Qua (4)|Four (4)|Number
+Pen (5)|Five (5)|Number
+Se (6)|Six (6)|Number
+Sep (7)|Seven (7)|Number
+Oc (8)|Eight (8)|Number
+Nov (9)|Nine (9)|Number
+Dec (X)|Ten (10)|Number
+Elf (Ɛ)|Eleven (11)|Number
+Twa (10)|Twelve (12)|Number
+Cur|Curious|Emotion
+Fat|Tired|Emotion
+Tran|Calm|Emotion
+Med|Doctor|Career
+Hem|Home|Location
