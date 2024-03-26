@@ -31,6 +31,9 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(text => {
             lexiconData = text.split('\n').map(line => {
                 const parts = line.split('|');
+                if (parts.length !== 3) {
+                    console.error('Malformed line:', line);
+                }
                 return { term: parts[0], definition: parts[1], category: parts[2] };
             });
 
