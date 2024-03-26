@@ -12,6 +12,18 @@
     color: #737373;
 }
 
+h2 {
+    margin-bottom: 5px;
+    background-color: transparent;
+    color: #BFBFBF;
+}
+
+h4 {
+    margin-bottom: 25px;
+    background-color: transparent;
+    color: #BFBFBF;
+}
+
 nav {
     background-color: #262626;
 }
@@ -109,9 +121,55 @@ nav ul li a:hover {
     color: #BFBFBF;
 }
 
+/* Styles for name generator */
+.container {
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 70%;
+    padding: 20px;
+    border: 1px solid #BFBFBF;
+    border-radius: 10px;
+    background-color: #404040;
+}
+.dropdown-container {
+    display: flex;
+    gap: 10px;
+    background-color: transparent;
+}
+input, select, button {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #BFBFBF;
+    border-radius: 5px;
+}
+button {
+    cursor: pointer;
+    background-color: #737373;
+    color: white;
+    border-color: #737373;
+}
+button:hover {
+    background-color: #595959;
+    border-color: #595959;
+}
+#nameOutput {
+    max-width: 300px;
+}
+
 /* Additional styles for responsiveness and aesthetics */
 @media (max-width: 768px) {
     #searchBox {
         width: 80%;
+    }
+    .dropdown-container {
+        flex-direction: column;
+        width: 100%;
+    }
+    input, select, button {
+        width: 100%;
+        box-sizing: border-box; /* Ensures padding does not add to the width */
     }
 }
