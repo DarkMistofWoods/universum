@@ -14,7 +14,7 @@
 
 nav ul li {
     display: inline;
-    margin: 0 auto;
+    margin: auto;
 }
 
 nav ul li a {
@@ -32,12 +32,12 @@ nav ul li a:hover {
 
 #searchBox, #lexicon {
     text-align: center;
-    margin: 20px auto;
+    margin: auto;
 }
 
 #searchBox {
     display: inline-block;
-    margin: 0 auto;
+    margin: auto;
     width: 50%; /* Adjust if necessary for smaller screens */
     padding: 10px 10px;
     font-size: 16px;
