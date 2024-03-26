@@ -73,6 +73,12 @@ nav ul li a:hover {
     text-decoration: underline;
 }
 */
+
+.category-section {
+    border-radius: 10px;
+    border-color: #737373;
+}
+
 .category-section, .universum {
     width: 100%;
     text-align: center;
@@ -82,11 +88,13 @@ nav ul li a:hover {
 
 .category-section h2 {
     margin: 0 auto; /* Ensures headers are centered */
+    color: #BFBFBF;
 }
 
 /* Styles for individual term entries */
 .category-section p {
     margin: 5px 0; /* Adjust spacing around terms */
+    color: #BFBFBF;
 }
 
 /* Additional styles for responsiveness and aesthetics */
