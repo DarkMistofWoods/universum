@@ -24,10 +24,10 @@ Aq|Water|Nature and Environment
 Mon|Mountain|Nature and Environment
 Mar|Sea|Nature and Environment
 Prad|Meadow|Nature and Environment
-Dom|House|Everyday Objects
-Lib|Book|Everyday Objects
-Tel|Phone|Everyday Objects
-Aut|Car|Everyday Objects
+Dom|House|Everyday Object
+Lib|Book|Everyday Object
+Tel|Phone|Everyday Object
+Aut|Car|Everyday Object
 Libtel|Book-phone|Compound Example
 Rapaut|Fast-car|Compound Example
 Granarb|Big-tree|Compound Example
@@ -76,3 +76,61 @@ Fat|Tired|Emotion
 Tran|Calm|Emotion
 Med|Doctor|Career
 Hem|Home|Location
+Tem|Time|Abstract
+Esp|Space|Abstract
+Lib|Freedom|Abstract
+Sav|Knowledge|Abstract
+Ani|Soul|Abstract
+Lum|Lamp|Everyday Object
+Sed|Chair|Everyday Object
+Tab|Table|Everyday Object
+Espweb|Space-web|Compound Example
+Libtem|Freedom-time|Compound Example
+Savnet|Knowledge-network|Compound Example
+Sup|Above|Preposition
+Inf|Below|Preposition
+Ant|Before|Preposition
+Pos|After|Preposition
+Tra|Through|Preposition
+Int|Between|Preposition
+Dar|Give|Verb
+Pre|Take|Verb
+Aid|Help|Verb
+Lev|Leave|Verb
+Et|And|Conjunction
+Ou|Or|Conjunction
+Cau|Because|Conjunction
+Tam|Although|Conjunction
+Vet|Old|Adjective
+Bon|Good|Adjective
+Mal|Bad|Adjective
+Fac|Easy|Adjective
+Dif|Difficult|Adjective
+Bel|Beautiful|Adjective
+Fug|Ugly|Adjective
+Alg|Some|Quantifier
+Mul|Many|Quantifier
+Poc|Few|Quantifier
+Tot|All|Quantifier
+Rap|Quickly|Adverb
+Len|Slowly|Adverb
+Jun|Together|Adverb
+Sep|Apart|Adverb
+Matin|Morning|Date or Time
+Meri|Noon|Date or Time
+Pomer|Afternoon|Date or Time
+Vesp|Evening|Date or Time
+Noct|Night|Date or Time
+Lunad|Monday|Date or Time
+Marsd|Tuesday|Date or Time
+Merkd|Wednesday|Date or Time
+Jovid|Thursday|Date or Time
+Venerd|Friday|Date or Time
+Satud|Saturday|Date or Time
+Sold|Sunday|Date or Time
+Hodi|Today|Date or Time
+Cras|Tomorrow|Date or Time
+Heri|Yesterday|Date or Time
+Septa|Week|Date or Time
+Mens|Month|Date or Time
+Annu|Year|Date or Time
