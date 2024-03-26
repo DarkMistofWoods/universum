@@ -6,3 +6,8 @@ Gran|Big|Adjective
 Peti|Small|Adjective
 Rap|Fast|Adjective
 Len|Slow|Adjective
+Oc|Eye|Body Part
+Man|Hand|Body Part
+Ped|Foot|Body Part
+Cor|Heart|Body Part
+Sonri|Smile|Body Part
