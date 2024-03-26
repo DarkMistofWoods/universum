@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    fetch('resources/terms.txt')/*resources/terms.txt*/
+    fetch('resources/terms.txt')/*resources/terms.txt for server*/
         .then(response => response.text())
         .then(text => {
             lexiconData = text.split('\n').map(line => {
