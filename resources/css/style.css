@@ -75,6 +75,7 @@ nav ul li a:hover {
 */
 
 .category-section {
+    width: 50%;
     border-radius: 10px;
     border-width: 2px;
     border-color: #737373;
