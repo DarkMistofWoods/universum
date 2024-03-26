@@ -58,19 +58,19 @@ Dark|Noc|Nouns/Adjectives
 Frig|Cold|Nouns/Adjectives
 Cal|Hot|Nouns/Adjectives
 Nom|Name|Nouns/Adjectives
-Nul (0)|Zero (0)|Number
-Un (1)|One (1)|Number
-Do (2)|Two (2)|Number
-Tri (3)|Three (3)|Number
-Qua (4)|Four (4)|Number
-Pen (5)|Five (5)|Number
-Se (6)|Six (6)|Number
-Sep (7)|Seven (7)|Number
-Oc (8)|Eight (8)|Number
-Nov (9)|Nine (9)|Number
-Dec (X)|Ten (10)|Number
-Elf (Ɛ)|Eleven (11)|Number
-Twa (10)|Twelve (12)|Number
+(0) Nul|Zero (0)|Number
+(1) Un|One (1)|Number
+(2) Do|Two (2)|Number
+(3) Tri|Three (3)|Number
+(4) Qua|Four (4)|Number
+(5) Pen|Five (5)|Number
+(6) Se|Six (6)|Number
+(7) Sep|Seven (7)|Number
+(8) Oc|Eight (8)|Number
+(9) Nov|Nine (9)|Number
+(X) Dec|Ten (10)|Number
+(Ɛ) Elf|Eleven (11)|Number
+(10) Twa|Twelve (12)|Number
 Cur|Curious|Emotion
 Fat|Tired|Emotion
 Tran|Calm|Emotion
