@@ -12,6 +12,10 @@
     color: #737373;
 }
 
+nav {
+    background-color: #262626;
+}
+
 /* Centering the navigation bar */
 nav ul {
     list-style-type: none;
@@ -57,8 +61,11 @@ nav ul li a:hover {
 .universum {
     display: block;
     text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px; /* Add space below */
     font-size: 20px;
     text-decoration: none;
+    border-color: #BFBFBF;
     color: #BFBFBF;
 }
 /*
