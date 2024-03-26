@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let lexiconData = [];
 
     function displayTerms(filter = '') {
-        const filteredData = lexiconData.filter(item => item.definition.toLowerCase().includes(filter.toLowerCase()));
+        const filteredData = lexiconData.filter(item => item.definition?.toLowerCase().includes(filter.toLowerCase()));
 
         const categories = [...new Set(filteredData.map(item => item.category))].sort();
 
