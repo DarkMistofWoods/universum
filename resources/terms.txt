@@ -1,8 +1,8 @@
-Jo|Happy
-Tri|Sad
-Ra|Angry
-Pa|Peaceful
-Gran|Big
-Peti|Small
-Rap|Fast
-Len|Slow
+Jo|Happy|Emotion
+Tri|Sad|Emotion
+Ra|Angry|Emotion
+Pa|Peaceful|Emotion
+Gran|Big|Adjective
+Peti|Small|Adjective
+Rap|Fast|Adjective
+Len|Slow|Adjective
