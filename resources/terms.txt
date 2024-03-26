@@ -37,3 +37,23 @@ Net|Internet|Technology
 Cam|Camera|Technology
 Vid|Video|Technology
 Muzi|Music|Technology
+Sol|Sun|Nature and Environment
+Plu|Rain|Nature and Environment
+Ven|Wind|Nature and Environment
+Ne|Snow|Nature and Environment
+Lab|Work|Activity
+Lud|Play|Activity
+Stu|Study|Activity
+Via|Travel|Activity
+Cam|Shirt|Clothing
+Pan|Pants|Clothing
+Sca|Shoes|Clothing
+Pan|Bread|Food
+Cas|Cheese|Food
+Fru|Fruit|Food
+Car|Meat|Food
+Lux|Light|Nouns/Adjectives
+Dark|Noc|Nouns/Adjectives
+Frig|Cold|Nouns/Adjectives
+Cal|Hot|Nouns/Adjectives
+Nom|Name|Nouns/Adjectives
