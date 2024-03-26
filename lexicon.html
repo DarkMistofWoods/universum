@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="./resources/css/index.css" type="text/css">
-        <title>Lexicon</title>
-    </head>
-    <body>
-        <header>
-            <h1>Lexicon</h1>
-            <input type="text" id="searchBox" placeholder="Search by definition..." oninput="search()">
-        </header>
-        <div class="container" id="termsContainer">
-            <!-- Terms will be dynamically added here -->
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <title>Lexicon</title>
+    <link rel="stylesheet" href="./resources/css/style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="lexicon.html">Lexicon</a></li>
+            <li><a href="phonology.html">Phonology</a></li>
+            <li><a href="grammar.html">Grammar</a></li>
+            <li><a href="compounds.html">Compounds</a></li>
+        </ul>
+    </nav>
+    <a href="index.html" class="universum">Universum</a>
 
-        <script src="./scripts/lexicon.js"></script>
-    </body>
+    <!-- Search Input -->
+    <input type="text" id="searchBox" placeholder="Search by definition..." style="width: 50%;">
+
+    <div id="lexicon"></div>
+
+    <script src="./scripts/lexicon.js"></script>
+</body>
 </html>
