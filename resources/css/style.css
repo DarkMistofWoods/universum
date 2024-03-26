@@ -12,24 +12,27 @@
     color: #737373;
 }
 
+/* Centering the navigation bar */
 nav ul {
-    display: block;
-    margin-right: auto;
-    margin-left: auto;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    display: flex; /* Use flexbox */
+    justify-content: center; /* Center flex items horizontally */
 }
 
 nav ul li {
-    display: inline;
-    margin: auto;
+    display: block;
 }
 
 nav ul li a {
-    display: inline-block;
-    color: #737373;
+    display: block;
+    color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    border-radius: 10;
 }
 
 nav ul li a:hover {
