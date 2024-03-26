@@ -12,6 +12,12 @@
     color: #737373;
 }
 
+nav {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 nav ul li {
     display: inline;
     margin: auto;
@@ -36,8 +42,10 @@ nav ul li a:hover {
 }
 
 #searchBox {
-    display: inline-block;
-    margin: auto;
+    display: block;
+    text-align: auto;
+    margin-top: 15 px;
+    margin-bottom: 15 px;
     width: 50%; /* Adjust if necessary for smaller screens */
     padding: 10px 10px;
     font-size: 16px;
@@ -46,7 +54,6 @@ nav ul li a:hover {
 .universum {
     display: block;
     text-align: center;
-    margin-top: 20px;
     font-size: 20px;
     text-decoration: none;
     color: #BFBFBF;
@@ -58,6 +65,7 @@ nav ul li a:hover {
 */
 .category-section, .universum {
     text-align: center;
+    margin-top: 20px;
     width: 100%;
 }
 
