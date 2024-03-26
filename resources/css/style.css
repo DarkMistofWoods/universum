@@ -59,11 +59,12 @@ nav ul li a:hover {
 }
 
 .universum {
+    width: 100%;
     display: block;
     text-align: center;
     margin-top: 20px;
     margin-bottom: 20px; /* Add space below */
-    font-size: 20px;
+    font-size: 32px;
     text-decoration: none;
     border-color: #BFBFBF;
     color: #BFBFBF;
@@ -75,14 +76,17 @@ nav ul li a:hover {
 */
 
 .category-section {
+    text-align: center;
     width: 50%;
-    border-radius: 10px;
-    border-width: 2px;
-    border-color: #737373;
+    margin: 20px 0; /* Adds vertical space between sections */
+    margin: auto;
+    padding: 20px; /* Adds padding inside the sections */
+    border: 2px solid #737373; /* Example border style */
+    border-radius: 15px; /* Rounded corners */
+    background-color: #262626; /* Light background color for contrast, optional */
 }
 
 .category-section, .universum {
-    width: 100%;
     text-align: center;
     margin-top: 20px;
     margin-top: 20px;
@@ -91,11 +95,17 @@ nav ul li a:hover {
 .category-section h2 {
     margin: 0 auto; /* Ensures headers are centered */
     color: #BFBFBF;
+    background-color: rgba(204, 204, 204, 0);
 }
 
 /* Styles for individual term entries */
 .category-section p {
     margin: 5px 0; /* Adjust spacing around terms */
+    color: #BFBFBF;
+    border-radius: 5px;
+}
+
+.category-section strong {
     color: #BFBFBF;
 }
 
