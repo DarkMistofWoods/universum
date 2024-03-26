@@ -1,39 +1,47 @@
-// Function to add a term to the lexicon
-function addTerm(termName, definition) {
-    const termContainer = document.getElementById("termsContainer");
-    const newTerm = document.createElement("div");
-    newTerm.classList.add("term");
-    newTerm.innerHTML = `<h2>${termName}</h2><p>${definition}</p>`;
-    termContainer.appendChild(newTerm);
+document.addEventListener('DOMContentLoaded', function() {
+    let lexiconData = [];
 
-    // Sort terms alphabetically
-    Array.from(termContainer.children)
-        .sort((a, b) => a.querySelector("h2").textContent.localeCompare(b.querySelector("h2").textContent))
-        .forEach(term => termContainer.appendChild(term));
-}
+    function displayTerms(filter = '') {
+        const filteredData = lexiconData.filter(item => item.definition.toLowerCase().includes(filter.toLowerCase()));
 
-// Function to search for terms
-function search() {
-    const searchTerm = document.getElementById("searchBox").value.toLowerCase();
-    const terms = document.querySelectorAll(".term");
-    terms.forEach(term => {
-        const definition = term.querySelector("p").textContent.toLowerCase();
-        if (definition.includes(searchTerm)) {
-            term.style.display = "block";
-        } else {
-            term.style.display = "none";
-        }
-    });
-}
+        const categories = [...new Set(filteredData.map(item => item.category))].sort();
 
-// Fetching terms and definitions from a text file
-fetch('./resources/terms.txt')
-    .then(response => response.text())
-    .then(data => {
-        const lines = data.split('\n');
-        lines.forEach(line => {
-            const [termName, definition] = line.split('|');
-            addTerm(termName.trim(), definition.trim());
+        const lexiconContainer = document.getElementById('lexicon');
+        lexiconContainer.innerHTML = ''; // Clear existing content
+        categories.forEach(category => {
+            const categorySection = document.createElement('div');
+            categorySection.classList.add('category-section');
+            const categoryTitle = document.createElement('h2');
+            categoryTitle.textContent = category;
+            categorySection.appendChild(categoryTitle);
+
+            const termsList = filteredData.filter(item => item.category === category).sort((a, b) => a.term.localeCompare(b.term));
+            termsList.forEach(item => {
+                const termElement = document.createElement('p');
+                termElement.innerHTML = `<strong>${item.term}</strong>: ${item.definition}`;
+                categorySection.appendChild(termElement);
+            });
+
+            lexiconContainer.appendChild(categorySection);
         });
-    })
-    .catch(error => console.error('Error fetching terms:', error));
+    }
+
+    fetch('/resources/terms.txt')
+        .then(response => response.text())
+        .then(text => {
+            lexiconData = text.split('\n').map(line => {
+                const parts = line.split('|');
+                return { term: parts[0], definition: parts[1], category: parts[2] };
+            });
+
+            displayTerms(); // Display all terms initially
+
+            // Set up search functionality
+            const searchBox = document.getElementById('searchBox');
+            searchBox.addEventListener('input', () => {
+                const searchTerm = searchBox.value;
+                displayTerms(searchTerm);
+            });
+        })
+        .catch(error => console.error('Error loading the lexicon:', error));
+});
