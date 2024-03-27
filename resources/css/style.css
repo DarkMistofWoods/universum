@@ -149,29 +149,39 @@ footer p:hover {
     border-radius: 10px; /* Slightly rounded corners */
     background-color: var(--color-quaternary); /* Dark background for contrast */
 }
+
+/* Dropdown Container Styles */
 .dropdown-container {
     display: flex;
-    gap: 10px;
+    gap: 10px; /* Space between child elements */
     background-color: transparent;
 }
+
+/* Uniform Styles for Inputs, Selects, and Buttons */
 input, select, button {
     padding: 10px;
-    font-size: 16px;
-    border: 1px solid #BFBFBF;
-    border-radius: 5px;
+    font-size: 16px; /* Consistent font size */
+    border: 1px solid var(--color-primary); /* Light grey border */
+    border-radius: 5px; /* Slightly rounded corners for a modern look */
 }
+
+/* Button Specific Styles */
 button {
-    cursor: pointer;
-    background-color: #737373;
-    color: white;
-    border-color: #737373;
+    cursor: pointer; /* Indicates clickable */
+    background-color: var(--color-secondary); /* Medium grey background */
+    color: var(--color-primary); /* Text color */
+    border-color: var(--color-secondary); /* Match border color to background */
 }
+
+/* Button Hover State for Visual Feedback */
 button:hover {
-    background-color: #595959;
-    border-color: #595959;
+    background-color: var(--color-tertiary); /* Darker shade for hover state */
+    border-color: var(--color-tertiary);
 }
+
+/* Output Container for Displaying Selected Names */
 #nameOutput {
-    max-width: 300px;
+    max-width: 300px; /* Limit width for better layout control */
 }
 
 /* Additional styles for responsiveness and aesthetics */
