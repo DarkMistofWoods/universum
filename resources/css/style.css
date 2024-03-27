@@ -88,7 +88,7 @@ nav ul li a:hover {
 */
 
 .category-section {
-    text-align: center;
+    text-align: left;
     width: 50%;
     margin: 20px 0; /* Adds vertical space between sections */
     margin: auto;
@@ -113,6 +113,7 @@ nav ul li a:hover {
 /* Styles for individual term entries */
 .category-section p {
     margin: 5px 0; /* Adjust spacing around terms */
+    padding-left: 10px;
     color: #BFBFBF;
     border-radius: 5px;
 }
