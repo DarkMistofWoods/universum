@@ -60,9 +60,25 @@ nav ul li a:focus {
     color: var(--color-secondary);
 }
 
+/* Footer */
 footer {
-    text-align: center;
-    margin-top: 100px;
+    background-color: var(--footer-bg-color);
+    color: var(--footer-text-color);
+    padding: var(--footer-padding);
+    text-align: center; /* Center align text if that fits your design */
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center content vertically if there are multiple rows */
+}
+
+footer p {
+    color: var(--footer-text-color);
+    text-decoration: none;
+}
+
+footer p:hover {
+    text-decoration: underline;
 }
 
 #searchBox, #lexicon {
