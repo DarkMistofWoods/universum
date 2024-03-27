@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('resources/data.json')
+    fetch('data.json')
         .then(response => response.json())
         .then(data => {
             const lexiconData = Object.entries(data).map(([term, details]) => ({
@@ -12,8 +12,12 @@ document.addEventListener('DOMContentLoaded', function() {
             displayTerms(); // Initial display
 
             function displayTerms(filter = '') {
-                const filteredData = filter ? lexiconData.filter(item => item.definition.toLowerCase().includes(filter.toLowerCase())) : lexiconData;
-                
+                const filteredData = lexiconData.filter(item => {
+                    // Extract the first word from the definition.
+                    const firstWordOfDefinition = item.definition.split(' ')[0].toLowerCase();
+                    return item.term.toLowerCase().includes(filter.toLowerCase()) || firstWordOfDefinition.includes(filter.toLowerCase());
+                });
+
                 const categories = [...new Set(filteredData.map(item => item.category))].sort();
 
                 const lexiconContainer = document.getElementById('lexicon');
@@ -36,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             }
 
-            // Search functionality
+            // Set up search functionality
             const searchBox = document.getElementById('searchBox');
             searchBox.addEventListener('input', () => {
                 const searchTerm = searchBox.value;
