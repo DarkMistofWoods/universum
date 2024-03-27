@@ -55,6 +55,11 @@ nav ul li a:hover {
     background-color: #404040;
 }
 
+footer {
+    text-align: center;
+    margin-top: 100px;
+}
+
 #searchBox, #lexicon {
     text-align: center;
     margin: auto;
