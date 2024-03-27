@@ -122,31 +122,32 @@ footer p:hover {
     margin-bottom: 20px; /* Assuming you want space below h2 */
 }
 
-/* Styles for individual term entries */
+/* Paragraph Styles within Category Sections */
 .category-section p {
     text-align: left;
-    margin: 5px 0; /* Adjust spacing around terms */
-    padding-left: 10px;
-    color: #BFBFBF;
-    border-radius: 5px;
+    margin: 5px 0; /* Consistent vertical spacing */
+    padding-left: 10px; /* Indent text for readability */
+    color: var(--color-primary); /* Light grey text */
+    border-radius: 5px; /* Rounded corners for paragraphs if needed */
 }
 
+/* Strong Tag Styles within Category Sections */
 .category-section strong {
-    color: #BFBFBF;
+    color: var(--color-primary); /* Ensure strong text matches paragraph color */
 }
 
-/* Styles for name generator */
+/* Container Styles for Name Generator and Similar Components */
 .container {
     display: flex;
-    margin: auto;
     flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    width: 70%;
-    padding: 20px;
-    border: 1px solid #BFBFBF;
-    border-radius: 10px;
-    background-color: #404040;
+    align-items: center; /* Center items vertically in the container */
+    gap: 10px; /* Space between child elements */
+    width: 70%; /* Responsive width */
+    margin: auto; /* Center container */
+    padding: 20px; /* Padding inside the container */
+    border: 1px solid var(--color-primary); /* Light grey border */
+    border-radius: 10px; /* Slightly rounded corners */
+    background-color: var(--color-quaternary); /* Dark background for contrast */
 }
 .dropdown-container {
     display: flex;
