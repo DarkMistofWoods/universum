@@ -1,4 +1,4 @@
-/* Color Variables */
+/* Variables */
 :root {
     --color-primary: #BFBFBF;
     --color-secondary: #737373;
@@ -122,7 +122,6 @@ footer p:hover {
     margin-bottom: 20px; /* Assuming you want space below h2 */
 }
 
-/* Paragraph Styles within Category Sections */
 .category-section p {
     text-align: left;
     margin: 5px 0; /* Consistent vertical spacing */
@@ -131,7 +130,6 @@ footer p:hover {
     border-radius: 5px; /* Rounded corners for paragraphs if needed */
 }
 
-/* Strong Tag Styles within Category Sections */
 .category-section strong {
     color: var(--color-primary); /* Ensure strong text matches paragraph color */
 }
@@ -173,7 +171,6 @@ button {
     border-color: var(--color-secondary); /* Match border color to background */
 }
 
-/* Button Hover State for Visual Feedback */
 button:hover {
     background-color: var(--color-tertiary); /* Darker shade for hover state */
     border-color: var(--color-tertiary);
