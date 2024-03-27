@@ -107,32 +107,19 @@ footer p:hover {
     border-color: var(--color-primary);
 }
 
-/*
-.universum:hover {
-    text-decoration: underline;
-}
-*/
-
+/* Category Section Styles */
 .category-section {
     width: 50%;
-    margin: 20px 0; /* Adds vertical space between sections */
-    margin: auto;
-    padding: 20px; /* Adds padding inside the sections */
-    border: 2px solid #737373; /* Example border style */
-    border-radius: 15px; /* Rounded corners */
-    background-color: #262626; /* Light background color for contrast, optional */
-}
-
-.category-section, .universum {
-    text-align: center;
-    margin-top: 20px;
-    margin-top: 20px;
+    margin: auto; /* Center the section; redundant margin-top removed */
+    padding: 20px;
+    border: 2px solid var(--color-secondary);
+    border-radius: 15px;
+    background-color: var(--color-background);
+    text-align: center; /* Consolidated text alignment for category-section */
 }
 
 .category-section h2 {
-    margin: 0 auto; /* Ensures headers are centered */
-    color: #BFBFBF;
-    background-color: rgba(204, 204, 204, 0);
+    margin-bottom: 20px; /* Assuming you want space below h2 */
 }
 
 /* Styles for individual term entries */
