@@ -7,22 +7,24 @@
     --color-background: #262626;
 }
 
+/* Global Styles */
 * {
     font-family: sans-serif;
     background-color: var(--color-background);
-    color: #737373;
+    color: var(--color-secondary);
+}
+/* Typography */
+h2, h4 {
+    background-color: transparent;
+    color: var(--color-primary);
 }
 
 h2 {
     margin-bottom: 5px;
-    background-color: transparent;
-    color: #BFBFBF;
 }
 
 h4 {
     margin-bottom: 25px;
-    background-color: transparent;
-    color: #BFBFBF;
 }
 
 nav {
