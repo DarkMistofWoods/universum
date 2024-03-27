@@ -62,9 +62,9 @@ nav ul li a:focus {
 
 /* Footer */
 footer {
-    background-color: var(--footer-bg-color);
-    color: var(--footer-text-color);
-    padding: var(--footer-padding);
+    background-color: var(--color-background);
+    color: var(--color-secondary);
+    padding: 20px;
     text-align: center; /* Center align text if that fits your design */
     display: flex;
     flex-direction: column; /* Stack items vertically */
@@ -73,7 +73,7 @@ footer {
 }
 
 footer p {
-    color: var(--footer-text-color);
+    color: var(--color-secondary);
     text-decoration: none;
 }
 
