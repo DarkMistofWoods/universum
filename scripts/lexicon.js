@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('data.json')
+    fetch('resources/data.json')
         .then(response => response.json())
         .then(data => {
             const lexiconData = Object.entries(data).map(([term, details]) => ({
