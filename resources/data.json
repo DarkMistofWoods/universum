@@ -48,5 +48,105 @@
         "definition": "voice, the sound produced by humans, represents communication",
         "class": "Noun",
         "category": "Root Words"
+    },
+    "Pika": {
+        "definition": "go, basic movement or travel",
+        "class": "Verb",
+        "category": "Root Words"
+    },
+    "Tuki": {
+        "definition": "see, the act of visual perception",
+        "class": "Verb",
+        "category": "Root Words"
+    },
+    "Benu": {
+        "definition": "eat, the act of consuming food",
+        "class": "Verb",
+        "category": "Root Words"
+    },
+    "Kaso": {
+        "definition": "make, the act of creating or constructing",
+        "class": "Verb",
+        "category": "Root Words"
+    },
+    "Miso": {
+        "definition": "talk, engaging in verbal communication",
+        "class": "Verb",
+        "category": "Root Words"
+    },
+    "Napi": {
+        "definition": "take, the act of acquiring or holding something",
+        "class": "Verbs",
+        "category": "Root Words"
+    },
+    "Fato": {
+        "definition": "give, the act of transferring something to someone",
+        "class": "Verb",
+        "category": "Root Words"
+    },
+    "Vasi": {
+        "definition": "live, the state or act of living or being alive",
+        "class": "Verb",
+        "category": "Root Words"
+    },
+    "Loko": {
+        "definition": "find, the act of discovering something",
+        "class": "Verb",
+        "category": "Root Words"
+    },
+    "Riso": {
+        "definition": "laugh, the act of expressing joy or amusement",
+        "class": "Verb",
+        "category": "Root Words"
+    },
+    "Puno": {
+        "definition": "big, large in size or amount",
+        "class": "Adjective",
+        "category": "Root Words"
+    },
+    "Tise": {
+        "definition": "small, small in size or amount",
+        "class": "Adjective",
+        "category": "Root Words"
+    },
+    "Bela": {
+        "definition": "good, desirable, favorable, or of high quality",
+        "class": "Adjective",
+        "category": "Root Words"
+    },
+    "Keva": {
+        "definition": "bad, undesirable, unfavorable, or of low quality",
+        "class": "Adjective",
+        "category": "Root Words"
+    },
+    "Lata": {
+        "definition": "fast, moving or capable of moving at high speed",
+        "class": "Adjective",
+        "category": "Root Words"
+    },
+    "Ronu": {
+        "definition": "slow, moving or capable of moving at low speed",
+        "class": "Adjective",
+        "category": "Root Words"
+    },
+    "Mifi": {
+        "definition": "soft, gentle or not hard in texture",
+        "class": "Adjective",
+        "category": "Root Words"
+    },
+    "Soko": {
+        "definition": "hard, firm or rigid in texture",
+        "class": "Adjective",
+        "category": "Root Words"
+    },
+    "Vune": {
+        "definition": "new, not old, recently created or discovered",
+        "class": "Adjective",
+        "category": "Root Words"
+    },
+    "Feko": {
+        "definition": "old, having existed for a long time",
+        "class": "Adjective",
+        "category": "Root Words"
     }
 }
