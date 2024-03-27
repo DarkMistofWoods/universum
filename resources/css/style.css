@@ -1,14 +1,15 @@
-/* Colors:
-#BFBFBF
-#737373
-#595959
-#404040
-#262626
-*/
+/* Color Variables */
+:root {
+    --color-primary: #BFBFBF;
+    --color-secondary: #737373;
+    --color-tertiary: #595959;
+    --color-quaternary: #404040;
+    --color-background: #262626;
+}
 
 * {
     font-family: sans-serif;
-    background-color: #262626;
+    background-color: var(--color-background);
     color: #737373;
 }
 
@@ -93,7 +94,6 @@ footer {
 */
 
 .category-section {
-    text-align: left;
     width: 50%;
     margin: 20px 0; /* Adds vertical space between sections */
     margin: auto;
@@ -117,6 +117,7 @@ footer {
 
 /* Styles for individual term entries */
 .category-section p {
+    text-align: left;
     margin: 5px 0; /* Adjust spacing around terms */
     padding-left: 10px;
     color: #BFBFBF;
