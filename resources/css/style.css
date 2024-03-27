@@ -27,19 +27,19 @@ h4 {
     margin-bottom: 25px;
 }
 
+/* Navigation */
 nav {
-    background-color: #262626;
+    background-color: var(--color-background);
 }
 
-/* Centering the navigation bar */
 nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
-    display: flex; /* Use flexbox */
-    justify-content: center; /* Center flex items horizontally */
+    background-color: var(--color-background);
+    display: flex;
+    justify-content: center; /* Flexbox for centering and managing navigation items */
 }
 
 nav ul li {
@@ -48,14 +48,17 @@ nav ul li {
 
 nav ul li a {
     display: block;
-    color: white;
+    color: var(--color-primary);
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
 }
 
-nav ul li a:hover {
-    background-color: #404040;
+/* Enhancements for navigation link interactions */
+nav ul li a:hover,
+nav ul li a:focus {
+    background-color: var(--color-quaternary); /* Lighter or different color on hover/focus */
+    color: var(--color-secondary);
 }
 
 footer {
