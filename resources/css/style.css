@@ -81,32 +81,32 @@ footer p:hover {
     text-decoration: underline;
 }
 
+/* Shared Styles for Search Box and Lexicon */
 #searchBox, #lexicon {
     text-align: center;
     margin: auto;
 }
 
+/* Specific Styles for Search Box */
 #searchBox {
     display: block;
-    text-align: auto;
-    margin-top: 15 px;
-    margin-bottom: 15 px;
-    width: 50%; /* Adjust if necessary for smaller screens */
-    padding: 10px 10px;
+    margin: 15px auto; /* Corrected margin-top and margin-bottom */
+    width: 50%; /* Consider responsiveness */
+    padding: 15px;
     font-size: 16px;
 }
 
+/* Styles for Elements with Class 'universum' */
 .universum {
     width: 100%;
     display: block;
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px; /* Add space below */
+    margin: 20px auto; /* Consolidated margin properties */
     font-size: 32px;
     text-decoration: none;
-    border-color: #BFBFBF;
-    color: #BFBFBF;
+    border-color: var(--color-primary);
 }
+
 /*
 .universum:hover {
     text-decoration: underline;
