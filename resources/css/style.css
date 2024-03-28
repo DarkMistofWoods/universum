@@ -185,6 +185,18 @@ button:hover {
     max-width: 300px; /* Limit width for better layout control */
 }
 
+#termsOutput {
+    background-color: var(--color-background);
+    border: 1px solid var(--color-primary);
+    border-radius: 12px;
+    padding: 5px 15px;
+}
+
+#termsOutput p, strong {
+    background-color: var(--color-background);
+    color: var(--color-primary);
+}
+
 /* Additional styles for responsiveness and aesthetics */
 @media (max-width: 768px) {
     #searchBox {
