@@ -225,7 +225,7 @@ button:hover {
   
   .key {
     padding: 10px;
-    background-color: #eee;
+    background-color: var(--color-secondary);
     border: none;
     border-radius: 3px;
     font-size: 16px;
