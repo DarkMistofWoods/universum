@@ -208,5 +208,105 @@
         "definition": "your/yours",
         "class": "Possessive Pronoun",
         "category": "Functional Words"
+    },
+    "Ke": {
+        "definition": "and",
+        "class": "Conjunction",
+        "category": "Functional Words"
+    },
+    "Ko": {
+        "definition": "or",
+        "class": "Conjunction",
+        "category": "Functional Words"
+    },
+    "Ku": {
+        "definition": "but",
+        "class": "Conjunction",
+        "category": "Functional Words"
+    },
+    "Kate": {
+        "definition": "because",
+        "class": "Conjunction",
+        "category": "Functional Words"
+    },
+    "Ki": {
+        "definition": "if",
+        "class": "Conjunction",
+        "category": "Functional Words"
+    },
+    "Ba": {
+        "definition": "in",
+        "class": "Preposition",
+        "category": "Functional Words"
+    },
+    "Be": {
+        "definition": "on",
+        "class": "Preposition",
+        "category": "Functional Words"
+    },
+    "Bi": {
+        "definition": "at",
+        "class": "Preposition",
+        "category": "Functional Words"
+    },
+    "Bo": {
+        "definition": "from",
+        "class": "Preposition",
+        "category": "Functional Words"
+    },
+    "Bu": {
+        "definition": "to",
+        "class": "Preposition",
+        "category": "Functional Words"
+    },
+    "Baba": {
+        "definition": "with",
+        "class": "Preposition",
+        "category": "Functional Words"
+    },
+    "Bebe": {
+        "definition": "for",
+        "class": "Preposition",
+        "category": "Functional Words"
+    },
+    "Sa": {
+        "definition": "yes",
+        "class": "Interjection",
+        "category": "Functional Words"
+    },
+    "No": {
+        "definition": "no",
+        "class": "Interjection",
+        "category": "Functional Words"
+    },
+    "Sal": {
+        "definition": "hello, greetings",
+        "class": "Interjection",
+        "category": "Functional Words"
+    },
+    "Soli": {
+        "definition": "goodbye",
+        "class": "Interjection",
+        "category": "Functional Words"
+    },
+    "Tila": {
+        "definition": "please",
+        "class": "Interjections",
+        "category": "Functional Words"
+    },
+    "Tale": {
+        "definition": "thanks",
+        "class": "Interjection",
+        "category": "Functional Words"
+    },
+    "Tulo": {
+        "definition": "sorry",
+        "class": "Interjection",
+        "category": "Functional Words"
+    },
+    "Wa": {
+        "definition": "wow/amazing",
+        "class": "Interjection",
+        "category": "Functional Words"
     }
 }
