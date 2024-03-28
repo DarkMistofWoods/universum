@@ -9,10 +9,10 @@ function clearDisplay() {
 
 function calculate() {
     let input = document.getElementById('display').value;
-    // Convert base-12 input to decimal
-    input = input.replace(/A/g, '10').replace(/B/g, '11');
-    let result = eval(input);
-    // Convert the result back to base-12
-    result = result.toString(12).toUpperCase().replace(/A/g, 'vemi').replace(/B/g, 'felo');
-    document.getElementById('display').value = result;
+    // Convert base-12 input (with 'X' and 'ε') to decimal
+  input = input.replace(/𝒳/g, '10').replace(/ε/g, '11');
+  let result = eval(input);
+  // Convert the result back to base-12 using 'X' for ten and 'ε' for eleven
+  result = result.toString(12).toUpperCase().replace(/A/g, '𝒳').replace(/B/g, 'ε');
+  document.getElementById('display').value = result;
 }
