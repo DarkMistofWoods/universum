@@ -1,6 +1,8 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, filedialog
 import json
+import csv
+import os
 
 # cmdline commands to package this script:
 # pip install pyinstaller (optional; only if not already installed)
@@ -13,16 +15,13 @@ color_tertiary = "#595959"
 color_quaternary = "#404040"
 color_background = "#262626"
 
-def load_data():
-    try:
-        with open("data.json", "r") as file:
-            return json.load(file)
-    except FileNotFoundError:
-        return {}
+app = tk.Tk()
+app.title("Lexiconizer")
+app.geometry("600x650")  # Width x Height in pixels, adjust the values as needed
+app.configure(bg=color_background)  # Step 2: Configure application window background
 
-def save_data(data):
-    with open("data.json", "w") as file:
-        json.dump(data, file, indent=4)
+# string to hold the last used term
+last_term_var = tk.StringVar(value="")  # Initialize with empty string
 
 def add_entry():
     term = entry_term.get()
@@ -31,37 +30,50 @@ def add_entry():
     category = entry_category.get()
     data = load_data()
 
-    # Update if term exists, else add a new entry
-    if term in data:
-        if messagebox.askyesno("Update Entry", "This term already exists. Update it?"):
-            data[term] = {"definition": definition, "class": entry_class, "category": category}
+    if term: # Ensure a term was entered
+        # Update if term exists, else add a new entry
+        if term in data:
+            if messagebox.askyesno("Update Entry", "This term already exists. Update it?"):
+                data[term] = {"definition": definition, "class": entry_class, "category": category}
+            else:
+                return  # Do nothing if user decides not to update
         else:
-            return  # Do nothing if user decides not to update
+            data[term] = {"definition": definition, "class": entry_class, "category": category}
+
+        # Update the label with the last entered term
+        last_term_var.set(f"Last Entered: {term}")  # Update text to show the last entered term
+        
+        save_data(data)
+        refresh_entries()  # Refresh the listbox to show the new or updated entry
+        messagebox.showinfo("Success", "Entry saved successfully!")
+        
+        # Optionally clear the fields after adding/updating
+        entry_term.delete(0, tk.END)
+        entry_definition.delete("1.0", tk.END)
+        entry_class_var.delete(0, tk.END)
+        entry_category.delete(0, tk.END)
     else:
-        data[term] = {"definition": definition, "class": entry_class, "category": category}
-    
-    save_data(data)
-    refresh_entries()  # Refresh the listbox to show the new or updated entry
-    messagebox.showinfo("Success", "Entry saved successfully!")
-    
-    # Optionally clear the fields after adding/updating
-    entry_term.delete(0, tk.END)
-    entry_definition.delete("1.0", tk.END)
-    entry_class_var.delete(0, tk.END)
-    entry_category.delete(0, tk.END)
+        messagebox.showwarning("Warning", "Please enter a term.")
 
 def refresh_entries(search_query=""):
     entries_listbox.delete(0, tk.END)  # Clear the current list
     data = load_data()
     for term, info in sorted(data.items()):
-        # Check if the term or the first word of the definition matches the search query
-        first_word_of_definition = info["definition"].split()[0].rstrip(',') if info["definition"].split() else "NoDefinition"
-        if search_query.lower() in term.lower() or search_query.lower() in first_word_of_definition.lower():
-            entry_display = f"{term} - {first_word_of_definition}"
+        # Split the definition into words
+        definition_words = info["definition"].split()
+        # Check if the definition is not empty
+        if definition_words:
+            # Remove a trailing comma from the first word of the definition, if present
+            first_word_of_definition = definition_words[0].rstrip(',')
+        else:
+            first_word_of_definition = "NoDefinition"
+        # Prepare the display string, now with the comma removed from the first word
+        entry_display = f"{term} - {first_word_of_definition}"
+        # Check if the term matches the search query and insert it into the listbox
+        if not search_query or search_query.lower() in term.lower() or search_query.lower() in first_word_of_definition.lower():
             entries_listbox.insert(tk.END, entry_display)
-        elif not search_query:  # If no search query is provided, display all entries
-            entry_display = f"{term} - {first_word_of_definition}"
-            entries_listbox.insert(tk.END, entry_display)
+    # Update the term count display to reflect the current state
+    update_term_count()
 
 def load_entry_for_editing():
     try:
@@ -85,7 +97,6 @@ def load_entry_for_editing():
     except KeyError:
         messagebox.showerror("Error", "Selected entry could not be found. It may have been deleted or modified.")
 
-
 def delete_entry():
     try:
         selected_entry = entries_listbox.get(entries_listbox.curselection())
@@ -103,10 +114,127 @@ def delete_entry():
     except KeyError:
         messagebox.showerror("Error", "Selected entry could not be found. It may have been deleted or modified.")
 
-app = tk.Tk()
-app.title("JSON Data Manager")
-app.geometry("600x600")  # Width x Height in pixels, adjust the values as needed
-app.configure(bg=color_background)  # Step 2: Configure application window background
+def save_data_dialog():
+    file_types = [('JSON Files', '*.json'), ('Text Files', '*.txt'), ('CSV Files', '*.csv')]
+    file_path = filedialog.asksaveasfilename(filetypes=file_types, defaultextension=file_types)
+    if file_path:
+        # Determine the file extension and call the appropriate save function
+        if file_path.endswith('.json'):
+            save_data_as_json(load_data(), file_path)
+        elif file_path.endswith('.txt'):
+            save_data_as_txt(load_data(), file_path)
+        elif file_path.endswith('.csv'):
+            save_data_as_csv(load_data(), file_path)
+
+def load_data_dialog():
+    file_types = [('All Files', '*.*'), ('JSON Files', '*.json'), ('Text Files', '*.txt'), ('CSV Files', '*.csv')]
+    file_path = filedialog.askopenfilename(filetypes=file_types)
+    if file_path:
+        if file_path.endswith('.json'):
+            data = load_data_from_json(file_path)
+        elif file_path.endswith('.txt'):
+            data = load_data_from_txt(file_path)
+        elif file_path.endswith('.csv'):
+            data = load_data_from_csv(file_path)
+        else:
+            messagebox.showerror("Error", "Unsupported file type.")
+            return
+        update_ui_with_loaded_data(data)
+
+def load_data_from_json(file_path):
+    try:
+        with open(file_path, "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        messagebox.showerror("Error", "File not found.")
+    except json.JSONDecodeError:
+        messagebox.showerror("Error", "Error decoding JSON from the file.")
+    return {}
+
+def load_data_from_txt(file_path):
+    try:
+        data = {}
+        with open(file_path, "r") as file:
+            for line in file:
+                term, definition = line.strip().split(':', 1)
+                data[term.strip()] = {"definition": definition.strip(), "class": "", "category": ""}
+        return data
+    except FileNotFoundError:
+        messagebox.showerror("Error", "File not found.")
+    except ValueError:
+        messagebox.showerror("Error", "Error parsing TXT file. Ensure the format is correct.")
+    return {}
+
+def load_data_from_csv(file_path):
+    try:
+        with open(file_path, mode='r', newline='') as file:
+            reader = csv.DictReader(file)
+            return {row['Term']: {"definition": row['Definition'], "class": row.get("Class", ""), "category": row.get("Category", "")} for row in reader}
+    except FileNotFoundError:
+        messagebox.showerror("Error", "File not found.")
+    except KeyError:
+        messagebox.showerror("Error", "CSV file missing required columns.")
+    return {}
+
+def load_data():
+    """
+    Attempts to load data from a default JSON file upon application start.
+    This function can be expanded to check multiple files or to remember
+    the last used file based on application requirements.
+    """
+    default_file_path = "data.json"  # Define a default file name
+    try:
+        # Attempt to load from the default JSON file
+        with open(default_file_path, "r") as file:
+            return json.load(file)
+    except FileNotFoundError:
+        # If the file does not exist, return an empty dictionary
+        # or handle as appropriate (e.g., logging, user notification)
+        return {}
+    except json.JSONDecodeError as e:
+        # Handle JSON decoding errors (file corrupted or invalid format)
+        messagebox.showerror("Error", f"An error occurred while loading the data: {str(e)}")
+        return {}
+
+def save_data(data, file_path="data.json"):
+    if not file_path.endswith('.json'):
+        file_path += '.json'
+    with open(file_path, "w") as file:
+        json.dump(data, file, indent=4)
+
+def save_data_as_json(data, file_path):
+    with open(file_path, 'w') as file:
+        json.dump(data, file, indent=4)
+
+def save_data_as_txt(data, file_path):
+    with open(file_path, 'w') as file:
+        for term, details in data.items():
+            file.write(f"{term}: {details['definition']} - Class: {details['class']}, Category: {details['category']}\n")
+
+def save_data_as_csv(data, file_path):
+    import csv
+    with open(file_path, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['Term', 'Definition', 'Class', 'Category'])
+        for term, details in data.items():
+            writer.writerow([term, details['definition'], details['class'], details['category']])
+
+def update_ui_with_loaded_data(data):
+    # Clear existing data in the UI, then repopulate
+    entries_listbox.delete(0, tk.END)
+    for term, info in data.items():
+        entries_listbox.insert(tk.END, f"{term} - {info['definition'].split()[0]}")
+    update_term_count()
+
+def update_term_count():
+    current_count = entries_listbox.size()
+    term_count_var.set(f"Total Terms: {current_count}")
+
+save_button = tk.Button(app, text="Save Lexicon Data", command=save_data_dialog, bg=color_tertiary, fg=color_primary)
+save_button.pack(pady=(3, 6))
+
+load_button = tk.Button(app, text="Load Lexicon Data", command=load_data_dialog, bg=color_tertiary, fg=color_primary)
+load_button.pack(pady=(3, 6))
 
 tk.Label(app, text="Term:", bg=color_background, fg=color_primary).pack()
 entry_term = tk.Entry(app)
@@ -126,17 +254,20 @@ entry_category.pack()
 
 tk.Button(app, text="Add/Update Entry", command=add_entry, bg=color_tertiary, fg=color_primary).pack(pady=(6, 6))
 
+last_term_label = tk.Label(app, textvariable=last_term_var, bg=color_background, fg=color_primary)
+last_term_label.pack(pady=(5, 0))  # Adjust padding as needed
+
 # Frame for the Search Widgets
 search_frame = tk.Frame(app, bg=color_background)
 search_frame.pack(fill=tk.X, pady=(5, 0))  # Keep the vertical padding for visual spacing
 
 # Since we want to center the search widgets, it's helpful to use an intermediate frame
 # that can be centered within search_frame.
-search_widgets_frame = tk.Frame(search_frame)
+search_widgets_frame = tk.Frame(search_frame, bg=color_quaternary)
 search_widgets_frame.pack(pady=(0, 5), expand=True)
 
 # Search Entry
-tk.Label(search_widgets_frame, text="Search:").pack(side=tk.LEFT, padx=(0, 5))
+tk.Label(search_widgets_frame, text="Search by term/definition:", bg=color_quaternary, fg=color_primary).pack(side=tk.LEFT, padx=(0, 5))
 search_var = tk.StringVar()
 search_entry = tk.Entry(search_widgets_frame, textvariable=search_var, width=50)
 search_entry.pack(side=tk.LEFT, padx=(5, 10))  # Adjusted padding for visual spacing
@@ -158,6 +289,11 @@ entries_listbox.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
 # Configure the Scrollbar to scroll the Listbox content
 scrollbar.config(command=entries_listbox.yview)
+
+# After defining your listbox and its scrollbar
+term_count_var = tk.StringVar(value="Total Terms: 0")  # Initialize with 0 terms
+term_count_label = tk.Label(app, textvariable=term_count_var, anchor='w', bg=color_background, fg=color_primary)
+term_count_label.pack(fill=tk.X, padx=5, pady=(5, 0))  # Adjust padding and packing as needed
 
 edit_button = tk.Button(app, text="Edit Selected Entry", command=load_entry_for_editing, bg=color_tertiary, fg=color_primary)
 edit_button.pack(pady=(6,3))
