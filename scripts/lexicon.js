@@ -1,51 +1,43 @@
-document.addEventListener('DOMContentLoaded', function() {
-    fetch('resources/data.json')
-        .then(response => response.json())
-        .then(data => {
-            const lexiconData = Object.entries(data).map(([term, details]) => ({
-                term: term,
-                definition: details.definition,
-                class: details.class,
-                category: details.category
-            }));
+function displayTerms(filter = '') {
+    const filteredData = lexiconData.filter(item => {
+        const firstWordOfDefinition = item.definition.split(' ')[0].toLowerCase();
+        return item.term.toLowerCase().includes(filter.toLowerCase()) || firstWordOfDefinition.includes(filter.toLowerCase());
+    });
 
-            displayTerms(); // Initial display
+    const categories = [...new Set(filteredData.map(item => item.category))].sort();
 
-            function displayTerms(filter = '') {
-                const filteredData = lexiconData.filter(item => {
-                    // Extract the first word from the definition.
-                    const firstWordOfDefinition = item.definition.split(' ')[0].toLowerCase();
-                    return item.term.toLowerCase().includes(filter.toLowerCase()) || firstWordOfDefinition.includes(filter.toLowerCase());
-                });
+    const lexiconContainer = document.getElementById('lexicon');
+    lexiconContainer.innerHTML = ''; // Clear existing content
 
-                const categories = [...new Set(filteredData.map(item => item.category))].sort();
+    categories.forEach(category => {
+        const categorySection = document.createElement('div');
+        categorySection.classList.add('category-section');
+        const categoryTitle = document.createElement('h2');
+        categoryTitle.textContent = category;
+        categorySection.appendChild(categoryTitle);
 
-                const lexiconContainer = document.getElementById('lexicon');
-                lexiconContainer.innerHTML = ''; // Clear existing content
-                categories.forEach(category => {
-                    const categorySection = document.createElement('div');
-                    categorySection.classList.add('category-section');
-                    const categoryTitle = document.createElement('h2');
-                    categoryTitle.textContent = category;
-                    categorySection.appendChild(categoryTitle);
+        // Group terms by class within the current category
+        const classGroups = filteredData.filter(item => item.category === category).reduce((acc, item) => {
+            acc[item.class] = [...(acc[item.class] || []), item];
+            return acc;
+        }, {});
 
-                    const termsList = filteredData.filter(item => item.category === category).sort((a, b) => a.term.localeCompare(b.term));
-                    termsList.forEach(item => {
-                        const termElement = document.createElement('p');
-                        termElement.innerHTML = `<strong>${item.term}</strong> (${item.class}): ${item.definition}`;
-                        categorySection.appendChild(termElement);
-                    });
+        Object.entries(classGroups).sort().forEach(([className, items]) => {
+            const classSection = document.createElement('section');
+            classSection.classList.add('class-section');
+            const classTitle = document.createElement('h3');
+            classTitle.textContent = className;
+            classSection.appendChild(classTitle);
 
-                    lexiconContainer.appendChild(categorySection);
-                });
-            }
-
-            // Set up search functionality
-            const searchBox = document.getElementById('searchBox');
-            searchBox.addEventListener('input', () => {
-                const searchTerm = searchBox.value;
-                displayTerms(searchTerm);
+            items.sort((a, b) => a.term.localeCompare(b.term)).forEach(item => {
+                const termElement = document.createElement('p');
+                termElement.innerHTML = `<strong>${item.term}</strong>: ${item.definition}`;
+                classSection.appendChild(termElement);
             });
-        })
-        .catch(error => console.error('Error loading the lexicon:', error));
-});
+
+            categorySection.appendChild(classSection);
+        });
+
+        lexiconContainer.appendChild(categorySection);
+    });
+}
