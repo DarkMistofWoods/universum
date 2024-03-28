@@ -42,73 +42,91 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        let derivation = generateName(attr1, attr2, attr3);
-        let fullName = derivation.firstName + ' ' + derivation.lastName;
-        nameOutput.value = fullName;
+        let firstName = capitalizeFirstLetter(generateRandomName([attr1, attr2], true)); // For first name, pass true
+        let lastName = "";
+        // Ensure lastName is distinct from firstName
+        do {
+            lastName = capitalizeFirstLetter(generateRandomName([attr1, attr2, attr3], false)); // For last name, pass false
+        } while (lastName.length < firstName.length); // Ensure last name is not shorter than the first name
+
+        nameOutput.value = firstName + ' ' + lastName;
 
         termsOutput.innerHTML = `
-            <p><strong>First Name Derived From:</strong> ${attr1} + ${attr2} + ${attr3} -> ${derivation.firstName}</p>
-            <p><strong>Last Name Derived From:</strong> ${attr3} + influences from ${attr1} & ${attr2} -> ${derivation.lastName}</p>
+            <p><strong>First Name Derived From:</strong> ${attr1}, ${attr2} -> ${firstName}</p>
+            <p><strong>Last Name Derived From:</strong> ${attr1}, ${attr2}, ${attr3} -> ${lastName}</p>
         `;
     });
 
-    function generateName(attr1, attr2, attr3) {
-        let firstName = capitalizeFirstLetter(constructRandomBlendedName(attr1, attr2, attr3));
-        let lastName = capitalizeFirstLetter(constructRandomBlendedName(attr1, attr2, attr3, firstName));
+    function generateRandomName(attributes, isFirstName) {
+        // Combine and shuffle the attributes to form a pool of syllables
+        let syllables = [];
+        attributes.forEach(attr => {
+            syllables = syllables.concat(extractSyllables(attr));
+        });
+        shuffleArray(syllables);
 
-        return {firstName, lastName};
-    }
-
-    function constructRandomBlendedName(attr1, attr2, attr3, existingName = "") {
-        let parts = [attr1, attr2, attr3].map(attr => attr.substring(0, 2));
-        shuffleArray(parts);
-
-        let baseName = parts.join('');
-        baseName = adjustNameLength(baseName, 6); // Ensuring a minimum length for variety
-
-        if(existingName) {
-            baseName = ensureUniqueEnding(baseName, existingName);
+        // Construct a name ensuring it doesn't exceed a specific number of syllables
+        let name = "";
+        let maxSyllables = isFirstName ? 3 : 5; // Example: First names up to 3 syllables, last names up to 5
+        for (let i = 0; i < maxSyllables && i < syllables.length; i++) {
+            name += syllables[i];
         }
 
-        return baseName;
+        return adjustToCVCV(name);
     }
-
-    function adjustNameLength(name, targetLength) {
-        while (name.length < targetLength) {
-            name += isVowel(name.charAt(name.length - 1)) ? getRandomConsonant() : getRandomVowel();
+    
+    function extractSyllables(word) {
+        let syllables = [];
+        for (let i = 0; i < word.length; i += 2) {
+            syllables.push(word.substring(i, Math.min(i + 2, word.length)));
         }
-        return name;
-    }
-
-    function ensureUniqueEnding(name, otherName) {
-        if (name.slice(-2) === otherName.slice(-2)) {
-            name = name.slice(0, -2) + getRandomVowel() + getRandomConsonant();
-        }
-        return name;
+        return syllables;
     }
 
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
-            let j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // ES6 array destructuring for swapping
         }
     }
-
+    
     function isVowel(char) {
         return ['a', 'e', 'i', 'o', 'u'].includes(char.toLowerCase());
     }
-
+    
     function getRandomVowel() {
         const vowels = ['a', 'e', 'i', 'o', 'u'];
         return vowels[Math.floor(Math.random() * vowels.length)];
     }
-
+    
+    /*
     function getRandomConsonant() {
-        const consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z'];
+        const consonants = ['p', 't', 'b', 'k', 'm', 'n', 'f', 'v', 's', 'l', 'r'];
         return consonants[Math.floor(Math.random() * consonants.length)];
     }
+    */
+   
+    /*
+    function getRandomInt(min, max) {
+        // The maximum is inclusive and the minimum is inclusive
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    */
 
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+    
+    function adjustToCVCV(name) {
+        // If the name length after construction is odd, remove the last character before adjustment
+        if (name.length % 2 !== 0) {
+            name = name.slice(0, -1);
+        }
+        // Ensure the name ends with a vowel, but without extending beyond the desired length
+        if (!isVowel(name.charAt(name.length - 1))) {
+            // If the last character is not a vowel, replace it instead of adding a new character
+            name = name.slice(0, -1) + getRandomVowel();
+        }
+        return name;
     }
 });
