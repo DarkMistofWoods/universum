@@ -1,6 +1,6 @@
 {
     "Pafo": {
-        "definition": "water, a fundamental element, essential for life",
+        "definition": "water, a fundamental element, nourishing and essential for life",
         "class": "Noun",
         "category": "Root Words"
     },
@@ -148,5 +148,65 @@
         "definition": "old, having existed for a long time",
         "class": "Adjective",
         "category": "Root Words"
+    },
+    "Ya": {
+        "definition": "I/me",
+        "class": "Personal Pronoun",
+        "category": "Functional Words"
+    },
+    "Ye": {
+        "definition": "you",
+        "class": "Personal Pronoun",
+        "category": "Functional Words"
+    },
+    "Yi": {
+        "definition": "he/she/it(gender-neutral)",
+        "class": "Personal Pronoun",
+        "category": "Functional Words"
+    },
+    "Yo": {
+        "definition": "we/us",
+        "class": "Personal Pronoun",
+        "category": "Functional Words"
+    },
+    "Yu": {
+        "definition": "you(plural)",
+        "class": "Personal Pronoun",
+        "category": "Functional Words"
+    },
+    "Yaya": {
+        "definition": "they/them",
+        "class": "Personal Pronoun",
+        "category": "Functional Words"
+    },
+    "Yasa": {
+        "definition": "my/mine",
+        "class": "Possessive Pronoun",
+        "category": "Functional Words"
+    },
+    "Yesa": {
+        "definition": "your/yours",
+        "class": "Possessive Pronoun",
+        "category": "Functional Words"
+    },
+    "Yisa": {
+        "definition": "his/her/its(gender-neutral)",
+        "class": "Possessive Pronoun",
+        "category": "Functional Words"
+    },
+    "Yosa": {
+        "definition": "our/ours",
+        "class": "Possessive Pronoun",
+        "category": "Functional Words"
+    },
+    "Yayasa": {
+        "definition": "their/theirs",
+        "class": "Possessive Pronoun",
+        "category": "Functional Words"
+    },
+    "Yusa": {
+        "definition": "your/yours",
+        "class": "Possessive Pronoun",
+        "category": "Functional Words"
     }
 }
