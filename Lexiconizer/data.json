@@ -1,6 +1,6 @@
 {
     "Pafo": {
-        "definition": "water, a fundamental element, essential for life",
+        "definition": "water, a fundamental element, nourishing and essential for life",
         "class": "Noun",
         "category": "Root Words"
     },
@@ -147,6 +147,66 @@
     "Feko": {
         "definition": "old, having existed for a long time",
         "class": "Adjective",
+        "category": "Root Words"
+    },
+    "Ya": {
+        "definition": "I/me",
+        "class": "Pronoun (Personal)",
+        "category": "Root Words"
+    },
+    "Ye": {
+        "definition": "you",
+        "class": "Pronoun (Personal)",
+        "category": "Root Words"
+    },
+    "Yi": {
+        "definition": "he/she/it(gender-neutral)",
+        "class": "Pronoun (Personal)",
+        "category": "Root Words"
+    },
+    "Yo": {
+        "definition": "we/us",
+        "class": "Pronoun (Personal)",
+        "category": "Root Words"
+    },
+    "Yu": {
+        "definition": "you(plural)",
+        "class": "Pronoun (Personal)",
+        "category": "Root Words"
+    },
+    "Yaya": {
+        "definition": "they/them",
+        "class": "Pronoun (Personal)",
+        "category": "Root Words"
+    },
+    "Yasa": {
+        "definition": "my/mine",
+        "class": "Pronoun (Possessive)",
+        "category": "Root Words"
+    },
+    "Yesa": {
+        "definition": "your/yours",
+        "class": "Pronoun (Possessive)",
+        "category": "Root Words"
+    },
+    "Yisa": {
+        "definition": "his/her/its(gender-neutral)",
+        "class": "Pronoun (Possessive)",
+        "category": "Root Words"
+    },
+    "Yosa": {
+        "definition": "our/ours",
+        "class": "Pronoun (Possessive)",
+        "category": "Root Words"
+    },
+    "Yayasa": {
+        "definition": "their/theirs",
+        "class": "Pronoun (Possessive)",
+        "category": "Root Words"
+    },
+    "Yusa": {
+        "definition": "your/yours",
+        "class": "Pronoun (Possessive)",
         "category": "Root Words"
     }
 }
