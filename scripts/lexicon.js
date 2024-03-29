@@ -10,18 +10,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 category: details.category
             }));
 
+            // Now pass lexiconData as an argument to displayTerms
             displayTerms(lexiconData);
         })
         .catch(error => console.error('Error loading the lexicon:', error));    
 });      
 
-function displayTerms(lexiconData) {
+function displayTerms(lexiconData, searchTerm = '') {
     const lexiconContainer = document.getElementById('lexicon');
     lexiconContainer.innerHTML = ''; // Clear existing content
 
     const filteredData = lexiconData.filter(item => {
         const firstWordOfDefinition = item.definition.split(' ')[0].toLowerCase();
-        return item.term.toLowerCase().includes(filter.toLowerCase()) || firstWordOfDefinition.includes(filter.toLowerCase());
+        return item.term.toLowerCase().includes(searchTerm.toLowerCase()) || item.definition.toLowerCase().includes(searchTerm.toLowerCase());
     });
 
     const categories = [...new Set(filteredData.map(item => item.category))].sort();
