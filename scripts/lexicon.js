@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch('resources/data.json')
         .then(response => response.json())
         .then(data => {
+            // Convert fetched data into lexiconData format
             const lexiconData = Object.entries(data).map(([term, details]) => ({
                 term: term,
                 definition: details.definition,
@@ -9,12 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 category: details.category
             }));
 
+            // Now pass lexiconData as an argument to displayTerms
             displayTerms(lexiconData);
         })
         .catch(error => console.error('Error loading the lexicon:', error));    
 });      
 
-function displayTerms(filter = '') {
+function displayTerms(lexiconData) {
     const lexiconContainer = document.getElementById('lexicon');
     lexiconContainer.innerHTML = ''; // Clear existing content
 
