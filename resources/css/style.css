@@ -45,7 +45,7 @@ nav ul {
     overflow: hidden;
     background-color: var(--color-background);
     display: flex;
-    justify-content: center; /* Flexbox for centering and managing navigation items */
+    justify-content: center;
 }
 
 nav ul li {
@@ -63,16 +63,15 @@ nav ul li a {
 nav ul li a:hover,
 nav ul li a:focus {
     border-radius: 10px;
-    background-color: var(--color-quaternary); /* Lighter or different color on hover/focus */
+    background-color: var(--color-quaternary);
     color: var(--color-primary);
 }
 
-/* Footer */
 footer {
     background-color: var(--color-background);
     color: var(--color-secondary);
     padding: 20px;
-    text-align: center; /* Center align text if that fits your design */
+    text-align: center;
     display: flex;
     flex-direction: column; /* Stack items vertically */
     align-items: center; /* Center items horizontally */
