@@ -116,6 +116,7 @@ footer p:hover {
 /* Category Section Styles */
 .category-section {
     width: 50%;
+    margin: auto;
     margin-top: 5px;
     margin-bottom: 20px;
     padding: 20px;
