@@ -1,10 +1,10 @@
 /* Variables */
 :root {
-    --color-primary: #BFBFBF;
-    --color-secondary: #737373;
-    --color-tertiary: #595959;
-    --color-quaternary: #404040;
-    --color-background: #262626;
+    --color-primary: #F2EDE4;
+    --color-secondary: #95BFB8;
+    --color-tertiary: #80A69F;
+    --color-quaternary: #5F736F;
+    --color-background: #262223;
 }
 
 /* Global Styles */
@@ -166,6 +166,86 @@ footer p:hover {
     background-color: var(--color-quaternary); /* Dark background for contrast */
 }
 
+.phonetics-trainer {
+    width: 90%;
+}
+
+.phonetics-trainer,
+.phonetics-trainer h2, 
+.phonetics-trainer h3, 
+.phonetics-trainer p, 
+.phonetics-trainer div, 
+.phonetics-trainer audio {
+    background-color: var(--color-quaternary);
+}
+
+.vocabulary-builder {
+    width: 90%;
+}
+
+.vocabulary-builder,
+.vocabulary-builder h3,
+.vocabulary-builder p,
+.vocabulary-builder div,
+.vocabulary-builder label {
+    background-color: var(--color-quaternary);
+}
+
+.vocabulary-builder button {
+    margin-top: 10px;
+    display: inline-block;
+    width: 25%;
+}
+
+.vocabulary-builder select {
+    background-color: var(--color-background);
+    margin-top: 10px;
+}
+
+.grammar-exercises {
+    width: 90%;
+}
+
+.grammar-exercises,
+.grammar-exercises h3,
+.grammar-exercises p,
+.grammar-exercises div {
+    background-color: var(--color-quaternary);
+}
+
+.grammar-exercises button {
+    width: 50%;
+}
+
+.conversational-simulator {
+    width: 90%;
+}
+
+.conversational-simulator,
+.conversational-simulator h3,
+.conversational-simulator p,
+.conversational-simulator div {
+    background-color: var(--color-quaternary);
+}
+
+.conversational-simulator textarea {
+    border-radius: 5px;
+    font-size: large;
+    width: 75%;
+    height: 45px;
+    resize: vertical;
+}
+
+.conversational-simulator button {
+    width: 20%;
+}
+
+.input-container {
+    display: flex;
+    align-items: center; /* Centers the button vertically relative to the textarea */
+    justify-content: space-between; /* Optional, for spacing */
+}
+
 /* Dropdown Container Styles */
 .dropdown-container {
     display: flex;
@@ -217,7 +297,7 @@ button:hover {
     margin: auto;
     margin-bottom: 25px;
     padding: 20px;
-    border: 1px solid #ccc;
+    border: 2px solid var(--color-secondary); /* Light grey border */
     border-radius: 5px;
 }
   
@@ -225,8 +305,8 @@ button:hover {
     width: calc(100% - 22px);
     margin-bottom: 10px;
     padding: 10px;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
+    border: 1px solid var(--color-secondary);
+    background-color: var(--color-quaternary);
     font-size: 18px;
     text-align: right;
   }
