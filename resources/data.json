@@ -528,5 +528,10 @@
         "definition": "stone-tree, \u201cbato\u201d (stone) + \u201cfali\u201d (tree), house or other manmade structure",
         "class": "Noun",
         "category": "Official Compounds"
+    },
+    "Vunemenu": {
+        "definition": "new-person, unique person, someone who is new to something",
+        "class": "Noun",
+        "category": "Official Compounds"
     }
 }
