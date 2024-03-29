@@ -116,7 +116,8 @@ footer p:hover {
 /* Category Section Styles */
 .category-section {
     width: 50%;
-    margin: auto; /* Center the section; redundant margin-top removed */
+    margin-top: 5px;
+    margin-bottom: 20px;
     padding: 20px;
     border: 2px solid var(--color-secondary);
     border-radius: 15px;
