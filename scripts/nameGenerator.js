@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const generateButton = document.querySelector('button');
     const nameOutput = document.getElementById('nameOutput');
-    const termsOutput = document.getElementById('termsOutput'); // Assume there's a div for displaying the terms
 
     const termMappings = {
         kevi: "Sage",
@@ -50,6 +49,17 @@ document.addEventListener('DOMContentLoaded', function () {
         } while (lastName.length < firstName.length); // Ensure last name is not shorter than the first name
 
         nameOutput.value = firstName + ' ' + lastName;
+
+         // Create or select the termsOutput div
+         let termsOutput = document.getElementById('termsOutput');
+         if (!termsOutput) {
+             termsOutput = document.createElement('div');
+             termsOutput.id = 'termsOutput';
+             // Find the container to which the new div should be appended
+             const container = document.querySelector('.container');
+             // Insert the termsOutput div right after the nameOutput element within the container
+             container.insertBefore(termsOutput, nameOutput.nextSibling);
+        }
 
         termsOutput.innerHTML = `
             <p><strong>First Name Derived From:</strong> ${attr1}, ${attr2} -> ${firstName}</p>
