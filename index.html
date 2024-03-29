@@ -21,7 +21,7 @@
     <div class="container">
         <h2>The Official Universum Name Generator</h2>
         <h4>Generate a unique name for yourself in the language of Universum!</h4>
-        <h4 style="color: #737373;">Kaso vunemenu yesa!</h4>
+        <h4>Kaso vunemenu yesa!</h4>
         <div class="dropdown-container">
           <select id="attribute1">
             <option value="">Select Attribute/Quality</option>
@@ -61,9 +61,6 @@
         </div><br>
         <button>Generate Name</button> 
         <input type="text" id="nameOutput" readonly /><br>
-
-        <!-- Linking the name generator JavaScript file -->
-        <script src="./scripts/nameGenerator.js"></script>
     </div>
 
     <br><h2>Interactive Learning Tools</h2><br>
@@ -94,6 +91,7 @@
         <div id="categorySelector">
           <label for="categories">Choose a category:</label>
           <select id="categories">
+            <option value="">Select</option>
               <!-- Categories will be populated dynamically -->
           </select>
         </div>
@@ -123,17 +121,20 @@
       <div class="conversational-simulator">
         <h3>Conversational Simulator</h3>
         <p>Practice real-life conversations in Universum.</p>
-        <div id="conversationLog" class="conversation-log"></div>
-        <textarea id="userInput" placeholder="Type in Universum..." rows="2"></textarea>
-        <button id="sendButton">Send</button>
+        <div class="input-container"> <!-- Wrapper div -->
+          <textarea id="userInput" placeholder="Type in Universum..." rows="2"></textarea>
+          <button id="sendButton">Send</button>
+        </div>
       </div>
     </div>
 
+    <script src="./scripts/nameGenerator.js"></script>
+    <!--
     <script src="./scripts/phoneticsTrainer.js"></script>
     <script src="./scripts/vocabularyBuilder.js"></script>
     <script src="./scripts/grammarExercises.js"></script>
     <script src="./scripts/conversationalSimulator.js"></script>
-
+    -->
     <footer>
         <p>© 2024 Universum Language Project</p>
     </footer>
