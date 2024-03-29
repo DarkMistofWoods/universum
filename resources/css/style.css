@@ -291,6 +291,18 @@ button:hover {
     color: var(--color-primary);
 }
 
+.jump-to-section {
+    display: flex;
+    justify-content: center; /* This centers the flex items (children) horizontally in the container */
+    align-items: center; /* This centers the flex items vertically, useful if they have different heights */
+    gap: 10px; /* Optional: adds some space between the flex items */
+}
+
+.jump-to-section select {
+    color: var(--color-quaternary);
+    width: 200px;
+}
+
 /* Calculator styling */
 .calculator {
     width: 220px;
