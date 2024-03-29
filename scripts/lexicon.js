@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }));
 
             displayTerms(); // Initial display
+            populateSectionSelect();
 
             function displayTerms(filter = '') {
                 const filteredData = lexiconData.filter(item => {
@@ -28,6 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const categoryTitle = document.createElement('h2');
                     categoryTitle.textContent = category;
                     categorySection.appendChild(categoryTitle);
+                    categorySection.id = category
 
                     // Group terms by class within the current category
                     const classGroups = filteredData.filter(item => item.category === category).reduce((acc, item) => {
@@ -52,6 +54,25 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
 
                     lexiconContainer.appendChild(categorySection);
+                });
+            }
+
+            function populateSectionSelect() {
+                const sectionSelect = document.getElementById('sectionSelect');
+                const categories = [...new Set(lexiconData.map(item => item.category))].sort();
+
+                categories.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = `category-${category}`;
+                    option.textContent = category;
+                    sectionSelect.appendChild(option);
+                });
+
+                sectionSelect.addEventListener('change', () => {
+                    const selectedSection = document.getElementById(sectionSelect.value);
+                    if(selectedSection) {
+                        selectedSection.scrollIntoView({ behavior: 'smooth' });
+                    }
                 });
             }
 
