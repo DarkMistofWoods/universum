@@ -1,66 +1,41 @@
-document.addEventListener('DOMContentLoaded', function() {
-    fetch('resources/data.json')
-        .then(response => response.json())
-        .then(data => {
-            const lexiconData = Object.entries(data).map(([term, details]) => ({
-                term: term,
-                definition: details.definition,
-                class: details.class,
-                category: details.category
-            }));
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lexicon</title>
+    <link rel="stylesheet" href="./resources/css/style.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="lexicon.html">Lexicon</a></li>
+            <li><a href="phonology.html">Phonology</a></li>
+            <li><a href="grammar.html">Grammar</a></li>
+            <li><a href="compounds.html">Compounds</a></li>
+            <li><a href="base12math.html">Base-12 Math</a></li>
+        </ul>
+    </nav>
+    <a href="index.html" class="universum">Universum</a>
 
-            displayTerms(); // Initial display
+    <input type="text" id="searchBox" placeholder="Search by term or definition...">
 
-            function displayTerms(filter = '') {
-                const filteredData = lexiconData.filter(item => {
-                    const firstWordOfDefinition = item.definition.split(' ')[0].toLowerCase();
-                    return item.term.toLowerCase().includes(filter.toLowerCase()) || firstWordOfDefinition.includes(filter.toLowerCase());
-                });
+    <div class="jump-to-section">
+        <label for="sectionSelect">Jump to Section:</label>
+        <select id="sectionSelect">
+            <option value="">Select Section</option>
+            <!-- Options will be dynamically populated -->
+        </select>
+    </div>
 
-                const categories = [...new Set(filteredData.map(item => item.category))].sort();
+    <div id="lexicon">
+        <!-- Sections automatically pop up here -->
+    </div>
 
-                const lexiconContainer = document.getElementById('lexicon');
-                lexiconContainer.innerHTML = ''; // Clear existing content
-
-                categories.forEach(category => {
-                    const categorySection = document.createElement('div');
-                    categorySection.classList.add('category-section');
-                    const categoryTitle = document.createElement('h2');
-                    categoryTitle.textContent = category;
-                    categorySection.appendChild(categoryTitle);
-
-                    // Group terms by class within the current category
-                    const classGroups = filteredData.filter(item => item.category === category).reduce((acc, item) => {
-                        acc[item.class] = [...(acc[item.class] || []), item];
-                        return acc;
-                    }, {});
-
-                    Object.entries(classGroups).sort().forEach(([className, items]) => {
-                        const classSection = document.createElement('section');
-                        classSection.classList.add('class-section');
-                        const classTitle = document.createElement('h3');
-                        classTitle.textContent = className;
-                        classSection.appendChild(classTitle);
-
-                        items.sort((a, b) => a.term.localeCompare(b.term)).forEach(item => {
-                            const termElement = document.createElement('p');
-                            termElement.innerHTML = `<strong>${item.term}</strong>: ${item.definition}`;
-                            classSection.appendChild(termElement);
-                        });
-
-                        categorySection.appendChild(classSection);
-                    });
-
-                    lexiconContainer.appendChild(categorySection);
-                });
-            }
-
-            // Set up search functionality
-            const searchBox = document.getElementById('searchBox');
-            searchBox.addEventListener('input', () => {
-                const searchTerm = searchBox.value;
-                displayTerms(searchTerm);
-            });
-        })
-        .catch(error => console.error('Error loading the lexicon:', error));
-});
+    <script src="./scripts/lexicon.js"></script>
+    <script src="./scripts/sectionSelect.js"></script>
+    <footer>
+        <p>© 2024 Universum Language Project</p>
+    </footer>
+</body>
+</html>
