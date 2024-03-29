@@ -40,8 +40,8 @@ def add_entry():
         else:
             data[term] = {"definition": definition, "class": entry_class, "category": category}
 
-        # Update the label with the last entered term
-        last_term_var.set(f"Last Entered: {term}")  # Update text to show the last entered term
+        # Update the label with the last edited term
+        last_term_var.set(f"Last Edited: {term}")  # Update text to show the last edited term
         
         save_data(data)
         refresh_entries()  # Refresh the listbox to show the new or updated entry
