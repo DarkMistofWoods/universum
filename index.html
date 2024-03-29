@@ -61,11 +61,79 @@
         </div><br>
         <button>Generate Name</button> 
         <input type="text" id="nameOutput" readonly /><br>
-        <div id="termsOutput"></div>
 
         <!-- Linking the name generator JavaScript file -->
         <script src="./scripts/nameGenerator.js"></script>
     </div>
+
+    <br><h2>Interactive Learning Tools</h2><br>
+
+    <div class="container">
+      <div class="phonetics-trainer">
+        <h3>Interactive Phonetics Trainer</h3>
+        <p>Master the pronunciation of Universum with our interactive tool.</p>
+        
+        <div id="phoneticsContainer">
+            <div id="visualAid">
+                <!-- Placeholder for visual representations -->
+            </div>
+            <audio controls id="audioSample">
+                <!-- Audio samples will be loaded dynamically -->
+            </audio>
+            <div id="pronunciationGame">
+                <!-- Interactive games -->
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="vocabulary-builder">
+        <h3>Vocabulary Builder</h3>
+        <p>Expand your Universum lexicon with our interactive tool.</p>
+        <div id="categorySelector">
+          <label for="categories">Choose a category:</label>
+          <select id="categories">
+              <!-- Categories will be populated dynamically -->
+          </select>
+        </div>
+        <div id="flashcardContainer">
+            <div id="flashcard">
+                <div id="term"></div>
+                <div id="definition" class="hidden"></div>
+            </div>
+            <button id="flipButton">Flip</button>
+            <button id="nextButton">Next</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="grammar-exercises">
+        <h3>Grammar Exercises</h3>
+        <p>Practice Universum grammar through interactive exercises.</p>
+        <div id="exerciseContainer">
+            <!-- Exercise content will be dynamically generated -->
+        </div>
+        <button id="nextExercise">Next Exercise</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="conversational-simulator">
+        <h3>Conversational Simulator</h3>
+        <p>Practice real-life conversations in Universum.</p>
+        <div id="conversationLog" class="conversation-log"></div>
+        <textarea id="userInput" placeholder="Type in Universum..." rows="2"></textarea>
+        <button id="sendButton">Send</button>
+      </div>
+    </div>
+
+    <script src="./scripts/phoneticsTrainer.js"></script>
+    <script src="./scripts/vocabularyBuilder.js"></script>
+    <script src="./scripts/grammarExercises.js"></script>
+    <script src="./scripts/conversationalSimulator.js"></script>
+
     <footer>
         <p>© 2024 Universum Language Project</p>
     </footer>
