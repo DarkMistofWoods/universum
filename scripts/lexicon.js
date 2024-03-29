@@ -30,7 +30,7 @@ function displayTerms(lexiconData, searchTerm = '') {
     categories.forEach(category => {
         const categorySection = document.createElement('div');
         categorySection.classList.add('category-section');
-        categorySection.id = `category-${categoryName}`;
+        categorySection.id = `category-${category}`;
         const categoryTitle = document.createElement('h2');
         categoryTitle.textContent = category;
 
