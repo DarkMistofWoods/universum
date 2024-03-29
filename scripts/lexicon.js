@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 category: details.category
             }));
 
-            // Now pass lexiconData as an argument to displayTerms
             displayTerms(lexiconData);
         })
         .catch(error => console.error('Error loading the lexicon:', error));    
