@@ -50,11 +50,11 @@ nav ul {
 
 nav ul li {
     display: block;
+    color: var(--color-secondary);
 }
 
 nav ul li a {
     display: block;
-    color: var(--color-primary);
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -62,8 +62,9 @@ nav ul li a {
 
 nav ul li a:hover,
 nav ul li a:focus {
+    border-radius: 10px;
     background-color: var(--color-quaternary); /* Lighter or different color on hover/focus */
-    color: var(--color-secondary);
+    color: var(--color-primary);
 }
 
 /* Footer */
@@ -130,12 +131,20 @@ footer p:hover {
     margin-bottom: 20px; /* Assuming you want space below h2 */
 }
 
+.category-section h3 {
+    text-align: left;
+}
+
 .category-section p {
     text-align: left;
     margin: 5px 0; /* Consistent vertical spacing */
     padding-left: 10px; /* Indent text for readability */
     color: var(--color-primary); /* Light grey text */
     border-radius: 5px; /* Rounded corners for paragraphs if needed */
+}
+
+.category-section li {
+    text-align: left;
 }
 
 .category-section strong {
@@ -150,6 +159,7 @@ footer p:hover {
     gap: 10px; /* Space between child elements */
     width: 70%; /* Responsive width */
     margin: auto; /* Center container */
+    margin-bottom: 15px;
     padding: 20px; /* Padding inside the container */
     border: 1px solid var(--color-primary); /* Light grey border */
     border-radius: 10px; /* Slightly rounded corners */
@@ -174,13 +184,13 @@ input, select, button {
 /* Button Specific Styles */
 button {
     cursor: pointer; /* Indicates clickable */
-    background-color: var(--color-secondary); /* Medium grey background */
+    background-color: var(--color-tertiary); /* Medium grey background */
     color: var(--color-primary); /* Text color */
     border-color: var(--color-secondary); /* Match border color to background */
 }
 
 button:hover {
-    background-color: var(--color-tertiary); /* Darker shade for hover state */
+    background-color: var(--color-quaternary); /* Darker shade for hover state */
     border-color: var(--color-tertiary);
 }
 
@@ -205,10 +215,11 @@ button:hover {
 .calculator {
     width: 220px;
     margin: auto;
+    margin-bottom: 25px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-  }
+}
   
   .display {
     width: calc(100% - 22px);
@@ -228,7 +239,6 @@ button:hover {
   
   .key {
     padding: 10px;
-    background-color: var(--color-secondary);
     border: none;
     border-radius: 3px;
     font-size: 16px;
