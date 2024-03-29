@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const categoryTitle = document.createElement('h2');
                     categoryTitle.textContent = category;
                     categorySection.appendChild(categoryTitle);
-                    categorySection.id = category
+                    categorySection.value = category
 
                     // Group terms by class within the current category
                     const classGroups = filteredData.filter(item => item.category === category).reduce((acc, item) => {
