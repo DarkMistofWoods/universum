@@ -18,10 +18,19 @@
     </nav>
     <a href="index.html" class="universum">Universum</a>
 
-    <!-- Search Input -->
     <input type="text" id="searchBox" placeholder="Search by term or definition...">
 
-    <div id="lexicon"></div>
+    <div class="jump-to-section">
+        <label for="sectionSelect">Jump to Section:</label>
+        <select id="sectionSelect">
+            <option value="">Select Section</option>
+            <!-- Options will be dynamically populated -->
+        </select>
+    </div>
+
+    <div id="lexicon">
+        <!-- Sections automatically pop up here -->
+    </div>
 
     <script src="./scripts/lexicon.js"></script>
     <footer>
