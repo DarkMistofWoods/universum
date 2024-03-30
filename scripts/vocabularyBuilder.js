@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let currentTermIndex = 0;
 
     // Fetch and process vocabulary data
-    fetch('./data.json')
+    fetch('resources/data.json')
         .then(response => response.json())
         .then(data => {
             vocabulary = Object.entries(data).map(([key, value]) => ({
