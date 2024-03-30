@@ -218,6 +218,10 @@ body.darkened-background {
     background-color: var(--color-quaternary);
 }
 
+.vocabulary-builder #definition {
+    color: var(--color-quaternary);
+}
+
 .vocabulary-builder button {
     margin-top: 10px;
     display: inline-block;
