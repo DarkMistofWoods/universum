@@ -210,6 +210,27 @@ footer p:hover {
     display: none;
 }
 
+#flashcard {
+    background-color: var(--color-tertiary);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 10px; /* Card-shaped appearance */
+    padding: 20px; /* Space inside the card */
+    margin: 10px 0; /* Space outside the card */
+    width: 300px; /* Fixed width */
+    height: 150px; /* Fixed height */
+    text-align: center; /* Centers the text within the card */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically centers content when there is space */
+    overflow: hidden; /* Prevents content from overflowing */
+}
+
+#flashcard div {
+    background-color: transparent;
+    padding-top: 10px;
+    color: var(--color-primary)
+}
+
 .grammar-exercises {
     width: 90%;
 }
