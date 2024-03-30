@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let vocabulary = []; // To store fetched vocabulary
     let currentCategory = '';
     let currentTermIndex = 0;
+    let currentFilteredVocabulary = []
 
     // Fetch and process vocabulary data
     fetch('resources/data.json')
@@ -19,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }));
 
             populateCategories();
+            currentCategory = vocabulary[0]?.category;
             showTerm();
         });
 
@@ -35,18 +37,35 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Show term based on current index and category
     function showTerm() {
-        const filteredVocabulary = vocabulary.filter(item => item.category === currentCategory);
-        const currentItem = filteredVocabulary[currentTermIndex];
-        termElement.textContent = currentItem.term;
-        definitionElement.textContent = currentItem.definition;
-        definitionElement.classList.add('hidden'); // Hide definition initially
+        if (currentFilteredVocabulary.length > 0) {
+            const currentItem = currentFilteredVocabulary[currentTermIndex];
+            termElement.textContent = currentItem.term;
+            definitionElement.textContent = currentItem.definition;
+            definitionElement.classList.add('hidden');
+        } else {
+            termElement.textContent = "No terms available for this category.";
+            definitionElement.textContent = "";
+            definitionElement.classList.add('hidden');
+        }
+    }
+
+    // Fisher-Yates shuffle algorithm
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+        }
     }
 
     // Event listeners
     categoriesSelect.addEventListener('change', (e) => {
         currentCategory = e.target.value;
         currentTermIndex = 0; // Reset index for new category
-        showTerm();
+
+        const currentFilteredVocabulary = vocabulary.filter(item => item.category === currentCategory);
+        shuffleArray(currentFilteredVocabulary); // Shuffle the filtered vocabulary
+
+        showTerm(currentFilteredVocabulary);
     });
 
     flipButton.addEventListener('click', () => {
@@ -54,8 +73,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     nextButton.addEventListener('click', () => {
-        const filteredVocabulary = vocabulary.filter(item => item.category === currentCategory);
-        if (currentTermIndex < filteredVocabulary.length - 1) {
+        if (currentTermIndex < currentFilteredVocabulary.length - 1) {
             currentTermIndex++;
         } else {
             currentTermIndex = 0; // Loop back to the first term
