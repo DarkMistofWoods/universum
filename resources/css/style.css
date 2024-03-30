@@ -38,6 +38,11 @@ p {
     background-color: transparent;
 }
 
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
 
 /* Navigation */
 nav {
@@ -114,10 +119,11 @@ footer p:hover {
     width: 100%;
     display: block;
     text-align: center;
-    margin: 20px auto; /* Consolidated margin properties */
+    margin: 10px auto 50px; /* Consolidated margin properties */
     font-size: 32px;
     text-decoration: none;
     border-color: var(--color-primary);
+    cursor: pointer;
 }
 
 /* Category Section Styles and Animation */
@@ -543,6 +549,108 @@ label {
     padding-left: 10px; /* Adds padding to the left of the feedback text for additional spacing */
     min-height: 20px; /* Ensures the container has a minimum height for better alignment */
     color: var(--color-primary);
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+.dashboard section {
+    border: 2px solid var(--color-secondary);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#strengths, #weaknesses {
+    margin-bottom: 20px;
+}
+
+#strengths p, #weaknesses p {
+    margin-left: 20px; /* Indent items for better readability */
+}
+
+#next-steps-content {
+    font-style: italic; /* Style next steps distinctly */
+}
+
+.greeting h1, span {
+    text-align: center;
+    margin: 20px 0;
+    color: var(--color-primary);
+}
+
+.settings {
+    margin-top: 0px;
+    padding: 20px;
+    width: 90%;
+    height: 90%;
+    border-radius: 5px;
+}
+
+.setting {
+    margin-bottom: 20px;
+    align-items: normal;
+    text-align: left;
+}
+
+.setting label {
+    display: block;
+}
+
+.setting div {
+    margin-left: 20px;
+}
+
+#settingsContent {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+}
+
+#settingsContent input {
+    padding: 5px;
+}
+
+#settingsContent label {
+    padding: 5px;
+    margin: auto;
+}
+
+.content-preferences {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Adjusts spacing between options */
+}
+
+.preference {
+    display: flex;
+    align-items: center; /* Aligns the checkbox and label vertically */
+    padding: 5px 10px 5px 10px;
+    border: 1px solid var(--color-secondary);
+    border-radius: 10px;
+}
+
+.preference input[type="checkbox"] {
+    margin-right: 10px; /* Space between checkbox and label */
+}
+
+.theme-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Adjusts spacing between options */
+}
+
+.option {
+    display: flex;
+    align-items: center; /* Aligns the radio button and label vertically */
+}
+
+.option input[type="radio"] {
+    margin-right: 5px; /* Space between radio button and label */
 }
 
 /* Additional styles for responsiveness and aesthetics */
