@@ -83,7 +83,6 @@ const exercises = [
 let currentExerciseIndex = 0;
 
 function loadExercise() {
-    shuffleArray(exercises); // remove if questions increase in difficulty
     const exercise = exercises[currentExerciseIndex];
     document.getElementById("question").textContent = exercise.question;
     
@@ -94,15 +93,16 @@ function loadExercise() {
         // Create radio buttons for multiple choice
         exercise.options.forEach((option, index) => {
             const label = document.createElement("label");
+            label.classList.add("option-label"); // Add class for styling if needed
+
             const radioButton = document.createElement("input");
             radioButton.type = "radio";
             radioButton.name = "options";
             radioButton.value = option;
-            radioButton.id = `option${index}`;
 
-            label.setAttribute("for", `option${index}`);
             label.appendChild(radioButton);
             label.appendChild(document.createTextNode(option));
+
             optionsContainer.appendChild(label);
         });
     } else {
@@ -139,6 +139,7 @@ function submitAnswer() {
 function loadNextExercise() {
     currentExerciseIndex++;
     if (currentExerciseIndex >= exercises.length) {
+        shuffleArray(exercises)
         currentExerciseIndex = 0; // Restart from the beginning or display a completion message
         alert("You've completed all exercises!");
     }
@@ -153,4 +154,7 @@ function shuffleArray(array) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", loadExercise);
+document.addEventListener("DOMContentLoaded", function(){
+    shuffleArray(exercises); // remove if questions increase in difficulty
+    loadExercise();
+});
