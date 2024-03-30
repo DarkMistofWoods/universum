@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function() {
         currentCategory = e.target.value;
         currentTermIndex = 0; // Reset index for new category
 
-        const currentFilteredVocabulary = vocabulary.filter(item => item.category === currentCategory);
+        currentFilteredVocabulary = vocabulary.filter(item => item.category === currentCategory);
         shuffleArray(currentFilteredVocabulary); // Shuffle the filtered vocabulary
 
         showTerm(currentFilteredVocabulary);
