@@ -34,7 +34,7 @@
     <div class="container">
         <h2>The Official Universum Name Generator</h2>
         <h4>Generate a unique name for yourself in the language of Universum!</h4>
-        <h4>Kaso vunemenu yesa!</h4>
+        <p>Kaso vunemenu yesa!</p>
         <div class="dropdown-container">
           <select id="attribute1">
             <option value="">Select Attribute/Quality</option>
@@ -124,9 +124,14 @@
         <h3>Grammar Exercises</h3>
         <p>Practice Universum grammar through interactive exercises.</p>
         <div id="exerciseContainer">
-            <!-- Exercise content will be dynamically generated -->
+          <div id="question"></div>
+          <div id="options"></div>
         </div>
-        <button id="nextExercise">Next Exercise</button>
+        <div class="submit-feedback-container">
+            <button onclick="submitAnswer()">Submit</button>
+            <div id="feedback" class="feedback"></div>
+        </div>
+        <button id="nextExercise" onclick="loadNextExercise()">Next Exercise</button>
       </div>
     </div>
 
@@ -142,10 +147,10 @@
     </div>
 
     <script src="./scripts/nameGenerator.js"></script>
+    <script src="./scripts/grammarExercises.js"></script>
     <!--
     <script src="./scripts/phoneticsTrainer.js"></script>
     <script src="./scripts/vocabularyBuilder.js"></script>
-    <script src="./scripts/grammarExercises.js"></script>
     <script src="./scripts/conversationalSimulator.js"></script>
     -->
     <footer>
