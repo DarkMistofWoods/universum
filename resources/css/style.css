@@ -5,6 +5,7 @@
     --color-tertiary: #80A69F;
     --color-quaternary: #5F736F;
     --color-background: #262223;
+    --background-darkened: #110f10;
 }
 
 /* Global Styles */
@@ -36,6 +37,7 @@ h4 {
 p {
     background-color: transparent;
 }
+
 
 /* Navigation */
 nav {
@@ -118,12 +120,33 @@ footer p:hover {
     border-color: var(--color-primary);
 }
 
-/* Category Section Styles */
+/* Category Section Styles and Animation */
+/* Initial state of sections and containers */
+.category-section, .container {
+    position: relative; /* Required for z-index to work */
+    z-index: 1; /* Ensures shadow is above the background but below other positioned content */
+    transition: box-shadow 0.5s ease, z-index 0s 0.5s; /* Add transition for z-index to delay its change */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Initial subtle shadow */
+}
+
+/* Expanded shadow state (you might adjust values as needed) */
+.expanded-shadow {
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.75);
+    z-index: 2; /* Ensure it's above other elements */
+    transition-delay: 0s; /* Apply transitions immediately when adding the class */
+}
+
+/* Hovering on sections darkens the background */
+body.darkened-background {
+    background-color: var(--background-darkened);
+}
+
 .category-section {
     width: 50%;
+    min-width: 350px;
     margin: auto;
-    margin-top: 15px;
-    margin-bottom: 20px;
+    margin-top: 25px;
+    margin-bottom: 50px;
     padding: 20px;
     border: 2px solid var(--color-secondary);
     border-radius: 15px;
@@ -163,7 +186,7 @@ footer p:hover {
     gap: 10px; /* Space between child elements */
     width: 70%; /* Responsive width */
     margin: auto; /* Center container */
-    margin-bottom: 15px;
+    margin-bottom: 50px;
     padding: 20px; /* Padding inside the container */
     border: 1px solid var(--color-primary); /* Light grey border */
     border-radius: 10px; /* Slightly rounded corners */
