@@ -206,6 +206,10 @@ footer p:hover {
     margin-top: 10px;
 }
 
+.hidden {
+    display: none;
+}
+
 .grammar-exercises {
     width: 90%;
 }
