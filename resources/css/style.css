@@ -33,6 +33,10 @@ h4 {
     margin-top: 5px;
 }
 
+p {
+    background-color: transparent;
+}
+
 /* Navigation */
 nav {
     background-color: var(--color-background);
@@ -45,7 +49,7 @@ nav ul {
     overflow: hidden;
     background-color: var(--color-background);
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Flexbox for centering and managing navigation items */
 }
 
 nav ul li {
@@ -63,15 +67,16 @@ nav ul li a {
 nav ul li a:hover,
 nav ul li a:focus {
     border-radius: 10px;
-    background-color: var(--color-quaternary);
+    background-color: var(--color-quaternary); /* Lighter or different color on hover/focus */
     color: var(--color-primary);
 }
 
+/* Footer */
 footer {
     background-color: var(--color-background);
     color: var(--color-secondary);
     padding: 20px;
-    text-align: center;
+    text-align: center; /* Center align text if that fits your design */
     display: flex;
     flex-direction: column; /* Stack items vertically */
     align-items: center; /* Center items horizontally */
@@ -290,6 +295,15 @@ button:hover {
     color: var(--color-primary);
 }
 
+/* Style for both the "Next Exercise" and "Submit" buttons */
+#nextExercise, #exerciseContainer > button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    display: inline-block; /* To place buttons next to each other */
+}
+
 .jump-to-section {
     display: flex;
     justify-content: center; /* This centers the flex items (children) horizontally in the container */
@@ -338,6 +352,66 @@ button:hover {
   .key-wide {
     grid-column: span 2;
   }
+
+/* Targets all radio buttons */
+input[type='radio'] {
+    margin: 10px;
+    border-color: transparent;
+    background-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; /* Removes default styling provided by browsers */
+    cursor: pointer; /* Changes cursor to pointer when hovering over the label */
+}
+
+/* Style for the checked state */
+input[type='radio']:checked {
+    background-color: transparent; /* Ensures the background remains transparent even when checked */
+}
+
+/* Optional: Add custom styles for radio buttons to improve visibility */
+input[type='radio']::before {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: 2px solid var(--color-tertiary); /* Example border color, adjust as needed */
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: -3px;
+}
+
+input[type='radio']:checked::before {
+    background-color: var(--color-secondary); /* Example fill color for checked state, adjust as needed */
+}
+
+label {
+    display: block; /* Makes each label + radio button appear on a new line */
+    margin: 8px 0; /* Adds some vertical space between each radio button */
+    color: var(--color-primary);
+    border-radius: 10px;
+}
+
+#options {
+    margin-top: 10px;
+}
+
+#question {
+    color: var(--color-primary);
+}
+
+.submit-feedback-container {
+    display: flex; /* Uses Flexbox to lay out the button and feedback side by side */
+    margin-top: 15px;
+    align-items: center; /* Centers the button and feedback vertically */
+    gap: 10px; /* Adds some space between the button and feedback text */
+}
+
+.feedback {
+    padding-left: 10px; /* Adds padding to the left of the feedback text for additional spacing */
+    min-height: 20px; /* Ensures the container has a minimum height for better alignment */
+    color: var(--color-primary);
+}
 
 /* Additional styles for responsiveness and aesthetics */
 @media (max-width: 768px) {
