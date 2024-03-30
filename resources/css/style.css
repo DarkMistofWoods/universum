@@ -366,12 +366,25 @@ button:hover {
 
 /* Calculator styling */
 .calculator {
+    position: relative; /* Required for z-index to work */
+    z-index: 1; /* Ensures shadow is above the background but below other positioned content */
+    transition: box-shadow 0.5s ease, z-index 0s 0.5s; /* Add transition for z-index to delay its change */
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.8); /* Initial subtle shadow */
     width: 220px;
     margin: auto;
     margin-bottom: 25px;
+    margin-right: 10px;
     padding: 20px;
     border: 2px solid var(--color-secondary); /* Light grey border */
-    border-radius: 5px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.calculator h3 {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    font-weight: 300;
+    color: var(--color-tertiary);
 }
   
   .display {
@@ -400,6 +413,73 @@ button:hover {
   .key-wide {
     grid-column: span 2;
   }
+
+  /* Number circle display style */
+.circle-container {
+    position: relative;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 60px;
+    margin-left: 10px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.number {
+    position: absolute;
+    z-index: 2;
+    cursor: pointer; /* Indicates an interactable element */
+    transition: transform 0.2s ease; /* Smooth transition for feedback */
+    font-size: x-large;
+    width: 30px; /* Adjust based on content */
+    height: 30px; /* Adjust based on content */
+    border-radius: 25px;
+    padding: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(-50%, -50%);
+    user-select: none; /* To prevent selection on double-click */
+}
+
+.number:hover {
+    color: var(--color-tertiary);
+}
+
+.info-area {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    width: 90%; /* Adjust based on your design needs */
+    max-width: 80px; /* Prevents the info area from becoming too large */
+    height: auto;
+    min-height: 25px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none; /* Ensures clicks go through to the circle if needed */
+}
+
+svg#linesContainer {
+    position: absolute;
+    z-index: 1; /* Ensure lines are below the numbers */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.math-container {
+    display: flex;
+    justify-content: center; /* Center the children horizontally */
+    align-items: center; /* Align the children vertically in the middle */
+    gap: 30px; /* Optional: Adds some space between the two containers */
+}
 
 /* Targets all radio buttons */
 input[type='radio'] {
