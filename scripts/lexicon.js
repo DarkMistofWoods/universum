@@ -20,6 +20,11 @@ function displayTerms(lexiconData, searchTerm = '') {
     const lexiconContainer = document.getElementById('lexicon');
     lexiconContainer.innerHTML = ''; // Clear existing content
 
+    if (!Array.isArray(lexiconData)) {
+        console.error('displayTerms was called with non-array lexiconData:', lexiconData);
+        return; // Early return to prevent further execution
+    }
+
     const filteredData = lexiconData.filter(item => {
         const firstWordOfDefinition = item.definition.split(' ')[0].toLowerCase();
         return item.term.toLowerCase().includes(searchTerm.toLowerCase()) || item.definition.toLowerCase().includes(searchTerm.toLowerCase());
@@ -88,5 +93,5 @@ function populateSectionSelect() {
 const searchBox = document.getElementById('searchBox');
 searchBox.addEventListener('input', () => {
     const searchTerm = searchBox.value;
-    displayTerms(searchTerm);
+    displayTerms(lexiconData, searchTerm);
 });
