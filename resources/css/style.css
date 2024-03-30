@@ -141,7 +141,7 @@ footer p:hover {
 
 .category-section p {
     text-align: left;
-    margin: 5px 0; /* Consistent vertical spacing */
+    margin: 5px 0 20px; /* Consistent vertical spacing */
     padding-left: 10px; /* Indent text for readability */
     color: var(--color-primary); /* Light grey text */
     border-radius: 5px; /* Rounded corners for paragraphs if needed */
