@@ -18,31 +18,51 @@
     </nav>
     <a href="index.html" class="universum">Universum</a>
 
-    <h2>Base-12 Calculator</h2>
+    <div class="math-container">
 
-    <div id="calculator" class="calculator">
-        <input type="text" id="display" class="display" disabled>
-        <div class="keys">
-          <button class="key" onclick="press('0')">0</button>
-          <button class="key" onclick="press('1')">1</button>
-          <button class="key" onclick="press('2')">2</button>
-          <button class="key" onclick="press('3')">3</button>
-          <button class="key" onclick="press('4')">4</button>
-          <button class="key" onclick="press('5')">5</button>
-          <button class="key" onclick="press('6')">6</button>
-          <button class="key" onclick="press('7')">7</button>
-          <button class="key" onclick="press('8')">8</button>
-          <button class="key" onclick="press('9')">9</button>
-          <button class="key" onclick="press('X')">𝒳</button>
-          <button class="key" onclick="press('E')">ε</button>
-          <button class="key" onclick="press('+')">+</button>
-          <button class="key" onclick="press('-')">-</button>
-          <button class="key" onclick="press('*')">*</button>
-          <button class="key" onclick="press('/')">/</button>
-          <button class="key key-wide" onclick="calculate()">=</button>
-          <button class="key key-wide" onclick="clearDisplay()">Clear</button>
+        <div id="calculator" class="calculator">
+            <h3>Base-12 Calculator</h3>
+            <input type="text" id="display" class="display" disabled>
+            <div class="keys">
+            <button class="key" onclick="press('0')">0</button>
+            <button class="key" onclick="press('1')">1</button>
+            <button class="key" onclick="press('2')">2</button>
+            <button class="key" onclick="press('3')">3</button>
+            <button class="key" onclick="press('4')">4</button>
+            <button class="key" onclick="press('5')">5</button>
+            <button class="key" onclick="press('6')">6</button>
+            <button class="key" onclick="press('7')">7</button>
+            <button class="key" onclick="press('8')">8</button>
+            <button class="key" onclick="press('9')">9</button>
+            <button class="key" onclick="press('X')">𝒳</button>
+            <button class="key" onclick="press('E')">ε</button>
+            <button class="key" onclick="press('+')">+</button>
+            <button class="key" onclick="press('-')">-</button>
+            <button class="key" onclick="press('*')">*</button>
+            <button class="key" onclick="press('/')">/</button>
+            <button class="key key-wide" onclick="calculate()">=</button>
+            <button class="key key-wide" onclick="clearDisplay()">Clear</button>
+            </div>
+        </div>
+
+        <div class="circle-container">
+            <svg id="linesContainer" width="300" height="300"></svg>
+            <div class="number" onclick="showInfo('nul')">0</div>
+            <div class="number" onclick="showInfo('pali')">1</div>
+            <div class="number" onclick="showInfo('telo')">2</div>
+            <div class="number" onclick="showInfo('basi')">3</div>
+            <div class="number" onclick="showInfo('kuna')">4</div>
+            <div class="number" onclick="showInfo('muto')">5</div>
+            <div class="number" onclick="showInfo('nifi')">6</div>
+            <div class="number" onclick="showInfo('sato')">7</div>
+            <div class="number" onclick="showInfo('luko')">8</div>
+            <div class="number" onclick="showInfo('rupo')">9</div>
+            <div class="number" onclick="showInfo('vemi')">𝒳</div>
+            <div class="number" onclick="showInfo('felo')">ε</div>
+            <div id="infoArea" class="info-area"></div> <!-- Don't forget the area to display the info -->
         </div>
     </div>
+    
 
     <!-- Base-12 Math Section -->
     <section class="category-section">
