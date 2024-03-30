@@ -1,9 +1,11 @@
+let lexiconData = []; // Define lexiconData in a broader scope
+
 document.addEventListener('DOMContentLoaded', function() {
     fetch('resources/data.json')
         .then(response => response.json())
         .then(data => {
             // Convert fetched data into lexiconData format
-            const lexiconData = Object.entries(data).map(([term, details]) => ({
+            lexiconData = Object.entries(data).map(([term, details]) => ({
                 term: term,
                 definition: details.definition,
                 class: details.class,
