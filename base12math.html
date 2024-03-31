@@ -23,86 +23,86 @@
     </nav>
     <a href="index.html" class="universum">Universum</a>
 
-    <div class="math-container">
+    <div id="mainContent">
+        <div class="math-container">
+            <div id="calculator" class="calculator">
+                <h3>Base-12 Calculator</h3>
+                <input type="text" id="display" class="display" disabled>
+                <div class="keys">
+                <button class="key" onclick="press('0')">0</button>
+                <button class="key" onclick="press('1')">1</button>
+                <button class="key" onclick="press('2')">2</button>
+                <button class="key" onclick="press('3')">3</button>
+                <button class="key" onclick="press('4')">4</button>
+                <button class="key" onclick="press('5')">5</button>
+                <button class="key" onclick="press('6')">6</button>
+                <button class="key" onclick="press('7')">7</button>
+                <button class="key" onclick="press('8')">8</button>
+                <button class="key" onclick="press('9')">9</button>
+                <button class="key" onclick="press('X')">𝒳</button>
+                <button class="key" onclick="press('E')">ε</button>
+                <button class="key" onclick="press('+')">+</button>
+                <button class="key" onclick="press('-')">-</button>
+                <button class="key" onclick="press('*')">*</button>
+                <button class="key" onclick="press('/')">/</button>
+                <button class="key key-wide" onclick="calculate()">=</button>
+                <button class="key key-wide" onclick="clearDisplay()">Clear</button>
+                </div>
+            </div>
 
-        <div id="calculator" class="calculator">
-            <h3>Base-12 Calculator</h3>
-            <input type="text" id="display" class="display" disabled>
-            <div class="keys">
-            <button class="key" onclick="press('0')">0</button>
-            <button class="key" onclick="press('1')">1</button>
-            <button class="key" onclick="press('2')">2</button>
-            <button class="key" onclick="press('3')">3</button>
-            <button class="key" onclick="press('4')">4</button>
-            <button class="key" onclick="press('5')">5</button>
-            <button class="key" onclick="press('6')">6</button>
-            <button class="key" onclick="press('7')">7</button>
-            <button class="key" onclick="press('8')">8</button>
-            <button class="key" onclick="press('9')">9</button>
-            <button class="key" onclick="press('X')">𝒳</button>
-            <button class="key" onclick="press('E')">ε</button>
-            <button class="key" onclick="press('+')">+</button>
-            <button class="key" onclick="press('-')">-</button>
-            <button class="key" onclick="press('*')">*</button>
-            <button class="key" onclick="press('/')">/</button>
-            <button class="key key-wide" onclick="calculate()">=</button>
-            <button class="key key-wide" onclick="clearDisplay()">Clear</button>
+            <div class="circle-container">
+                <svg id="linesContainer" width="300" height="300"></svg>
+                <div class="number" onclick="showInfo('nul')">0</div>
+                <div class="number" onclick="showInfo('pali')">1</div>
+                <div class="number" onclick="showInfo('telo')">2</div>
+                <div class="number" onclick="showInfo('basi')">3</div>
+                <div class="number" onclick="showInfo('kuna')">4</div>
+                <div class="number" onclick="showInfo('muto')">5</div>
+                <div class="number" onclick="showInfo('nifi')">6</div>
+                <div class="number" onclick="showInfo('sato')">7</div>
+                <div class="number" onclick="showInfo('luko')">8</div>
+                <div class="number" onclick="showInfo('rupo')">9</div>
+                <div class="number" onclick="showInfo('vemi')">𝒳</div>
+                <div class="number" onclick="showInfo('felo')">ε</div>
+                <div id="infoArea" class="info-area"></div> <!-- Don't forget the area to display the info -->
             </div>
         </div>
+        
 
-        <div class="circle-container">
-            <svg id="linesContainer" width="300" height="300"></svg>
-            <div class="number" onclick="showInfo('nul')">0</div>
-            <div class="number" onclick="showInfo('pali')">1</div>
-            <div class="number" onclick="showInfo('telo')">2</div>
-            <div class="number" onclick="showInfo('basi')">3</div>
-            <div class="number" onclick="showInfo('kuna')">4</div>
-            <div class="number" onclick="showInfo('muto')">5</div>
-            <div class="number" onclick="showInfo('nifi')">6</div>
-            <div class="number" onclick="showInfo('sato')">7</div>
-            <div class="number" onclick="showInfo('luko')">8</div>
-            <div class="number" onclick="showInfo('rupo')">9</div>
-            <div class="number" onclick="showInfo('vemi')">𝒳</div>
-            <div class="number" onclick="showInfo('felo')">ε</div>
-            <div id="infoArea" class="info-area"></div> <!-- Don't forget the area to display the info -->
-        </div>
+        <!-- Base-12 Math Section -->
+        <section class="category-section">
+            <h2>Understanding Base-12 Math in Universum</h2>
+
+            <section>
+                <h3>Forming Numbers</h3>
+                <p>In Universum, numbers are formed using a base-12 system. Here are some examples:</p>
+                <ul>
+                    <li>pali (1 in decimal)</li>
+                    <li>telo (2 in decimal)</li>
+                    <li>telo lana pali (25 in decimal, which is two twelves plus one)</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Basic Arithmetic Operations</h3>
+                <p>Arithmetic operations in Universum follow the base-12 system. Examples include:</p>
+                <ul>
+                    <li>telo + telo = luko (2 + 2 = 4 in decimal)</li>
+                    <li>kuna * telo = telo lana (4 * 2 = 24 in decimal)</li>
+                    <li>telo lana - telo = pali lana pali (24 - 2 = 22 in decimal)</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Higher Numbers and Place Value</h3>
+                <p>For numbers larger than 12, place value increases by multiples of 12 (lana). Examples:</p>
+                <ul>
+                    <li>pali lana lana (144 in decimal, or 12^2)</li>
+                    <li>telo lana lana pali lana (289 in decimal, or 2x12^2 + 12)</li>
+                </ul>
+            </section>
+        </section>
     </div>
-    
-
-    <!-- Base-12 Math Section -->
-    <section class="category-section">
-        <h2>Understanding Base-12 Math in Universum</h2>
-
-        <section>
-            <h3>Forming Numbers</h3>
-            <p>In Universum, numbers are formed using a base-12 system. Here are some examples:</p>
-            <ul>
-                <li>pali (1 in decimal)</li>
-                <li>telo (2 in decimal)</li>
-                <li>telo lana pali (25 in decimal, which is two twelves plus one)</li>
-            </ul>
-        </section>
-
-        <section>
-            <h3>Basic Arithmetic Operations</h3>
-            <p>Arithmetic operations in Universum follow the base-12 system. Examples include:</p>
-            <ul>
-                <li>telo + telo = luko (2 + 2 = 4 in decimal)</li>
-                <li>kuna * telo = telo lana (4 * 2 = 24 in decimal)</li>
-                <li>telo lana - telo = pali lana pali (24 - 2 = 22 in decimal)</li>
-            </ul>
-        </section>
-
-        <section>
-            <h3>Higher Numbers and Place Value</h3>
-            <p>For numbers larger than 12, place value increases by multiples of 12 (lana). Examples:</p>
-            <ul>
-                <li>pali lana lana (144 in decimal, or 12^2)</li>
-                <li>telo lana lana pali lana (289 in decimal, or 2x12^2 + 12)</li>
-            </ul>
-        </section>
-    </section>
-
     <script src="./scripts/calculator.js"></script>
     <script src="./scripts/sectionAnimation.js"></script>
     <script src="./scripts/darkMode.js"></script>
