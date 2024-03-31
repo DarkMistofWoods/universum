@@ -31,11 +31,11 @@
     position: fixed;
     top: 20px;
     right: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.9); /* Add shadow */
+    box-shadow: 0 5px 10px rgba(0,0,0,0.9); /* Add shadow */
     transition: box-shadow 0.3s ease; /* Smooth transition for transform and box-shadow */
     display: inline-block;
     border-radius: 50%; /* Optional: for circular icons */
-    border: 3px solid var(--color-quaternary);
+    border: 1px solid var(--color-quaternary);
 }
 
 #themeToggle:hover {
@@ -237,7 +237,7 @@ body.darkened-background {
     min-width: 350px;
     margin: auto;
     margin-top: 25px;
-    margin-bottom: 50px;
+    margin-bottom: 25px;
     padding: 20px;
     border: 2px solid var(--color-secondary);
     border-radius: 15px;
@@ -283,7 +283,6 @@ body.darkened-background {
     margin: auto; /* Center container */
     margin-bottom: 50px;
     padding: 20px; /* Padding inside the container */
-    border: 1px solid var(--color-primary); /* Light grey border */
     border-radius: 10px; /* Slightly rounded corners */
     background-color: var(--color-quaternary); /* Dark background for contrast */
 }
@@ -417,12 +416,12 @@ button {
     cursor: pointer; /* Indicates clickable */
     background-color: var(--color-tertiary); /* Medium grey background */
     color: var(--color-primary); /* Text color */
-    border-color: var(--color-secondary); /* Match border color to background */
+    border-color: var(--color-quaternary); /* Match border color to background */
 }
 
 button:hover {
     background-color: var(--color-quaternary); /* Darker shade for hover state */
-    border-color: var(--color-tertiary);
+    border-color: var(--color-quaternary);
 }
 
 /* Output Container for Displaying Selected Names */
@@ -467,14 +466,12 @@ button:hover {
 .calculator {
     position: relative; /* Required for z-index to work */
     z-index: 1; /* Ensures shadow is above the background but below other positioned content */
-    transition: box-shadow 0.5s ease, z-index 0s 0.5s; /* Add transition for z-index to delay its change */
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.8); /* Initial subtle shadow */
     width: 220px;
     margin: auto;
     margin-bottom: 25px;
     margin-right: 10px;
     padding: 20px;
-    border: 2px solid var(--color-secondary); /* Light grey border */
+    border: 1px solid var(--color-secondary); /* Light grey border */
     border-radius: 10px;
     text-align: center;
 }
@@ -483,7 +480,7 @@ button:hover {
     margin-top: 0px;
     margin-bottom: 20px;
     font-weight: 300;
-    color: var(--color-tertiary);
+    color: var(--color-secondary);
 }
   
   .display {
@@ -663,17 +660,24 @@ label {
     margin: auto;
     margin-top: 25px;
     margin-bottom: 25px;
-    padding: 20px;
-    border: 2px solid var(--color-secondary);
-    border-radius: 15px;
+    padding: 10px;
+    border: 1px solid var(--color-tertiary);
+    border-radius: 60px;
     background-color: var(--color-background);
     text-align: center; /* Consolidated text alignment for category-section */
 }
 
 #dashnav-section a {
+    cursor: pointer; /* Indicates clickable */
     margin: 5px 10px;
-    padding: 20px 20px;
+    padding: 10px 20px;
+    border: 2px solid var(--color-tertiary);
     border-radius: 30px;
+    background-color: var(--color-background);
+}
+
+#dashnav-section a:hover {
+    background-color: var(--color-tertiary);
 }
 
 #strengths, #weaknesses {
@@ -786,6 +790,11 @@ label {
     border-radius: 10px;
     margin-top: 5px;
     padding-right: 15px;
+}
+
+.option:hover {
+    border: 1px solid var(--color-tertiary);
+    background-color: var(--color-tertiary);
 }
 
 .option input[type="radio"] {

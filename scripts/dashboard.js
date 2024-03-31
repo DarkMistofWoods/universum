@@ -184,7 +184,6 @@ function loadSettings() {
 
     document.getElementById('learningPace').value = settings.learningPace;
     document.getElementById('notificationSettings').value = settings.notificationSettings;
-    document.querySelector(`input[name="theme"][value="${settings.theme}"]`).checked = true;
 
     settings.contentPreferences.forEach(pref => {
         document.querySelector(`input[name="contentPref"][value="${pref}"]`).checked = true;
