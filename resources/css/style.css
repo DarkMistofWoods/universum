@@ -641,11 +641,13 @@ label {
 
 .dashboard {
     display: grid;
+    align-items: baseline;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     padding-top: 50px;
     padding-right: 50px;
     padding-left: 50px;
+    margin: auto;
 }
 
 .dashboard section {
@@ -655,7 +657,6 @@ label {
 }
 
 #dashnav-section {
-    width: 70%;
     min-width: 350px;
     margin: auto;
     margin-top: 25px;
@@ -672,7 +673,7 @@ label {
     margin: 5px 10px;
     padding: 10px 20px;
     border: 2px solid var(--color-tertiary);
-    border-radius: 30px;
+    border-radius: 10px;
     background-color: var(--color-background);
 }
 
@@ -699,7 +700,6 @@ label {
 }
 
 .settings-section {
-    width: 75%;
     min-width: 350px;
     margin: auto;
     margin-top: 0px;
@@ -712,6 +712,7 @@ label {
 }
 
 .settings {
+    margin: auto;
     margin-top: 0px;
     padding: 20px;
     width: 90%;
