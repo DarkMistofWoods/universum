@@ -139,4 +139,19 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         return name;
     }
+
+    const saveToProfileButton = document.getElementById('saveToProfile');
+    saveToProfileButton.addEventListener('click', function() {
+        const generatedName = document.getElementById('nameOutput').value;
+        if (generatedName) {
+            // Assuming userSettings is where you keep the user's settings
+            const userSettings = JSON.parse(localStorage.getItem('userSettings')) || {};
+            userSettings.generatedName = generatedName;
+            localStorage.setItem('userSettings', JSON.stringify(userSettings));
+
+            alert('Name saved to your profile successfully!');
+        } else {
+            alert('Please generate a name first.');
+        }
+    });
 });

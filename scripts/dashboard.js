@@ -176,6 +176,11 @@ function saveSettings() {
 function loadSettings() {
     const settings = JSON.parse(localStorage.getItem('userSettings'));
     if (!settings) return;
+    if (settings && settings.generatedName) {
+        // Update the display element with the saved name
+        // For example, if you have an element to display the user's name:
+        document.getElementById('userName').textContent = settings.generatedName;
+    }
 
     document.getElementById('learningPace').value = settings.learningPace;
     document.getElementById('notificationSettings').value = settings.notificationSettings;

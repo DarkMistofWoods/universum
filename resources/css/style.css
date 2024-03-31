@@ -20,6 +20,11 @@ h2, h3, h4 {
     color: var(--color-primary);
 }
 
+a {
+    background-color: transparent;
+    text-decoration: none;
+}
+
 h2 {
     margin-bottom: 15px;
     text-align: center;
@@ -51,7 +56,7 @@ nav {
 
 nav ul {
     list-style-type: none;
-    margin: 0;
+    margin: 10px;
     padding: 0;
     overflow: hidden;
     background-color: var(--color-background);
@@ -62,12 +67,13 @@ nav ul {
 nav ul li {
     display: block;
     color: var(--color-secondary);
+    margin: 5px;
 }
 
 nav ul li a {
     display: block;
     text-align: center;
-    padding: 14px 16px;
+    padding: 12px 12px;
     text-decoration: none;
 }
 
@@ -174,6 +180,10 @@ body.darkened-background {
     padding-left: 10px; /* Indent text for readability */
     color: var(--color-primary); /* Light grey text */
     border-radius: 5px; /* Rounded corners for paragraphs if needed */
+}
+
+.category-section a {
+    color: var(--color-primary);
 }
 
 .category-section li {
@@ -561,7 +571,7 @@ label {
 .dashboard section {
     border: 2px solid var(--color-secondary);
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 #strengths, #weaknesses {
@@ -580,6 +590,19 @@ label {
     text-align: center;
     margin: 20px 0;
     color: var(--color-primary);
+}
+
+.settings-section {
+    width: 75%;
+    min-width: 350px;
+    margin: auto;
+    margin-top: 25px;
+    margin-bottom: 50px;
+    padding: 20px;
+    border: 2px solid var(--color-secondary);
+    border-radius: 15px;
+    background-color: var(--color-background);
+    text-align: center; /* Consolidated text alignment for category-section */
 }
 
 .settings {
