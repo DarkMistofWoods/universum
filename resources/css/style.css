@@ -53,7 +53,6 @@
 /* Global Styles */
 * {
     font-family: sans-serif;
-    background-color: var(--color-background);
     color: var(--color-secondary);
 }
 /* Typography */
@@ -63,7 +62,8 @@ h2, h3, h4 {
 }
 
 a {
-    background-color: transparent;
+    background-color: var(--color-background);
+    border-color: transparent;
     text-decoration: none;
 }
 
@@ -87,22 +87,28 @@ p {
 
 html {
     height: 100%;
-    display: flex;
-    flex-direction: column;
 }
 
 body {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    width: 100%;
-}
-
-body, html {
-    min-height: 100vh;
+    min-height: 100%;
     margin: 0;
     padding: 0;
+    display: block; /* Temporarily remove flex to test behavior */
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: var(--background-darkened); /* For any overflow beyond mainContent */
+}
+
+#mainContent {
+    min-height: 100vh; /* Ensures it covers at least the full viewport height */
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-background); /* Apply background color here */
 }
 
 /* Navigation */
@@ -185,7 +191,7 @@ footer p:hover {
     margin: 10px auto 50px; /* Consolidated margin properties */
     font-size: 32px;
     text-decoration: none;
-    border-color: var(--color-primary);
+    border-color: var(--color-background);
     cursor: pointer;
 }
 
