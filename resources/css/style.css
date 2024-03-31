@@ -684,6 +684,10 @@ label {
     margin: auto;
 }
 
+#settingsContent button {
+    margin-bottom: 15px;
+}
+
 .content-preferences {
     display: flex;
     flex-wrap: wrap;
