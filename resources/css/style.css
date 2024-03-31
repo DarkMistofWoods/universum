@@ -101,7 +101,7 @@ html, body {
     margin: 0;
     padding: 0;
     width: 100%;
-    background-color: var(--background-darkened); /* For any overflow beyond mainContent */
+    background-color: var(--color-background); /* For any overflow beyond mainContent */
 }
 
 #mainContent {
