@@ -530,6 +530,7 @@ button:hover {
 
 .number {
     position: absolute;
+    background-color: var(--color-background);
     z-index: 2;
     cursor: pointer; /* Indicates an interactable element */
     transition: transform 0.2s ease; /* Smooth transition for feedback */
@@ -777,6 +778,8 @@ label {
 }
 
 .option {
+    border: 1px solid var(--color-tertiary);
+    background-color: var(--color-background);
     display: flex;
     align-items: center; /* Aligns the radio button and label vertically */
     border-radius: 10px;
@@ -786,6 +789,11 @@ label {
 
 .option input[type="radio"] {
     margin-right: 5px; /* Space between radio button and label */
+}
+
+.option-label {
+    border: 1px solid var(--color-tertiary);
+    background-color: var(--color-background);
 }
 
 /* Additional styles for responsiveness and aesthetics */
