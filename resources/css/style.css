@@ -677,7 +677,7 @@ label {
 }
 
 .dashboard section {
-    border: 2px solid var(--color-secondary);
+    border: 1px solid var(--color-secondary);
     padding: 20px;
     border-radius: 10px;
 }
@@ -730,7 +730,7 @@ label {
     margin: auto;
     width: 75%;
     padding: 20px;
-    border: 2px solid var(--color-secondary);
+    border: 1px solid var(--color-secondary);
     border-radius: 15px;
     background-color: var(--color-background);
     text-align: center; /* Consolidated text alignment for category-section */
