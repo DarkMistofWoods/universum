@@ -1,11 +1,53 @@
 /* Variables */
 :root {
+    --color-primary: #262223;
+    --color-secondary: #5F736F;
+    --color-tertiary: #80A69F;
+    --color-quaternary: #95BFB8;
+    --color-background: #F2EDE4;
+    --background-darkened: #110f10;
+}
+
+/* Dark theme */
+[data-theme='dark'] {
     --color-primary: #F2EDE4;
     --color-secondary: #95BFB8;
     --color-tertiary: #80A69F;
     --color-quaternary: #5F736F;
     --color-background: #262223;
     --background-darkened: #110f10;
+}
+
+#moonIcon {
+    fill: var(--color-secondary); /* Default to black in light theme */
+}
+
+#sunIcon {
+    fill: var(--color-quaternary); /* Default to black in light theme */
+}
+
+#themeToggle {
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.9); /* Add shadow */
+    transition: box-shadow 0.3s ease; /* Smooth transition for transform and box-shadow */
+    display: inline-block;
+    border-radius: 50%; /* Optional: for circular icons */
+    border: 3px solid var(--color-quaternary);
+}
+
+#themeToggle:hover {
+    box-shadow: 0 5px 30px rgba(0,0,0,0.75); /* Add shadow */
+}
+
+#themeToggle img {
+    width: 36px;
+    height: 36px;
+    border-radius: 20px;
+    padding: 3px;
+    margin-top: 0;
 }
 
 /* Global Styles */
@@ -43,10 +85,24 @@ p {
     background-color: transparent;
 }
 
+html {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    width: 100%;
+}
+
 body, html {
+    min-height: 100vh;
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
 }
 
 /* Navigation */
@@ -57,6 +113,7 @@ nav {
 nav ul {
     list-style-type: none;
     margin: 10px;
+    margin-top: 0;
     padding: 0;
     overflow: hidden;
     background-color: var(--color-background);

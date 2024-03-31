@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="./resources/css/style.css">
 </head>
 <body>
+    <div id="themeToggle">
+      <img id="sunIcon" src="./resources/icons/Universum-Sun-Icon.svg" alt="Light Mode" style="display: none;" />
+      <img id="moonIcon" src="./resources/icons/Universum-Moon-Icon.svg" alt="Dark Mode" />
+    </div>
+    
     <nav>
         <ul>
             <li><a href="index.html">Home</a></li>
@@ -101,21 +106,22 @@
                             <option value="never">Never</option>
                         </select>
                     </div>
-        
+                    
+                    <!-- 
                     <div class="setting">
                         <label>Theme:</label>
                         <div class="theme-options">
                             <div class="option">
-                                <input type="radio" id="lightMode" name="theme" value="light">
+                                <input type="radio" id="default" name="theme" value="light">
                                 <label for="lightMode">Light Mode</label>
                             </div>
                             <div class="option">
                                 <input type="radio" id="darkMode" name="theme" value="dark">
                                 <label for="darkMode">Dark Mode</label>
                             </div>
-                            <!-- Add more themes as needed -->
                         </div>
                     </div>
+                    -->
 
                     <!-- Language Interface Setting -->
                     <div class="setting">
@@ -191,6 +197,7 @@
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./scripts/dashboard.js"></script>
+    <script src="./scripts/darkMode.js"></script>
 
     <footer>
         <p>© 2024 Universum Language Project</p>
