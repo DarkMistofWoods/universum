@@ -6,6 +6,9 @@
     --color-quaternary: #95BFB8;
     --color-background: #F2EDE4;
     --background-darkened: #110f10;
+    --dashboard-icon-url: url('../icons/Universum-Dashboard-Icon-Light.svg');
+    --settings-icon-url: url('../icons/Universum-Settings-Icon-Light.svg');
+    --knowledge-icon-url: url('../icons/Universum-Knowledge-Icon-Light.svg');
 }
 
 /* Dark theme */
@@ -16,6 +19,9 @@
     --color-quaternary: #5F736F;
     --color-background: #262223;
     --background-darkened: #110f10;
+    --dashboard-icon-url: url('../icons/Universum-Dashboard-Icon-Dark.svg');
+    --settings-icon-url: url('../icons/Universum-Settings-Icon-Dark.svg');
+    --knowledge-icon-url: url('../icons/Universum-Knowledge-Icon-Dark.svg');
 }
 
 #moonIcon {
@@ -26,28 +32,48 @@
     fill: var(--color-quaternary); /* Default to black in light theme */
 }
 
-#themeToggle {
+#dashboardIcon {
+    background-image: var(--dashboard-icon-url);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#settingsIcon {
+    background-image: var(--settings-icon-url);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#knowledgeIcon {
+    background-image: var(--knowledge-icon-url);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#navControls {
     cursor: pointer;
     position: fixed;
     top: 20px;
     right: 20px;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.9); /* Add shadow */
-    transition: box-shadow 0.3s ease; /* Smooth transition for transform and box-shadow */
-    display: inline-block;
-    border-radius: 50%; /* Optional: for circular icons */
-    border: 1px solid var(--color-quaternary);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 15px; /* Adjust the gap between icons */
 }
 
-#themeToggle:hover {
-    box-shadow: 0 5px 30px rgba(0,0,0,0.75); /* Add shadow */
-}
-
-#themeToggle img {
-    width: 36px;
+.nav-icon {
+    display: block;
+    width: 36px; /* Adjust size as necessary */
     height: 36px;
-    border-radius: 20px;
+    border-radius: 24px;
     padding: 3px;
-    margin-top: 0;
+    background-color: var(--color-background);
+    border: 1px solid var(--color-quaternary);
+    box-shadow: 0 0 5px rgba(0,0,0,0.75); /* Add shadow */
+}
+
+.nav-icon:hover {
+    box-shadow: 0 0 15px rgba(0,0,0,0.75); /* Add shadow */
 }
 
 /* Global Styles */
@@ -702,8 +728,7 @@ label {
 .settings-section {
     min-width: 350px;
     margin: auto;
-    margin-top: 0px;
-    margin-bottom: 50px;
+    width: 75%;
     padding: 20px;
     border: 2px solid var(--color-secondary);
     border-radius: 15px;

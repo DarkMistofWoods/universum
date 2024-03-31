@@ -1,13 +1,15 @@
 // Simulated user data
 const userData = {
-    overallProgress: 50, // Assuming a percentage
+    overallProgress: 44, // Assuming a percentage
     modules: [
-        { name: "Fali Voki (Tree Voice)", progress: 75 },
-        { name: "Kaso Miso (Make Talk)", progress: 60 }
+        { name: "menuvokisi", progress: 75 },
+        { name: "vokilana", progress: 60 },
+        { name: "tukidepi", progress: 30 },
+        { name: "lana", progress: 10 }
     ],
-    strengths: ["Fali Voki"],
-    weaknesses: ["Kaso Miso"],
-    nextSteps: "Focus on Kaso Miso to improve your conversation skills."
+    strengths: ["menuvokisi (Grammar)", "vokilana (Vocabulary)"],
+    weaknesses: ["tukidepi (Comprehension)", "lana (Math)"],
+    nextSteps: "Focus on tukidepi to improve your conversation skills."
 };
 
 // Convert numbers to Universum base-12 system
@@ -137,64 +139,6 @@ function initializeDashboard() {
     displayWeaknesses(userData.weaknesses);
     displayNextSteps(userData.nextSteps);
 }
-
-function saveSettings() {
-    const learningPace = document.getElementById('learningPace').value;
-    const notificationSettings = document.getElementById('notificationSettings').value;
-    const theme = document.querySelector('input[name="theme"]:checked').value;
-    const languageInterface = document.getElementById('languageInterface').value;
-    const audioSpeed = document.querySelector('input[name="audioSpeed"]:checked').value;
-    const dailyGoals = document.getElementById('dailyGoals').value;
-    const learningPath = document.querySelector('input[name="learningPath"]:checked').value;
-    const privacySettings = document.getElementById('privacySettings').value;
-    const feedbackFrequency = document.getElementById('feedbackFrequency').value;
-
-    const contentPreferences = [];
-    document.querySelectorAll('input[name="contentPref"]:checked').forEach((checkbox) => {
-        contentPreferences.push(checkbox.value);
-    });
-
-    // Construct an object to hold all settings
-    const settings = {
-        learningPace, 
-        notificationSettings, 
-        theme, 
-        contentPreferences,
-        languageInterface,
-        audioSpeed,
-        dailyGoals: dailyGoals ? parseInt(dailyGoals, 10) : undefined,
-        learningPath,
-        privacySettings,
-        feedbackFrequency
-    };
-    localStorage.setItem('userSettings', JSON.stringify(settings));
-
-    alert('Settings saved successfully!');
-}
-
-// Optional: A function to load and apply settings from localStorage when the page loads
-function loadSettings() {
-    const settings = JSON.parse(localStorage.getItem('userSettings'));
-    if (!settings) return;
-    if (settings && settings.generatedName) {
-        // Update the display element with the saved name
-        // For example, if you have an element to display the user's name:
-        document.getElementById('userName').textContent = settings.generatedName;
-    }
-
-    document.getElementById('learningPace').value = settings.learningPace;
-    document.getElementById('notificationSettings').value = settings.notificationSettings;
-
-    settings.contentPreferences.forEach(pref => {
-        document.querySelector(`input[name="contentPref"][value="${pref}"]`).checked = true;
-    });
-
-    // Apply theme based on settings, etc.
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    loadSettings();
-});
 
 // Ensure to call initializeDashboard to execute these functions
 initializeDashboard();

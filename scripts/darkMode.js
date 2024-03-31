@@ -20,8 +20,10 @@ function updateTheme(theme) {
     }
 }
 
-// Toggle theme when the icon is clicked
-document.getElementById('themeToggle').addEventListener('click', () => {
+document.getElementById('sunIcon').addEventListener('click', toggleTheme);
+document.getElementById('moonIcon').addEventListener('click', toggleTheme);
+
+function toggleTheme() {
     const newTheme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     updateTheme(newTheme);
-});
+}

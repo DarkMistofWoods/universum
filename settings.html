@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universum Dashboard</title>
+    <link rel="stylesheet" href="./resources/css/style.css">
+</head>
+<body>
+    <div id="navControls">
+        <div>
+            <img class="nav-icon" id="sunIcon" src="./resources/icons/Universum-Sun-Icon.svg" alt="Light Mode" style="display: none;" />
+            <img class="nav-icon" id="moonIcon" src="./resources/icons/Universum-Moon-Icon.svg" alt="Dark Mode" />
+        </div>
+        <a href="dashboard.html">
+            <div id="dashboardIcon" class="nav-icon"></div>
+        </a>
+        <a href="settings.html">
+            <div id="settingsIcon" class="nav-icon"></div>
+        </a>
+        <a href="dashboard.html">
+            <div id="knowledgeIcon" class="nav-icon"></div>
+        </a>
+        <!-- Additional icons can be added here with the same class 'nav-icon' -->
+    </div>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="lexicon.html">Lexicon</a></li>
+            <li><a href="phonology.html">Phonology</a></li>
+            <li><a href="grammar.html">Grammar</a></li>
+            <li><a href="compounds.html">Compounds</a></li>
+            <li><a href="base12math.html">Base-12 Math</a></li>
+        </ul>
+    </nav>
+    <a href="index.html" class="universum">Universum</a>
+
+    <div id="mainContent">
+        <!-- Settings Section -->
+        <div class="settings-section">
+            <section class="settings">
+                <h2>Settings</h2>
+                <div id="settingsContent">
+                    <form id="settingsForm">
+                        <label for="userDisplayName">Display Name:</label>
+                        <input type="text" id="userDisplayName" placeholder="Your Universum name">
+                        <button onclick="updateUserName()">Update Name</button>
+
+                        <div class="setting">
+                            <label for="learningPace">Learning Pace:</label>
+                            <select id="learningPace">
+                                <option value="slow">Slow</option>
+                                <option value="medium">Medium</option>
+                                <option value="fast">Fast</option>
+                            </select>
+                        </div>
+            
+                        <div class="setting">
+                            <label>Content Preferences:</label>
+                            <div class="content-preferences">
+                                <div class="preference">
+                                    <input type="checkbox" id="vocabFocus" name="contentPref" value="vocabulary">
+                                    <label for="vocabFocus">Vocabulary Focus</label>
+                                </div>
+                                <div class="preference">
+                                    <input type="checkbox" id="grammarExercises" name="contentPref" value="grammar">
+                                    <label for="grammarExercises">Grammar Exercises</label>
+                                </div>
+                                <div class="preference">
+                                    <input type="checkbox" id="culturalInsights" name="contentPref" value="culture">
+                                    <label for="culturalInsights">Cultural Insights</label>
+                                </div>
+                                <div class="preference">
+                                    <input type="checkbox" id="pronunciationPractice" name="contentPref" value="pronunciation">
+                                    <label for="pronunciationPractice">Pronunciation Practice</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="setting">
+                            <label for="notificationSettings">Notification Settings:</label>
+                            <select id="notificationSettings">
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="never">Never</option>
+                            </select>
+                        </div>
+
+                        <!-- Language Interface Setting -->
+                        <div class="setting">
+                            <label for="languageInterface">Language Interface:</label>
+                            <select id="languageInterface">
+                                <option value="en">English</option>
+                                <option value="es">Español</option>
+                                <option value="fr">Français</option>
+                                <option value="uni">Universum</option>
+                                <!-- Add more languages as necessary -->
+                            </select>
+                        </div>
+
+                        <!-- Audio Settings -->
+                        <div class="setting">
+                            <label>Audio Speed:</label>
+                            <div class="option">
+                                <input type="radio" id="audioSlow" name="audioSpeed" value="slow">
+                                <label for="audioSlow">Slow</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="audioNormal" name="audioSpeed" value="normal" checked>
+                                <label for="audioNormal">Normal</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="audioFast" name="audioSpeed" value="fast">
+                                <label for="audioFast">Fast</label>
+                            </div>
+                        </div>
+
+                        <!-- Goal Setting -->
+                        <div class="setting">
+                            <label for="dailyGoals">Daily Goals (e.g., new words):</label>
+                            <input type="text" id="dailyGoals" placeholder="Enter a goal">
+                        </div>
+
+                        <!-- Adaptive Learning Preferences -->
+                        <div class="setting">
+                            <label>Learning Path:</label>
+                            <div class="option">
+                                <input type="radio" id="guidedPath" name="learningPath" value="guided">
+                                <label for="guidedPath">Guided</label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="explorationMode" name="learningPath" value="exploration">
+                                <label for="explorationMode">Self-Directed Exploration</label>
+                            </div>
+                        </div>
+
+                        <!-- Privacy Settings -->
+                        <div class="setting">
+                            <label for="privacySettings">Privacy Settings:</label>
+                            <select id="privacySettings">
+                                <option value="public">Public</option>
+                                <option value="private">Private</option>
+                            </select>
+                        </div>
+
+                        <!-- Feedback Frequency -->
+                        <div class="setting">
+                            <label for="feedbackFrequency">Feedback Frequency:</label>
+                            <select id="feedbackFrequency">
+                                <option value="immediate">Immediate</option>
+                                <option value="daily">Daily Summary</option>
+                                <option value="weekly">Weekly Summary</option>
+                            </select>
+                        </div>
+            
+                        <button type="button" id="saveSettingsButton" onclick="saveSettings()">Save Settings</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="./scripts/settings.js"></script>
+    <script src="./scripts/darkMode.js"></script>
+
+    <footer>
+        <p>© 2024 Universum Language Project</p>
+    </footer>
+</body>
+</html>
