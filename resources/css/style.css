@@ -132,6 +132,22 @@ footer p:hover {
     cursor: pointer;
 }
 
+.button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: var(--color-tertiary);
+    color: var(--color-primary);
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: var(--color-quaternary);
+}
+
 /* Category Section Styles and Animation */
 /* Initial state of sections and containers */
 .category-section, .container {
@@ -565,13 +581,34 @@ label {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    padding: 20px;
+    padding-top: 50px;
+    padding-right: 50px;
+    padding-left: 50px;
 }
 
 .dashboard section {
     border: 2px solid var(--color-secondary);
     padding: 20px;
     border-radius: 10px;
+}
+
+#dashnav-section {
+    width: 70%;
+    min-width: 350px;
+    margin: auto;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    padding: 20px;
+    border: 2px solid var(--color-secondary);
+    border-radius: 15px;
+    background-color: var(--color-background);
+    text-align: center; /* Consolidated text alignment for category-section */
+}
+
+#dashnav-section a {
+    margin: 5px 10px;
+    padding: 20px 20px;
+    border-radius: 30px;
 }
 
 #strengths, #weaknesses {
@@ -596,7 +633,7 @@ label {
     width: 75%;
     min-width: 350px;
     margin: auto;
-    margin-top: 25px;
+    margin-top: 0px;
     margin-bottom: 50px;
     padding: 20px;
     border: 2px solid var(--color-secondary);
@@ -617,10 +654,14 @@ label {
     margin-bottom: 20px;
     align-items: normal;
     text-align: left;
+    background-color: var(--color-quaternary);
+    border-radius: 15px;
+    padding: 10px;
 }
 
 .setting label {
     display: block;
+    background-color: transparent;
 }
 
 .setting div {
@@ -647,13 +688,13 @@ label {
     display: flex;
     flex-wrap: wrap;
     gap: 20px; /* Adjusts spacing between options */
+    background-color: transparent;
 }
 
 .preference {
     display: flex;
     align-items: center; /* Aligns the checkbox and label vertically */
     padding: 5px 10px 5px 10px;
-    border: 1px solid var(--color-secondary);
     border-radius: 10px;
 }
 
@@ -665,11 +706,15 @@ label {
     display: flex;
     flex-wrap: wrap;
     gap: 20px; /* Adjusts spacing between options */
+    background-color: transparent;
 }
 
 .option {
     display: flex;
     align-items: center; /* Aligns the radio button and label vertically */
+    border-radius: 10px;
+    margin-top: 5px;
+    padding-right: 15px;
 }
 
 .option input[type="radio"] {
