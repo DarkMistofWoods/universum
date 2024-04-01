@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Login</title>
+    <link rel="stylesheet" href="./resources/css/style.css">
+</head>
+<body>
+    <div id="navControls">
+        <div>
+            <img class="nav-icon" id="sunIcon" src="./resources/icons/Universum-Sun-Icon.svg" alt="Light Mode" style="display: none;" />
+            <img class="nav-icon" id="moonIcon" src="./resources/icons/Universum-Moon-Icon.svg" alt="Dark Mode" />
+        </div>
+        <a href="dashboard.html">
+            <div id="dashboardIcon" class="nav-icon"></div>
+        </a>
+        <!-- Additional icons can be added here with the same class 'nav-icon' -->
+    </div>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="lexicon.html">Lexicon</a></li>
+            <li><a href="phonology.html">Phonology</a></li>
+            <li><a href="grammar.html">Grammar</a></li>
+            <li><a href="compounds.html">Compounds</a></li>
+            <li><a href="base12math.html">Base-12 Math</a></li>
+        </ul>
+    </nav>
+    <a href="index.html" class="universum">Universum</a>
+
+    <div id="mainContent">
+        <div class="container">
+            <h2>Sign Up or Log In</h2>
+            <h4>Email</h4>
+            <input type="email" id="userEmail"><br>
+            <h4>Password</h4>
+
+            <div class="interactive-password-container">
+                <svg id="linesContainer" width="300" height="300"></svg>
+                <div class="number" data-value="0">0</div>
+                <div class="number" data-value="1">1</div>
+                <div class="number" data-value="2">2</div>
+                <div class="number" data-value="3">3</div>
+                <div class="number" data-value="4">4</div>
+                <div class="number" data-value="5">5</div>
+                <div class="number" data-value="6">6</div>
+                <div class="number" data-value="7">7</div>
+                <div class="number" data-value="8">8</div>
+                <div class="number" data-value="9">9</div>
+                <div class="number" data-value="x">𝒳</div>
+                <div class="number" data-value="e">ε</div>
+                <div id="passwordArea" class="password-area"></div> <!-- Don't forget the area to display the password -->
+            </div>
+            <button onclick="login()">Signup/Login</button>
+            <div id="authMessage"></div>
+        </div>
+    </div>
+    
+    <script src="./scripts/sectionAnimation.js"></script>
+    <script src="./scripts/userNavigation.js"></script>
+    <script src="./scripts/login.js"></script>
+    
+    <footer>
+        <p>© 2024 Universum Language Project</p>
+    </footer>
+</body>
+</html>
