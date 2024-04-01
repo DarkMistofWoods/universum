@@ -1,4 +1,4 @@
-import { auth } from './firebase-config.js';
+import { auth, signInWithEmailAndPassword } from './firebase-config.js';
 
 function login() { // doubles as a 'sign up' function
     const email = document.getElementById('userEmail').value;
@@ -17,7 +17,7 @@ function login() { // doubles as a 'sign up' function
     const password = selectedPoints.map(point => point.num).join("-");
     
     // Attempt to sign in
-    auth.signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Sign-in success, redirect to dashboard
             window.location.href = 'dashboard.html'; // Redirect only if login is successful
