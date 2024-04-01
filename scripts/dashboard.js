@@ -112,24 +112,17 @@ function displayNextSteps(nextSteps) {
     container.textContent = nextSteps; // Set text for next steps
 }
 
-// Function to update user name based on input
-function updateUserName() {
-    const userNameInput = document.getElementById('userDisplayName').value.trim();
-    if (userNameInput) {
-        document.getElementById('userName').textContent = userNameInput;
-        // Save to local storage for persistence
-        localStorage.setItem('userName', userNameInput);
-    }
-}
-
 // Initialize the greeting with the user's name from local storage if available
 function initializeGreeting() {
-    const storedName = localStorage.getItem('userName');
-    if (storedName) {
-        document.getElementById('userName').textContent = storedName;
+    const settings = JSON.parse(localStorage.getItem('userSettings'));
+    if (settings && settings.displayName) {
+        document.getElementById('userName').textContent = settings.displayName;
+    } else {
+        // Fallback to a default greeting if displayName is not available
+        document.getElementById('userName').textContent = "Welcome, User!";
     }
 }
-
+ 
 // Update the initializeDashboard function to call initializeGreeting
 function initializeDashboard() {
     initializeGreeting();
@@ -140,5 +133,7 @@ function initializeDashboard() {
     displayNextSteps(userData.nextSteps);
 }
 
-// Ensure to call initializeDashboard to execute these functions
-initializeDashboard();
+document.addEventListener('DOMContentLoaded', () => {
+    initializeGreeting();
+    initializeDashboard();
+});

@@ -43,10 +43,6 @@
                 <h2>Settings</h2>
                 <div id="settingsContent">
                     <form id="settingsForm">
-                        <label for="userDisplayName">Display Name:</label>
-                        <input type="text" id="userDisplayName" placeholder="Your Universum name">
-                        <button onclick="updateUserName()">Update Name</button>
-
                         <div class="setting">
                             <label for="learningPace">Learning Pace:</label>
                             <select id="learningPace">
@@ -154,7 +150,8 @@
                             </select>
                         </div>
             
-                        <button type="button" id="saveSettingsButton" onclick="saveSettings()">Save Settings</button>
+                        <button type="button" id="saveSettingsButton" onclick="saveSettings()">Save Settings</button>      
+                        <span id="saveConfirmation" style="margin-left: 10px;"></span>
                     </form>
                 </div>
             </section>
@@ -162,7 +159,7 @@
     </div>
 
     <script src="./scripts/settings.js"></script>
-    <script src="./scripts/darkMode.js"></script>
+    <script src="./scripts/userNavigation.js"></script>
 
     <footer>
         <p>© 2024 Universum Language Project</p>

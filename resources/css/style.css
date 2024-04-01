@@ -446,7 +446,7 @@ button {
 }
 
 button:hover {
-    background-color: var(--color-quaternary); /* Darker shade for hover state */
+    background-color: var(--color-secondary); /* Darker shade for hover state */
     border-color: var(--color-quaternary);
 }
 
@@ -766,7 +766,7 @@ label {
 #settingsContent {
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: center;
     gap: 10px;
 }
 

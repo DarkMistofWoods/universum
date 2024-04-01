@@ -108,20 +108,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const vowels = ['a', 'e', 'i', 'o', 'u'];
         return vowels[Math.floor(Math.random() * vowels.length)];
     }
-    
-    /*
-    function getRandomConsonant() {
-        const consonants = ['p', 't', 'b', 'k', 'm', 'n', 'f', 'v', 's', 'l', 'r'];
-        return consonants[Math.floor(Math.random() * consonants.length)];
-    }
-    */
-   
-    /*
-    function getRandomInt(min, max) {
-        // The maximum is inclusive and the minimum is inclusive
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-    */
 
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
@@ -142,11 +128,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const saveToProfileButton = document.getElementById('saveToProfile');
     saveToProfileButton.addEventListener('click', function() {
-        const generatedName = document.getElementById('nameOutput').value;
+        const generatedName = document.getElementById('nameOutput').value; 
         if (generatedName) {
-            // Assuming userSettings is where you keep the user's settings
+            // Fetch existing userSettings or initialize an empty object
             const userSettings = JSON.parse(localStorage.getItem('userSettings')) || {};
-            userSettings.generatedName = generatedName;
+            // Update the displayName within userSettings
+            userSettings.displayName = generatedName;
+            // Save the updated userSettings back to localStorage
             localStorage.setItem('userSettings', JSON.stringify(userSettings));
 
             alert('Name saved to your profile successfully!');
