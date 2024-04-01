@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const saveToProfileButton = document.getElementById('saveToProfile');
     saveToProfileButton.addEventListener('click', function() {
-        const user = auth().currentUser;
+        const user = auth.currentUser;
         const generatedName = document.getElementById('nameOutput').value;
         
         if (!generatedName) {
