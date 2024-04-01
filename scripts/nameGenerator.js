@@ -128,18 +128,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const saveToProfileButton = document.getElementById('saveToProfile');
     saveToProfileButton.addEventListener('click', function() {
-        const generatedName = document.getElementById('nameOutput').value; 
-        if (generatedName) {
-            // Fetch existing userSettings or initialize an empty object
-            const userSettings = JSON.parse(localStorage.getItem('userSettings')) || {};
-            // Update the displayName within userSettings
-            userSettings.displayName = generatedName;
-            // Save the updated userSettings back to localStorage
-            localStorage.setItem('userSettings', JSON.stringify(userSettings));
-
-            alert('Name saved to your profile successfully!');
-        } else {
+        const user = firebase.auth().currentUser;
+        const generatedName = document.getElementById('nameOutput').value;
+        
+        if (!generatedName) {
             alert('Please generate a name first.');
+            return;
+        }
+
+        if (user) {
+            // User is signed in, proceed to save the generated name
+            saveGeneratedName(user, generatedName);
+        } else {
+            // User is not signed in, redirect to login page after storing the generated name temporarily
+            localStorage.setItem('pendingNameSave', generatedName);
+            // Replace 'login.html' with the path to your actual login page
+            window.location.href = 'login.html'; 
         }
     });
+
+    // Function to save the generated name to the user's profile
+    function saveGeneratedName(user, generatedName) {
+        const db = firebase.firestore();
+        db.collection('userSettings').doc(user.uid).set({displayName: generatedName}, {merge: true})
+            .then(() => {
+                alert('Name saved to your profile successfully!');
+                // Clear any pending name save after successful save
+                localStorage.removeItem('pendingNameSave');
+            })
+            .catch(error => {
+                console.error("Error saving name to profile: ", error);
+                alert('There was a problem saving your name. Please try again.');
+            });
+    }
 });

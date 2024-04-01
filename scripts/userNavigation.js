@@ -3,6 +3,16 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTheme(savedTheme); // Apply the saved theme
 });
 
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        // User is signed in, show the authenticated icons
+        document.getElementById('authIcons').style.display = 'block';
+    } else {
+        // No user is signed in, hide the authenticated icons
+        document.getElementById('authIcons').style.display = 'none';
+    }
+});
+
 function updateTheme(theme) {
     document.body.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);

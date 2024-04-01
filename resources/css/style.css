@@ -76,6 +76,10 @@
     box-shadow: 0 0 15px rgba(0,0,0,0.75); /* Add shadow */
 }
 
+#authIcons {
+    display: none; /* Hide authenticated icons by default */
+}
+
 /* Global Styles */
 * {
     font-family: sans-serif;
@@ -307,6 +311,7 @@ body.darkened-background {
     gap: 10px; /* Space between child elements */
     width: 70%; /* Responsive width */
     margin: auto; /* Center container */
+    margin-top: 20px;
     margin-bottom: 50px;
     padding: 20px; /* Padding inside the container */
     border-radius: 10px; /* Slightly rounded corners */

@@ -1,42 +1,112 @@
 function login() { // doubles as a 'sign up' function
     const email = document.getElementById('userEmail').value;
-    if (selectedPoints.length < 8 | selectedPoints.length > 16) {
-        // If the password is shorter than 8 characters, show a message
-        updateInfoArea("Your password must be 8-16 characters long.");
-        return false; // Prevent the submission or finalization
+    const passwordArea = document.getElementById('passwordArea');
+    const loginErrorMessage = document.getElementById('loginErrorMessage'); // Reference to the new error message span
+
+    if (selectedPoints.length < 8 || selectedPoints.length > 16) {
+        loginErrorMessage.textContent = "Your password must be 8-16 characters long.";
+        selectedPoints = []; // Clear the current password sequence
+        passwordArea.textContent = ""; // Clear the displayed password pattern
+        clearDrawnLines();
+        setTimeout(() => loginErrorMessage.textContent = '', 3000); // Clears the message after 3 seconds
+        return false; // Prevent further execution
     }
+    
     const password = selectedPoints.map(point => point.num).join("-");
     
     // Attempt to sign in
     firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            // Sign in success
-            document.getElementById('authMessage').textContent = 'Sign in successful!';
-            window.location.href = 'dashboard.html'; // Redirect to dashboard or other page
+            // Sign-in success, redirect to dashboard
+            window.location.href = 'dashboard.html'; // Redirect only if login is successful
         })
         .catch((error) => {
-            // If sign-in fails because the user doesn't exist, try signing up
+            // Handle login errors
             if (error.code === 'auth/user-not-found') {
+                // User not found, attempt to sign up
                 firebase.auth().createUserWithEmailAndPassword(email, password)
                     .then((userCredential) => {
-                        // Sign up success
-                        document.getElementById('authMessage').textContent = 'Account created and sign in successful!';
-                        window.location.href = 'dashboard.html'; // Redirect to dashboard or other page
+                        // Sign up success, now initialize profile if it doesn't exist
+                        const db = firebase.firestore();
+                        const userProfileRef = db.collection('userProfiles').doc(userCredential.user.uid);
+    
+                        userProfileRef.get().then((doc) => {
+                            if (!doc.exists) {
+                                // Initialize profile since it doesn't exist
+                                userProfileRef.set({
+                                    // Set initial profile data here
+                                    displayName: "user", // Or use any default or placeholder values
+                                    settings: {
+                                        learningPace: "medium",
+                                        contentPreferences: {
+                                            vocabulary: true,
+                                            grammar: true,
+                                            culture: true,
+                                            pronunciation: true,
+                                        },
+                                        notificationSettings: "weekly",
+                                        languageInterface: "english",
+                                        audioSpeed: "normal",
+                                        dailyGoals: "",
+                                        learningPath: "guided",
+                                        privacySettings: "public",
+                                        feedbackFrequency: "daily"
+                                        // Add other settings as needed
+                                    }
+                                }, { merge: true }).then(() => {
+                                    console.log('New user profile initialized.');
+                                    window.location.href = 'dashboard.html'; // Redirect to the dashboard
+                                });
+                            } else {
+                                // Profile already exists, just redirect
+                                window.location.href = 'dashboard.html';
+                            }
+                        });
                     })
                     .catch((signUpError) => {
-                        // Handle other errors, including sign up failures
-                        document.getElementById('authMessage').textContent = `Error: ${signUpError.message}`;
+                        // Handle sign-up errors
+                        console.error("Error during account creation: ", signUpError);
                     });
             } else {
-                // Handle other sign-in errors
-                document.getElementById('authMessage').textContent = `Error: ${error.message}`;
+                // Handle other login errors
+                loginErrorMessage.textContent = `Error: ${error.message}`; // Display the error message
+                selectedPoints = []; // Clear the password sequence on any error
+                passwordArea.textContent = ""; // Clear the displayed password pattern
+                clearDrawnLines(); // Clear the lines drawn for the password pattern
+                console.error("Login error: ", error);
             }
+        });
+    
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            // Check if there's a pending name save after login
+            const pendingNameSave = localStorage.getItem('pendingNameSave');
+            if (pendingNameSave) {
+                saveGeneratedName(user, pendingNameSave);
+                localStorage.removeItem('pendingNameSave'); // Clear the pending name after saving
+            }
+            window.location.href = 'dashboard.html';
+        }
+    });
+}
+
+// Function to save the generated name to the user's profile
+function saveGeneratedName(user, generatedName) {
+    const db = firebase.firestore();
+    db.collection('userProfiles').doc(user.uid).set({displayName: generatedName}, {merge: true})
+        .then(() => {
+            alert('Name saved to your profile successfully!');
+            // Clear any pending name save after successful save
+            localStorage.removeItem('pendingNameSave');
+        })
+        .catch(error => {
+            console.error("Error saving name to profile: ", error);
+            alert('There was a problem saving your name. Please try again.');
         });
 }
 
 // to extract the password:
 // selectedPoints.map(point => point.num).join("-");
-
 
 // Display numbers in a circle, drawing lines between every one
 let selectedPoints = []; // Store the sequence of selected points
@@ -88,6 +158,12 @@ function drawLine(container, startPoint, endPoint, index) {
     line.setAttribute("stroke", lineColor);
     line.setAttribute("stroke-width", "2");
     container.appendChild(line);
+}
+
+function clearDrawnLines() {
+    while (svgContainer.firstChild) {
+        svgContainer.removeChild(svgContainer.firstChild);
+    }
 }
 
 function updateInfoArea(message = "") {

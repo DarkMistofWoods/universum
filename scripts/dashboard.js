@@ -1,3 +1,13 @@
+// At the top of dashboard.js or other JS files for protected pages
+firebase.auth().onAuthStateChanged((user) => {
+    if (!user) {
+        // User is not signed in, redirect to login.html
+        window.location.href = 'login.html';
+    } else {
+        // User is signed in, continue with page-specific logic
+    }
+});
+
 // Simulated user data
 const userData = {
     overallProgress: 44, // Assuming a percentage
@@ -111,29 +121,44 @@ function displayNextSteps(nextSteps) {
     const container = document.getElementById('next-steps-content');
     container.textContent = nextSteps; // Set text for next steps
 }
-
-// Initialize the greeting with the user's name from local storage if available
-function initializeGreeting() {
-    const settings = JSON.parse(localStorage.getItem('userSettings'));
-    if (settings && settings.displayName) {
-        document.getElementById('userName').textContent = settings.displayName;
-    } else {
-        // Fallback to a default greeting if displayName is not available
-        document.getElementById('userName').textContent = "Welcome, User!";
-    }
-}
  
 // Update the initializeDashboard function to call initializeGreeting
 function initializeDashboard() {
-    initializeGreeting();
-    displayOverallProgress(userData.overallProgress);
-    displayModuleProgress(userData.modules);
-    displayStrengths(userData.strengths);
-    displayWeaknesses(userData.weaknesses);
-    displayNextSteps(userData.nextSteps);
+    const user = firebase.auth().currentUser;
+    if (user) {
+        const db = firebase.firestore();
+        db.collection('userProgress').doc(user.uid).get()
+            .then(doc => {
+                if (doc.exists) {
+                    const progressData = doc.data();
+                    displayOverallProgress(progressData.overallProgress);
+                    displayModuleProgress(progressData.modules);
+                    displayStrengths(progressData.strengths);
+                    displayWeaknesses(progressData.weaknesses);
+                    displayNextSteps(progressData.nextSteps);
+                } else {
+                    console.log("No progress found.");
+                }
+            });
+        db.collection('userSettings').doc(user.uid).get()
+            .then(doc => {
+                if (doc.exists) {
+                    const settings = doc.data();
+                    document.getElementById('userName').textContent = settings.displayName || "Welcome, User!";
+                    // Apply other settings as necessary
+                } else {
+                    console.log("No settings found.");
+                }
+            })
+            .catch((error) => {
+                console.error("Error getting document:", error);
+            });
+        
+    } else {
+        console.log("No user signed in.");
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    initializeGreeting();
     initializeDashboard();
 });

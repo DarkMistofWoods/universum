@@ -5,23 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Universum Dashboard</title>
     <link rel="stylesheet" href="./resources/css/style.css">
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+    
+    <!-- Firebase Initialization -->
+    <script src="./scripts/firebase-config.js"></script>
 </head>
 <body>
     <div id="navControls">
-        <div>
+        <div id="themeSelector">
             <img class="nav-icon" id="sunIcon" src="./resources/icons/Universum-Sun-Icon.svg" alt="Light Mode" style="display: none;" />
             <img class="nav-icon" id="moonIcon" src="./resources/icons/Universum-Moon-Icon.svg" alt="Dark Mode" />
         </div>
-        <a href="dashboard.html">
-            <div id="dashboardIcon" class="nav-icon"></div>
-        </a>
-        <a href="knowledge.html">
-            <div id="knowledgeIcon" class="nav-icon"></div>
-        </a>
-        <a href="settings.html">
-            <div id="settingsIcon" class="nav-icon"></div>
-        </a>
-        <!-- Additional icons can be added here with the same class 'nav-icon' -->
+        <div id="authIcons">
+            <a href="dashboard.html">
+                <div id="dashboardIcon" class="nav-icon"></div>
+            </a>
+            <a href="knowledge.html">
+                <div id="knowledgeIcon" class="nav-icon"></div>
+            </a>
+            <a href="settings.html">
+                <div id="settingsIcon" class="nav-icon"></div>
+            </a>
+            <!-- Additional icons can be added here with the same class 'nav-icon' -->
+        </div>
     </div>
     
     <nav>
