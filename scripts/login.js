@@ -1,3 +1,5 @@
+import { auth } from './firebase-config.js';
+
 function login() { // doubles as a 'sign up' function
     const email = document.getElementById('userEmail').value;
     const passwordArea = document.getElementById('passwordArea');
@@ -15,7 +17,7 @@ function login() { // doubles as a 'sign up' function
     const password = selectedPoints.map(point => point.num).join("-");
     
     // Attempt to sign in
-    firebase.auth().signInWithEmailAndPassword(email, password)
+    auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
             // Sign-in success, redirect to dashboard
             window.location.href = 'dashboard.html'; // Redirect only if login is successful
@@ -27,7 +29,6 @@ function login() { // doubles as a 'sign up' function
                 firebase.auth().createUserWithEmailAndPassword(email, password)
                     .then((userCredential) => {
                         // Sign up success, now initialize profile if it doesn't exist
-                        const db = firebase.firestore();
                         const userProfileRef = db.collection('userProfiles').doc(userCredential.user.uid);
     
                         userProfileRef.get().then((doc) => {
@@ -77,7 +78,7 @@ function login() { // doubles as a 'sign up' function
             }
         });
     
-    firebase.auth().onAuthStateChanged((user) => {
+    auth().onAuthStateChanged((user) => {
         if (user) {
             // Check if there's a pending name save after login
             const pendingNameSave = localStorage.getItem('pendingNameSave');
@@ -92,7 +93,6 @@ function login() { // doubles as a 'sign up' function
 
 // Function to save the generated name to the user's profile
 function saveGeneratedName(user, generatedName) {
-    const db = firebase.firestore();
     db.collection('userProfiles').doc(user.uid).set({displayName: generatedName}, {merge: true})
         .then(() => {
             alert('Name saved to your profile successfully!');

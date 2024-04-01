@@ -1,5 +1,7 @@
-// At the top of dashboard.js or other JS files for protected pages
-firebase.auth().onAuthStateChanged((user) => {
+import { auth } from './firebase-config.js';
+import { db } from './firebase-config.js';
+
+auth().onAuthStateChanged((user) => {
     if (!user) {
         // User is not signed in, redirect to login.html
         window.location.href = 'login.html';
@@ -124,9 +126,8 @@ function displayNextSteps(nextSteps) {
  
 // Update the initializeDashboard function to call initializeGreeting
 function initializeDashboard() {
-    const user = firebase.auth().currentUser;
+    const user = auth().currentUser;
     if (user) {
-        const db = firebase.firestore();
         db.collection('userProgress').doc(user.uid).get()
             .then(doc => {
                 if (doc.exists) {

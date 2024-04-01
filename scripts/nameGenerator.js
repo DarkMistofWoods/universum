@@ -1,3 +1,6 @@
+import { auth } from './firebase-config.js';
+import { db } from './firebase-config.js';
+
 document.addEventListener('DOMContentLoaded', function () {
     const generateButton = document.querySelector('button');
     const nameOutput = document.getElementById('nameOutput');
@@ -128,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const saveToProfileButton = document.getElementById('saveToProfile');
     saveToProfileButton.addEventListener('click', function() {
-        const user = firebase.auth().currentUser;
+        const user = auth().currentUser;
         const generatedName = document.getElementById('nameOutput').value;
         
         if (!generatedName) {
@@ -149,7 +152,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to save the generated name to the user's profile
     function saveGeneratedName(user, generatedName) {
-        const db = firebase.firestore();
         db.collection('userSettings').doc(user.uid).set({displayName: generatedName}, {merge: true})
             .then(() => {
                 alert('Name saved to your profile successfully!');

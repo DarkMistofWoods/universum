@@ -2,16 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="./resources/css/style.css">
 
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
-    
-    <!-- Firebase Initialization -->
-    <script src="./scripts/firebase-config.js"></script>
+    <script src="./scripts/firebase-config.js" type="module"></script>
+    <script src="./scripts/userNavigation.js" type="module"></script>
+    <script src="./scripts/nameGenerator.js" type="module"></script>
 </head>
 <body>
   <div id="navControls">
@@ -180,12 +177,9 @@
     </div>
   </div>
   
-
-  <script src="./scripts/nameGenerator.js"></script>
   <script src="./scripts/grammarExercises.js"></script>
   <script src="./scripts/vocabularyBuilder.js"></script>
   <script src="./scripts/sectionAnimation.js"></script>
-  <script src="./scripts/userNavigation.js"></script>
   <!--
   <script src="./scripts/phoneticsTrainer.js"></script>
   <script src="./scripts/conversationalSimulator.js"></script>

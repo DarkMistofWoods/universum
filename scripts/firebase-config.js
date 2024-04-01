@@ -1,3 +1,9 @@
+// Import the functions needed from the SDKs
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js';
+import { getAuth } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js';
+import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDqHEFIQyQhuKmEJArNbpQPgPSlfKQGC6I",
     authDomain: "universum-20736.firebaseapp.com",
@@ -8,4 +14,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+export { auth, db };

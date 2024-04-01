@@ -1,9 +1,11 @@
+import { auth } from './firebase-config.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme') || 'light'; // Default to light theme if not set
     updateTheme(savedTheme); // Apply the saved theme
 });
 
-firebase.auth().onAuthStateChanged((user) => {
+auth().onAuthStateChanged((user) => {
     if (user) {
         // User is signed in, show the authenticated icons
         document.getElementById('authIcons').style.display = 'block';
