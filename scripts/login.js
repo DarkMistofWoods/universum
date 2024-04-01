@@ -1,9 +1,14 @@
 import { auth, signInWithEmailAndPassword } from './firebase-config.js';
 
 function login() { // doubles as a 'sign up' function
-    const email = document.getElementById('userEmail').value;
+    const email = document.getElementById('userEmail').value.trim();
     const passwordArea = document.getElementById('passwordArea');
     const loginErrorMessage = document.getElementById('loginErrorMessage'); // Reference to the new error message span
+
+    if (!email || !password) {
+        alert('Please enter both email and password.');
+        return false;
+    }
 
     if (selectedPoints.length < 8 || selectedPoints.length > 16) {
         loginErrorMessage.textContent = "Your password must be 8-16 characters long.";
@@ -12,7 +17,7 @@ function login() { // doubles as a 'sign up' function
         clearDrawnLines();
         setTimeout(() => loginErrorMessage.textContent = '', 3000); // Clears the message after 3 seconds
         return false; // Prevent further execution
-    }
+    } 
     
     const password = selectedPoints.map(point => point.num).join("-");
     
