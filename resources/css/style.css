@@ -624,7 +624,7 @@ button:hover {
     z-index: 2;
     cursor: pointer; /* Indicates an interactable element */
     transition: transform 0.2s ease; /* Smooth transition for feedback */
-    font-size: x-large;
+    font-size: large;
     width: 20px; /* Adjust based on content */
     height: 20px; /* Adjust based on content */
     border-radius: 25px;

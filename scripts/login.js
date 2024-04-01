@@ -78,7 +78,7 @@ function handleSelection(num, position) {
 }
 
 function drawLine(container, startPoint, endPoint, index) {
-    const colors = ["red", "green", "blue", "orange", "purple", "cyan", "magenta", "lime", "pink", "grey", "gold", "brown"];
+    const colors = ["#e6194B", "#f58231", "#ffe119", "#bfef45", "#3cb44b", "#42d4f4", "#4363d8", "#911eb4", "#f032e6", "#a9a9a9", "#ffffff"];
     const lineColor = colors[index % colors.length]; // Cycle through colors
     const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
     line.setAttribute("x1", startPoint.x);
