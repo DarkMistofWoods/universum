@@ -6,7 +6,11 @@ function login() { // doubles as a 'sign up' function
     const loginErrorMessage = document.getElementById('loginErrorMessage'); // Reference to the new error message span
 
     if (!email || !password) {
-        alert('Please enter both email and password.');
+        loginErrorMessage.textContent = "Please enter both email and password.";
+        selectedPoints = []; // Clear the current password sequence
+        passwordArea.textContent = ""; // Clear the displayed password pattern
+        clearDrawnLines();
+        setTimeout(() => loginErrorMessage.textContent = '', 3000); // Clears the message after 3 seconds
         return false;
     }
 
