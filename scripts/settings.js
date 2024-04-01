@@ -2,7 +2,7 @@ import { auth } from './firebase-config.js';
 import { db } from './firebase-config.js';
 
 // page protection for non-members
-auth().onAuthStateChanged((user) => {
+auth.onAuthStateChanged((user) => {
     if (!user) {
         // User is not signed in, redirect to login.html
         window.location.href = 'login.html';
@@ -12,7 +12,7 @@ auth().onAuthStateChanged((user) => {
 });
 
 function saveSettings() {
-    const user = auth().currentUser;
+    const user = auth.currentUser;
     if (user) {
         const settings = {
             learningPace: document.getElementById('learningPace').value,
@@ -47,7 +47,7 @@ function saveSettings() {
 
 // Optional: A function to load and apply settings from localStorage when the page loads
 function loadUserSettings() {
-    const user = auth().currentUser;
+    const user = auth.currentUser;
     if (user) {
         db.collection('userSettings').doc(user.uid).get()
             .then(doc => {

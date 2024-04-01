@@ -1,7 +1,7 @@
 import { auth } from './firebase-config.js';
 import { db } from './firebase-config.js';
 
-auth().onAuthStateChanged((user) => {
+auth.onAuthStateChanged((user) => {
     if (!user) {
         // User is not signed in, redirect to login.html
         window.location.href = 'login.html';
@@ -126,7 +126,7 @@ function displayNextSteps(nextSteps) {
  
 // Update the initializeDashboard function to call initializeGreeting
 function initializeDashboard() {
-    const user = auth().currentUser;
+    const user = auth.currentUser;
     if (user) {
         db.collection('userProgress').doc(user.uid).get()
             .then(doc => {

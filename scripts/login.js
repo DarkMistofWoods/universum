@@ -17,7 +17,7 @@ function login() { // doubles as a 'sign up' function
     const password = selectedPoints.map(point => point.num).join("-");
     
     // Attempt to sign in
-    auth().signInWithEmailAndPassword(email, password)
+    auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
             // Sign-in success, redirect to dashboard
             window.location.href = 'dashboard.html'; // Redirect only if login is successful
@@ -26,7 +26,7 @@ function login() { // doubles as a 'sign up' function
             // Handle login errors
             if (error.code === 'auth/user-not-found') {
                 // User not found, attempt to sign up
-                firebase.auth().createUserWithEmailAndPassword(email, password)
+                firebase.auth.createUserWithEmailAndPassword(email, password)
                     .then((userCredential) => {
                         // Sign up success, now initialize profile if it doesn't exist
                         const userProfileRef = db.collection('userProfiles').doc(userCredential.user.uid);
@@ -78,7 +78,7 @@ function login() { // doubles as a 'sign up' function
             }
         });
     
-    auth().onAuthStateChanged((user) => {
+    auth.onAuthStateChanged((user) => {
         if (user) {
             // Check if there's a pending name save after login
             const pendingNameSave = localStorage.getItem('pendingNameSave');

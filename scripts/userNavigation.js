@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateTheme(savedTheme); // Apply the saved theme
 });
 
-auth().onAuthStateChanged((user) => {
+auth.onAuthStateChanged((user) => {
     if (user) {
         // User is signed in, show the authenticated icons
         document.getElementById('authIcons').style.display = 'block';
