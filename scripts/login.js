@@ -1,110 +1,97 @@
 import { db, auth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from './firebase-config.js';
 
-function login() { // doubles as a 'sign up' function
+// Function to handle user login
+function login() {
     const email = document.getElementById('userEmail').value.trim();
-    const loginErrorMessage = document.getElementById('loginErrorMessage'); // Reference to the new error message span
     const password = selectedPoints.map(point => point.num).join("");
-
-    if (selectedPoints.length < 8 || selectedPoints.length > 16) {
-        loginErrorMessage.textContent = "Your password must be 8-16 characters long.";
-        clearPassword();
-        setTimeout(() => loginErrorMessage.textContent = '', 3000); // Clears the message after 3 seconds
-        return false; // Prevent further execution
-    } 
+    const loginErrorMessage = document.getElementById('loginErrorMessage');
 
     if (!email || !password) {
         loginErrorMessage.textContent = "Please enter both email and password.";
-        clearPassword();
         setTimeout(() => loginErrorMessage.textContent = '', 3000); // Clears the message after 3 seconds
-        return false;
+        return;
     }
-    
-    console.log(`Logging in with email ${email} and password ${password}`);
-    // Attempt to sign in
+
     signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            // Sign-in success, redirect to dashboard
-            window.location.href = 'dashboard.html'; // Redirect only if login is successful
+            window.location.href = 'dashboard.html'; // Redirect on successful login
         })
         .catch((error) => {
-
             console.error("Login error: ", error);
-            switch (error.code) {
-                case 'auth/invalid-email':
-                    loginErrorMessage.textContent = 'The email address is improperly formatted.';
-                    break;
-                case 'auth/user-not-found':
-                case 'auth/wrong-password':
-                    loginErrorMessage.textContent = 'Incorrect email or password.';
-                    break;
-                default:
-                    loginErrorMessage.textContent = `Login error: ${error.message}`;
-                    break;
-            }
-
-            // Handle login errors
-            if (error.code === 'auth/user-not-found') {
-                // User not found, attempt to sign up
-                createUserWithEmailAndPassword(auth, email, password)
-                    .then((userCredential) => {
-                        // Sign up success, now initialize profile if it doesn't exist
-                        const userProfileRef = db.collection('userProfiles').doc(userCredential.user.uid);
-    
-                        userProfileRef.get().then((doc) => {
-                            if (!doc.exists) {
-                                // Initialize profile since it doesn't exist
-                                userProfileRef.set({
-                                    // Set initial profile data here
-                                    displayName: "user", // Or use any default or placeholder values
-                                    settings: {
-                                        learningPace: "medium",
-                                        contentPreferences: {
-                                            vocabulary: true,
-                                            grammar: true,
-                                            culture: true,
-                                            pronunciation: true,
-                                        },
-                                        notificationSettings: "weekly",
-                                        languageInterface: "english",
-                                        audioSpeed: "normal",
-                                        dailyGoals: "",
-                                        learningPath: "guided",
-                                        privacySettings: "public",
-                                        feedbackFrequency: "daily"
-                                        // Add other settings as needed
-                                    }
-                                }, { merge: true }).then(() => {
-                                    console.log('New user profile initialized.');
-                                    window.location.href = 'dashboard.html'; // Redirect to the dashboard
-                                });
-                            } else {
-                                // Profile already exists, just redirect
-                                window.location.href = 'dashboard.html';
-                            }
-                        });
-                    })
-                    .catch((signUpError) => {
-                        // Handle sign-up errors
-                        console.error("Error during account creation: ", signUpError);
-                    });
-            } else {
-                // Handle other login errors
-                loginErrorMessage.textContent = `Error: ${error.message}`; // Display the error message
-                clearPassword()
-                console.error("Login error: ", error);
-            }
+            loginErrorMessage.textContent = error.message;
         });
-    
-    auth.onAuthStateChanged((user) => {
-        if (user) {
-            // Check if there's a pending name save after login
-            const pendingNameSave = localStorage.getItem('pendingNameSave');
-            if (pendingNameSave) {
-                saveGeneratedName(user, pendingNameSave);
-                localStorage.removeItem('pendingNameSave'); // Clear the pending name after saving
-            }
-            window.location.href = 'dashboard.html';
+}
+
+// Function to handle user account creation
+function createAccount() {
+    const email = document.getElementById('userEmail').value.trim();
+    const password = selectedPoints.map(point => point.num).join("");
+    const loginErrorMessage = document.getElementById('loginErrorMessage');
+
+    if (!email || !password) {
+        loginErrorMessage.textContent = "Please enter both email and password.";
+        return;
+    }
+
+    // Check for password length
+    if (password.length < 8 || password.length > 16) {
+        loginErrorMessage.textContent = "Password must be between 8 and 16 characters.";
+        return;
+    }
+
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Account creation successful, now initialize user profile data
+            initializeUserProfile(userCredential.user);
+        })
+        .catch((error) => {
+            console.error("Signup error: ", error);
+            loginErrorMessage.textContent = error.message;
+        });
+}
+
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        // Check if there's a pending name save after login/account creation
+        // If yes, update the displayName in userProfiles
+        const pendingNameSave = localStorage.getItem('pendingNameSave');
+        if (pendingNameSave) {
+            saveGeneratedName(user, pendingNameSave);
+            localStorage.removeItem('pendingNameSave'); // Clear the pending name after saving
         }
+    } else { // user not found, must not be logged in
+        window.location.href = 'login.html';
+    }
+});
+
+function initializeUserProfile(user) {
+    db.collection('userProfiles').doc(user.uid).set({
+        displayName: "New User", // Default display name or use input from user
+        email: user.email, // Save email to user profile for easy access
+        // Include other initial fields as necessary
+        settings: {
+            learningPace: "medium",
+            contentPreferences: {
+                vocabulary: true,
+                grammar: true,
+                culture: true,
+                pronunciation: true,
+            },
+            notificationSettings: "weekly",
+            languageInterface: "english",
+            audioSpeed: "normal",
+            dailyGoals: "",
+            learningPath: "guided",
+            privacySettings: "public",
+            feedbackFrequency: "daily"
+        }
+    }, { merge: true })
+    .then(() => {
+        console.log('User profile initialized.');
+        window.location.href = 'dashboard.html'; // Redirect to the dashboard or another page as needed
+    })
+    .catch((error) => {
+        console.error("Error initializing user profile: ", error);
     });
 }
 
@@ -114,7 +101,7 @@ function saveGeneratedName(user, generatedName) {
         .then(() => {
             alert('Name saved to your profile successfully!');
             // Clear any pending name save after successful save
-            localStorage.removeItem('pendingNameSave');
+            // localStorage.removeItem('pendingNameSave');
         })
         .catch(error => {
             console.error("Error saving name to profile: ", error);
@@ -197,16 +184,14 @@ function updateInfoArea(message = "") {
         return;
     }
     // If no message is provided, proceed to display the password pattern
-    infoArea.textContent = selectedPoints.map(point => point.num).join("");
+    infoArea.textContent = selectedPoints.map(point => point.num).join();
 }
 
 // Run the function to position numbers when the document is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    positionNumbers()
+    positionNumbers();
 
-    const loginButton = document.getElementById('loginButton');
-    const clearPasswordButton = document.getElementById('clearPasswordButton');
-
-    loginButton.addEventListener('click', login);
-    clearPasswordButton.addEventListener('click', clearPassword);
+    document.getElementById('loginButton').addEventListener('click', login);
+    document.getElementById('signupButton').addEventListener('click', createAccount);
+    document.getElementById('clearPasswordButton').addEventListener('click', clearPassword);
 });
