@@ -39,7 +39,12 @@ async function initializeDashboard(user) {
             displayWeaknesses(progressData.weaknesses);
             displayNextSteps(progressData.nextSteps);
         } else {
-            console.log("No user progress found.");
+            console.log("No user progress found. Using demo data.");
+            displayOverallProgress(userData.overallProgress);
+            displayModuleProgress(userData.modules);
+            displayStrengths(userData.strengths);
+            displayWeaknesses(userData.weaknesses);
+            displayNextSteps(userData.nextSteps);
         }
         
     } catch (error) {
@@ -58,7 +63,7 @@ const userData = {
     ],
     strengths: ["menuvokisi (Grammar)", "vokilana (Vocabulary)"],
     weaknesses: ["tukidepi (Comprehension)", "lana (Math)"],
-    nextSteps: "Focus on tukidepi to improve your conversation skills."
+    nextSteps: "This dashboard data is for demonstration purposes only."
 };
 
 // Convert numbers to Universum base-12 system
