@@ -20,7 +20,7 @@ async function initializeDashboard(user) {
         
         if (profilesDoc.exists()) {
             const profileData = profilesDoc.data();
-            document.getElementById('userName').textContent = profileData.displayName || "Welcome, User!";
+            document.getElementById('userName').textContent = profileData.displayName || "User";
             // Populate additional UI elements with user profile data as necessary
         } else {
             console.log("No user profile found.");

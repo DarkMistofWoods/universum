@@ -15,26 +15,28 @@ auth.onAuthStateChanged((user) => {
 async function saveSettings(user) {
     if (user) {
         const userDocRef = doc(db, 'userProfiles', user.uid);
-        const settings = {
-            learningPace: document.getElementById('learningPace').value,
-            contentPreferences: {
-                vocabulary: document.getElementById('vocabFocus').checked,
-                grammar: document.getElementById('grammarExercises').checked,
-                culture: document.getElementById('culturalInsights').checked,
-                pronunciation: document.getElementById('pronunciationPractice').checked,
-            },
-            notificationSettings: document.getElementById('notificationSettings').value,
-            languageInterface: document.getElementById('languageInterface').value,
-            audioSpeed: document.querySelector('input[name="audioSpeed"]:checked').value,
-            dailyGoals: document.getElementById('dailyGoals').value,
-            learningPath: document.querySelector('input[name="learningPath"]:checked').value,
-            privacySettings: document.getElementById('privacySettings').value,
-            feedbackFrequency: document.getElementById('feedbackFrequency').value
-            // Add other settings as needed
-        };
+        const userProfileData = { // only modify the settings
+            settings: {
+                learningPace: document.getElementById('learningPace').value,
+                contentPreferences: {
+                    vocabulary: document.getElementById('vocabFocus').checked,
+                    grammar: document.getElementById('grammarExercises').checked,
+                    culture: document.getElementById('culturalInsights').checked,
+                    pronunciation: document.getElementById('pronunciationPractice').checked,
+                },
+                notificationSettings: document.getElementById('notificationSettings').value,
+                languageInterface: document.getElementById('languageInterface').value,
+                audioSpeed: document.querySelector('input[name="audioSpeed"]:checked').value,
+                dailyGoals: document.getElementById('dailyGoals').value,
+                learningPath: document.querySelector('input[name="learningPath"]:checked').value,
+                privacySettings: document.getElementById('privacySettings').value,
+                feedbackFrequency: document.getElementById('feedbackFrequency').value
+                // Add other settings as needed
+            }
+        }
 
         try {
-            await setDoc(userDocRef, settings, { merge: true });
+            await setDoc(userDocRef, userProfileData, { merge: true });
             document.getElementById('saveConfirmation').textContent = 'Settings saved successfully!';
             setTimeout(() => document.getElementById('saveConfirmation').textContent = '', 3000); // Clears the message after 3 seconds
         } catch (error) {
@@ -53,7 +55,7 @@ async function loadUserSettings(user) {
         try {
             const docSnap = await getDoc(userDocRef);
             if (docSnap.exists()) {
-                const settings = docSnap.data();
+                const settings = docSnap.data(); // does this correctly retrieve the settings data from within the userProfile doc?
                 // Populate the form with these settings
                 document.getElementById('learningPace').value = settings.learningPace || 'medium';
                 document.getElementById('vocabFocus').checked = settings.contentPreferences?.vocabulary || true;

@@ -59,7 +59,7 @@ async function createAccount() {
         const user = userCredential.user;
         await initializeUserProfile(user);
         // await initializeUserProgress(user);
-        
+
         // Redirect or further actions upon successful account creation and profile initialization
         window.location.href = 'dashboard.html'; // Redirect to the dashboard or another page as needed
     } catch (error) {
@@ -83,7 +83,7 @@ async function initializeUserProfile(user) {
                 pronunciation: true,
             },
             notificationSettings: "weekly",
-            languageInterface: "english",
+            languageInterface: "en",
             audioSpeed: "normal",
             dailyGoals: "",
             learningPath: "guided",
