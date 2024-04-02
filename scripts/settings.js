@@ -8,6 +8,7 @@ auth.onAuthStateChanged((user) => {
         window.location.href = 'login.html';
     } else {
         // User is signed in, continue with page-specific logic
+        loadUserSettings(user)
     }
 });
 
@@ -46,7 +47,7 @@ async function saveSettings() {
 }
 
 // A function to load and apply settings stored in userProfiles when the page loads
-async function loadUserSettings() {
+async function loadUserSettings(user) {
     const user = auth.currentUser;
     if (user) {
         const userDocRef = doc(db, 'userProfiles', user.uid);
@@ -89,7 +90,8 @@ async function loadUserSettings() {
 
 // Add event listeners or initialization logic here
 document.addEventListener('DOMContentLoaded', () => {
-    loadUserSettings();
     // Assuming your save button has an id="saveSettingsButton"
-    document.getElementById('saveSettingsButton').addEventListener('click', saveSettings);
+    document.getElementById('saveSettingsButton').addEventListener('click', () => {
+        auth.currentUser && saveSettings(auth.currentUser);
+    });
 });

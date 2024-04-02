@@ -58,6 +58,7 @@ async function createAccount() {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         await initializeUserProfile(user);
+        await initializeUserProgress(user);
         // Redirect or further actions upon successful account creation and profile initialization
         window.location.href = 'dashboard.html'; // Redirect to the dashboard or another page as needed
     } catch (error) {
@@ -91,6 +92,23 @@ async function initializeUserProfile(user) {
     }
     await setDoc(doc(db, 'userProfiles', user.uid), userProfileData);
     console.log('User profile initialized.');
+}
+
+async function initializeUserProgress(user) {
+    const userProgressData = {
+        overallProgress: 0, // Assuming a percentage
+        modules: [
+            { name: "menuvokisi", progress: 0 },
+            { name: "vokilana", progress: 0 },
+            { name: "tukidepi", progress: 0 },
+            { name: "lana", progress: 0 }
+        ],
+        strengths: [],
+        weaknesses: ["tukidepi (Comprehension)", "lana (Math)", "menuvokisi (Grammar)", "vokilana (Vocabulary)"],
+        nextSteps: "Start learning by navigating to the knowledge page!"
+    };
+    await setDoc(doc(db, 'userProgress', user.uid), userProgressData);
+    console.log('User progress initialized.');
 }
 
 // Function to save the generated name to the user's profile

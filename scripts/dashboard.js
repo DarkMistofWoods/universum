@@ -1,14 +1,51 @@
 import { auth, db } from './firebase-config.js';
 import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
 
-auth.onAuthStateChanged((user) => {
-    if (!user) {
+auth.onAuthStateChanged(async (user) => {
+    if (user) {
         // User is not signed in, redirect to login.html
-        window.location.href = 'login.html';
+        await initializeDashboard(user);
     } else {
         // User is signed in, continue with page-specific logic
+        window.location.href = 'login.html';
     }
 });
+
+// Update the initializeDashboard function to call initializeGreeting
+async function initializeDashboard(user) {
+    // Assuming `user` is now passed as a parameter, coming from auth.onAuthStateChanged
+    try {
+        const userProfilesRef = doc(db, 'userProfiles', user.uid);
+        const profilesDoc = await getDoc(userProfilesRef);
+        
+        if (profilesDoc.exists()) {
+            const profileData = profilesDoc.data();
+            document.getElementById('userName').textContent = profileData.displayName || "Welcome, User!";
+            // Populate additional UI elements with user profile data as necessary
+        } else {
+            console.log("No user profile found.");
+        }
+
+        // Further dashboard initialization that depends on user being present,
+        // like fetching userProgress, can continue here...
+        const userProgressRef = doc(db, 'userProgress', user.uid);
+        const progressDoc = await getDoc(userProgressRef);
+        
+        if (progressDoc.exists()) {
+            const progressData = progressDoc.data();
+            displayOverallProgress(progressData.overallProgress);
+            displayModuleProgress(progressData.modules);
+            displayStrengths(progressData.strengths);
+            displayWeaknesses(progressData.weaknesses);
+            displayNextSteps(progressData.nextSteps);
+        } else {
+            console.log("No user progress found.");
+        }
+        
+    } catch (error) {
+        console.error("Error initializing dashboard: ", error);
+    }
+}
 
 // Simulated user data
 const userData = {
@@ -123,42 +160,7 @@ function displayNextSteps(nextSteps) {
     const container = document.getElementById('next-steps-content');
     container.textContent = nextSteps; // Set text for next steps
 }
- 
-// Update the initializeDashboard function to call initializeGreeting
-async function initializeDashboard() {
-    const user = auth.currentUser;
-    if (user) {
-        // Reference to the user's progress document
-        const userProgressRef = doc(db, 'userProgress', user.uid);
-        // Asynchronously fetch the document
-        const progressDoc = await getDoc(userProgressRef);
-        if (progressDoc.exists()) {
-            const progressData = progressDoc.data();
-            displayOverallProgress(progressData.overallProgress);
-            displayModuleProgress(progressData.modules);
-            displayStrengths(progressData.strengths);
-            displayWeaknesses(progressData.weaknesses);
-            displayNextSteps(progressData.nextSteps);
-        } else {
-            console.log("No progress found.");
-        }
-
-        // Reference to the user's settings document
-        const userProfilesRef = doc(db, 'userProfiles', user.uid);
-        // Asynchronously fetch the document
-        const profilesDoc = await getDoc(userProfilesRef);
-        if (profilesDoc.exists()) {
-            const profileData = profilesDoc.data();
-            document.getElementById('userName').textContent = profileData.displayName || "Welcome, User!";
-            // Apply other settings as necessary
-        } else {
-            console.log("No profile found.");
-        }
-    } else {
-        console.log("No user signed in.");
-    }
-}
 
 document.addEventListener('DOMContentLoaded', () => {
-    initializeDashboard();
+    // initializeDashboard();
 });
