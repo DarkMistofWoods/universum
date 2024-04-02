@@ -2,26 +2,22 @@ import { auth, signInWithEmailAndPassword } from './firebase-config.js';
 
 function login() { // doubles as a 'sign up' function
     const email = document.getElementById('userEmail').value.trim();
-    const passwordArea = document.getElementById('passwordArea');
     const loginErrorMessage = document.getElementById('loginErrorMessage'); // Reference to the new error message span
+
+    if (selectedPoints.length < 8 || selectedPoints.length > 16) {
+        loginErrorMessage.textContent = "Your password must be 8-16 characters long.";
+        clearPassword();
+        setTimeout(() => loginErrorMessage.textContent = '', 3000); // Clears the message after 3 seconds
+        return false; // Prevent further execution
+    } 
 
     if (!email || !password) {
         loginErrorMessage.textContent = "Please enter both email and password.";
-        selectedPoints = []; // Clear the current password sequence
-        passwordArea.textContent = ""; // Clear the displayed password pattern
-        clearDrawnLines();
+        clearPassword();
         setTimeout(() => loginErrorMessage.textContent = '', 3000); // Clears the message after 3 seconds
         return false;
     }
 
-    if (selectedPoints.length < 8 || selectedPoints.length > 16) {
-        loginErrorMessage.textContent = "Your password must be 8-16 characters long.";
-        selectedPoints = []; // Clear the current password sequence
-        passwordArea.textContent = ""; // Clear the displayed password pattern
-        clearDrawnLines();
-        setTimeout(() => loginErrorMessage.textContent = '', 3000); // Clears the message after 3 seconds
-        return false; // Prevent further execution
-    } 
     
     const password = selectedPoints.map(point => point.num).join("-");
     
@@ -80,9 +76,7 @@ function login() { // doubles as a 'sign up' function
             } else {
                 // Handle other login errors
                 loginErrorMessage.textContent = `Error: ${error.message}`; // Display the error message
-                selectedPoints = []; // Clear the password sequence on any error
-                passwordArea.textContent = ""; // Clear the displayed password pattern
-                clearDrawnLines(); // Clear the lines drawn for the password pattern
+                clearPassword()
                 console.error("Login error: ", error);
             }
         });
@@ -169,7 +163,13 @@ function drawLine(container, startPoint, endPoint, index) {
     container.appendChild(line);
 }
 
-function clearDrawnLines() {
+function clearPassword() {
+    const passwordArea = document.getElementById('passwordArea');
+
+    passwordArea.textContent = ""; // Clear the displayed password pattern
+    selectedPoints = []; // Clear the current password sequence
+    
+    // remove the drawn lines
     while (svgContainer.firstChild) {
         svgContainer.removeChild(svgContainer.firstChild);
     }
@@ -189,8 +189,10 @@ function updateInfoArea(message = "") {
 // Run the function to position numbers when the document is loaded
 document.addEventListener('DOMContentLoaded', () => {
     positionNumbers()
+
     const loginButton = document.getElementById('loginButton');
-    if (loginButton) {
-        loginButton.addEventListener('click', login);
-    }
+    const clearPasswordButton = document.getElementById('clearPasswordButton');
+
+    loginButton.addEventListener('click', login);
+    clearPasswordButton.addEventListener('click', clearPassword);
 });
