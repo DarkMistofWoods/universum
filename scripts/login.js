@@ -48,21 +48,23 @@ function createAccount() {
             console.error("Signup error: ", error);
             loginErrorMessage.textContent = error.message;
         });
-}
-
-auth.onAuthStateChanged((user) => {
-    if (user) {
-        // Check if there's a pending name save after login/account creation
-        // If yes, update the displayName in userProfiles
-        const pendingNameSave = localStorage.getItem('pendingNameSave');
-        if (pendingNameSave) {
-            saveGeneratedName(user, pendingNameSave);
-            localStorage.removeItem('pendingNameSave'); // Clear the pending name after saving
+    
+    // check for a display name that was generated using the name generator and apply it automatically
+    // on account creation
+    auth.onAuthStateChanged((user) => {
+        if (user) {
+            // Check if there's a pending name save after login/account creation
+            // If yes, update the displayName in userProfiles
+            const pendingNameSave = localStorage.getItem('pendingNameSave');
+            if (pendingNameSave) {
+                saveGeneratedName(user, pendingNameSave);
+                localStorage.removeItem('pendingNameSave'); // Clear the pending name after saving
+            }
+        } else { // user not found, must not be logged in
+            window.location.href = 'login.html';
         }
-    } else { // user not found, must not be logged in
-        window.location.href = 'login.html';
-    }
-});
+    });
+}
 
 function initializeUserProfile(user) {
     db.collection('userProfiles').doc(user.uid).set({
