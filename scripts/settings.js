@@ -47,7 +47,6 @@ async function saveSettings(user) {
 
 // A function to load and apply settings stored in userProfiles when the page loads
 async function loadUserSettings(user) {
-    const user = auth.currentUser;
     if (user) {
         const userDocRef = doc(db, 'userProfiles', user.uid);
 
