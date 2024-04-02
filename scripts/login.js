@@ -65,6 +65,7 @@ function createAccount() {
 }
 
 function initializeUserProfile(user) {
+    console.log(db);
     db.collection('userProfiles').doc(user.uid).set({
         displayName: "New User", // Default display name or use input from user
         email: user.email, // Save email to user profile for easy access
@@ -184,7 +185,7 @@ function updateInfoArea(message = "") {
         return;
     }
     // If no message is provided, proceed to display the password pattern
-    infoArea.textContent = selectedPoints.map(point => point.num).join();
+    infoArea.textContent = selectedPoints.map(point => point.num).join("");
 }
 
 // Run the function to position numbers when the document is loaded
