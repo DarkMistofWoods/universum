@@ -1,4 +1,5 @@
 import { db, auth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from './firebase-config.js';
+import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
 
 // check for a display name that was generated using the name generator and apply it automatically
 // on account creation
@@ -37,7 +38,7 @@ function login() {
 }
 
 // Function to handle user account creation
-function createAccount() {
+async function createAccount() {
     const email = document.getElementById('userEmail').value.trim();
     const password = selectedPoints.map(point => point.num).join("");
     const loginErrorMessage = document.getElementById('loginErrorMessage');
@@ -53,20 +54,21 @@ function createAccount() {
         return;
     }
 
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Account creation successful, now initialize user profile data
-            initializeUserProfile(userCredential.user);
-        })
-        .catch((error) => {
-            console.error("Signup error: ", error);
-            loginErrorMessage.textContent = error.message;
-        });
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        await initializeUserProfile(user);
+        // Redirect or further actions upon successful account creation and profile initialization
+        window.location.href = 'dashboard.html'; // Redirect to the dashboard or another page as needed
+    } catch (error) {
+        console.error("Signup error: ", error);
+        loginErrorMessage.textContent = error.message;
+        // Handle specific errors, like displaying messages to users
+    }
 }
 
-function initializeUserProfile(user) {
-    console.log(db);
-    db.collection('userProfiles').doc(user.uid).set({
+async function initializeUserProfile(user) {
+    const userProfileData = {
         displayName: "New User", // Default display name or use input from user
         email: user.email, // Save email to user profile for easy access
         // Include other initial fields as necessary
@@ -86,14 +88,9 @@ function initializeUserProfile(user) {
             privacySettings: "public",
             feedbackFrequency: "daily"
         }
-    }, { merge: true })
-    .then(() => {
-        console.log('User profile initialized.');
-        window.location.href = 'dashboard.html'; // Redirect to the dashboard or another page as needed
-    })
-    .catch((error) => {
-        console.error("Error initializing user profile: ", error);
-    });
+    }
+    await setDoc(doc(db, 'userProfiles', user.uid), userProfileData);
+    console.log('User profile initialized.');
 }
 
 // Function to save the generated name to the user's profile
