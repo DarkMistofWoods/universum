@@ -72,7 +72,7 @@ async function initializeUserProfile(user) {
         displayName: "New User", // Default display name or use input from user
         email: user.email, // Save email to user profile for easy access
         // Include other initial fields as necessary
-        settings: {
+        settings: { // default settings
             learningPace: "medium",
             contentPreferences: {
                 vocabulary: true,

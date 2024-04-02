@@ -1,5 +1,5 @@
-import { auth } from './firebase-config.js';
-import { db } from './firebase-config.js';
+import { auth, db } from './firebase-config.js';
+import { doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
 
 // page protection for non-members
 auth.onAuthStateChanged((user) => {
@@ -11,9 +11,10 @@ auth.onAuthStateChanged((user) => {
     }
 });
 
-function saveSettings() {
+async function saveSettings() {
     const user = auth.currentUser;
     if (user) {
+        const userDocRef = doc(db, 'userProfiles', user.uid);
         const settings = {
             learningPace: document.getElementById('learningPace').value,
             contentPreferences: {
@@ -32,57 +33,57 @@ function saveSettings() {
             // Add other settings as needed
         };
 
-        db.collection('userSettings').doc(user.uid).set(settings)
-            .then(() => {
-                document.getElementById('saveConfirmation').textContent = 'Settings saved successfully!';
-                setTimeout(() => saveConfirmation.textContent = '', 3000); // Clears the message after 3 seconds
-            })
-            .catch((error) => {
-                console.error("Error saving settings: ", error);
-            });
+        try {
+            await setDoc(userDocRef, settings, { merge: true });
+            document.getElementById('saveConfirmation').textContent = 'Settings saved successfully!';
+            setTimeout(() => document.getElementById('saveConfirmation').textContent = '', 3000); // Clears the message after 3 seconds
+        } catch (error) {
+            console.error("Error saving settings: ", error);
+        }
     } else {
         console.log("No user signed in.");
     }
 }
 
-// Optional: A function to load and apply settings from localStorage when the page loads
-function loadUserSettings() {
+// A function to load and apply settings stored in userProfiles when the page loads
+async function loadUserSettings() {
     const user = auth.currentUser;
     if (user) {
-        db.collection('userSettings').doc(user.uid).get()
-            .then(doc => {
-                if (doc.exists) {
-                    const settings = doc.data();
-                    // Populate the form with these settings
-                    document.getElementById('learningPace').value = settings.learningPace || 'medium';
-                    document.getElementById('vocabFocus').checked = settings.contentPreferences?.vocabulary || true;
-                    document.getElementById('grammarExercises').checked = settings.contentPreferences?.grammar || true;
-                    document.getElementById('culturalInsights').checked = settings.contentPreferences?.culture || true;
-                    document.getElementById('pronunciationPractice').checked = settings.contentPreferences?.pronunciation || true;
-                    document.getElementById('notificationSettings').value = settings.notificationSettings || 'weekly';
-                    document.getElementById('dailyGoals').value = settings.dailyGoals || '';
-                    document.getElementById('privacySettings').value = settings.privacySettings || 'public';
-                    document.getElementById('feedbackFrequency').value = settings.feedbackFrequency || 'daily';
+        const userDocRef = doc(db, 'userProfiles', user.uid);
 
-                    // Handle radio buttons
-                    if (settings.learningPath) {
-                        document.querySelector(`input[name="learningPath"][value="${settings.learningPath}"]`).checked = true;
-                    }
-                    if (settings.languageInterface) {
-                        document.getElementById('languageInterface').value = settings.languageInterface;
-                    } else {
-                        document.getElementById('languageInterface').value = 'English'
-                    }
-                    if (settings.audioSpeed) {
-                        document.querySelector(`input[name="audioSpeed"][value="${settings.audioSpeed}"]`).checked = true;
-                    }
-                } else {
-                    console.log("No settings document found for this user.");
+        try {
+            const docSnap = await getDoc(userDocRef);
+            if (docSnap.exists()) {
+                const settings = docSnap.data();
+                // Populate the form with these settings
+                document.getElementById('learningPace').value = settings.learningPace || 'medium';
+                document.getElementById('vocabFocus').checked = settings.contentPreferences?.vocabulary || true;
+                document.getElementById('grammarExercises').checked = settings.contentPreferences?.grammar || true;
+                document.getElementById('culturalInsights').checked = settings.contentPreferences?.culture || true;
+                document.getElementById('pronunciationPractice').checked = settings.contentPreferences?.pronunciation || true;
+                document.getElementById('notificationSettings').value = settings.notificationSettings || 'weekly';
+                document.getElementById('dailyGoals').value = settings.dailyGoals || '';
+                document.getElementById('privacySettings').value = settings.privacySettings || 'public';
+                document.getElementById('feedbackFrequency').value = settings.feedbackFrequency || 'daily';
+
+                // Handle radio buttons
+                if (settings.learningPath) {
+                    document.querySelector(`input[name="learningPath"][value="${settings.learningPath}"]`).checked = true;
                 }
-            })
-            .catch(error => {
-                console.error("Error loading user settings:", error);
-            });
+                if (settings.languageInterface) {
+                    document.getElementById('languageInterface').value = settings.languageInterface;
+                } else {
+                    document.getElementById('languageInterface').value = 'English'
+                }
+                if (settings.audioSpeed) {
+                    document.querySelector(`input[name="audioSpeed"][value="${settings.audioSpeed}"]`).checked = true;
+                }
+            } else {
+                console.log("No settings document found for this user.");
+            }
+        } catch (error) {
+            console.error("Error loading user settings:", error);
+        }
     }
 }
 
