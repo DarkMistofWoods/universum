@@ -27,6 +27,21 @@ function login() { // doubles as a 'sign up' function
             window.location.href = 'dashboard.html'; // Redirect only if login is successful
         })
         .catch((error) => {
+            
+            console.error("Login error: ", error);
+            switch (error.code) {
+                case 'auth/invalid-email':
+                    loginErrorMessage.textContent = 'The email address is improperly formatted.';
+                    break;
+                case 'auth/user-not-found':
+                case 'auth/wrong-password':
+                    loginErrorMessage.textContent = 'Incorrect email or password.';
+                    break;
+                default:
+                    loginErrorMessage.textContent = `Login error: ${error.message}`;
+                    break;
+            }
+
             // Handle login errors
             if (error.code === 'auth/user-not-found') {
                 // User not found, attempt to sign up
