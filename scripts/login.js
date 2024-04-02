@@ -1,4 +1,4 @@
-import { auth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from './firebase-config.js';
+import { db, auth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from './firebase-config.js';
 
 function login() { // doubles as a 'sign up' function
     const email = document.getElementById('userEmail').value.trim();
@@ -27,7 +27,7 @@ function login() { // doubles as a 'sign up' function
             window.location.href = 'dashboard.html'; // Redirect only if login is successful
         })
         .catch((error) => {
-            
+
             console.error("Login error: ", error);
             switch (error.code) {
                 case 'auth/invalid-email':
@@ -197,7 +197,7 @@ function updateInfoArea(message = "") {
         return;
     }
     // If no message is provided, proceed to display the password pattern
-    infoArea.textContent = selectedPoints.map(point => point.num).join("-");
+    infoArea.textContent = selectedPoints.map(point => point.num).join("");
 }
 
 // Run the function to position numbers when the document is loaded
