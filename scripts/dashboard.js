@@ -1,5 +1,5 @@
-import { auth } from './firebase-config.js';
-import { db } from './firebase-config.js';
+import { auth, db } from './firebase-config.js';
+import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
 
 auth.onAuthStateChanged((user) => {
     if (!user) {
@@ -125,36 +125,35 @@ function displayNextSteps(nextSteps) {
 }
  
 // Update the initializeDashboard function to call initializeGreeting
-function initializeDashboard() {
+async function initializeDashboard() {
     const user = auth.currentUser;
     if (user) {
-        db.collection('userProgress').doc(user.uid).get()
-            .then(doc => {
-                if (doc.exists) {
-                    const progressData = doc.data();
-                    displayOverallProgress(progressData.overallProgress);
-                    displayModuleProgress(progressData.modules);
-                    displayStrengths(progressData.strengths);
-                    displayWeaknesses(progressData.weaknesses);
-                    displayNextSteps(progressData.nextSteps);
-                } else {
-                    console.log("No progress found.");
-                }
-            });
-        db.collection('userSettings').doc(user.uid).get()
-            .then(doc => {
-                if (doc.exists) {
-                    const settings = doc.data();
-                    document.getElementById('userName').textContent = settings.displayName || "Welcome, User!";
-                    // Apply other settings as necessary
-                } else {
-                    console.log("No settings found.");
-                }
-            })
-            .catch((error) => {
-                console.error("Error getting document:", error);
-            });
-        
+        // Reference to the user's progress document
+        const userProgressRef = doc(db, 'userProgress', user.uid);
+        // Asynchronously fetch the document
+        const progressDoc = await getDoc(userProgressRef);
+        if (progressDoc.exists()) {
+            const progressData = progressDoc.data();
+            displayOverallProgress(progressData.overallProgress);
+            displayModuleProgress(progressData.modules);
+            displayStrengths(progressData.strengths);
+            displayWeaknesses(progressData.weaknesses);
+            displayNextSteps(progressData.nextSteps);
+        } else {
+            console.log("No progress found.");
+        }
+
+        // Reference to the user's settings document
+        const userProfilesRef = doc(db, 'userProfiles', user.uid);
+        // Asynchronously fetch the document
+        const profilesDoc = await getDoc(userProfilesRef);
+        if (profilesDoc.exists()) {
+            const profileData = profilesDoc.data();
+            document.getElementById('userName').textContent = profileData.displayName || "Welcome, User!";
+            // Apply other settings as necessary
+        } else {
+            console.log("No profile found.");
+        }
     } else {
         console.log("No user signed in.");
     }

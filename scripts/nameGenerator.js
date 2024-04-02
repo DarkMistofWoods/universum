@@ -1,5 +1,5 @@
-import { auth } from './firebase-config.js';
-import { db } from './firebase-config.js';
+import { auth, db } from './firebase-config.js';
+import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
 
 document.addEventListener('DOMContentLoaded', function () {
     const generateButton = document.querySelector('button');
@@ -152,15 +152,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to save the generated name to the user's profile
     function saveGeneratedName(user, generatedName) {
-        db.collection('userSettings').doc(user.uid).set({displayName: generatedName}, {merge: true})
-            .then(() => {
-                alert('Name saved to your profile successfully!');
-                // Clear any pending name save after successful save
-                localStorage.removeItem('pendingNameSave');
-            })
-            .catch(error => {
-                console.error("Error saving name to profile: ", error);
-                alert('There was a problem saving your name. Please try again.');
-            });
+        // Create a reference to the user's document in 'userSettings' collection
+        const userDocRef = doc(db, 'userProfiles', user.uid);
+
+        // Set the displayName in the user's document
+        setDoc(userDocRef, { displayName: generatedName }, { merge: true })
+        .then(() => {
+            alert('Name saved to your profile successfully!');
+            // Clear any pending name save after successful save
+            localStorage.removeItem('pendingNameSave');
+        })
+        .catch(error => {
+            console.error("Error saving name to profile: ", error);
+            alert('There was a problem saving your name. Please try again.');
+        });
     }
 });
