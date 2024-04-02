@@ -12,8 +12,7 @@ auth.onAuthStateChanged((user) => {
     }
 });
 
-async function saveSettings() {
-    const user = auth.currentUser;
+async function saveSettings(user) {
     if (user) {
         const userDocRef = doc(db, 'userProfiles', user.uid);
         const settings = {
