@@ -57,6 +57,7 @@
     right: 20px;
     display: flex;
     flex-direction: column;
+    z-index: 1000; /* Always above all other content */
     align-items: flex-end;
 }
 
@@ -916,19 +917,24 @@ label {
 }
 
 .progressBar {
-    min-width: 100px;
-    background-color: var(--color-primary);
-    border-radius: 15px;
-    overflow: hidden;
-    margin: 5px 10px;
+    width: 100%;
+    background-color: #e0e0e0;
+    height: 20px; /* Adjust as needed */
 }
 
 .progress {
-    background-color: var(--color-quaternary); /* Change as per your color scheme */
+    height: 100%;
+    background-color: #76b852; /* Adjust for your color scheme */
+    width: 0%; /* Initial state, will be updated by JS */
+}
+
+.progress-text {
+    color: #fff; /* Choose a color that contrasts well with your progress bar */
+    font-size: 12px; /* Adjust based on your design */
+    font-weight: bold;
     text-align: center;
-    line-height: 20px; /* Adjust based on your design */
-    color: white;
-    border-radius: 5px;
+    width: 100%;
+    line-height: 20px; /* Adjust the line height to match your progress bar's height for vertical centering */
 }
 
 #userStats {
@@ -993,8 +999,24 @@ label {
     font-size: medium;
 }
 
+.lessonsList a {
+    background-color: transparent;
+    color: var(--color-primary);
+}
+
+.lessonsList a:hover {
+    color: var(--color-secondary);
+    text-decoration: underline;
+}
+
+.lessonLink.locked {
+    pointer-events: none; /* Prevents clicking */
+    opacity: 0.5; /* Visual indicator that the lesson is locked */
+    cursor: not-allowed; /* Changes cursor to indicate the action is not allowed */
+}
+
 .subModule {
-    border: 1px solid var(--color-quaternary);
+    border: 2px solid var(--color-quaternary);
     border-left: 3px solid var(--color-secondary); /* Visual distinction */
     border-radius: 15px;
     margin-top: 10px;

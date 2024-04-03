@@ -1,119 +1,218 @@
-// Simulate fetching user progress (replace this with actual data fetching)
-const userLessonProgress = {
+const courseContent = [
+    {
+        moduleName: "Vocabulary",
+        moduleId: "vocabularyModule",
+        subModules: [
+            {
+                subModuleName: "Introduction to Universum Vocabulary",
+                subModuleId: "basicVocabulary",
+                lessons: [
+                    { title: "Lesson 1: Intro to Words", pageUrl: "../knowledge/vocabulary/level1/lesson-1.html" },
+                    { title: "Lesson 2: Common Phrases", pageUrl: "../knowledge/vocabulary/level1/lesson-2.html" }
+                ]
+            },
+            {
+                subModuleName: "Advanced Vocabulary",
+                subModuleId: "advancedVocabulary",
+                lessons: [
+                    { title: "Lesson 1: Complex Terms", pageUrl: "../knowledge/vocabulary/level2/lesson-1.html" }
+                    // Add more lessons
+                ]
+            }
+        ]
+    },
+    // Add more modules
+];
+
+let userLearningMode = "Guided Learning"; // Or "Self-Directed Exploration"
+
+// Placeholder for user's progress in each lesson
+const userProgress = {
     vocabulary: {
-        basicVocabulary: 75,
-        advancedVocabulary: 25,
-        // Other submodules...
+        basicVocabulary: {
+            "Lesson 1: Intro to Words": true, // true indicates completion
+            "Lesson 2: Common Phrases": false
+        },
+        advancedVocabulary: {
+            "Lesson 1: Complex Terms": false
+        }
     },
-    grammar: {
-        basicGrammar: 60,
-        advancedGrammar: 40,
-        // Other submodules...
-    },
-    comprehension: {
-        basicComprehension: 80,
-        advancedComprehension: 0,
-    },
-    // Other modules...
+    // Include other modules and submodules as necessary
 };
 
-// Simulate "Guided Learning" recommendations
-const recommendedModule = 'vocabulary';
-const recommendedSubModule = {
-    vocabulary: 'basicVocabulary', // Example
-    // Other modules...
+// Placeholder for recommended module, submodule, and lessons
+const recommendations = {
+    module: "Vocabulary",
+    subModule: "basicVocabulary",
+    lessons: ["Lesson 1: Intro to Words"] // Assuming at least one lesson is recommended
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-    setupModules();
+    renderContent(); // Newly structured function to render content and apply initial settings
+});
 
-    ['vocabulary', 'grammar', 'comprehension'].forEach(moduleName => {
-        updateModuleProgress(moduleName);
+function renderContent() {
+    const knowledgeCenter = document.getElementById('knowledgeCenter');
+    knowledgeCenter.innerHTML = ''; // Clear existing content (if any)
+    courseContent.forEach(module => {
+        let moduleHtml = `
+            <div class="module" id="${module.moduleId}" data-module="${module.moduleName.toLowerCase()}" ${module.moduleName === recommendations.module ? 'class="recommended"' : ''}>
+                <h3>${module.moduleName}</h3>
+                <div class="progressBar"><div class="progress"><span class="progress-text">0%</span></div></div>
+                ${generateSubModulesHtml(module.subModules)}
+            </div>
+        `;
+        knowledgeCenter.insertAdjacentHTML('beforeend', moduleHtml);
     });
 
+    // Apply learning mode restrictions and update module progress
+    applyLearningMode();
+    attachEventListeners(); // Attach event listeners after content is generated
+    updateModuleProgress();
+}
+
+function updateModuleProgress() {
+    document.querySelectorAll('.module').forEach(moduleElement => {
+        const moduleName = moduleElement.dataset.module;
+        let totalProgress = 0;
+        let submoduleCount = 0;
+
+        const subModules = Array.from(moduleElement.querySelectorAll('.subModule'));
+        subModules.forEach(subModule => {
+            const subModuleId = subModule.dataset.subModule;
+            const lessons = userProgress[moduleName]?.[subModuleId] || {};
+            const completedLessonCount = Object.values(lessons).filter(isCompleted => isCompleted).length;
+            const totalLessonCount = courseContent.find(m => m.moduleName.toLowerCase() === moduleName)
+                                      .subModules.find(sm => sm.subModuleId === subModuleId)
+                                      .lessons.length;
+
+            const subModuleProgress = totalLessonCount > 0 ? (completedLessonCount / totalLessonCount) * 100 : 0;
+            subModule.querySelector('.progress').style.width = `${subModuleProgress}%`;
+
+            totalProgress += subModuleProgress;
+            submoduleCount++;
+        });
+
+        const moduleProgress = submoduleCount > 0 ? totalProgress / submoduleCount : 0;
+        moduleElement.querySelector('.progress').style.width = `${moduleProgress}%`;
+
+        // Update the progress bar width and text for the module
+        const moduleProgressBar = moduleElement.querySelector('.progress');
+        moduleProgressBar.style.width = `${moduleProgress}%`;
+        const moduleProgressText = moduleProgressBar.querySelector('.progress-text');
+        moduleProgressText.textContent = `${moduleProgress.toFixed(0)}%`;
+    });
+}
+
+function toggleModule(module) {
+    const isExpanded = module.classList.toggle('expanded');
+    const subModules = module.querySelectorAll('.subModule');
+    subModules.forEach(subModule => {
+        subModule.style.display = isExpanded ? 'block' : 'none';
+    });
+}
+
+function toggleLessonsVisibility(subModule) {
+    const isExpanded = subModule.classList.toggle('expanded');
+    const lessonsList = subModule.querySelector('.lessonsList');
+    lessonsList.style.display = isExpanded ? 'block' : 'none';
+}
+
+function attachEventListeners() {
+    // Module and submodule toggle functionality
     document.querySelectorAll('.module').forEach(module => {
         module.addEventListener('click', function(event) {
-            // Ensure clicks on submodules do not trigger the module expansion/collapse
-            if (!event.target.closest('.subModule')) {
+            if (!event.target.closest('.subModule, a')) {
                 toggleModule(event.currentTarget);
             }
         });
     });
 
-    // Adjusting subModule clicks to stop propagation to the module container
     document.querySelectorAll('.subModule .subModuleHeader').forEach(header => {
         header.addEventListener('click', function(event) {
-            event.stopPropagation(); // Prevent triggering the module's click event
+            event.stopPropagation();
             const subModule = this.parentNode;
             toggleLessonsVisibility(subModule);
         });
     });
-});
 
-function updateModuleProgress(moduleName) {
-    const module = document.querySelector(`.module[data-module="${moduleName}"]`);
-    const subModules = module.querySelectorAll('.subModule');
-    let totalProgress = 0;
-    subModules.forEach(subModule => {
-        const subModuleName = subModule.getAttribute('data-sub-module');
-        const progress = userLessonProgress[moduleName][subModuleName] || 0;
-        totalProgress += progress;
-    });
-    const averageProgress = totalProgress / subModules.length;
-    const mainProgressBar = module.querySelector('.progress');
-    mainProgressBar.style.width = `${averageProgress}%`;
-    module.querySelector('.progressText').innerText = `${Math.round(averageProgress)}% Complete`;
-}
-
-function setupModules() {
-    document.querySelectorAll('.module').forEach(module => {
-        // Setup module based on userProgress...
-        const moduleName = module.getAttribute('data-module');
-
-        // Highlight the recommended module
-        if (moduleName === recommendedModule) {
-            module.classList.add('recommended');
-        }
-
-        // Setup sub-modules based on userLessonProgress...
-        module.querySelectorAll('.subModule').forEach(subModule => {
-            const subModuleName = subModule.getAttribute('data-sub-module');
-            const progress = userLessonProgress[moduleName][subModuleName] || 0;
-            subModule.querySelector('.progress').style.width = progress + '%';
-            // Initially hide lessons list
-            subModule.querySelector('.lessonsList').style.display = 'none';
-             // Highlight the recommended sub-module
-            if (recommendedSubModule[moduleName] === subModuleName) {
-                subModule.classList.add('recommended');
+    // Apply click event listener to lesson links
+    document.querySelectorAll('.lessonsList a').forEach(link => {
+        link.addEventListener('click', (event) => {
+            if (link.classList.contains('locked')) {
+                event.preventDefault(); // Prevent navigation for locked lessons
+                alert("This lesson is currently locked.");
             }
-
-             // Find the .progress element within this submodule and set its width
-            const progressBar = subModule.querySelector('.progress');
-            if (progressBar) {
-                progressBar.style.width = `${progress}%`; // Dynamically set the width based on progress
-            }
+            event.stopPropagation(); // Ensure this doesn't trigger module/submodule toggling
         });
     });
 }
 
-function toggleModule(module) {
-     // Determine the current expanded state based on a class or display style
-     const isExpanded = module.classList.toggle('expanded');
-     // Toggle the display of subModules based on the expanded state
-     const subModules = module.querySelectorAll('.subModule');
-     subModules.forEach(subModule => {
-         subModule.style.display = isExpanded ? 'block' : 'none';
-     });
+function generateSubModulesHtml(subModules) {
+    return subModules.map(subModule => `
+        <div class="subModule" data-sub-module="${subModule.subModuleId}" ${recommendations.subModule === subModule.subModuleId ? 'class="recommended"' : ''}>
+            <div class="subModuleHeader"><h4>${subModule.subModuleName}</h4></div>
+            <div class="progressBar"><div class="progress" style="width: 0%;"></div></div>
+            <ul class="lessonsList">
+                ${subModule.lessons.map(lesson => `
+                    <li>
+                        <a href="${lesson.pageUrl}" class="lessonLink ${isLessonRecommendedOrCompleted(lesson.title, subModule.subModuleId) ? '' : 'locked'}" data-lesson="${lesson.title}">
+                            ${lesson.title}
+                        </a>
+                    </li>`).join('')}
+            </ul>
+        </div>
+    `).join('');
 }
 
-function toggleLessonsVisibility(subModule) {
-    const isExpanded = !subModule.classList.contains('expanded');
-    subModule.classList.toggle('expanded', isExpanded);
-    const lessonsList = subModule.querySelector('.lessonsList');
-    lessonsList.style.display = isExpanded ? 'block' : 'none';
+function isLessonRecommendedOrCompleted(lessonTitle, subModuleId) {
+    // In Guided Learning mode, a lesson is accessible if it's recommended or already completed
+    if (userLearningMode === "Guided Learning") {
+        const isCompleted = userProgress[subModuleId] && userProgress[subModuleId][lessonTitle];
+        const isRecommended = recommendations.subModule === subModuleId && recommendations.lessons.includes(lessonTitle);
+        return isRecommended || isCompleted;
+    }
+    // In Self-Directed Exploration, all lessons are accessible
+    return true;
 }
 
-// Optionally, highlight the recommended module for "Guided Learning"
-function highlightRecommendedModule() {
-    document.querySelector(`.module[data-module="${recommendedModule}"]`).classList.add('highlight');
+function applyLearningMode() {
+    // For "Self-Directed Exploration", no need to lock lessons, so no action is required
+    document.querySelectorAll('.lessonsList a').forEach(link => {
+        // Adjust based on userLearningMode
+        if (userLearningMode === "Guided Learning") {
+            lockOrUnlockLessons();
+        }
+        // The locking logic is integrated within the generation of the lesson links
+        // This function could be extended for additional logic specific to learning modes
+    });
+}
+
+function lockOrUnlockLessons() {
+    document.querySelectorAll('.lessonsList a').forEach(link => {
+        const lessonName = link.getAttribute('data-lesson');
+        const moduleName = link.closest('.module').getAttribute('data-module');
+        const subModuleName = link.closest('.subModule').getAttribute('data-sub-module');
+
+        // Determine if the lesson should be accessible
+        const isRecommended = recommendations.module.toLowerCase() === moduleName &&
+                              recommendations.subModule === subModuleName &&
+                              recommendations.lessons.includes(lessonName);
+        
+        const isCompleted = userProgress[moduleName] && 
+                            userProgress[moduleName][subModuleName] && 
+                            userProgress[moduleName][subModuleName][lessonName];
+        
+        if (!isRecommended && !isCompleted) {
+            // Mark as locked if not recommended or completed
+            link.classList.add('locked');
+        } else {
+            link.classList.remove('locked');
+            // If the lesson is recommended or completed, ensure it's clickable
+            link.addEventListener('click', (event) => {
+                // Implement navigation to the lesson page
+                // This can be a simple href if appropriate or a more complex interaction
+            });
+        }
+    });
 }
