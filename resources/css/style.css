@@ -887,35 +887,44 @@ label {
 
 /* KNOWLEDGE CENTER */
 #knowledgeCenter {
-    width: 100%; /* Ensures the container takes full width */
+    width: 90%; /* Ensures the container takes full width */
+    margin: auto;
+    margin-top: 10px;
     text-align: center;
 }
 
 .modules {
-    border: 2px solid #ccc;
+    border: 2px solid var(--color-quaternary);
 }
 
 .module {
+    background-color: var(--color-tertiary);
     border: 2px solid var(--color-quaternary);
     border-radius: 30px;
     margin-bottom: 10px;
-    padding: 10px;
+    padding: 15px;
     cursor: pointer;
 }
 
 .expanded {
-    background-color: #f0f0f0;
+    background-color: var(--color-tertiary);
+}
+
+.progressContainer {
+    display: flex;
+    align-items: center;
 }
 
 .progressBar {
-    background-color: #ddd;
+    min-width: 100px;
+    background-color: var(--color-primary);
     border-radius: 15px;
     overflow: hidden;
-    margin: 0 5%;
+    margin: 5px 10px;
 }
 
 .progress {
-    background-color: #4CAF50; /* Change as per your color scheme */
+    background-color: var(--color-quaternary); /* Change as per your color scheme */
     text-align: center;
     line-height: 20px; /* Adjust based on your design */
     color: white;
@@ -947,7 +956,12 @@ label {
 }
 
 .module.recommended {
-    border: 2px solid blue; /* Change as per your design */
+    border: 2px dotted var(--color-primary); /* Change as per your design */
+    position: relative;
+}
+
+.module .recommended {
+    border: 2px dotted var(--color-primary); /* Change as per your design */
     position: relative;
 }
 
@@ -958,38 +972,64 @@ label {
     right: 0;
     margin-top: 10px;
     margin-right: 10px;
-    padding: 5px;
-    background: blue; /* Change as per your design */
-    border-radius: 20px;
-    color: white;
+    padding: 6px;
+    background: var(--color-primary); /* Change as per your design */
+    border-radius: 10px;
+    color: var(--color-quaternary);
     font-size: 0.8em;
-}
-
-.lessonProgress {
-    width: 100px;
-    height: 10px;
-    background-color: #ddd;
-    border-radius: 10px;
-    margin-left: 10px;
-    display: inline-block;
-}
-
-.lessonProgressFill {
-    height: 100%;
-    background-color: #4CAF50;
-    border-radius: 10px;
 }
 
 .lessonsList {
     list-style-type: none; /* Removes the list bullet */
     padding-left: 10; /* Removes default padding */
-    text-align: right; /* Aligns text to the right */
+    text-align: left; /* Aligns text to the right */
+    display: none;
 }
 
 .lessonsList li {
     margin-right: 20px; /* Adjusts spacing on the right if needed */
     margin-top: 15px;
-    font-size: large;
+    color: var(--color-primary);
+    font-size: medium;
+}
+
+.subModule {
+    border: 1px solid var(--color-quaternary);
+    border-left: 3px solid var(--color-secondary); /* Visual distinction */
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-left: 10px;
+}
+
+.subModule, .lessonsList {
+    display: none; /* Ensures these elements are hidden when the page loads */
+}
+
+.subModule .progressBar {
+    /* Ensure visibility */
+    background-color: var(--color-quaternary);
+    height: 10px;
+    width: 100%; /* Adjust based on layout */
+    margin-top: 5px;
+}
+
+.subModule .progress {
+    background-color: #4CAF50;
+    height: 100%;
+    /* Remove width here and set it dynamically via JS */
+}
+
+.subModuleHeader {
+    display: flex;
+    align-items: center; /* Aligns items vertically */
+    justify-content: space-between; /* Places the title and progress bar on opposite ends */
+    cursor: pointer; /* Changes the cursor to indicate the area is clickable */
+}
+
+.subModuleHeader h4 {
+    margin-right: 20px; /* Ensures some space between the title and the progress bar */
 }
 
 /* Responsive adjustments */

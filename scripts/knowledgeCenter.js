@@ -1,78 +1,116 @@
 // Simulate fetching user progress (replace this with actual data fetching)
-const userProgress = {
-    vocabulary: 50,
-    grammar: 75,
-    comprehension: 25,
-    // Add more modules as necessary
-};
-
 const userLessonProgress = {
-    vocabulary: [
-        { lesson: "Lesson 1: Basic Words", progress: 100 },
-        { lesson: "Lesson 2: Advanced Words", progress: 75 },
-        // Add more lessons and their progress
-    ],
-    // Include other modules similarly
+    vocabulary: {
+        basicVocabulary: 75,
+        advancedVocabulary: 25,
+        // Other submodules...
+    },
+    grammar: {
+        basicGrammar: 60,
+        advancedGrammar: 40,
+        // Other submodules...
+    },
+    comprehension: {
+        basicComprehension: 80,
+        advancedComprehension: 0,
+    },
+    // Other modules...
 };
 
-const recommendedModule = 'vocabulary'; // Simulate "Guided Learning" recommendation
+// Simulate "Guided Learning" recommendations
+const recommendedModule = 'vocabulary';
+const recommendedSubModule = {
+    vocabulary: 'basicVocabulary', // Example
+    // Other modules...
+};
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Initial setup: update progress bars and recommend module
     setupModules();
 
+    ['vocabulary', 'grammar', 'comprehension'].forEach(moduleName => {
+        updateModuleProgress(moduleName);
+    });
+
     document.querySelectorAll('.module').forEach(module => {
-        module.addEventListener('click', function() {
-            const alreadyExpanded = this.classList.contains('expanded');
-            // Collapse any expanded module
-            collapseAllModules();
-            // Expand the clicked module if it was not already expanded
-            if (!alreadyExpanded) {
-                this.classList.add('expanded');
-                // Show the lessons list for the expanded module
-                this.querySelector('.lessonsList').style.display = 'block';
+        module.addEventListener('click', function(event) {
+            // Ensure clicks on submodules do not trigger the module expansion/collapse
+            if (!event.target.closest('.subModule')) {
+                toggleModule(event.currentTarget);
             }
+        });
+    });
+
+    // Adjusting subModule clicks to stop propagation to the module container
+    document.querySelectorAll('.subModule .subModuleHeader').forEach(header => {
+        header.addEventListener('click', function(event) {
+            event.stopPropagation(); // Prevent triggering the module's click event
+            const subModule = this.parentNode;
+            toggleLessonsVisibility(subModule);
         });
     });
 });
 
+function updateModuleProgress(moduleName) {
+    const module = document.querySelector(`.module[data-module="${moduleName}"]`);
+    const subModules = module.querySelectorAll('.subModule');
+    let totalProgress = 0;
+    subModules.forEach(subModule => {
+        const subModuleName = subModule.getAttribute('data-sub-module');
+        const progress = userLessonProgress[moduleName][subModuleName] || 0;
+        totalProgress += progress;
+    });
+    const averageProgress = totalProgress / subModules.length;
+    const mainProgressBar = module.querySelector('.progress');
+    mainProgressBar.style.width = `${averageProgress}%`;
+    module.querySelector('.progressText').innerText = `${Math.round(averageProgress)}% Complete`;
+}
+
 function setupModules() {
     document.querySelectorAll('.module').forEach(module => {
+        // Setup module based on userProgress...
         const moduleName = module.getAttribute('data-module');
-        const progress = userProgress[moduleName] || 0; // Default to 0 if no progress recorded
-        const progressBar = module.querySelector('.progress');
-        progressBar.style.width = progress + '%';
-        progressBar.querySelector('.progressText').innerText = progress + '% Complete';
 
+        // Highlight the recommended module
         if (moduleName === recommendedModule) {
             module.classList.add('recommended');
         }
 
-        const lessonsList = module.querySelector('.lessonsList');
-        if (lessonsList) {
-            const lessons = userLessonProgress[moduleName] || [];
-            lessonsList.querySelectorAll('li').forEach((li, index) => {
-                const lesson = lessons[index];
-                if (lesson) {
-                    // Assuming you've modified the HTML to include a lessonProgressFill for each lesson
-                    const fill = li.querySelector('.lessonProgressFill');
-                    fill.style.width = lesson.progress + '%';
-                    // Optional: Add progress text or tooltip
-                }
-            });
-        }
+        // Setup sub-modules based on userLessonProgress...
+        module.querySelectorAll('.subModule').forEach(subModule => {
+            const subModuleName = subModule.getAttribute('data-sub-module');
+            const progress = userLessonProgress[moduleName][subModuleName] || 0;
+            subModule.querySelector('.progress').style.width = progress + '%';
+            // Initially hide lessons list
+            subModule.querySelector('.lessonsList').style.display = 'none';
+             // Highlight the recommended sub-module
+            if (recommendedSubModule[moduleName] === subModuleName) {
+                subModule.classList.add('recommended');
+            }
+
+             // Find the .progress element within this submodule and set its width
+            const progressBar = subModule.querySelector('.progress');
+            if (progressBar) {
+                progressBar.style.width = `${progress}%`; // Dynamically set the width based on progress
+            }
+        });
     });
 }
 
-function collapseAllModules() {
-    document.querySelectorAll('.module.expanded').forEach(expandedModule => {
-        expandedModule.classList.remove('expanded');
-        // Hide the lessons list upon collapse
-        const lessonsList = expandedModule.querySelector('.lessonsList');
-        if (lessonsList) {
-            lessonsList.style.display = 'none';
-        }
-    });
+function toggleModule(module) {
+     // Determine the current expanded state based on a class or display style
+     const isExpanded = module.classList.toggle('expanded');
+     // Toggle the display of subModules based on the expanded state
+     const subModules = module.querySelectorAll('.subModule');
+     subModules.forEach(subModule => {
+         subModule.style.display = isExpanded ? 'block' : 'none';
+     });
+}
+
+function toggleLessonsVisibility(subModule) {
+    const isExpanded = !subModule.classList.contains('expanded');
+    subModule.classList.toggle('expanded', isExpanded);
+    const lessonsList = subModule.querySelector('.lessonsList');
+    lessonsList.style.display = isExpanded ? 'block' : 'none';
 }
 
 // Optionally, highlight the recommended module for "Guided Learning"
