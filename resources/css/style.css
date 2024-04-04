@@ -267,7 +267,6 @@ body.darkened-background {
     width: 50%;
     min-width: 350px;
     margin: auto;
-    margin-top: 25px;
     margin-bottom: 25px;
     padding: 20px;
     border: 2px solid var(--color-secondary);
@@ -567,26 +566,26 @@ button:hover {
     position: absolute; /* Position it on top of other content or adjust as necessary */
     top: 0;
     left: 0;
-    margin-top: 10px;
+    margin-top: 45px;
 }
 
 .circle-logo-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: filter 0.5s ease-out; /* Adjust time as needed */
     cursor: pointer;
+    margin-right: 15px;
 }
 
 @keyframes glow {
     to {
-        stroke-opacity: 1;
+        stroke-opacity: 0.5;
         stroke: var(--color-quaternary); /* Color of the glow */
     }
 }
 
-line {
-    transition: stroke-opacity 0.5s ease-out, stroke 0.5s ease-out; /* Adjust time as needed */
+line, .circle-logo-container {
+    transition: stroke-opacity 0.5s ease-out, stroke 0.5s ease-out, filter 0.5s ease-out;
 }
 
 .line-glow {
@@ -599,7 +598,7 @@ line {
 }
 
 @keyframes glowLine {
-    0% { stroke: #5F736F; }
+    0% { stroke: var(--color-secondary); }
     100% { stroke: var(--color-quaternary); } /* Adjust glow color */
 }
 

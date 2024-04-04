@@ -79,7 +79,9 @@ const courseContent = [
                 subModuleId: "grammar1",
                 lessons: [
                     { title: "Lesson 1: Sentence Structure", pageUrl: "../knowledge/grammar/level1/lesson-1.html" },
-                    { title: "Lesson 2: Pronouns and Simple Verbs", pageUrl: "../knowledge/grammar/level1/lesson-2.html" }
+                    { title: "Lesson 2: Pronouns and Simple Verbs", pageUrl: "../knowledge/grammar/level1/lesson-2.html" },
+                    { title: "Lesson 3: Present, Past, and Future Tenses", pageUrl: "../knowledge/grammar/level1/lesson-3.html" },
+                    { title: "Lesson 4: Yes/No Questions and Answers", pageUrl: "../knowledge/grammar/level1/lesson-4.html" }
                 ]
             },
             {
@@ -87,7 +89,9 @@ const courseContent = [
                 subModuleId: "grammar2",
                 lessons: [
                     { title: "Lesson 1: Negation", pageUrl: "../knowledge/grammar/level2/lesson-1.html" },
-                    { title: "Lesson 2: Plurals and Quantity", pageUrl: "../knowledge/grammar/level2/lesson-2.html" }
+                    { title: "Lesson 2: Plurals and Quantity", pageUrl: "../knowledge/grammar/level2/lesson-2.html" },
+                    { title: "Lesson 3: Descriptive Language", pageUrl: "../knowledge/grammar/level2/lesson-3.html" },
+                    { title: "Lesson 4: Prepositions and Directions", pageUrl: "../knowledge/grammar/level2/lesson-4.html" }
                     // Add more lessons
                 ]
             },
@@ -96,7 +100,9 @@ const courseContent = [
                 subModuleId: "grammar3",
                 lessons: [
                     { title: "Lesson 1: Possessive Structures", pageUrl: "../knowledge/grammar/level3/lesson-1.html" },
-                    { title: "Lesson 2: Comparatives and Superlatives", pageUrl: "../knowledge/grammar/level3/lesson-2.html" }
+                    { title: "Lesson 2: Comparatives and Superlatives", pageUrl: "../knowledge/grammar/level3/lesson-2.html" },
+                    { title: "Lesson 3: Imperatives and Commands", pageUrl: "../knowledge/grammar/level3/lesson-3.html" },
+                    { title: "Lesson 4: Question Words", pageUrl: "../knowledge/grammar/level3/lesson-4.html" }
                     // Add more lessons
                 ]
             },
@@ -105,7 +111,9 @@ const courseContent = [
                 subModuleId: "grammar4",
                 lessons: [
                     { title: "Lesson 1: Conjunctions and Complex Sentences", pageUrl: "../knowledge/grammar/level4/lesson-1.html" },
-                    { title: "Lesson 2: Conditional Sentences", pageUrl: "../knowledge/grammar/level4/lesson-2.html" }
+                    { title: "Lesson 2: Conditional Sentences", pageUrl: "../knowledge/grammar/level4/lesson-2.html" },
+                    { title: "Lesson 3: Expressing Opinions and Emotions", pageUrl: "../knowledge/grammar/level4/lesson-3.html" },
+                    { title: "Lesson 4: Indirect Speech and Reported Questions", pageUrl: "../knowledge/grammar/level4/lesson-4.html" }
                     // Add more lessons
                 ]
             },
@@ -114,7 +122,9 @@ const courseContent = [
                 subModuleId: "grammar5",
                 lessons: [
                     { title: "Lesson 1: Nuances of Politeness", pageUrl: "../knowledge/grammar/level5/lesson-1.html" },
-                    { title: "Lesson 2: Cultural Expressions and Idioms", pageUrl: "../knowledge/grammar/level5/lesson-2.html" }
+                    { title: "Lesson 2: Cultural Expressions and Idioms", pageUrl: "../knowledge/grammar/level5/lesson-2.html" },
+                    { title: "Lesson 3: Error Correction and Clarification", pageUrl: "../knowledge/grammar/level5/lesson-3.html" },
+                    { title: "Lesson 4: Style and Register", pageUrl: "../knowledge/grammar/level5/lesson-4.html" }
                     // Add more lessons
                 ]
             },
@@ -123,7 +133,9 @@ const courseContent = [
                 subModuleId: "grammar6",
                 lessons: [
                     { title: "Lesson 1: Debating and Persuasion", pageUrl: "../knowledge/grammar/level6/lesson-1.html" },
-                    { title: "Lesson 2: Storytelling and Narration", pageUrl: "../knowledge/grammar/level6/lesson-2.html" }
+                    { title: "Lesson 2: Storytelling and Narration", pageUrl: "../knowledge/grammar/level6/lesson-2.html" },
+                    { title: "Lesson 3: Academic and Formal Writing", pageUrl: "../knowledge/grammar/level6/lesson-3.html" },
+                    { title: "Lesson 4: Humor and Playfulness in Language", pageUrl: "../knowledge/grammar/level6/lesson-4.html" }
                     // Add more lessons
                 ]
             }
@@ -199,8 +211,8 @@ const userProgress = {
     vocabulary: {
         vocabulary1: {
             "Lesson 1: Common Phrases": true, // true indicates completion
-            "Lesson 2: Common Numbers and Counting": false,
-            "Lesson 3: Colors and Shapes": false,
+            "Lesson 2: Numbers and Counting": true,
+            "Lesson 3: Colors and Shapes": true,
             "Lesson 4: Time and Days": false,
         },
         vocabulary2: {
@@ -236,28 +248,40 @@ const userProgress = {
     },
     grammar: {
         grammar1: {
-            "Lesson 1: Sentence Structure": false, // true indicates completion
-            "Lesson 2: Pronouns and Simple Verbs": false,
+            "Lesson 1: Sentence Structure": true, // true indicates completion
+            "Lesson 2: Pronouns and Simple Verbs": true,
+            "Lesson 3: Present, Past, and Future Tenses": false,
+            "Lesson 4: Yes/No Questions and Answers": false
         },
         grammar2: {
             "Lesson 1: Negation": false,
-            "Lesson 2: Plurals and Quantity": false
+            "Lesson 2: Plurals and Quantity": false,
+            "Lesson 3: Descriptive Language": false,
+            "Lesson 4: Prepositions and Directions": false
         },
         grammar3: {
             "Lesson 1: Possessive Structures": false,
-            "Lesson 2: Comparatives and Superlatives": false
+            "Lesson 2: Comparatives and Superlatives": false,
+            "Lesson 3: Imperatives and Commands": false,
+            "Lesson 4: Question Words": false
         },
         grammar4: {
             "Lesson 1: Conjunctions and Complex Sentences": false,
-            "Lesson 2: Conditional Sentences": false
+            "Lesson 2: Conditional Sentences": false,
+            "Lesson 3: Expressing Opinions and Emotions": false,
+            "Lesson 4: Indirect Speech and Reported Questions": false
         },
         grammar5: {
             "Lesson 1: Nuances of Politeness": false,
-            "Lesson 2: Cultural Expressions and Idioms": false
+            "Lesson 2: Cultural Expressions and Idioms": false,
+            "Lesson 3: Error Correction and Clarification": false,
+            "Lesson 4: Style and Register": false
         },
         grammar6: {
             "Lesson 1: Debating and Persuasion": false,
-            "Lesson 2: Storytelling and Narration": false
+            "Lesson 2: Storytelling and Narration": false,
+            "Lesson 3: Academic and Formal Writing": false,
+            "Lesson 4: Humor and Playfulness in Language": false
         }
     },
     comprehension: {
