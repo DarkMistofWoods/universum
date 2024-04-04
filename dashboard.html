@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Universum Dashboard</title>
     <link rel="stylesheet" href="./resources/css/style.css">
-
+    
     <script src="./scripts/firebase-config.js" type="module"></script>
     <script src="./scripts/userNavigation.js" type="module"></script>
     <script src="./scripts/dashboard.js" type="module"></script>
+    
+    <link href="https://unpkg.com/vis-network/dist/vis-network.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="https://unpkg.com/vis-network/dist/vis-network.min.js"></script>
     <!-- Add other scripts as needed, always with type="module" -->
 </head>
 <body>
@@ -53,9 +56,9 @@
 
         <!-- Dashboard Section --> 
         <div class="dashboard">
-            <div id="languageTreeVisualization" class="language-tree">
-                <canvas id="languageTreeCanvas"></canvas>
-            </div>
+            <div id="networkVisualization"></div>
+
+            <!-- Visualization Code Here -->
         </div>
         
         <!-- Stats Section -->

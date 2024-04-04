@@ -1,80 +1,4 @@
-import { auth, db } from './firebase-config.js';
-import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
-
-auth.onAuthStateChanged(async (user) => {
-    if (user) {
-        // User is signed in, continue with page-specific logic
-        await initializeDashboard(user);
-    } else {
-        // User is not signed in, redirect to login
-        window.location.href = 'login.html';
-    }
-});
-
-async function initializeDashboard(user) {
-    try {
-        const userProfilesRef = doc(db, 'userProfiles', user.uid);
-        const profilesDoc = await getDoc(userProfilesRef);
-        
-        if (profilesDoc.exists()) {
-            const profileData = profilesDoc.data();
-            document.getElementById('userName').textContent = profileData.displayName || "User";
-            // Populate additional UI elements with user profile data as necessary
-        } else {
-            console.log("No user profile found.");
-        }
-
-        // Further dashboard initialization that depends on user being present,
-        // like fetching userProgress, can continue here...
-        
-        // const userProgressRef = doc(db, 'userProgress', user.uid);
-        // const progressDoc = await getDoc(userProgressRef); 
-        
-        if (progressDoc.exists()) {
-            const progressData = progressDoc.data();
-            // call functions to update the progress visualizer here
-            initializeNetworkVisualization(progressData)
-        } else {
-            console.log("No user progress found. Using demo data.");
-            const progressData = userProgress;
-            // use demo data to update the progress visualizer
-            initializeNetworkVisualization(progressData)
-
-        }
-        
-    } catch (error) {
-        console.error("Error initializing dashboard: ", error);
-    }
-}
-
-function initializeNetworkVisualization(userProgress) {
-    const container = document.getElementById('networkVisualization');
-    const data = prepareDataForVisualization(userProgress);
-    const options = {}; // Customize vis.js options as needed
-    new vis.Network(container, data, options);
-}
-
-function prepareDataForVisualization(userProgress) {
-    const nodes = [];
-    const edges = [];
-
-    // Example of transforming lesson completion into nodes
-    let idCounter = 1;
-    for (const moduleKey in userProgress) {
-        for (const lessonKey in userProgress[moduleKey]) {
-            nodes.push({ id: idCounter, label: lessonKey, color: userProgress[moduleKey][lessonKey] ? "#7BE141" : "#C2FABC", shape: "dot", size: userProgress[moduleKey][lessonKey] ? 15 : 10 });
-            idCounter++;
-        }
-        // Add edges between consecutive lessons for simplicity
-        for (let i = 1; i < idCounter - 1; i++) {
-            edges.push({ from: i, to: i + 1, arrows: 'to', length: 200 });
-        }
-    }
-
-    return { nodes: new vis.DataSet(nodes), edges: new vis.DataSet(edges) };
-}
-
-// Placeholder for user's progress in each lesson, submodule, module
+// Placeholder for user's progress in each lesson
 const userProgress = {
     vocabulary: {
         vocabulary1: {
@@ -193,6 +117,74 @@ const userProgress = {
     // Include other modules and submodules as necessary
 };
 
+function drawLanguageTree(progress) {
+    const canvas = document.getElementById('languageTreeCanvas');
+    if (!canvas.getContext) {
+        console.error("Canvas is not supported by your browser.");
+        return;
+    }
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // clear the canvas
+    
+    const container = document.querySelector('.language-tree');
+    // Ensure the container's dimensions are fetched correctly
+    if (container) {
+        canvas.width = container.offsetWidth; // Set canvas width to container width
+        canvas.height = container.offsetHeight; // Set canvas height to container height
+    } else {
+        console.error('Language tree container not found.');
+        return;
+    }
+
+    // Now, you can draw on the canvas. Here, you adjust the starting point
+    // and initial length to better use the available canvas space.
+    drawTreeBase(ctx, canvas);
+    // Adjust the starting parameters to utilize the new canvas size fully
+    drawBranch(ctx, canvas.width / 2, canvas.height, -Math.PI / 2, 100, 0, progress);
+}
+
+function drawTreeBase(ctx, canvas) {
+    // Example function to draw the base of the tree
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2, canvas.height);
+    ctx.lineTo(canvas.width / 2, canvas.height - 50); // Simple trunk
+    ctx.stroke();
+}
+
+function drawBranch(ctx, startX, startY, angle, length, depth, progress) {
+    if (depth > 3) return;  // Limit recursion depth
+
+    // Calculate end point
+    const endX = startX + Math.cos(angle) * length;
+    const endY = startY + Math.sin(angle) * length;
+
+    // Draw the branch
+    ctx.beginPath();
+    ctx.moveTo(startX, startY);
+    ctx.lineTo(endX, endY);
+    ctx.strokeStyle = '#80A69F'; 
+    ctx.lineWidth = depth === 1 ? 8 : (depth === 2 ? 5 : 2); // Thicker for main branches
+    ctx.stroke();
+
+    // Debug log
+    console.log(`Branch from (${startX}, ${startY}) to (${endX}, ${endY})`);
+
+    if (depth < 3) {
+        // Create two new branches with adjusted angles
+        const newLength = length * 0.75; // Reduce length for sub-branches
+        const angleAdjustment = Math.PI / 6; // Adjust for visible divergence
+
+        drawBranch(ctx, endX, endY, angle - angleAdjustment, newLength, depth + 1);
+        drawBranch(ctx, endX, endY, angle + angleAdjustment, newLength, depth + 1);
+    }
+
+    
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // initializeDashboard();
+    drawLanguageTree(userProgress);
+    window.addEventListener('resize', () => {
+        drawLanguageTree(userProgress); // Redraw the tree when the window is resized (uses demo data. change this)
+    });    
 });
