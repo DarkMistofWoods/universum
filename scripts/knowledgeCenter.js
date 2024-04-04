@@ -5,15 +5,47 @@ const courseContent = [
         subModules: [
             {
                 subModuleName: "Introduction to Universum Vocabulary",
-                subModuleId: "basicVocabulary",
+                subModuleId: "vocabulary1",
                 lessons: [
                     { title: "Lesson 1: Intro to Words", pageUrl: "../knowledge/vocabulary/level1/lesson-1.html" },
                     { title: "Lesson 2: Common Phrases", pageUrl: "../knowledge/vocabulary/level1/lesson-2.html" }
                 ]
             },
             {
-                subModuleName: "Advanced Vocabulary",
-                subModuleId: "advancedVocabulary",
+                subModuleName: "Everyday Vocabulary",
+                subModuleId: "vocabulary2",
+                lessons: [
+                    { title: "Lesson 1: Complex Terms", pageUrl: "../knowledge/vocabulary/level2/lesson-1.html" }
+                    // Add more lessons
+                ]
+            },
+            {
+                subModuleName: "Everyday Vocabulary",
+                subModuleId: "vocabulary3",
+                lessons: [
+                    { title: "Lesson 1: Complex Terms", pageUrl: "../knowledge/vocabulary/level2/lesson-1.html" }
+                    // Add more lessons
+                ]
+            },
+            {
+                subModuleName: "Everyday Vocabulary",
+                subModuleId: "vocabulary4",
+                lessons: [
+                    { title: "Lesson 1: Complex Terms", pageUrl: "../knowledge/vocabulary/level2/lesson-1.html" }
+                    // Add more lessons
+                ]
+            },
+            {
+                subModuleName: "Everyday Vocabulary",
+                subModuleId: "vocabulary5",
+                lessons: [
+                    { title: "Lesson 1: Complex Terms", pageUrl: "../knowledge/vocabulary/level2/lesson-1.html" }
+                    // Add more lessons
+                ]
+            },
+            {
+                subModuleName: "Everyday Vocabulary",
+                subModuleId: "vocabulary6",
                 lessons: [
                     { title: "Lesson 1: Complex Terms", pageUrl: "../knowledge/vocabulary/level2/lesson-1.html" }
                     // Add more lessons
@@ -29,11 +61,11 @@ let userLearningMode = "Guided Learning"; // Or "Self-Directed Exploration"
 // Placeholder for user's progress in each lesson
 const userProgress = {
     vocabulary: {
-        basicVocabulary: {
+        vocabulary1: {
             "Lesson 1: Intro to Words": true, // true indicates completion
             "Lesson 2: Common Phrases": false
         },
-        advancedVocabulary: {
+        vocabulary2: {
             "Lesson 1: Complex Terms": false
         }
     },
@@ -43,7 +75,7 @@ const userProgress = {
 // Placeholder for recommended module, submodule, and lessons
 const recommendations = {
     module: "Vocabulary",
-    subModule: "basicVocabulary",
+    subModule: "vocabulary1",
     lessons: ["Lesson 1: Intro to Words"] // Assuming at least one lesson is recommended
 };
 
@@ -55,11 +87,14 @@ function renderContent() {
     const knowledgeCenter = document.getElementById('knowledgeCenter');
     knowledgeCenter.innerHTML = ''; // Clear existing content (if any)
     courseContent.forEach(module => {
+        // Check if this module is recommended
+        const isRecommendedModule = module.moduleName === recommendations.module;
+        
         let moduleHtml = `
-            <div class="module" id="${module.moduleId}" data-module="${module.moduleName.toLowerCase()}" ${module.moduleName === recommendations.module ? 'class="recommended"' : ''}>
+            <div class="module ${isRecommendedModule ? 'recommended' : ''}" id="${module.moduleId}" data-module="${module.moduleName.toLowerCase()}">
                 <h3>${module.moduleName}</h3>
-                <div class="progressBar"><div class="progress"><span class="progress-text">0%</span></div></div>
-                ${generateSubModulesHtml(module.subModules)}
+                <div class="progressBar"><div class="progress"></div></div>
+                ${generateSubModulesHtml(module.subModules, isRecommendedModule)}
             </div>
         `;
         knowledgeCenter.insertAdjacentHTML('beforeend', moduleHtml);
@@ -150,21 +185,26 @@ function attachEventListeners() {
     });
 }
 
-function generateSubModulesHtml(subModules) {
-    return subModules.map(subModule => `
-        <div class="subModule" data-sub-module="${subModule.subModuleId}" ${recommendations.subModule === subModule.subModuleId ? 'class="recommended"' : ''}>
-            <div class="subModuleHeader"><h4>${subModule.subModuleName}</h4></div>
-            <div class="progressBar"><div class="progress" style="width: 0%;"></div></div>
-            <ul class="lessonsList">
-                ${subModule.lessons.map(lesson => `
-                    <li>
-                        <a href="${lesson.pageUrl}" class="lessonLink ${isLessonRecommendedOrCompleted(lesson.title, subModule.subModuleId) ? '' : 'locked'}" data-lesson="${lesson.title}">
-                            ${lesson.title}
-                        </a>
-                    </li>`).join('')}
-            </ul>
-        </div>
-    `).join('');
+function generateSubModulesHtml(subModules, isParentModuleRecommended) {
+    return subModules.map(subModule => {
+        // Check if this submodule is recommended
+        const isRecommendedSubModule = isParentModuleRecommended && subModule.subModuleId === recommendations.subModule;
+
+        return `
+            <div class="subModule ${isRecommendedSubModule ? 'recommended' : ''}" data-sub-module="${subModule.subModuleId}">
+                <div class="subModuleHeader"><h4>${subModule.subModuleName}</h4></div>
+                <div class="progressBar"><div class="progress" style="width: 0%;"></div></div>
+                <ul class="lessonsList">
+                    ${subModule.lessons.map(lesson => `
+                        <li>
+                            <a href="${lesson.pageUrl}" class="${isLessonRecommendedOrCompleted(lesson.title, subModule.subModuleId) ? '' : 'locked'}" data-lesson="${lesson.title}">
+                                ${lesson.title}
+                            </a>
+                        </li>`).join('')}
+                </ul>
+            </div>
+        `;
+    }).join('');
 }
 
 function isLessonRecommendedOrCompleted(lessonTitle, subModuleId) {
