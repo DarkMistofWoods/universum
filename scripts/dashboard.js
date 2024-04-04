@@ -39,9 +39,7 @@ async function initializeDashboard(user) {
             const progressData = userProgress;
             // use demo data to update the progress visualizer
             initializeNetworkVisualization(progressData)
-
         }
-        
     } catch (error) {
         console.error("Error initializing dashboard: ", error);
     }
