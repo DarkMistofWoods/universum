@@ -174,12 +174,18 @@ function drawLanguageTree(progress) {
         console.error("Canvas is not supported by your browser.");
         return;
     }
-    ctx.clearRect(0, 0, canvas.width, canvas.height); // clear the canvas
     const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // clear the canvas
     
     const container = document.querySelector('.language-tree');
-    canvas.width = container.offsetWidth; // Set canvas width to container width
-    canvas.height = container.offsetHeight; // Set canvas height to container height
+    // Ensure the container's dimensions are fetched correctly
+    if (container) {
+        canvas.width = container.offsetWidth; // Set canvas width to container width
+        canvas.height = container.offsetHeight; // Set canvas height to container height
+    } else {
+        console.error('Language tree container not found.');
+        return;
+    }
 
     // Now, you can draw on the canvas. Here, you adjust the starting point
     // and initial length to better use the available canvas space.
@@ -230,6 +236,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // initializeDashboard();
     // drawLanguageTree(userProgress);
     window.addEventListener('resize', () => {
-        drawLanguageTree(userProgress); // Redraw the tree when the window is resized
+        drawLanguageTree(userProgress); // Redraw the tree when the window is resized (uses demo data. change this)
     });    
 });
