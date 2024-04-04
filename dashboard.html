@@ -41,6 +41,7 @@
             <li><a href="base12math.html">Base-12 Math</a></li>
         </ul>
     </nav>
+    
     <a href="index.html" class="universum">Universum</a>
 
     <div id="mainContent">
@@ -50,46 +51,24 @@
             <h2>Welcome to your dashboard.</h2>
         </div>
 
-        <!---
-        <section id="dashnav-section">
-            <a href="" id="grammar-practice" class="button">menuvokisi</a>
-            <a href="" id="vocabulary-practice" class="button">vokilana</a>
-            <a href="" id="comprehension-practice" class="button">tukidepi</a>
-            <a href="" id="math-practice" class="button">lana</a>
-        </section>
-        -->
-
-        <!-- Dashboard Section -->
+        <!-- Dashboard Section --> 
         <div class="dashboard">
-            <section class="progress-overview">
-                <h2>Progress Overview</h2>
-                <canvas id="overall-progress"></canvas>
-            </section>
-            <section class="module-progress">
-                <h2>Module Progress</h2>
-                <canvas id="module-progress-bars"></canvas>
-            </section>
-            <section class="strengths-weaknesses">
-                <h2>Strengths & Weaknesses</h2>
-                <div id="strengths"></div>
-                <div id="weaknesses"></div>
-            </section>
-            <section class="next-steps">
-                <h2>Next Steps</h2>
-                <p id="next-steps-content"></p>
-            </section>
+            <div id="languageTreeVisualization" class="language-tree">
+                <h3>Your Language Tree</h3>
+                <canvas id="languageTreeCanvas"></canvas>
+            </div>
         </div>
         
+        <!-- Stats Section -->
         <h2>Your Progress</h2>
         <section id="userStats">
+            <!-- Raw user progress data goes here -->
             <div class="stat" id="stat1">Total Lessons Completed: 15</div>
             <div class="stat" id="stat2">Modules Completed: 2</div>
-            <div class="stat" id="stat3">Average Score: 85%</div>
+            <div class="stat" id="stat3">Average Quiz Score: 85%</div>
             <div class="stat" id="statComparison">Your Progress vs. Global Average</div>
         </section>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <footer>
         <p>© 2024 Universum Language Project</p>

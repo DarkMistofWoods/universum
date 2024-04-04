@@ -770,6 +770,7 @@ label {
     color: var(--color-primary);
 }
 
+/* DASHBOARD */
 .dashboard {
     display: grid;
     align-items: baseline;
@@ -781,55 +782,47 @@ label {
     margin: auto;
 }
 
-.dashboard section {
-    border: 1px solid var(--color-tertiary);
-    padding: 20px;
-    border-radius: 30px;
-}
-
-#dashnav-section {
-    min-width: 350px;
-    margin: auto;
-    margin-top: 25px;
-    margin-bottom: 0;
-    padding: 10px;
-    border: 1px solid var(--color-tertiary);
-    border-radius: 60px;
-    background-color: var(--color-background);
-    text-align: center; /* Consolidated text alignment for category-section */
-}
-
-#dashnav-section a {
-    cursor: pointer; /* Indicates clickable */
-    margin: 5px 10px;
-    padding: 10px 20px;
-    border: 2px solid var(--color-tertiary);
-    border-radius: 10px;
-    background-color: var(--color-background);
-}
-
-#dashnav-section a:hover {
-    background-color: var(--color-tertiary);
-}
-
-#strengths, #weaknesses {
-    margin-bottom: 20px;
-}
-
-#strengths p, #weaknesses p {
-    margin-left: 20px; /* Indent items for better readability */
-}
-
-#next-steps-content {
-    font-style: italic; /* Style next steps distinctly */
-}
-
 .greeting h1, span {
     text-align: center;
     margin: 20px 0;
     color: var(--color-primary);
 }
 
+.language-tree {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Adjust based on your design */
+    background-color: #f0f0f0; /* Light background to help visualization stand out */
+}
+
+/* Example styles, you'll need to adjust based on your implementation */
+/*
+.branch {
+    
+}
+*/
+.leaf {
+    /* Style leaves */
+    animation: growLeaf 2s ease-in-out forwards;
+}
+
+.fruit {
+    /* Style fruits */
+    animation: growFruit 2s ease-in-out forwards;
+}
+
+@keyframes growLeaf {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+}
+
+@keyframes growFruit {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+}
+/* END OF DASHBOARD */
+
+/* SETTINGS */
 .settings-section {
     min-width: 350px;
     margin: auto;
@@ -936,7 +929,7 @@ label {
     border: 1px solid var(--color-tertiary);
     background-color: var(--color-background);
 }
-
+/* END OF SETTINGS */
 
 /* KNOWLEDGE CENTER */
 #knowledgeCenter {

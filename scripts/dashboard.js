@@ -11,9 +11,7 @@ auth.onAuthStateChanged(async (user) => {
     }
 });
 
-// Update the initializeDashboard function to call initializeGreeting
 async function initializeDashboard(user) {
-    // Assuming `user` is now passed as a parameter, coming from auth.onAuthStateChanged
     try {
         const userProfilesRef = doc(db, 'userProfiles', user.uid);
         const profilesDoc = await getDoc(userProfilesRef);
@@ -33,18 +31,17 @@ async function initializeDashboard(user) {
         
         if (progressDoc.exists()) {
             const progressData = progressDoc.data();
-            displayOverallProgress(progressData.overallProgress);
-            displayModuleProgress(progressData.modules);
-            displayStrengths(progressData.strengths);
-            displayWeaknesses(progressData.weaknesses);
-            displayNextSteps(progressData.nextSteps);
+            // call functions to update the progress visualizer here
+            
+            // Now, draw the language tree based on userProgress
+            drawLanguageTree(progressData);
         } else {
             console.log("No user progress found. Using demo data.");
-            displayOverallProgress(userData.overallProgress);
-            displayModuleProgress(userData.modules);
-            displayStrengths(userData.strengths);
-            displayWeaknesses(userData.weaknesses);
-            displayNextSteps(userData.nextSteps);
+            const progressData = userProgress;
+            // use demo data to update the progress visualizer
+
+            // Now, draw the language tree based on userProgress
+            drawLanguageTree(progressData);
         }
         
     } catch (error) {
@@ -52,120 +49,184 @@ async function initializeDashboard(user) {
     }
 }
 
-// Simulated user data
-const userData = {
-    overallProgress: 44, // Assuming a percentage
-    modules: [
-        { name: "menuvokisi", progress: 75 },
-        { name: "vokilana", progress: 60 },
-        { name: "tukidepi", progress: 30 },
-        { name: "lana", progress: 10 }
-    ],
-    strengths: ["menuvokisi (Grammar)", "vokilana (Vocabulary)"],
-    weaknesses: ["tukidepi (Comprehension)", "lana (Math)"],
-    nextSteps: "This dashboard data is for demonstration purposes only."
+// Placeholder for user's progress in each lesson
+const userProgress = {
+    vocabulary: {
+        vocabulary1: {
+            "Lesson 1: Common Phrases": true, // true indicates completion
+            "Lesson 2: Numbers and Counting": true,
+            "Lesson 3: Colors and Shapes": true,
+            "Lesson 4: Time and Days": false,
+        },
+        vocabulary2: {
+            "Lesson 1: Family and People": false,
+            "Lesson 2: Food and Drink": false,
+            "Lesson 3: Clothing and Body": false,
+            "Lesson 4: Home and Daily Routines": false,
+        },
+        vocabulary3: {
+            "Lesson 1: Nature and Weather": false,
+            "Lesson 2: City and Transportation": false,
+            "Lesson 3: Shopping and Money": false,
+            "Lesson 4: Health and Emergency": false,
+        },
+        vocabulary4: {
+            "Lesson 1: Emotions and Opinions": false,
+            "Lesson 2: Hobbies and Leisure": false,
+            "Lesson 3: Education and Work": false,
+            "Lesson 4: Travel and Culture": false,
+        },
+        vocabulary5: {
+            "Lesson 1: Complex Descriptions": false,
+            "Lesson 2: Abstract Concepts": false,
+            "Lesson 3: Formal and Informal Language": false,
+            "Lesson 4: Compound Word Construction": false,
+        },
+        vocabulary6: {
+            "Lesson 1: Science and Technology": false,
+            "Lesson 2: Arts and Literature": false,
+            "Lesson 3: Business and Economy": false,
+            "Lesson 4: Politics and Society": false,
+        }
+    },
+    grammar: {
+        grammar1: {
+            "Lesson 1: Sentence Structure": true, // true indicates completion
+            "Lesson 2: Pronouns and Simple Verbs": true,
+            "Lesson 3: Present, Past, and Future Tenses": false,
+            "Lesson 4: Yes/No Questions and Answers": false
+        },
+        grammar2: {
+            "Lesson 1: Negation": false,
+            "Lesson 2: Plurals and Quantity": false,
+            "Lesson 3: Descriptive Language": false,
+            "Lesson 4: Prepositions and Directions": false
+        },
+        grammar3: {
+            "Lesson 1: Possessive Structures": false,
+            "Lesson 2: Comparatives and Superlatives": false,
+            "Lesson 3: Imperatives and Commands": false,
+            "Lesson 4: Question Words": false
+        },
+        grammar4: {
+            "Lesson 1: Conjunctions and Complex Sentences": false,
+            "Lesson 2: Conditional Sentences": false,
+            "Lesson 3: Expressing Opinions and Emotions": false,
+            "Lesson 4: Indirect Speech and Reported Questions": false
+        },
+        grammar5: {
+            "Lesson 1: Nuances of Politeness": false,
+            "Lesson 2: Cultural Expressions and Idioms": false,
+            "Lesson 3: Error Correction and Clarification": false,
+            "Lesson 4: Style and Register": false
+        },
+        grammar6: {
+            "Lesson 1: Debating and Persuasion": false,
+            "Lesson 2: Storytelling and Narration": false,
+            "Lesson 3: Academic and Formal Writing": false,
+            "Lesson 4: Humor and Playfulness in Language": false
+        }
+    },
+    comprehension: {
+        comprehension1: {
+            "Lesson 1: Understanding Basic Greetings and Introductions": false, // true indicates completion
+            "Lesson 2: Numbers and Time": false,
+            "Lesson 3: Common Phrases and Responses": false,
+            "Lesson 4: Simple Instructions and Commands": false
+        },
+        comprehension2: {
+            "Lesson 1: Shopping Conversations": false,
+            "Lesson 2: Restaurant and Food": false,
+            "Lesson 3: Directions and Transportation": false,
+            "Lesson 4: Weather and Seasons": false
+        },
+        comprehension3: {
+            "Lesson 1: Educational Content": false,
+            "Lesson 2: Work and Occupation Dialogues": false,
+            "Lesson 3: Health and Wellness": false,
+            "Lesson 4: Entertainment and Media": false
+        },
+        comprehension4: {
+            "Lesson 1: Narratives and Storytelling": false,
+            "Lesson 2: Opinions and Arguments": false,
+            "Lesson 3: Cultural and Historical Texts": false,
+            "Lesson 4: Technical and Scientific Articles": false
+        },
+        comprehension5: {
+            "Lesson 1: Abstract and Philosophical Texts": false,
+            "Lesson 2: Poetry and Literature": false,
+            "Lesson 3: News and Current Events": false,
+            "Lesson 4: Formal and Academic Papers": false
+        },
+        comprehension6: {
+            "Lesson 1: Interactive Scenarios and Role Plays": false,
+            "Lesson 2: Listening and Audio Comprehension": false,
+            "Lesson 3: Visual Comprehension and Interpretation": false,
+            "Lesson 4: Comprehension Through Creation": false
+        }
+    },
+    // Include other modules and submodules as necessary
 };
 
-// Convert numbers to Universum base-12 system
-function convertToUniversumNumber(number) {
-    // Conversion logic here
-    // Placeholder for conversion, replace with actual logic
-    return `${number} (Placeholder for Universum Number)`;
+function drawLanguageTree(progress) {
+    const canvas = document.getElementById('languageTreeCanvas');
+    if (!canvas.getContext) {
+        console.error("Canvas is not supported by your browser.");
+        return;
+    }
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'red';
+    ctx.fillRect(10, 10, 50, 50); // Draw a red rectangle
+
+    
+    // Dynamically adjust canvas size if needed
+    canvas.width = document.querySelector('.language-tree').offsetWidth;
+    canvas.height = 400; // Adjust as needed
+
+    // Start drawing the tree base
+    drawTreeBase(ctx);
+
+    // Calculate and draw each branch of the language tree based on progress
+    Object.keys(progress).forEach((module, index, array) => {
+        const angle = Math.PI / (array.length + 1) * (index + 1);
+        drawBranch(ctx, canvas.width / 2, canvas.height, angle, progress[module], module);
+    });
 }
 
-// Display overall progress using Chart.js
-function displayOverallProgress(progress) {
-    const ctx = document.getElementById('overall-progress').getContext('2d');
-    new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: ['Completed', 'Remaining'],
-            datasets: [{
-                label: 'Overall Progress',
-                data: [progress, 100 - progress],
-                backgroundColor: ['rgb(149, 191, 184)', 'rgb(95, 115, 111)'],
-                borderColor: 'transparent', // Specify border colors here
-                borderWidth: 1, // Adjust border width as needed
-                borderRadius: 20,
-            }]
-        },
-        options: {
-            responsive: true,
-            legend: {
-                labels: {
-                    // This more specific font color setting overrides the global setting
-                    fontColor: '#95BFB8',
-                    boxWidth: 20,
-                    padding: 20
-                }
-            },
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#95BFB8', // Set legend text color
-                        padding: 20,
-                        boxWidth: 20
-                        // Additional legend styling options here
-                    }
-                }
-            }
+function drawTreeBase(ctx) {
+    // Example function to draw the base of the tree
+    ctx.beginPath();
+    ctx.moveTo(canvas.width / 2, canvas.height);
+    ctx.lineTo(canvas.width / 2, canvas.height - 50); // Simple trunk
+    ctx.stroke();
+}
+
+function drawBranch(ctx, startX, startY, angle, moduleProgress, moduleName) {
+    // Basic implementation of a branch drawing function
+    const endX = startX + Math.cos(angle) * 100; // Length of the branch
+    const endY = startY - Math.sin(angle) * 100; // Adjust as needed
+
+    ctx.beginPath();
+    ctx.moveTo(startX, startY);
+    ctx.lineTo(endX, endY);
+    ctx.stroke();
+
+    // Based on moduleProgress, add leaves or fruits to the branch
+    const lessonKeys = Object.keys(moduleProgress);
+    lessonKeys.forEach((lesson, index) => {
+        // For simplicity, just marking completion with a circle
+        const progress = moduleProgress[lesson];
+        if (progress) {
+            // Draw a leaf or fruit for completed lessons
+            ctx.beginPath();
+            ctx.arc(endX, endY - (index * 10), 5, 0, Math.PI * 2); // Simple circle for demonstration
+            ctx.fillStyle = 'green'; // Completed lessons marked green
+            ctx.fill();
         }
     });
-}
-
-// Display module progress using Chart.js
-function displayModuleProgress(modules) {
-    const ctx = document.getElementById('module-progress-bars').getContext('2d');
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: modules.map(module => module.name),
-            datasets: [{
-                label: 'Module Progress',
-                data: modules.map(module => module.progress),
-                backgroundColor: 'rgb(149, 191, 184)',
-                borderRadius: 20, // Apply rounded corners to bars
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    max: 100
-                }
-            }
-        }
-    });
-}
-
-// Display strengths in the dashboard
-function displayStrengths(strengths) {
-    const container = document.getElementById('strengths');
-    container.innerHTML = '<h3>Strengths</h3>'; // Clear existing content and add header
-    strengths.forEach(strength => {
-        const item = document.createElement('p');
-        item.textContent = strength;
-        container.appendChild(item);
-    });
-}
-
-// Display weaknesses in the dashboard
-function displayWeaknesses(weaknesses) {
-    const container = document.getElementById('weaknesses');
-    container.innerHTML = '<h3>Weaknesses</h3>'; // Clear existing content and add header
-    weaknesses.forEach(weakness => {
-        const item = document.createElement('p');
-        item.textContent = weakness;
-        container.appendChild(item);
-    });
-}
-
-// Display next steps in the dashboard
-function displayNextSteps(nextSteps) {
-    const container = document.getElementById('next-steps-content');
-    container.textContent = nextSteps; // Set text for next steps
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     // initializeDashboard();
+    // drawLanguageTree(userProgress);
 });

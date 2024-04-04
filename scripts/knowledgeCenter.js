@@ -150,7 +150,9 @@ const courseContent = [
                 subModuleId: "comprehension1",
                 lessons: [
                     { title: "Lesson 1: Understanding Basic Greetings and Introductions", pageUrl: "../knowledge/comprehension/level1/lesson-1.html" },
-                    { title: "Lesson 2: Numbers and Time", pageUrl: "../knowledge/comprehension/level1/lesson-2.html" }
+                    { title: "Lesson 2: Numbers and Time", pageUrl: "../knowledge/comprehension/level1/lesson-2.html" },
+                    { title: "Lesson 3: Common Phrases and Responses", pageUrl: "../knowledge/comprehension/level1/lesson-3.html" },
+                    { title: "Lesson 4: Simple Instructions and Commands", pageUrl: "../knowledge/comprehension/level1/lesson-4.html" }
                 ]
             },
             {
@@ -158,7 +160,9 @@ const courseContent = [
                 subModuleId: "comprehension2",
                 lessons: [
                     { title: "Lesson 1: Shopping Conversations", pageUrl: "../knowledge/comprehension/level2/lesson-1.html" },
-                    { title: "Lesson 2: Restaurant and Food", pageUrl: "../knowledge/comprehension/level2/lesson-2.html" }
+                    { title: "Lesson 2: Restaurant and Food", pageUrl: "../knowledge/comprehension/level2/lesson-2.html" },
+                    { title: "Lesson 3: Directions and Transportation", pageUrl: "../knowledge/comprehension/level2/lesson-3.html" },
+                    { title: "Lesson 4: Weather and Seasons", pageUrl: "../knowledge/comprehension/level2/lesson-4.html" }
                     // Add more lessons
                 ]
             },
@@ -167,7 +171,9 @@ const courseContent = [
                 subModuleId: "comprehension3",
                 lessons: [
                     { title: "Lesson 1: Educational Content", pageUrl: "../knowledge/comprehension/level3/lesson-1.html" },
-                    { title: "Lesson 2: Work and Occupation Dialogues", pageUrl: "../knowledge/comprehension/level3/lesson-2.html" }
+                    { title: "Lesson 2: Work and Occupation Dialogues", pageUrl: "../knowledge/comprehension/level3/lesson-2.html" },
+                    { title: "Lesson 3: Health and Wellness", pageUrl: "../knowledge/comprehension/level3/lesson-3.html" },
+                    { title: "Lesson 4: Entertainment and Media", pageUrl: "../knowledge/comprehension/level3/lesson-4.html" }
                     // Add more lessons
                 ]
             },
@@ -176,7 +182,9 @@ const courseContent = [
                 subModuleId: "comprehension4",
                 lessons: [
                     { title: "Lesson 1: Narratives and Storytelling", pageUrl: "../knowledge/comprehension/level4/lesson-1.html" },
-                    { title: "Lesson 2: Opinions and Arguments", pageUrl: "../knowledge/comprehension/level4/lesson-2.html" }
+                    { title: "Lesson 2: Opinions and Arguments", pageUrl: "../knowledge/comprehension/level4/lesson-2.html" },
+                    { title: "Lesson 3: Cultural and Historical Texts", pageUrl: "../knowledge/comprehension/level4/lesson-3.html" },
+                    { title: "Lesson 4: Technical and Scientific Articles", pageUrl: "../knowledge/comprehension/level4/lesson-4.html" }
                     // Add more lessons
                 ]
             },
@@ -185,7 +193,9 @@ const courseContent = [
                 subModuleId: "comprehension5",
                 lessons: [
                     { title: "Lesson 1: Abstract and Philosophical Texts", pageUrl: "../knowledge/comprehension/level5/lesson-1.html" },
-                    { title: "Lesson 2: Poetry and Literature", pageUrl: "../knowledge/comprehension/level5/lesson-2.html" }
+                    { title: "Lesson 2: Poetry and Literature", pageUrl: "../knowledge/comprehension/level5/lesson-2.html" },
+                    { title: "Lesson 3: News and Current Events", pageUrl: "../knowledge/comprehension/level5/lesson-3.html" },
+                    { title: "Lesson 4: Formal and Academic Papers", pageUrl: "../knowledge/comprehension/level5/lesson-4.html" }
                     // Add more lessons
                 ]
             },
@@ -194,7 +204,9 @@ const courseContent = [
                 subModuleId: "comprehension6",
                 lessons: [
                     { title: "Lesson 1: Interactive Scenarios and Role Plays", pageUrl: "../knowledge/comprehension/level6/lesson-1.html" },
-                    { title: "Lesson 2: Listening and Audio Comprehension", pageUrl: "../knowledge/comprehension/level6/lesson-2.html" }
+                    { title: "Lesson 2: Listening and Audio Comprehension", pageUrl: "../knowledge/comprehension/level6/lesson-2.html" },
+                    { title: "Lesson 3: Visual Comprehension and Interpretation", pageUrl: "../knowledge/comprehension/level6/lesson-3.html" },
+                    { title: "Lesson 4: Comprehension Through Creation", pageUrl: "../knowledge/comprehension/level6/lesson-4.html" }
                     // Add more lessons
                 ]
             }
@@ -287,27 +299,39 @@ const userProgress = {
     comprehension: {
         comprehension1: {
             "Lesson 1: Understanding Basic Greetings and Introductions": false, // true indicates completion
-            "Lesson 2: Numbers and Time": false
+            "Lesson 2: Numbers and Time": false,
+            "Lesson 3: Common Phrases and Responses": false,
+            "Lesson 4: Simple Instructions and Commands": false
         },
         comprehension2: {
             "Lesson 1: Shopping Conversations": false,
-            "Lesson 2: Restaurant and Food": false
+            "Lesson 2: Restaurant and Food": false,
+            "Lesson 3: Directions and Transportation": false,
+            "Lesson 4: Weather and Seasons": false
         },
         comprehension3: {
             "Lesson 1: Educational Content": false,
-            "Lesson 2: Work and Occupation Dialogues": false
+            "Lesson 2: Work and Occupation Dialogues": false,
+            "Lesson 3: Health and Wellness": false,
+            "Lesson 4: Entertainment and Media": false
         },
         comprehension4: {
             "Lesson 1: Narratives and Storytelling": false,
-            "Lesson 2: Opinions and Arguments": false
+            "Lesson 2: Opinions and Arguments": false,
+            "Lesson 3: Cultural and Historical Texts": false,
+            "Lesson 4: Technical and Scientific Articles": false
         },
         comprehension5: {
             "Lesson 1: Abstract and Philosophical Texts": false,
-            "Lesson 2: Poetry and Literature": false
+            "Lesson 2: Poetry and Literature": false,
+            "Lesson 3: News and Current Events": false,
+            "Lesson 4: Formal and Academic Papers": false
         },
         comprehension6: {
             "Lesson 1: Interactive Scenarios and Role Plays": false,
-            "Lesson 2: Listening and Audio Comprehension": false
+            "Lesson 2: Listening and Audio Comprehension": false,
+            "Lesson 3: Visual Comprehension and Interpretation": false,
+            "Lesson 4: Comprehension Through Creation": false
         }
     },
     // Include other modules and submodules as necessary
