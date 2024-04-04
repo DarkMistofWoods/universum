@@ -26,9 +26,9 @@ async function initializeDashboard(user) {
 
         // Further dashboard initialization that depends on user being present,
         // like fetching userProgress, can continue here...
-        
-        // const userProgressRef = doc(db, 'userProgress', user.uid);
-        // const progressDoc = await getDoc(userProgressRef); 
+
+        const userProgressRef = doc(db, 'userProgress', user.uid);
+        const progressDoc = await getDoc(userProgressRef); 
         
         if (progressDoc.exists()) {
             const progressData = progressDoc.data();
