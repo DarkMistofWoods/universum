@@ -998,11 +998,10 @@ label {
 .lessonLink.locked {
     pointer-events: none; /* Prevents clicking */
     opacity: 0.5; /* Visual indicator that the lesson is locked */
-    cursor: not-allowed; /* Changes cursor to indicate the action is not allowed */
 }
 
 .subModule {
-    border: 2px solid var(--color-tertiary);
+    border: 3px solid var(--color-tertiary);
     border-left: 3px solid var(--color-secondary); /* Visual distinction */
     border-radius: 15px;
     margin-top: 10px;

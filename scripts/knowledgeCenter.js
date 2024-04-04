@@ -7,52 +7,188 @@ const courseContent = [
                 subModuleName: "Introduction to Universum Vocabulary",
                 subModuleId: "vocabulary1",
                 lessons: [
-                    { title: "Lesson 1: Intro to Words", pageUrl: "../knowledge/vocabulary/level1/lesson-1.html" },
-                    { title: "Lesson 2: Common Phrases", pageUrl: "../knowledge/vocabulary/level1/lesson-2.html" }
+                    { title: "Lesson 1: Common Phrases", pageUrl: "../knowledge/vocabulary/level1/lesson-1.html" },
+                    { title: "Lesson 2: Numbers and Counting", pageUrl: "../knowledge/vocabulary/level1/lesson-2.html" },
+                    { title: "Lesson 3: Colors and Shapes", pageUrl: "../knowledge/vocabulary/level1/lesson-3.html" },
+                    { title: "Lesson 4: Time and Days", pageUrl: "../knowledge/vocabulary/level1/lesson-4.html" }
                 ]
             },
             {
                 subModuleName: "Everyday Vocabulary",
                 subModuleId: "vocabulary2",
                 lessons: [
-                    { title: "Lesson 1: Complex Terms", pageUrl: "../knowledge/vocabulary/level2/lesson-1.html" }
+                    { title: "Lesson 1: Family and People", pageUrl: "../knowledge/vocabulary/level2/lesson-1.html" },
+                    { title: "Lesson 2: Food and Drink", pageUrl: "../knowledge/vocabulary/level2/lesson-2.html" },
+                    { title: "Lesson 3: Clothing and Body", pageUrl: "../knowledge/vocabulary/level2/lesson-3.html" },
+                    { title: "Lesson 4: Home and Daily Routines", pageUrl: "../knowledge/vocabulary/level2/lesson-4.html" }
                     // Add more lessons
                 ]
             },
             {
-                subModuleName: "Everyday Vocabulary",
+                subModuleName: "Describing the World",
                 subModuleId: "vocabulary3",
                 lessons: [
-                    { title: "Lesson 1: Complex Terms", pageUrl: "../knowledge/vocabulary/level2/lesson-1.html" }
+                    { title: "Lesson 1: Nature and Weather", pageUrl: "../knowledge/vocabulary/level3/lesson-1.html" },
+                    { title: "Lesson 2: City and Transportation", pageUrl: "../knowledge/vocabulary/level3/lesson-2.html" },
+                    { title: "Lesson 3: Shopping and Money", pageUrl: "../knowledge/vocabulary/level3/lesson-3.html" },
+                    { title: "Lesson 4: Health and Emergency", pageUrl: "../knowledge/vocabulary/level3/lesson-4.html" }
                     // Add more lessons
                 ]
             },
             {
-                subModuleName: "Everyday Vocabulary",
+                subModuleName: "Expressing Ideas and Feelings",
                 subModuleId: "vocabulary4",
                 lessons: [
-                    { title: "Lesson 1: Complex Terms", pageUrl: "../knowledge/vocabulary/level2/lesson-1.html" }
+                    { title: "Lesson 1: Emotions and Opinions", pageUrl: "../knowledge/vocabulary/level4/lesson-1.html" },
+                    { title: "Lesson 2: Hobbies and Leisure", pageUrl: "../knowledge/vocabulary/level4/lesson-2.html" },
+                    { title: "Lesson 3: Education and Work", pageUrl: "../knowledge/vocabulary/level4/lesson-3.html" },
+                    { title: "Lesson 4: Travel and Culture", pageUrl: "../knowledge/vocabulary/level4/lesson-4.html" }
                     // Add more lessons
                 ]
             },
             {
-                subModuleName: "Everyday Vocabulary",
+                subModuleName: "Advanced Communication",
                 subModuleId: "vocabulary5",
                 lessons: [
-                    { title: "Lesson 1: Complex Terms", pageUrl: "../knowledge/vocabulary/level2/lesson-1.html" }
+                    { title: "Lesson 1: Complex Descriptions", pageUrl: "../knowledge/vocabulary/level5/lesson-1.html" },
+                    { title: "Lesson 2: Abstract Concepts", pageUrl: "../knowledge/vocabulary/level5/lesson-2.html" },
+                    { title: "Lesson 3: Formal and Informal Language", pageUrl: "../knowledge/vocabulary/level5/lesson-3.html" },
+                    { title: "Lesson 4: Compound Word Construction", pageUrl: "../knowledge/vocabulary/level5/lesson-4.html" }
                     // Add more lessons
                 ]
             },
             {
-                subModuleName: "Everyday Vocabulary",
+                subModuleName: "Specialized Vocabulary",
                 subModuleId: "vocabulary6",
                 lessons: [
-                    { title: "Lesson 1: Complex Terms", pageUrl: "../knowledge/vocabulary/level2/lesson-1.html" }
+                    { title: "Lesson 1: Science and Technology", pageUrl: "../knowledge/vocabulary/level6/lesson-1.html" },
+                    { title: "Lesson 2: Arts and Literature", pageUrl: "../knowledge/vocabulary/level6/lesson-2.html" },
+                    { title: "Lesson 3: Business and Economy", pageUrl: "../knowledge/vocabulary/level6/lesson-3.html" },
+                    { title: "Lesson 4: Politics and Society", pageUrl: "../knowledge/vocabulary/level6/lesson-4.html" }
                     // Add more lessons
                 ]
             }
         ]
     },
+    {
+        moduleName: "Grammar",
+        moduleId: "grammarModule",
+        subModules: [
+            {
+                subModuleName: "Basics of Universum Grammar",
+                subModuleId: "grammar1",
+                lessons: [
+                    { title: "Lesson 1: Sentence Structure", pageUrl: "../knowledge/grammar/level1/lesson-1.html" },
+                    { title: "Lesson 2: Pronouns and Simple Verbs", pageUrl: "../knowledge/grammar/level1/lesson-2.html" }
+                ]
+            },
+            {
+                subModuleName: "Building Complexity",
+                subModuleId: "grammar2",
+                lessons: [
+                    { title: "Lesson 1: Negation", pageUrl: "../knowledge/grammar/level2/lesson-1.html" },
+                    { title: "Lesson 2: Plurals and Quantity", pageUrl: "../knowledge/grammar/level2/lesson-2.html" }
+                    // Add more lessons
+                ]
+            },
+            {
+                subModuleName: "Expanding Expressions",
+                subModuleId: "grammar3",
+                lessons: [
+                    { title: "Lesson 1: Possessive Structures", pageUrl: "../knowledge/grammar/level3/lesson-1.html" },
+                    { title: "Lesson 2: Comparatives and Superlatives", pageUrl: "../knowledge/grammar/level3/lesson-2.html" }
+                    // Add more lessons
+                ]
+            },
+            {
+                subModuleName: "Advanced Structures",
+                subModuleId: "grammar4",
+                lessons: [
+                    { title: "Lesson 1: Conjunctions and Complex Sentences", pageUrl: "../knowledge/grammar/level4/lesson-1.html" },
+                    { title: "Lesson 2: Conditional Sentences", pageUrl: "../knowledge/grammar/level4/lesson-2.html" }
+                    // Add more lessons
+                ]
+            },
+            {
+                subModuleName: "Advanced Communication",
+                subModuleId: "grammar5",
+                lessons: [
+                    { title: "Lesson 1: Nuances of Politeness", pageUrl: "../knowledge/grammar/level5/lesson-1.html" },
+                    { title: "Lesson 2: Cultural Expressions and Idioms", pageUrl: "../knowledge/grammar/level5/lesson-2.html" }
+                    // Add more lessons
+                ]
+            },
+            {
+                subModuleName: "Mastering Fluency",
+                subModuleId: "grammar6",
+                lessons: [
+                    { title: "Lesson 1: Debating and Persuasion", pageUrl: "../knowledge/grammar/level6/lesson-1.html" },
+                    { title: "Lesson 2: Storytelling and Narration", pageUrl: "../knowledge/grammar/level6/lesson-2.html" }
+                    // Add more lessons
+                ]
+            }
+        ]
+    },
+    {
+        moduleName: "Comprehension",
+        moduleId: "comprehensionModule",
+        subModules: [
+            {
+                subModuleName: "Foundations of Comprehension",
+                subModuleId: "comprehension1",
+                lessons: [
+                    { title: "Lesson 1: Understanding Basic Greetings and Introductions", pageUrl: "../knowledge/comprehension/level1/lesson-1.html" },
+                    { title: "Lesson 2: Numbers and Time", pageUrl: "../knowledge/comprehension/level1/lesson-2.html" }
+                ]
+            },
+            {
+                subModuleName: "Everyday Situations",
+                subModuleId: "comprehension2",
+                lessons: [
+                    { title: "Lesson 1: Shopping Conversations", pageUrl: "../knowledge/comprehension/level2/lesson-1.html" },
+                    { title: "Lesson 2: Restaurant and Food", pageUrl: "../knowledge/comprehension/level2/lesson-2.html" }
+                    // Add more lessons
+                ]
+            },
+            {
+                subModuleName: "Expanding Knowledge",
+                subModuleId: "comprehension3",
+                lessons: [
+                    { title: "Lesson 1: Educational Content", pageUrl: "../knowledge/comprehension/level3/lesson-1.html" },
+                    { title: "Lesson 2: Work and Occupation Dialogues", pageUrl: "../knowledge/comprehension/level3/lesson-2.html" }
+                    // Add more lessons
+                ]
+            },
+            {
+                subModuleName: "Advanced Interpretation",
+                subModuleId: "comprehension4",
+                lessons: [
+                    { title: "Lesson 1: Narratives and Storytelling", pageUrl: "../knowledge/comprehension/level4/lesson-1.html" },
+                    { title: "Lesson 2: Opinions and Arguments", pageUrl: "../knowledge/comprehension/level4/lesson-2.html" }
+                    // Add more lessons
+                ]
+            },
+            {
+                subModuleName: "Mastery of Comprehension",
+                subModuleId: "comprehension5",
+                lessons: [
+                    { title: "Lesson 1: Abstract and Philosophical Texts", pageUrl: "../knowledge/comprehension/level5/lesson-1.html" },
+                    { title: "Lesson 2: Poetry and Literature", pageUrl: "../knowledge/comprehension/level5/lesson-2.html" }
+                    // Add more lessons
+                ]
+            },
+            {
+                subModuleName: "Applied Comprehension",
+                subModuleId: "comprehension6",
+                lessons: [
+                    { title: "Lesson 1: Interactive Scenarios and Role Plays", pageUrl: "../knowledge/comprehension/level6/lesson-1.html" },
+                    { title: "Lesson 2: Listening and Audio Comprehension", pageUrl: "../knowledge/comprehension/level6/lesson-2.html" }
+                    // Add more lessons
+                ]
+            }
+        ]
+    },
+
     // Add more modules
 ];
 
@@ -62,11 +198,92 @@ let userLearningMode = "Guided Learning"; // Or "Self-Directed Exploration"
 const userProgress = {
     vocabulary: {
         vocabulary1: {
-            "Lesson 1: Intro to Words": true, // true indicates completion
-            "Lesson 2: Common Phrases": false
+            "Lesson 1: Common Phrases": true, // true indicates completion
+            "Lesson 2: Common Numbers and Counting": true,
+            "Lesson 3: Colors and Shapes": false,
+            "Lesson 4: Time and Days": false,
         },
         vocabulary2: {
-            "Lesson 1: Complex Terms": false
+            "Lesson 1: Family and People": false,
+            "Lesson 2: Food and Drink": false,
+            "Lesson 3: Clothing and Body": false,
+            "Lesson 4: Home and Daily Routines": false,
+        },
+        vocabulary3: {
+            "Lesson 1: Nature and Weather": false,
+            "Lesson 2: City and Transportation": false,
+            "Lesson 3: Shopping and Money": false,
+            "Lesson 4: Health and Emergency": false,
+        },
+        vocabulary4: {
+            "Lesson 1: Emotions and Opinions": false,
+            "Lesson 2: Hobbies and Leisure": false,
+            "Lesson 3: Education and Work": false,
+            "Lesson 4: Travel and Culture": false,
+        },
+        vocabulary5: {
+            "Lesson 1: Complex Descriptions": false,
+            "Lesson 2: Abstract Concepts": false,
+            "Lesson 3: Formal and Informal Language": false,
+            "Lesson 4: Compound Word Construction": false,
+        },
+        vocabulary6: {
+            "Lesson 1: Science and Technology": false,
+            "Lesson 2: Arts and Literature": false,
+            "Lesson 3: Business and Economy": false,
+            "Lesson 4: Politics and Society": false,
+        }
+    },
+    grammar: {
+        grammar1: {
+            "Lesson 1: Sentence Structure": false, // true indicates completion
+            "Lesson 2: Pronouns and Simple Verbs": false,
+        },
+        grammar2: {
+            "Lesson 1: Negation": false,
+            "Lesson 2: Plurals and Quantity": false
+        },
+        grammar3: {
+            "Lesson 1: Possessive Structures": false,
+            "Lesson 2: Comparatives and Superlatives": false
+        },
+        grammar4: {
+            "Lesson 1: Conjunctions and Complex Sentences": false,
+            "Lesson 2: Conditional Sentences": false
+        },
+        grammar5: {
+            "Lesson 1: Nuances of Politeness": false,
+            "Lesson 2: Cultural Expressions and Idioms": false
+        },
+        grammar6: {
+            "Lesson 1: Debating and Persuasion": false,
+            "Lesson 2: Storytelling and Narration": false
+        }
+    },
+    comprehension: {
+        comprehension1: {
+            "Lesson 1: Understanding Basic Greetings and Introductions": false, // true indicates completion
+            "Lesson 2: Numbers and Time": false
+        },
+        comprehension2: {
+            "Lesson 1: Shopping Conversations": false,
+            "Lesson 2: Restaurant and Food": false
+        },
+        comprehension3: {
+            "Lesson 1: Educational Content": false,
+            "Lesson 2: Work and Occupation Dialogues": false
+        },
+        comprehension4: {
+            "Lesson 1: Narratives and Storytelling": false,
+            "Lesson 2: Opinions and Arguments": false
+        },
+        comprehension5: {
+            "Lesson 1: Abstract and Philosophical Texts": false,
+            "Lesson 2: Poetry and Literature": false
+        },
+        comprehension6: {
+            "Lesson 1: Interactive Scenarios and Role Plays": false,
+            "Lesson 2: Listening and Audio Comprehension": false
         }
     },
     // Include other modules and submodules as necessary
@@ -76,7 +293,7 @@ const userProgress = {
 const recommendations = {
     module: "Vocabulary",
     subModule: "vocabulary1",
-    lessons: ["Lesson 1: Intro to Words"] // Assuming at least one lesson is recommended
+    lessons: ["Lesson 1: Common Phrases"] // Assuming at least one lesson is recommended
 };
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -85,15 +302,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function renderContent() {
     const knowledgeCenter = document.getElementById('knowledgeCenter');
-    knowledgeCenter.innerHTML = ''; // Clear existing content (if any)
+    knowledgeCenter.innerHTML = '';
     courseContent.forEach(module => {
-        // Check if this module is recommended
         const isRecommendedModule = module.moduleName === recommendations.module;
-        
         let moduleHtml = `
-            <div class="module ${isRecommendedModule ? 'recommended' : ''}" id="${module.moduleId}" data-module="${module.moduleName.toLowerCase()}">
+            <div class="module ${isRecommendedModule ? 'recommended' : ''}" id="${module.moduleId}" data-module="${module.moduleName}">
                 <h3>${module.moduleName}</h3>
-                <div class="progressBar"><div class="progress"></div></div>
+                <div class="progressBar"><div class="progress"><span class="progress-text"></span></div></div>
                 ${generateSubModulesHtml(module.subModules, isRecommendedModule)}
             </div>
         `;
@@ -108,34 +323,34 @@ function renderContent() {
 
 function updateModuleProgress() {
     document.querySelectorAll('.module').forEach(moduleElement => {
-        const moduleName = moduleElement.dataset.module;
+        if (!moduleElement.dataset.module) {
+            console.error('Missing data-module attribute:', moduleElement);
+            return;
+        } 
+        const moduleName = moduleElement.dataset.module.toLowerCase();
         let totalProgress = 0;
         let submoduleCount = 0;
+        
+        moduleElement.querySelectorAll('.subModule').forEach(subModuleElement => {
+            const subModuleName = subModuleElement.dataset.subModule;
+            const progressData = userProgress[moduleName] && userProgress[moduleName][subModuleName];
+            if (progressData) {
+                const lessonsCompleted = Object.values(progressData).filter(completed => completed).length;
+                const totalLessons = Object.keys(progressData).length;
+                const subModuleProgress = (lessonsCompleted / totalLessons) * 100;
 
-        const subModules = Array.from(moduleElement.querySelectorAll('.subModule'));
-        subModules.forEach(subModule => {
-            const subModuleId = subModule.dataset.subModule;
-            const lessons = userProgress[moduleName]?.[subModuleId] || {};
-            const completedLessonCount = Object.values(lessons).filter(isCompleted => isCompleted).length;
-            const totalLessonCount = courseContent.find(m => m.moduleName.toLowerCase() === moduleName)
-                                      .subModules.find(sm => sm.subModuleId === subModuleId)
-                                      .lessons.length;
+                subModuleElement.querySelector('.progress').style.width = `${subModuleProgress}%`;
 
-            const subModuleProgress = totalLessonCount > 0 ? (completedLessonCount / totalLessonCount) * 100 : 0;
-            subModule.querySelector('.progress').style.width = `${subModuleProgress}%`;
-
-            totalProgress += subModuleProgress;
-            submoduleCount++;
+                totalProgress += subModuleProgress;
+                submoduleCount++;
+            }
         });
 
-        const moduleProgress = submoduleCount > 0 ? totalProgress / submoduleCount : 0;
-        moduleElement.querySelector('.progress').style.width = `${moduleProgress}%`;
-
-        // Update the progress bar width and text for the module
-        const moduleProgressBar = moduleElement.querySelector('.progress');
-        moduleProgressBar.style.width = `${moduleProgress}%`;
-        const moduleProgressText = moduleProgressBar.querySelector('.progress-text');
-        moduleProgressText.textContent = `${moduleProgress.toFixed(0)}%`;
+        if (submoduleCount > 0) {
+            const moduleProgress = totalProgress / submoduleCount;
+            moduleElement.querySelector('.progress').style.width = `${moduleProgress}%`;
+            moduleElement.querySelector('.progress-text').textContent = `${moduleProgress.toFixed(0)}%`;
+        }
     });
 }
 
@@ -187,20 +402,21 @@ function attachEventListeners() {
 
 function generateSubModulesHtml(subModules, isParentModuleRecommended) {
     return subModules.map(subModule => {
-        // Check if this submodule is recommended
         const isRecommendedSubModule = isParentModuleRecommended && subModule.subModuleId === recommendations.subModule;
-
         return `
             <div class="subModule ${isRecommendedSubModule ? 'recommended' : ''}" data-sub-module="${subModule.subModuleId}">
                 <div class="subModuleHeader"><h4>${subModule.subModuleName}</h4></div>
-                <div class="progressBar"><div class="progress" style="width: 0%;"></div></div>
+                <div class="progressBar"><div class="progress"></div></div>
                 <ul class="lessonsList">
-                    ${subModule.lessons.map(lesson => `
-                        <li>
-                            <a href="${lesson.pageUrl}" class="${isLessonRecommendedOrCompleted(lesson.title, subModule.subModuleId) ? '' : 'locked'}" data-lesson="${lesson.title}">
+                    ${subModule.lessons.map(lesson => {
+                        const isAccessible = isLessonRecommendedOrCompleted(lesson.title, subModule.subModuleId);
+
+                        return `<li>
+                            <a href="${lesson.pageUrl}" class="lessonLink ${isAccessible ? '' : 'locked'}" data-lesson="${lesson.title}">
                                 ${lesson.title}
                             </a>
-                        </li>`).join('')}
+                        </li>`;
+                    }).join('')}
                 </ul>
             </div>
         `;
@@ -212,6 +428,7 @@ function isLessonRecommendedOrCompleted(lessonTitle, subModuleId) {
     if (userLearningMode === "Guided Learning") {
         const isCompleted = userProgress[subModuleId] && userProgress[subModuleId][lessonTitle];
         const isRecommended = recommendations.subModule === subModuleId && recommendations.lessons.includes(lessonTitle);
+        
         return isRecommended || isCompleted;
     }
     // In Self-Directed Exploration, all lessons are accessible
@@ -233,8 +450,8 @@ function applyLearningMode() {
 function lockOrUnlockLessons() {
     document.querySelectorAll('.lessonsList a').forEach(link => {
         const lessonName = link.getAttribute('data-lesson');
-        const moduleName = link.closest('.module').getAttribute('data-module');
-        const subModuleName = link.closest('.subModule').getAttribute('data-sub-module');
+        const moduleName = link.closest('.module').getAttribute('data-module').toLowerCase().trim();
+        const subModuleName = link.closest('.subModule').getAttribute('data-sub-module').trim();
 
         // Determine if the lesson should be accessible
         const isRecommended = recommendations.module.toLowerCase() === moduleName &&
@@ -244,17 +461,12 @@ function lockOrUnlockLessons() {
         const isCompleted = userProgress[moduleName] && 
                             userProgress[moduleName][subModuleName] && 
                             userProgress[moduleName][subModuleName][lessonName];
-        
+                            
         if (!isRecommended && !isCompleted) {
             // Mark as locked if not recommended or completed
             link.classList.add('locked');
         } else {
             link.classList.remove('locked');
-            // If the lesson is recommended or completed, ensure it's clickable
-            link.addEventListener('click', (event) => {
-                // Implement navigation to the lesson page
-                // This can be a simple href if appropriate or a more complex interaction
-            });
         }
     });
 }
