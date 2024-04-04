@@ -220,6 +220,7 @@ footer p:hover {
     display: block;
     text-align: center;
     margin: 10px auto 50px; /* Consolidated margin properties */
+    padding-top: 20px;
     font-size: 32px;
     text-decoration: none;
     border-color: var(--color-background);
