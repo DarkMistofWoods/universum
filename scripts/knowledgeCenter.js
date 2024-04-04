@@ -199,7 +199,7 @@ const userProgress = {
     vocabulary: {
         vocabulary1: {
             "Lesson 1: Common Phrases": true, // true indicates completion
-            "Lesson 2: Common Numbers and Counting": true,
+            "Lesson 2: Common Numbers and Counting": false,
             "Lesson 3: Colors and Shapes": false,
             "Lesson 4: Time and Days": false,
         },
