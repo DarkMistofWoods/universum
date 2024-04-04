@@ -184,7 +184,7 @@ function drawLanguageTree(progress) {
     canvas.height = 400; // Adjust as needed
 
     // Start drawing the tree base
-    drawTreeBase(ctx);
+    drawTreeBase(ctx, canvas);
 
     // Calculate and draw each branch of the language tree based on progress
     Object.keys(progress).forEach((module, index, array) => {
@@ -193,7 +193,7 @@ function drawLanguageTree(progress) {
     });
 }
 
-function drawTreeBase(ctx) {
+function drawTreeBase(ctx, canvas) {
     // Example function to draw the base of the tree
     ctx.beginPath();
     ctx.moveTo(canvas.width / 2, canvas.height);
