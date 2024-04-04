@@ -17,7 +17,7 @@ function positionNumbers() {
       num.style.top = `${y}px`;
     });
   
-    // Draw lines after positioning numbers to avoid overlap
+    // Draw lines after positioning numbers to avoid overlap 
     for (let i = 0; i < points.length; i++) {
         for (let j = i + 1; j < points.length; j++) {
             drawLine(svgContainer, points[i], points[j]);

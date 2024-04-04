@@ -557,6 +557,15 @@ button:hover {
     align-items: center;
 }
 
+/* Circle without numbers */
+.circle-logo-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    width: 100%; /* Ensure it spans the full width */
+    height: 100%; /* Ensure it spans the full height */
+}
+
 .number {
     position: absolute;
     background-color: var(--color-background);
