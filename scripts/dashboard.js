@@ -27,7 +27,7 @@ async function initializeDashboard(user) {
         // Further dashboard initialization that depends on user being present,
         // like fetching userProgress, can continue here...
         const userProgressRef = doc(db, 'userProgress', user.uid);
-        const progressDoc = await getDoc(userProgressRef);
+        const progressDoc = await getDoc(userProgressRef); 
         
         if (progressDoc.exists()) {
             const progressData = progressDoc.data();
@@ -174,23 +174,18 @@ function drawLanguageTree(progress) {
         console.error("Canvas is not supported by your browser.");
         return;
     }
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // clear the canvas
     const ctx = canvas.getContext('2d');
-    ctx.fillStyle = 'red';
-    ctx.fillRect(10, 10, 50, 50); // Draw a red rectangle
-
     
-    // Dynamically adjust canvas size if needed
-    canvas.width = document.querySelector('.language-tree').offsetWidth;
-    canvas.height = 400; // Adjust as needed
+    const container = document.querySelector('.language-tree');
+    canvas.width = container.offsetWidth; // Set canvas width to container width
+    canvas.height = container.offsetHeight; // Set canvas height to container height
 
-    // Start drawing the tree base
+    // Now, you can draw on the canvas. Here, you adjust the starting point
+    // and initial length to better use the available canvas space.
     drawTreeBase(ctx, canvas);
-
-    // Calculate and draw each branch of the language tree based on progress
-    Object.keys(progress).forEach((module, index, array) => {
-        const angle = Math.PI / (array.length + 1) * (index + 1);
-        drawBranch(ctx, canvas.width / 2, canvas.height, angle, progress[module], module);
-    });
+    // Adjust the starting parameters to utilize the new canvas size fully
+    drawBranch(ctx, canvas.width / 2, canvas.height, -Math.PI / 2, canvas.height / 4, 0);
 }
 
 function drawTreeBase(ctx, canvas) {
@@ -201,32 +196,40 @@ function drawTreeBase(ctx, canvas) {
     ctx.stroke();
 }
 
-function drawBranch(ctx, startX, startY, angle, moduleProgress, moduleName) {
-    // Basic implementation of a branch drawing function
-    const endX = startX + Math.cos(angle) * 100; // Length of the branch
-    const endY = startY - Math.sin(angle) * 100; // Adjust as needed
+function drawBranch(ctx, startX, startY, angle, length, depth = 0) {
+    if (depth > 2) return; // Limit the recursion depth for modules, submodules, and lessons
+
+    const endX = startX + Math.cos(angle) * length;
+    const endY = startY - Math.sin(angle) * length;
 
     ctx.beginPath();
     ctx.moveTo(startX, startY);
     ctx.lineTo(endX, endY);
     ctx.stroke();
 
-    // Based on moduleProgress, add leaves or fruits to the branch
-    const lessonKeys = Object.keys(moduleProgress);
-    lessonKeys.forEach((lesson, index) => {
-        // For simplicity, just marking completion with a circle
-        const progress = moduleProgress[lesson];
-        if (progress) {
-            // Draw a leaf or fruit for completed lessons
-            ctx.beginPath();
-            ctx.arc(endX, endY - (index * 10), 5, 0, Math.PI * 2); // Simple circle for demonstration
-            ctx.fillStyle = 'green'; // Completed lessons marked green
-            ctx.fill();
-        }
-    });
+    // Randomly decide the number of sub-branches (e.g., submodules or lessons)
+    let subBranches = depth === 0 ? Object.keys(userProgress).length : Math.random() * 4 + 1;
+
+    for (let i = 0; i < subBranches; i++) {
+        // Generate a new angle and length for each sub-branch
+        const newAngle = angle + Math.random() * 0.5 - 0.25; // Adjust angle randomness
+        const newLength = length * (0.7 + Math.random() * 0.3); // Adjust length randomness
+        drawBranch(ctx, endX, endY, newAngle, newLength, depth + 1);
+    }
+
+    // Optionally, draw a leaf or fruit at the end of each final branch
+    if (depth === 2) {
+        ctx.beginPath();
+        ctx.arc(endX, endY, 5, 0, Math.PI * 2); // Simple circle for demonstration
+        ctx.fillStyle = 'green'; // Or use different colors for different statuses
+        ctx.fill();
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     // initializeDashboard();
     // drawLanguageTree(userProgress);
+    window.addEventListener('resize', () => {
+        drawLanguageTree(userProgress); // Redraw the tree when the window is resized
+    });    
 });

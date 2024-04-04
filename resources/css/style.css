@@ -772,14 +772,13 @@ label {
 
 /* DASHBOARD */
 .dashboard {
-    display: grid;
+    display: flex;
     align-items: baseline;
-    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
-    padding-top: 10px;
-    padding-right: 50px;
-    padding-left: 50px;
-    margin: auto;
+    padding-top: 15px;
+    padding-right: 25px;
+    padding-left: 25px;
+    margin: 0;
 }
 
 .greeting h1, span {
@@ -791,8 +790,19 @@ label {
 .language-tree {
     position: relative;
     width: 100%;
-    height: 400px; /* Adjust based on your design */
+    height: 600px; /* Adjust based on your design */
     background-color: var(--background-darkened); /* Light background to help visualization stand out */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#languageTreeCanvas {
+    display: block; /* Removes bottom space/margin */
+    max-width: 100%; /* Ensures the canvas is not wider than its container */
+    height: auto; /* Keeps the aspect ratio of the canvas intact */
+    background-color: transparent; /* Optional: Canvas background */
 }
 
 /* Example styles, you'll need to adjust based on your implementation */
