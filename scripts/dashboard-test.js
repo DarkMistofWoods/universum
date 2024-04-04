@@ -3,13 +3,13 @@ function renderCustomNetworkVisualization(userProgress) {
     svg.setAttribute('viewBox', '0 0 800 600'); // Adjust as needed for full view in the container
     svg.innerHTML = ''; // Clear existing visualization
 
-    const moduleRadius = 20; // Largest
-    const submoduleRadius = 10; // Medium
+    const moduleRadius = 25; // Largest
+    const submoduleRadius = 15; // Medium
     const lessonRadius = 5; // Smallest
     const center = { x: 400, y: 300 }; // Central point for the layout
-    let moduleAngle = 0;
+    let moduleAngle = 36; // shift the network CCW
     const moduleDistance = 200; // Distance from center to module
-    const submoduleDistance = 150; // Distance from module to submodule
+    const submoduleDistance = 100; // Distance from module to submodule
     const lessonDistance = 25; // Distance from submodule to lesson
 
     const moduleKeys = Object.keys(userProgress);
@@ -56,7 +56,7 @@ function renderCustomNetworkVisualization(userProgress) {
 
         moduleAngle += moduleAngleIncrement;
     });
-
+    
     // Interconnect all module nodes
     modulePositions.forEach((pos1, index1) => {
         modulePositions.forEach((pos2, index2) => {
@@ -82,12 +82,39 @@ function renderLine(svg, x1, y1, x2, y2) {
     line.setAttribute('y1', y1);
     line.setAttribute('x2', x2);
     line.setAttribute('y2', y2);
-    line.setAttribute('stroke', '#CCCCCC');
+    line.setAttribute('stroke', '#80A69F');
     line.setAttribute('stroke-width', '1');
     svg.insertBefore(line, svg.firstChild); // Ensure lines are under nodes
 }
 
-// Placeholder for user's progress in each lesson, submodule, module
+// calculates the max width and height based on current active content
+function calculateBounds(modulePositions) {
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+
+    // Assuming modulePositions contains the positions of all modules and their connected nodes
+    modulePositions.forEach(pos => {
+        minX = Math.min(minX, pos.x);
+        maxX = Math.max(maxX, pos.x);
+        minY = Math.min(minY, pos.y);
+        maxY = Math.max(maxY, pos.y);
+    });
+
+    // Include submodules and lessons in the bounds calculation
+    // You need to ensure that positions of all nodes (including submodules and lessons) are included
+    // This might involve extending the modulePositions array or creating a new comprehensive array
+
+    // Adjust the bounds slightly to ensure there's padding around the network, so it's not too tight to the edges
+    const padding = 50; // Adjust padding as needed
+    minX -= padding;
+    maxX += padding;
+    minY -= padding;
+    maxY += padding;
+
+    return { minX, maxX, minY, maxY };
+}
+
+
+// Placeholder for user's progress in each lesson
 const userProgress = {
     vocabulary: {
         vocabulary1: {
@@ -201,6 +228,38 @@ const userProgress = {
             "Lesson 2: Listening and Audio Comprehension": false,
             "Lesson 3: Visual Comprehension and Interpretation": false,
             "Lesson 4: Comprehension Through Creation": false
+        }
+    },
+    math: {
+        math1: {
+            "Lesson 1: Introduction to Base-12 System": false,
+            "Lesson 2: Counting in Base-12": false,
+            "Lesson 3: Basic Operations in Base-12": false,
+            "Lesson 4: Multiplication and Division in Base-12": false
+        },
+        math2: {
+            "Lesson 1: Carrying and Borrowing in Base-12": false,
+            "Lesson 2: Advanced Multiplication and Division": false,
+            "Lesson 3: Fractions in Base-12": false,
+            "Lesson 4: Converting Between Base-10 and Base-12": false
+        },
+        math3: {
+            "Lesson 1: Base-12 Place Values": false,
+            "Lesson 2: Using Base-12 in Practical Situations": false,
+            "Lesson 3: Decimals in Base-12": false,
+            "Lesson 4: Ratios and Proportions in Base-12": false
+        },
+        math4: {
+            "Lesson 1: Geometric Shapes and Measurements in Base-12": false,
+            "Lesson 2: Algebraic Expressions in Base-12": false,
+            "Lesson 3: Graphing in Base-12": false,
+            "Lesson 4: Statistics and Probability in Base-12": false
+        },
+        math5: {
+            "Lesson 1: Mathematical Puzzles in Base-12": false,
+            "Lesson 2: Exploring Patterns and Sequences in Base-12": false,
+            "Lesson 3: Base-12 in Science and Technology": false,
+            "Lesson 4: Theoretical Math in Base-12": false
         }
     },
     // Include other modules and submodules as necessary

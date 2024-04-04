@@ -36,8 +36,8 @@ async function initializeDashboard(user) {
             renderCustomNetworkVisualization(progressData);
         } else {
             console.log("No user progress found. Using demo data.");
-            const progressData = userProgress;
-            renderCustomNetworkVisualization(userProgress); // Use demo data
+            
+            renderCustomNetworkVisualization(dummyProgress); // Use demo data
         }
     } catch (error) {
         console.error("Error initializing dashboard: ", error);
@@ -46,60 +46,95 @@ async function initializeDashboard(user) {
 
 function renderCustomNetworkVisualization(userProgress) {
     const svg = document.querySelector('#networkVisualization svg');
+    svg.setAttribute('viewBox', '0 0 800 600'); // Adjust as needed for full view in the container
     svg.innerHTML = ''; // Clear existing visualization
 
-    const xOffset = 100, yOffset = 60;
-    let xPos = xOffset, yPos = yOffset;
-    const lessonKeys = Object.keys(userProgress).flatMap(moduleKey => Object.keys(userProgress[moduleKey]));
+    const moduleRadius = 20; // Largest
+    const submoduleRadius = 10; // Medium
+    const lessonRadius = 5; // Smallest
+    const center = { x: 400, y: 300 }; // Central point for the layout
+    let moduleAngle = 0;
+    const moduleDistance = 200; // Distance from center to module
+    const submoduleDistance = 100; // Distance from module to submodule
+    const lessonDistance = 25; // Distance from submodule to lesson
 
-    // Calculate positions and render nodes
-    lessonKeys.forEach((lessonKey, index) => {
-        // Basic layout logic - adjust as needed
-        if (index % 4 === 0 && index !== 0) {
-            yPos += yOffset * 2;
-            xPos = xOffset;
-        } else if (index !== 0) {
-            xPos += xOffset * 2;
-        }
+    const moduleKeys = Object.keys(userProgress);
+    const moduleAngleIncrement = (2 * Math.PI) / moduleKeys.length;
+    const modulePositions = []; // Store module positions for interconnecting them later
 
-        // Node
-        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        circle.setAttribute('cx', xPos);
-        circle.setAttribute('cy', yPos);
-        circle.setAttribute('r', 20);
-        circle.setAttribute('fill', '#007BFF'); // Blue fill, change as needed
+    moduleKeys.forEach((moduleKey, moduleIndex) => {
+        const modulePosition = {
+            x: center.x + moduleDistance * Math.cos(moduleAngle),
+            y: center.y + moduleDistance * Math.sin(moduleAngle)
+        };
+        modulePositions.push(modulePosition); // Store position for later use
+        renderNode(svg, modulePosition.x, modulePosition.y, moduleKey, moduleRadius, '#5F736F');
 
-        // Label
-        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        text.setAttribute('x', xPos);
-        text.setAttribute('y', yPos + 5); // Adjust for centering
-        text.setAttribute('fill', '#FFFFFF');
-        text.setAttribute('font-size', '12');
-        text.setAttribute('text-anchor', 'middle');
-        text.textContent = lessonKey; // Simplify or map to a cleaner name as needed
+        const submoduleKeys = Object.keys(userProgress[moduleKey]);
+        const submoduleAngleIncrement = (2 * Math.PI) / submoduleKeys.length;
+        let submoduleAngle = 0;
 
-        svg.appendChild(circle);
-        svg.appendChild(text);
+        submoduleKeys.forEach((submoduleKey, submoduleIndex) => {
+            const submodulePosition = {
+                x: modulePosition.x + submoduleDistance * Math.cos(submoduleAngle),
+                y: modulePosition.y + submoduleDistance * Math.sin(submoduleAngle)
+            };
+            renderNode(svg, submodulePosition.x, submodulePosition.y, submoduleKey, submoduleRadius, '#80A69F');
+            renderLine(svg, modulePosition.x, modulePosition.y, submodulePosition.x, submodulePosition.y);
+
+            const lessonKeys = Object.keys(userProgress[moduleKey][submoduleKey]);
+            const lessonAngleIncrement = (2 * Math.PI) / lessonKeys.length;
+            let lessonAngle = 0;
+
+            lessonKeys.forEach((lessonKey, lessonIndex) => {
+                const lessonPosition = {
+                    x: submodulePosition.x + lessonDistance * Math.cos(lessonAngle),
+                    y: submodulePosition.y + lessonDistance * Math.sin(lessonAngle)
+                };
+                renderNode(svg, lessonPosition.x, lessonPosition.y, lessonKey, lessonRadius, '#95BFB8');
+                renderLine(svg, submodulePosition.x, submodulePosition.y, lessonPosition.x, lessonPosition.y);
+
+                lessonAngle += lessonAngleIncrement;
+            });
+
+            submoduleAngle += submoduleAngleIncrement;
+        });
+
+        moduleAngle += moduleAngleIncrement;
     });
 
-    // Example of drawing connections - you'll need to define logic based on your module/lesson structure
-    // This is a simplified approach, you may want to calculate these based on actual dependencies
-    lessonKeys.slice(1).forEach((_, index) => {
-        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-        line.setAttribute('x1', xOffset + (index % 4) * xOffset * 2);
-        line.setAttribute('y1', yOffset + Math.floor(index / 4) * yOffset * 2);
-        line.setAttribute('x2', xOffset + ((index + 1) % 4) * xOffset * 2);
-        line.setAttribute('y2', yOffset + Math.floor((index + 1) / 4) * yOffset * 2);
-        line.setAttribute('stroke', '#CCCCCC');
-        line.setAttribute('stroke-width', '2');
-
-        svg.insertBefore(line, svg.firstChild); // Ensure lines are under nodes
+    // Interconnect all module nodes
+    modulePositions.forEach((pos1, index1) => {
+        modulePositions.forEach((pos2, index2) => {
+            if (index2 > index1) {
+                renderLine(svg, pos1.x, pos1.y, pos2.x, pos2.y);
+            }
+        });
     });
 }
 
+function renderNode(svg, x, y, label, radius, fillColor) {
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', x);
+    circle.setAttribute('cy', y);
+    circle.setAttribute('r', radius);
+    circle.setAttribute('fill', fillColor);
+    svg.appendChild(circle);
+}
 
-// Placeholder for user's progress in each lesson, submodule, module
-const userProgress = {
+function renderLine(svg, x1, y1, x2, y2) {
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', x1);
+    line.setAttribute('y1', y1);
+    line.setAttribute('x2', x2);
+    line.setAttribute('y2', y2);
+    line.setAttribute('stroke', '#CCCCCC');
+    line.setAttribute('stroke-width', '1');
+    svg.insertBefore(line, svg.firstChild); // Ensure lines are under nodes
+}
+
+// Placeholder for user's progress in each lesson
+const dummyProgress = {
     vocabulary: {
         vocabulary1: {
             "Lesson 1: Common Phrases": true, // true indicates completion
@@ -212,6 +247,38 @@ const userProgress = {
             "Lesson 2: Listening and Audio Comprehension": false,
             "Lesson 3: Visual Comprehension and Interpretation": false,
             "Lesson 4: Comprehension Through Creation": false
+        }
+    },
+    math: {
+        math1: {
+            "Lesson 1: Introduction to Base-12 System": false,
+            "Lesson 2: Counting in Base-12": false,
+            "Lesson 3: Basic Operations in Base-12": false,
+            "Lesson 4: Multiplication and Division in Base-12": false
+        },
+        math2: {
+            "Lesson 1: Carrying and Borrowing in Base-12": false,
+            "Lesson 2: Advanced Multiplication and Division": false,
+            "Lesson 3: Fractions in Base-12": false,
+            "Lesson 4: Converting Between Base-10 and Base-12": false
+        },
+        math3: {
+            "Lesson 1: Base-12 Place Values": false,
+            "Lesson 2: Using Base-12 in Practical Situations": false,
+            "Lesson 3: Decimals in Base-12": false,
+            "Lesson 4: Ratios and Proportions in Base-12": false
+        },
+        math4: {
+            "Lesson 1: Geometric Shapes and Measurements in Base-12": false,
+            "Lesson 2: Algebraic Expressions in Base-12": false,
+            "Lesson 3: Graphing in Base-12": false,
+            "Lesson 4: Statistics and Probability in Base-12": false
+        },
+        math5: {
+            "Lesson 1: Mathematical Puzzles in Base-12": false,
+            "Lesson 2: Exploring Patterns and Sequences in Base-12": false,
+            "Lesson 3: Base-12 in Science and Technology": false,
+            "Lesson 4: Theoretical Math in Base-12": false
         }
     },
     // Include other modules and submodules as necessary

@@ -212,6 +212,66 @@ const courseContent = [
             }
         ]
     },
+    {
+        moduleName: "Math",
+        moduleId: "mathModule",
+        subModules: [
+            {
+                subModuleName: "Understanding Base-12 Basics",
+                subModuleId: "math1",
+                lessons: [
+                    { title: "Lesson 1: Introduction to Base-12 System", pageUrl: "../knowledge/math/level1/lesson-1.html" },
+                    { title: "Lesson 2: Counting in Base-12", pageUrl: "../knowledge/math/level1/lesson-2.html" },
+                    { title: "Lesson 3: Basic Operations in Base-12", pageUrl: "../knowledge/math/level1/lesson-3.html" },
+                    { title: "Lesson 4: Multiplication and Division in Base-12", pageUrl: "../knowledge/math/level1/lesson-4.html" }
+                ]
+            },
+            {
+                subModuleName: "Advancing with Arithmetic",
+                subModuleId: "math2",
+                lessons: [
+                    { title: "Lesson 1: Carrying and Borrowing in Base-12", pageUrl: "../knowledge/math/level2/lesson-1.html" },
+                    { title: "Lesson 2: Advanced Multiplication and Division", pageUrl: "../knowledge/math/level2/lesson-2.html" },
+                    { title: "Lesson 3: Fractions in Base-12", pageUrl: "../knowledge/math/level2/lesson-3.html" },
+                    { title: "Lesson 4: Converting Between Base-10 and Base-12", pageUrl: "../knowledge/math/level2/lesson-4.html" }
+                    // Add more lessons
+                ]
+            },
+            {
+                subModuleName: "Exploring Further Concepts",
+                subModuleId: "math3",
+                lessons: [
+                    { title: "Lesson 1: Base-12 Place Values", pageUrl: "../knowledge/math/level3/lesson-1.html" },
+                    { title: "Lesson 2: Using Base-12 in Practical Situations", pageUrl: "../knowledge/math/level3/lesson-2.html" },
+                    { title: "Lesson 3: Decimals in Base-12", pageUrl: "../knowledge/math/level3/lesson-3.html" },
+                    { title: "Lesson 4: Ratios and Proportions in Base-12", pageUrl: "../knowledge/math/level3/lesson-4.html" }
+                    // Add more lessons
+                ]
+            },
+            {
+                subModuleName: "Dive into Geometry and Algebra",
+                subModuleId: "math4",
+                lessons: [
+                    { title: "Lesson 1: Geometric Shapes and Measurements in Base-12", pageUrl: "../knowledge/math/level4/lesson-1.html" },
+                    { title: "Lesson 2: Algebraic Expressions in Base-12", pageUrl: "../knowledge/math/level4/lesson-2.html" },
+                    { title: "Lesson 3: Graphing in Base-12", pageUrl: "../knowledge/math/level4/lesson-3.html" },
+                    { title: "Lesson 4: Statistics and Probability in Base-12", pageUrl: "../knowledge/math/level4/lesson-4.html" }
+                    // Add more lessons
+                ]
+            },
+            {
+                subModuleName: "Complex Applications and Theoretical Concepts",
+                subModuleId: "math5",
+                lessons: [
+                    { title: "Lesson 1: Mathematical Puzzles in Base-12", pageUrl: "../knowledge/math/level5/lesson-1.html" },
+                    { title: "Lesson 2: Exploring Patterns and Sequences in Base-12", pageUrl: "../knowledge/math/level5/lesson-2.html" },
+                    { title: "Lesson 3: Base-12 in Science and Technology", pageUrl: "../knowledge/math/level5/lesson-3.html" },
+                    { title: "Lesson 4: Theoretical Math in Base-12", pageUrl: "../knowledge/math/level5/lesson-4.html" }
+                    // Add more lessons
+                ]
+            }
+        ]
+    },
 
     // Add more modules
 ];
@@ -332,6 +392,38 @@ const userProgress = {
             "Lesson 2: Listening and Audio Comprehension": false,
             "Lesson 3: Visual Comprehension and Interpretation": false,
             "Lesson 4: Comprehension Through Creation": false
+        }
+    },
+    math: {
+        math1: {
+            "Lesson 1: Introduction to Base-12 System": false,
+            "Lesson 2: Counting in Base-12": false,
+            "Lesson 3: Basic Operations in Base-12": false,
+            "Lesson 4: Multiplication and Division in Base-12": false
+        },
+        math2: {
+            "Lesson 1: Carrying and Borrowing in Base-12": false,
+            "Lesson 2: Advanced Multiplication and Division": false,
+            "Lesson 3: Fractions in Base-12": false,
+            "Lesson 4: Converting Between Base-10 and Base-12": false
+        },
+        math3: {
+            "Lesson 1: Base-12 Place Values": false,
+            "Lesson 2: Using Base-12 in Practical Situations": false,
+            "Lesson 3: Decimals in Base-12": false,
+            "Lesson 4: Ratios and Proportions in Base-12": false
+        },
+        math4: {
+            "Lesson 1: Geometric Shapes and Measurements in Base-12": false,
+            "Lesson 2: Algebraic Expressions in Base-12": false,
+            "Lesson 3: Graphing in Base-12": false,
+            "Lesson 4: Statistics and Probability in Base-12": false
+        },
+        math5: {
+            "Lesson 1: Mathematical Puzzles in Base-12": false,
+            "Lesson 2: Exploring Patterns and Sequences in Base-12": false,
+            "Lesson 3: Base-12 in Science and Technology": false,
+            "Lesson 4: Theoretical Math in Base-12": false
         }
     },
     // Include other modules and submodules as necessary
