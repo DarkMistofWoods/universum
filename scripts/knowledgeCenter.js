@@ -128,11 +128,13 @@ function attachEventListeners() {
         });
     });
 
-    document.querySelectorAll('.subModule .subModuleHeader').forEach(header => {
-        header.addEventListener('click', function(event) {
-            event.stopPropagation();
-            const subModule = this.parentNode;
-            toggleLessonsVisibility(subModule);
+    document.querySelectorAll('.subModule').forEach(subModule => {
+        subModule.addEventListener('click', function(event) {
+            // Prevents submodule toggle when clicking on links or any interactive element within it
+            if (!event.target.closest('a, button, input, [onclick]')) {
+                toggleLessonsVisibility(this);
+            }
+            event.stopPropagation(); // Prevent triggering module toggle
         });
     });
 
