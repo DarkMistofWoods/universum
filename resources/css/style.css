@@ -968,9 +968,10 @@ label {
 .progressBar {
     width: auto;
     background-color: var(--color-background);
+    border: 2px solid var(--color-background);
     border-radius: 15px;
     margin: 5px 20px;
-    height: 20px; /* Adjust as needed */
+    height: 24px; /* Adjust as needed */
 }
 
 .progress {
@@ -982,11 +983,11 @@ label {
 
 .progress-text {
     color: var(--color-background); /* Choose a color that contrasts well with your progress bar */
-    font-size: 13px; /* Adjust based on your design */
-    font-weight: bold;
+    font-size: 12px; /* Adjust based on your design */
+    font-weight: 700;
     text-align: center;
     width: 100%;
-    line-height: 20px; /* Adjust the line height to match your progress bar's height for vertical centering */
+    line-height: 24px; /* Adjust the line height to match your progress bar's height for vertical centering */
 }
 
 .module.recommended {
@@ -1043,13 +1044,21 @@ label {
 }
 
 .subModule {
-    border: 3px solid var(--color-tertiary);
+    position: relative;
+    border: 2px solid transparent;
     border-left: 3px solid var(--color-secondary); /* Visual distinction */
+    border-right: 3px solid var(--color-secondary); /* Visual distinction */
     border-radius: 15px;
     margin-top: 10px;
     margin-left: 20px;
     margin-right: 20px;
     padding-left: 10px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
+
+.subModule:hover {
+    border: 2px solid var(--color-tertiary);
 }
 
 .subModule, .lessonsList {
@@ -1086,6 +1095,7 @@ label {
 
 .subModuleHeader h4 {
     margin-right: 20px; /* Ensures some space between the title and the progress bar */
+    font-weight: 300;
 }
 
 /* Responsive adjustments */

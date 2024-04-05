@@ -286,7 +286,7 @@ function calculateBounds(modulePositions) {
 
 // Placeholder for user's progress in each lesson
 const dummyProgress = {
-    Vocabulary: {
+    vocabulary: {
         Vocabulary_1: {
             "Lesson 1: Common Phrases": true, // true indicates completion
             "Lesson 2: Numbers and Counting": true,
@@ -324,7 +324,7 @@ const dummyProgress = {
             "Lesson 4: Politics and Society": false,
         }
     },
-    Grammar: {
+    grammar: {
         Grammar_1: {
             "Lesson 1: Sentence Structure": true,
             "Lesson 2: Pronouns and Simple Verbs": false,
@@ -362,7 +362,7 @@ const dummyProgress = {
             "Lesson 4: Humor and Playfulness in Language": false
         }
     },
-    Comprehension: {
+    comprehension: {
         Comprehension_1: {
             "Lesson 1: Understanding Basic Greetings and Introductions": false,
             "Lesson 2: Numbers and Time": false,
@@ -400,7 +400,7 @@ const dummyProgress = {
             "Lesson 4: Comprehension Through Creation": false
         }
     },
-    Math: {
+    math: {
         Math_1: {
             "Lesson 1: Introduction to Base-12 System": false,
             "Lesson 2: Counting in Base-12": false,

@@ -5,7 +5,7 @@ const courseContent = [
         subModules: [
             {
                 subModuleName: "Introduction to Universum Vocabulary",
-                subModuleId: "vocabulary1",
+                subModuleId: "Vocabulary_1",
                 lessons: [
                     { title: "Lesson 1: Common Phrases", pageUrl: "../knowledge/vocabulary/level1/lesson-1.html" },
                     { title: "Lesson 2: Numbers and Counting", pageUrl: "../knowledge/vocabulary/level1/lesson-2.html" },
@@ -15,7 +15,7 @@ const courseContent = [
             },
             {
                 subModuleName: "Everyday Vocabulary",
-                subModuleId: "vocabulary2",
+                subModuleId: "Vocabulary_2",
                 lessons: [
                     { title: "Lesson 1: Family and People", pageUrl: "../knowledge/vocabulary/level2/lesson-1.html" },
                     { title: "Lesson 2: Food and Drink", pageUrl: "../knowledge/vocabulary/level2/lesson-2.html" },
@@ -26,7 +26,7 @@ const courseContent = [
             },
             {
                 subModuleName: "Describing the World",
-                subModuleId: "vocabulary3",
+                subModuleId: "Vocabulary_3",
                 lessons: [
                     { title: "Lesson 1: Nature and Weather", pageUrl: "../knowledge/vocabulary/level3/lesson-1.html" },
                     { title: "Lesson 2: City and Transportation", pageUrl: "../knowledge/vocabulary/level3/lesson-2.html" },
@@ -37,7 +37,7 @@ const courseContent = [
             },
             {
                 subModuleName: "Expressing Ideas and Feelings",
-                subModuleId: "vocabulary4",
+                subModuleId: "Vocabulary_4",
                 lessons: [
                     { title: "Lesson 1: Emotions and Opinions", pageUrl: "../knowledge/vocabulary/level4/lesson-1.html" },
                     { title: "Lesson 2: Hobbies and Leisure", pageUrl: "../knowledge/vocabulary/level4/lesson-2.html" },
@@ -48,7 +48,7 @@ const courseContent = [
             },
             {
                 subModuleName: "Advanced Communication",
-                subModuleId: "vocabulary5",
+                subModuleId: "Vocabulary_5",
                 lessons: [
                     { title: "Lesson 1: Complex Descriptions", pageUrl: "../knowledge/vocabulary/level5/lesson-1.html" },
                     { title: "Lesson 2: Abstract Concepts", pageUrl: "../knowledge/vocabulary/level5/lesson-2.html" },
@@ -59,7 +59,7 @@ const courseContent = [
             },
             {
                 subModuleName: "Specialized Vocabulary",
-                subModuleId: "vocabulary6",
+                subModuleId: "Vocabulary_6",
                 lessons: [
                     { title: "Lesson 1: Science and Technology", pageUrl: "../knowledge/vocabulary/level6/lesson-1.html" },
                     { title: "Lesson 2: Arts and Literature", pageUrl: "../knowledge/vocabulary/level6/lesson-2.html" },
@@ -76,7 +76,7 @@ const courseContent = [
         subModules: [
             {
                 subModuleName: "Basics of Universum Grammar",
-                subModuleId: "grammar1",
+                subModuleId: "Grammar_1",
                 lessons: [
                     { title: "Lesson 1: Sentence Structure", pageUrl: "../knowledge/grammar/level1/lesson-1.html" },
                     { title: "Lesson 2: Pronouns and Simple Verbs", pageUrl: "../knowledge/grammar/level1/lesson-2.html" },
@@ -86,7 +86,7 @@ const courseContent = [
             },
             {
                 subModuleName: "Building Complexity",
-                subModuleId: "grammar2",
+                subModuleId: "Grammar_2",
                 lessons: [
                     { title: "Lesson 1: Negation", pageUrl: "../knowledge/grammar/level2/lesson-1.html" },
                     { title: "Lesson 2: Plurals and Quantity", pageUrl: "../knowledge/grammar/level2/lesson-2.html" },
@@ -97,7 +97,7 @@ const courseContent = [
             },
             {
                 subModuleName: "Expanding Expressions",
-                subModuleId: "grammar3",
+                subModuleId: "Grammar_3",
                 lessons: [
                     { title: "Lesson 1: Possessive Structures", pageUrl: "../knowledge/grammar/level3/lesson-1.html" },
                     { title: "Lesson 2: Comparatives and Superlatives", pageUrl: "../knowledge/grammar/level3/lesson-2.html" },
@@ -108,7 +108,7 @@ const courseContent = [
             },
             {
                 subModuleName: "Advanced Structures",
-                subModuleId: "grammar4",
+                subModuleId: "Grammar_4",
                 lessons: [
                     { title: "Lesson 1: Conjunctions and Complex Sentences", pageUrl: "../knowledge/grammar/level4/lesson-1.html" },
                     { title: "Lesson 2: Conditional Sentences", pageUrl: "../knowledge/grammar/level4/lesson-2.html" },
@@ -119,7 +119,7 @@ const courseContent = [
             },
             {
                 subModuleName: "Advanced Communication",
-                subModuleId: "grammar5",
+                subModuleId: "Grammar_5",
                 lessons: [
                     { title: "Lesson 1: Nuances of Politeness", pageUrl: "../knowledge/grammar/level5/lesson-1.html" },
                     { title: "Lesson 2: Cultural Expressions and Idioms", pageUrl: "../knowledge/grammar/level5/lesson-2.html" },
@@ -130,7 +130,7 @@ const courseContent = [
             },
             {
                 subModuleName: "Mastering Fluency",
-                subModuleId: "grammar6",
+                subModuleId: "Grammar_6",
                 lessons: [
                     { title: "Lesson 1: Debating and Persuasion", pageUrl: "../knowledge/grammar/level6/lesson-1.html" },
                     { title: "Lesson 2: Storytelling and Narration", pageUrl: "../knowledge/grammar/level6/lesson-2.html" },
@@ -147,7 +147,7 @@ const courseContent = [
         subModules: [
             {
                 subModuleName: "Foundations of Comprehension",
-                subModuleId: "comprehension1",
+                subModuleId: "Comprehension_1",
                 lessons: [
                     { title: "Lesson 1: Understanding Basic Greetings and Introductions", pageUrl: "../knowledge/comprehension/level1/lesson-1.html" },
                     { title: "Lesson 2: Numbers and Time", pageUrl: "../knowledge/comprehension/level1/lesson-2.html" },
@@ -157,7 +157,7 @@ const courseContent = [
             },
             {
                 subModuleName: "Everyday Situations",
-                subModuleId: "comprehension2",
+                subModuleId: "Comprehension_2",
                 lessons: [
                     { title: "Lesson 1: Shopping Conversations", pageUrl: "../knowledge/comprehension/level2/lesson-1.html" },
                     { title: "Lesson 2: Restaurant and Food", pageUrl: "../knowledge/comprehension/level2/lesson-2.html" },
@@ -168,7 +168,7 @@ const courseContent = [
             },
             {
                 subModuleName: "Expanding Knowledge",
-                subModuleId: "comprehension3",
+                subModuleId: "Comprehension_3",
                 lessons: [
                     { title: "Lesson 1: Educational Content", pageUrl: "../knowledge/comprehension/level3/lesson-1.html" },
                     { title: "Lesson 2: Work and Occupation Dialogues", pageUrl: "../knowledge/comprehension/level3/lesson-2.html" },
@@ -179,7 +179,7 @@ const courseContent = [
             },
             {
                 subModuleName: "Advanced Interpretation",
-                subModuleId: "comprehension4",
+                subModuleId: "Comprehension_4",
                 lessons: [
                     { title: "Lesson 1: Narratives and Storytelling", pageUrl: "../knowledge/comprehension/level4/lesson-1.html" },
                     { title: "Lesson 2: Opinions and Arguments", pageUrl: "../knowledge/comprehension/level4/lesson-2.html" },
@@ -190,7 +190,7 @@ const courseContent = [
             },
             {
                 subModuleName: "Mastery of Comprehension",
-                subModuleId: "comprehension5",
+                subModuleId: "Comprehension_5",
                 lessons: [
                     { title: "Lesson 1: Abstract and Philosophical Texts", pageUrl: "../knowledge/comprehension/level5/lesson-1.html" },
                     { title: "Lesson 2: Poetry and Literature", pageUrl: "../knowledge/comprehension/level5/lesson-2.html" },
@@ -201,7 +201,7 @@ const courseContent = [
             },
             {
                 subModuleName: "Applied Comprehension",
-                subModuleId: "comprehension6",
+                subModuleId: "Comprehension_6",
                 lessons: [
                     { title: "Lesson 1: Interactive Scenarios and Role Plays", pageUrl: "../knowledge/comprehension/level6/lesson-1.html" },
                     { title: "Lesson 2: Listening and Audio Comprehension", pageUrl: "../knowledge/comprehension/level6/lesson-2.html" },
@@ -218,7 +218,7 @@ const courseContent = [
         subModules: [
             {
                 subModuleName: "Understanding Base-12 Basics",
-                subModuleId: "math1",
+                subModuleId: "Math_1",
                 lessons: [
                     { title: "Lesson 1: Introduction to Base-12 System", pageUrl: "../knowledge/math/level1/lesson-1.html" },
                     { title: "Lesson 2: Counting in Base-12", pageUrl: "../knowledge/math/level1/lesson-2.html" },
@@ -228,7 +228,7 @@ const courseContent = [
             },
             {
                 subModuleName: "Advancing with Arithmetic",
-                subModuleId: "math2",
+                subModuleId: "Math_2",
                 lessons: [
                     { title: "Lesson 1: Carrying and Borrowing in Base-12", pageUrl: "../knowledge/math/level2/lesson-1.html" },
                     { title: "Lesson 2: Advanced Multiplication and Division", pageUrl: "../knowledge/math/level2/lesson-2.html" },
@@ -239,7 +239,7 @@ const courseContent = [
             },
             {
                 subModuleName: "Exploring Further Concepts",
-                subModuleId: "math3",
+                subModuleId: "Math_3",
                 lessons: [
                     { title: "Lesson 1: Base-12 Place Values", pageUrl: "../knowledge/math/level3/lesson-1.html" },
                     { title: "Lesson 2: Using Base-12 in Practical Situations", pageUrl: "../knowledge/math/level3/lesson-2.html" },
@@ -250,7 +250,7 @@ const courseContent = [
             },
             {
                 subModuleName: "Dive into Geometry and Algebra",
-                subModuleId: "math4",
+                subModuleId: "Math_4",
                 lessons: [
                     { title: "Lesson 1: Geometric Shapes and Measurements in Base-12", pageUrl: "../knowledge/math/level4/lesson-1.html" },
                     { title: "Lesson 2: Algebraic Expressions in Base-12", pageUrl: "../knowledge/math/level4/lesson-2.html" },
@@ -261,7 +261,7 @@ const courseContent = [
             },
             {
                 subModuleName: "Complex Applications and Theoretical Concepts",
-                subModuleId: "math5",
+                subModuleId: "Math_5",
                 lessons: [
                     { title: "Lesson 1: Mathematical Puzzles in Base-12", pageUrl: "../knowledge/math/level5/lesson-1.html" },
                     { title: "Lesson 2: Exploring Patterns and Sequences in Base-12", pageUrl: "../knowledge/math/level5/lesson-2.html" },
@@ -281,37 +281,37 @@ let userLearningMode = "Guided Learning"; // Or "Self-Directed Exploration"
 // Placeholder for user's progress in each lesson
 const userProgress = {
     vocabulary: {
-        vocabulary1: {
+        Vocabulary_1: {
             "Lesson 1: Common Phrases": true, // true indicates completion
             "Lesson 2: Numbers and Counting": true,
-            "Lesson 3: Colors and Shapes": true,
+            "Lesson 3: Colors and Shapes": false,
             "Lesson 4: Time and Days": false,
         },
-        vocabulary2: {
+        Vocabulary_2: {
             "Lesson 1: Family and People": false,
             "Lesson 2: Food and Drink": false,
             "Lesson 3: Clothing and Body": false,
             "Lesson 4: Home and Daily Routines": false,
         },
-        vocabulary3: {
+        Vocabulary_3: {
             "Lesson 1: Nature and Weather": false,
             "Lesson 2: City and Transportation": false,
             "Lesson 3: Shopping and Money": false,
             "Lesson 4: Health and Emergency": false,
         },
-        vocabulary4: {
+        Vocabulary_4: {
             "Lesson 1: Emotions and Opinions": false,
             "Lesson 2: Hobbies and Leisure": false,
             "Lesson 3: Education and Work": false,
             "Lesson 4: Travel and Culture": false,
         },
-        vocabulary5: {
+        Vocabulary_5: {
             "Lesson 1: Complex Descriptions": false,
             "Lesson 2: Abstract Concepts": false,
             "Lesson 3: Formal and Informal Language": false,
             "Lesson 4: Compound Word Construction": false,
         },
-        vocabulary6: {
+        Vocabulary_6: {
             "Lesson 1: Science and Technology": false,
             "Lesson 2: Arts and Literature": false,
             "Lesson 3: Business and Economy": false,
@@ -319,37 +319,37 @@ const userProgress = {
         }
     },
     grammar: {
-        grammar1: {
-            "Lesson 1: Sentence Structure": true, // true indicates completion
-            "Lesson 2: Pronouns and Simple Verbs": true,
+        Grammar_1: {
+            "Lesson 1: Sentence Structure": true,
+            "Lesson 2: Pronouns and Simple Verbs": false,
             "Lesson 3: Present, Past, and Future Tenses": false,
             "Lesson 4: Yes/No Questions and Answers": false
         },
-        grammar2: {
+        Grammar_2: {
             "Lesson 1: Negation": false,
             "Lesson 2: Plurals and Quantity": false,
             "Lesson 3: Descriptive Language": false,
             "Lesson 4: Prepositions and Directions": false
         },
-        grammar3: {
+        Grammar_3: {
             "Lesson 1: Possessive Structures": false,
             "Lesson 2: Comparatives and Superlatives": false,
             "Lesson 3: Imperatives and Commands": false,
             "Lesson 4: Question Words": false
         },
-        grammar4: {
+        Grammar_4: {
             "Lesson 1: Conjunctions and Complex Sentences": false,
             "Lesson 2: Conditional Sentences": false,
             "Lesson 3: Expressing Opinions and Emotions": false,
             "Lesson 4: Indirect Speech and Reported Questions": false
         },
-        grammar5: {
+        Grammar_5: {
             "Lesson 1: Nuances of Politeness": false,
             "Lesson 2: Cultural Expressions and Idioms": false,
             "Lesson 3: Error Correction and Clarification": false,
             "Lesson 4: Style and Register": false
         },
-        grammar6: {
+        Grammar_6: {
             "Lesson 1: Debating and Persuasion": false,
             "Lesson 2: Storytelling and Narration": false,
             "Lesson 3: Academic and Formal Writing": false,
@@ -357,37 +357,37 @@ const userProgress = {
         }
     },
     comprehension: {
-        comprehension1: {
-            "Lesson 1: Understanding Basic Greetings and Introductions": false, // true indicates completion
+        Comprehension_1: {
+            "Lesson 1: Understanding Basic Greetings and Introductions": false,
             "Lesson 2: Numbers and Time": false,
             "Lesson 3: Common Phrases and Responses": false,
             "Lesson 4: Simple Instructions and Commands": false
         },
-        comprehension2: {
+        Comprehension_2: {
             "Lesson 1: Shopping Conversations": false,
             "Lesson 2: Restaurant and Food": false,
             "Lesson 3: Directions and Transportation": false,
             "Lesson 4: Weather and Seasons": false
         },
-        comprehension3: {
+        Comprehension_3: {
             "Lesson 1: Educational Content": false,
             "Lesson 2: Work and Occupation Dialogues": false,
             "Lesson 3: Health and Wellness": false,
             "Lesson 4: Entertainment and Media": false
         },
-        comprehension4: {
+        Comprehension_4: {
             "Lesson 1: Narratives and Storytelling": false,
             "Lesson 2: Opinions and Arguments": false,
             "Lesson 3: Cultural and Historical Texts": false,
             "Lesson 4: Technical and Scientific Articles": false
         },
-        comprehension5: {
+        Comprehension_5: {
             "Lesson 1: Abstract and Philosophical Texts": false,
             "Lesson 2: Poetry and Literature": false,
             "Lesson 3: News and Current Events": false,
             "Lesson 4: Formal and Academic Papers": false
         },
-        comprehension6: {
+        Comprehension_6: {
             "Lesson 1: Interactive Scenarios and Role Plays": false,
             "Lesson 2: Listening and Audio Comprehension": false,
             "Lesson 3: Visual Comprehension and Interpretation": false,
@@ -395,31 +395,31 @@ const userProgress = {
         }
     },
     math: {
-        math1: {
+        Math_1: {
             "Lesson 1: Introduction to Base-12 System": false,
             "Lesson 2: Counting in Base-12": false,
             "Lesson 3: Basic Operations in Base-12": false,
             "Lesson 4: Multiplication and Division in Base-12": false
         },
-        math2: {
+        Math_2: {
             "Lesson 1: Carrying and Borrowing in Base-12": false,
             "Lesson 2: Advanced Multiplication and Division": false,
             "Lesson 3: Fractions in Base-12": false,
             "Lesson 4: Converting Between Base-10 and Base-12": false
         },
-        math3: {
+        Math_3: {
             "Lesson 1: Base-12 Place Values": false,
             "Lesson 2: Using Base-12 in Practical Situations": false,
             "Lesson 3: Decimals in Base-12": false,
             "Lesson 4: Ratios and Proportions in Base-12": false
         },
-        math4: {
+        Math_4: {
             "Lesson 1: Geometric Shapes and Measurements in Base-12": false,
             "Lesson 2: Algebraic Expressions in Base-12": false,
             "Lesson 3: Graphing in Base-12": false,
             "Lesson 4: Statistics and Probability in Base-12": false
         },
-        math5: {
+        Math_5: {
             "Lesson 1: Mathematical Puzzles in Base-12": false,
             "Lesson 2: Exploring Patterns and Sequences in Base-12": false,
             "Lesson 3: Base-12 in Science and Technology": false,
@@ -432,8 +432,9 @@ const userProgress = {
 // Placeholder for recommended module, submodule, and lessons
 const recommendations = {
     module: "Vocabulary",
-    subModule: "vocabulary1",
-    lessons: ["Lesson 1: Common Phrases"] // Assuming at least one lesson is recommended
+    subModule: "Vocabulary_1",
+    lessons: ["Lesson 2: Everyday Vocabulary"]
+    // Assuming at least one lesson is recommended
 };
 
 document.addEventListener('DOMContentLoaded', function() {
