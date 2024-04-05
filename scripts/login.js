@@ -58,7 +58,7 @@ async function createAccount() {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         await initializeUserProfile(user);
-        await initializeUserProgress(user);
+        // await initializeUserProgress(user);
 
         // Redirect or further actions upon successful account creation and profile initialization
         window.location.href = 'dashboard.html'; // Redirect to the dashboard or another page as needed
