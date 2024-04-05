@@ -320,7 +320,7 @@ const userProgress = {
     },
     grammar: {
         Grammar_1: {
-            "Lesson 1: Sentence Structure": true,
+            "Lesson 1: Sentence Structure": false,
             "Lesson 2: Pronouns and Simple Verbs": false,
             "Lesson 3: Present, Past, and Future Tenses": false,
             "Lesson 4: Yes/No Questions and Answers": false

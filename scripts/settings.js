@@ -60,11 +60,16 @@ async function loadUserSettings(user) {
 
                 // Populate the form with these settings
                 document.getElementById('learningPace').value = settings.learningPace || 'medium';
-                document.getElementById('vocabFocus').checked = settings.contentPreferences?.vocabulary || true;
-                document.getElementById('grammarExercises').checked = settings.contentPreferences?.grammar || true;
-                document.getElementById('culturalInsights').checked = settings.contentPreferences?.culture || true;
-                document.getElementById('pronunciationPractice').checked = settings.contentPreferences?.pronunciation || true;
+
+                // For checkboxes, check if the userProfileData.contentPreferences object exists before attempting to access its properties
+                const contentPrefs = settings.contentPreferences || {};
+                document.getElementById('vocabFocus').checked = contentPrefs.vocabulary ?? true;
+                document.getElementById('grammarExercises').checked = contentPrefs.grammar ?? true;
+                document.getElementById('culturalInsights').checked = contentPrefs.culture ?? true;
+                document.getElementById('pronunciationPractice').checked = contentPrefs.pronunciation ?? true;
+
                 document.getElementById('notificationSettings').value = settings.notificationSettings || 'weekly';
+                document.getElementById('languageInterface').value = settings.languageInterface || 'en';
                 document.getElementById('dailyGoals').value = settings.dailyGoals || '';
                 document.getElementById('privacySettings').value = settings.privacySettings || 'public';
                 document.getElementById('feedbackFrequency').value = settings.feedbackFrequency || 'daily';
@@ -75,14 +80,12 @@ async function loadUserSettings(user) {
                 } else {
                     document.querySelector(`input[name="learningPath"][value="guided"]`).checked = true;
                 }
-                if (settings.languageInterface) {
-                    document.getElementById('languageInterface').value = settings.languageInterface;
-                } else {
-                    document.getElementById('languageInterface').value = 'English';
-                }
                 if (settings.audioSpeed) {
                     document.querySelector(`input[name="audioSpeed"][value="${settings.audioSpeed}"]`).checked = true;
                 }
+
+                // Handle content preferences
+                
             } else {
                 console.log("No settings document found for this user.");
             }
