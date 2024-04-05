@@ -83,7 +83,7 @@ async function initializeUserProfile(user) {
                 pronunciation: true,
             },
             notificationSettings: "weekly",
-            languageInterface: "en",
+            languageInterface: "English",
             audioSpeed: "normal",
             dailyGoals: "",
             learningPath: "guided",

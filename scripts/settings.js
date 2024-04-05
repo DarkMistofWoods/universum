@@ -55,7 +55,9 @@ async function loadUserSettings(user) {
         try {
             const docSnap = await getDoc(userDocRef);
             if (docSnap.exists()) {
-                const settings = docSnap.data(); // does this correctly retrieve the settings data from within the userProfile doc?
+                const userProfile = docSnap.data(); // does this correctly retrieve the settings data from within the userProfile doc?
+                const settings = userProfile.settings; // This line is crucial if your settings are nested
+
                 // Populate the form with these settings
                 document.getElementById('learningPace').value = settings.learningPace || 'medium';
                 document.getElementById('vocabFocus').checked = settings.contentPreferences?.vocabulary || true;
@@ -70,11 +72,13 @@ async function loadUserSettings(user) {
                 // Handle radio buttons
                 if (settings.learningPath) {
                     document.querySelector(`input[name="learningPath"][value="${settings.learningPath}"]`).checked = true;
+                } else {
+                    document.querySelector(`input[name="learningPath"][value="guided"]`).checked = true;
                 }
                 if (settings.languageInterface) {
                     document.getElementById('languageInterface').value = settings.languageInterface;
                 } else {
-                    document.getElementById('languageInterface').value = 'English'
+                    document.getElementById('languageInterface').value = 'English';
                 }
                 if (settings.audioSpeed) {
                     document.querySelector(`input[name="audioSpeed"][value="${settings.audioSpeed}"]`).checked = true;
