@@ -278,9 +278,13 @@ function renderLine(svg, x1, y1, x2, y2) {
 
 // calculates the max width and height based on current active content
 function calculateBounds(modulePositions) {
+    if (modulePositions.length === 0) {
+        // Return a default viewBox if no positions are provided
+        return { minX: 0, maxX: 800, minY: 0, maxY: 600 };
+    }
+
     let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
 
-    // Assuming modulePositions contains the positions of all modules and their connected nodes
     modulePositions.forEach(pos => {
         minX = Math.min(minX, pos.x);
         maxX = Math.max(maxX, pos.x);
@@ -288,18 +292,19 @@ function calculateBounds(modulePositions) {
         maxY = Math.max(maxY, pos.y);
     });
 
-    // Include submodules and lessons in the bounds calculation
-    // You need to ensure that positions of all nodes (including submodules and lessons) are included
-    // This might involve extending the modulePositions array or creating a new comprehensive array
+    // Check for Infinity values and replace them with default values if needed
+    minX = isFinite(minX) ? minX : 0;
+    maxX = isFinite(maxX) ? maxX : 800;
+    minY = isFinite(minY) ? minY : 0;
+    maxY = isFinite(maxY) ? maxY : 600;
 
-    // Adjust the bounds slightly to ensure there's padding around the network, so it's not too tight to the edges
-    const padding = 200; // Adjust padding as needed
-    minX -= padding;
-    maxX += padding;
-    minY -= padding;
-    maxY += padding;
-
-    return { minX, maxX, minY, maxY };
+    const padding = 50; // Adjust as needed
+    return {
+        minX: minX - padding,
+        maxX: maxX + padding,
+        minY: minY - padding,
+        maxY: maxY + padding
+    };
 }
 
 // Placeholder for user's progress in each lesson
