@@ -433,7 +433,7 @@ const userProgress = {
 const recommendations = {
     module: "Vocabulary",
     subModule: "Vocabulary_1",
-    lessons: ["Lesson 2: Everyday Vocabulary"]
+    lessons: ["Lesson 1: Introduction to Universum Vocabulary"]
     // Assuming at least one lesson is recommended
 };
 
