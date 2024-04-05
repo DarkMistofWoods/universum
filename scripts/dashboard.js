@@ -187,7 +187,7 @@ function renderNode(svg, x, y, label, radius, status, color) {
         case 'completed':
             break;
         case 'connected':
-            prefix = "Not Finished: "
+            prefix = "Incomplete: "
             fillColor = '#505959'; // A color indicating connection but not completion, e.g., grey
             break;
         default:
@@ -209,14 +209,17 @@ function renderNode(svg, x, y, label, radius, status, color) {
         this.setAttribute('r', parseFloat(radius) + 2); // Make the node larger
         // Optionally, show the name above the node here
         const nodeName = this.getAttribute('data-name');
+        const formattedName = formatNodeName(nodeName)
+        
         const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         text.setAttribute('x', x);
         text.setAttribute('y', y - radius - 10); // Position the text above the node
         text.setAttribute('text-anchor', 'middle'); // Center the text above the node
         text.setAttribute('fill', '#262223'); // Text color
         text.setAttribute('class', 'node-label'); // CSS class for styling
-        text.textContent = prefix.concat(nodeName);
+        text.textContent = prefix.concat(formattedName);
         svg.appendChild(text); // Add text to the SVG
+
         const textSize = text.getBBox();
 
         // Create background rect based on text size
@@ -247,6 +250,19 @@ function renderNode(svg, x, y, label, radius, status, color) {
             window.location.href = 'knowledge.html'; // Redirect after the animation
         }, 400); // Adjust time to match the pulse animation duration
     });
+}
+
+function formatNodeName(nodeName) {
+    // Step 1: Remove text before and including a colon if present
+    let formattedName = nodeName.includes(':') ? nodeName.split(':').pop().trim() : nodeName;
+
+    // Step 2: Replace underscores with spaces
+    formattedName = formattedName.replace(/_/g, ' ');
+
+    // Step 3: Capitalize the first letter
+    formattedName = formattedName.charAt(0).toUpperCase() + formattedName.slice(1);
+
+    return formattedName;
 }
 
 function renderLine(svg, x1, y1, x2, y2) {
