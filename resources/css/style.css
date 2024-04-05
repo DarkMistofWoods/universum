@@ -83,7 +83,7 @@
 
 /* Global Styles */
 * {
-    font-family: sans-serif;
+    font-family: "Verdana", sans-serif;
     color: var(--color-secondary);
 }
 /* Typography */
@@ -800,6 +800,23 @@ label {
     background-color: transparent;
     margin: 150px 0;
 }  
+
+.interactive-node {
+    transform-origin: center; /* Ensure transformations scale from the center */
+    position: relative;
+    cursor: pointer;
+}
+
+.interactive-node:hover {
+    filter: drop-shadow(0 0 8px rgba(0,0,0,0.5)); /* Shadow effect */
+}
+
+.node-label {
+    position: relative;
+    font-family: "Verdana", sans-serif;
+    font-size: x-small;
+    pointer-events: none; /* Prevents the text from interfering with mouse events */
+}
 /* END OF DASHBOARD */
 
 /* SETTINGS */
