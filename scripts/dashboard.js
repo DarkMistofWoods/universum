@@ -186,6 +186,7 @@ function renderCustomNetworkVisualization(userProgress) {
 
     const bounds = calculateBounds(modulePositions);
     svg.setAttribute('viewBox', `${bounds.minX} ${bounds.minY} ${bounds.maxX - bounds.minX} ${bounds.maxY - bounds.minY}`);
+    adjustViewBox(svg)
 }
 
 function renderNode(svg, x, y, label, radius, status, color) {
@@ -315,6 +316,11 @@ function calculateBounds(modulePositions) {
     return { minX, maxX, minY, maxY };
 }
 
+function adjustViewBox(svg) {
+    const bbox = svg.getBBox();
+    const padding = 100; // Adjust padding as needed
+    svg.setAttribute('viewBox', `${bbox.x - padding} ${bbox.y - padding} ${bbox.width + 2 * padding} ${bbox.height + 2 * padding}`);
+}
 
 // Placeholder for user's progress in each lesson
 const dummyProgress = {
