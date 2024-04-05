@@ -11,11 +11,20 @@ auth.onAuthStateChanged(async (user) => {
     }
 });
 
+// Placeholder for recommended module, submodule, and lessons
+const recommendations = {
+    module: "Vocabulary",
+    subModule: "Vocabulary_1",
+    lessons: ["Lesson 1: Introduction to Universum Vocabulary"]
+    // Assuming at least one lesson is recommended
+};
+
 let displayStatus = {} 
 function preprocessDataForDisplayStatus(userProgress) {
     Object.keys(userProgress).forEach(moduleKey => {
         let allSubmodulesCompleted = true;
         let anySubmoduleOrLessonCompleted = false;
+
     
         Object.keys(userProgress[moduleKey]).forEach(submoduleKey => {
             let allLessonsCompleted = true;
@@ -278,12 +287,11 @@ function renderLine(svg, x1, y1, x2, y2) {
 
 // calculates the max width and height based on current active content
 function calculateBounds(modulePositions) {
-    if (modulePositions.length === 0) {
-        // Return a default viewBox if no positions are provided
-        return { minX: 0, maxX: 800, minY: 0, maxY: 600 };
-    }
-
     let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+
+    if (modulePositions.length === 0) {
+        return { minX: 0, maxX: 800, minY: 0, maxY: 600 }; // Default viewBox if no positions
+    }
 
     modulePositions.forEach(pos => {
         minX = Math.min(minX, pos.x);
@@ -292,20 +300,21 @@ function calculateBounds(modulePositions) {
         maxY = Math.max(maxY, pos.y);
     });
 
-    // Check for Infinity values and replace them with default values if needed
+    const padding = 100; // Increased padding to prevent overlap
+    minX -= padding;
+    maxX += padding;
+    minY -= padding;
+    maxY += padding;
+
+    // Ensure the bounds are finite numbers
     minX = isFinite(minX) ? minX : 0;
     maxX = isFinite(maxX) ? maxX : 800;
     minY = isFinite(minY) ? minY : 0;
     maxY = isFinite(maxY) ? maxY : 600;
 
-    const padding = 50; // Adjust as needed
-    return {
-        minX: minX - padding,
-        maxX: maxX + padding,
-        minY: minY - padding,
-        maxY: maxY + padding
-    };
+    return { minX, maxX, minY, maxY };
 }
+
 
 // Placeholder for user's progress in each lesson
 const dummyProgress = {
