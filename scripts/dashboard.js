@@ -182,10 +182,12 @@ function renderCustomNetworkVisualization(userProgress) {
 function renderNode(svg, x, y, label, radius, status, color) {
     // Determine the fill color based on the status
     let fillColor = color;
+    let prefix = ""; // text indicator for if the current node is finished
     switch (status) { // filter node based on it's completion or connection status
         case 'completed':
             break;
         case 'connected':
+            prefix = "Not Finished: "
             fillColor = '#505959'; // A color indicating connection but not completion, e.g., grey
             break;
         default:
@@ -213,7 +215,7 @@ function renderNode(svg, x, y, label, radius, status, color) {
         text.setAttribute('text-anchor', 'middle'); // Center the text above the node
         text.setAttribute('fill', '#262223'); // Text color
         text.setAttribute('class', 'node-label'); // CSS class for styling
-        text.textContent = nodeName;
+        text.textContent = prefix.concat(nodeName);
         svg.appendChild(text); // Add text to the SVG
         const textSize = text.getBBox();
 
