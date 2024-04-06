@@ -431,9 +431,9 @@ const userProgress = {
 
 // Placeholder for recommended module, submodule, and lessons
 const recommendations = {
-    module: "Vocabulary",
+    module: "vocabulary",
     subModule: "Vocabulary_1",
-    lessons: ["Lesson 1: Introduction to Universum Vocabulary"]
+    lessons: ["Lesson 1: Common Phrases"]
     // Assuming at least one lesson is recommended
 };
 
@@ -465,22 +465,31 @@ function renderContent() {
 
 function expandModuleAndSubmodule() {
     const { module, submodule } = getQueryParams();
-    
-    if (module) {
-        const moduleElement = document.querySelector(`.module[data-module="${module}"]`);
-        if (moduleElement) {
-            moduleElement.classList.add('expanded'); // Expand the module
-            // Optionally, if modules are toggled by clicking, you could simulate a click instead
-            // moduleElement.click();
-        }
 
-        if (submodule) {
-            const submoduleElement = moduleElement.querySelector(`.subModule[data-submodule="${submodule}"]`);
-            if (submoduleElement) {
-                submoduleElement.classList.add('expanded'); // Expand the submodule
-                // Scroll the submodule into view
-                submoduleElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (module) {
+        // Attempt to find the module element based on the 'data-module' attribute
+        const moduleElement = document.querySelector(`.module[data-module="${module}"]`);
+
+        if (moduleElement) {
+            moduleElement.classList.add('expanded'); // Expand the module if found
+
+            // Check if a submodule parameter exists and the module element was successfully found
+            if (submodule && moduleElement) {
+                // Use the found moduleElement as the context for finding the submodule
+                const submoduleElement = moduleElement.querySelector(`.subModule[data-submodule="${submodule}"]`);
+
+                if (submoduleElement) {
+                    submoduleElement.classList.add('expanded'); // Expand the submodule if found
+                    // Optionally scroll the submodule into view
+                    submoduleElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    // Log or handle the case where the submodule wasn't found
+                    console.error('Submodule element not found:', submodule);
+                }
             }
+        } else {
+            // Log or handle the case where the module wasn't found
+            console.error('Module element not found:', module);
         }
     }
 }
