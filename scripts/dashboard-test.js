@@ -42,11 +42,13 @@ function preprocessDataForDisplayStatus(userProgress, recommendations) {
     });
 
     if (recommendations) {
-        // Mark recommended lessons
+        // Ensure the module and submodule are marked as recommended
+        displayStatus[recommendations.module] = 'recommended';
+        displayStatus[recommendations.subModule] = 'recommended';
+
+        // Mark recommended lessons explicitly
         recommendations.lessons.forEach(lesson => {
-            if (displayStatus[lesson]) {
-                displayStatus[lesson] = 'recommended';
-            }
+            displayStatus[lesson] = 'recommended'; // Always mark recommended lessons
         });
     }
 }
@@ -95,7 +97,6 @@ function renderCustomNetworkVisualization(userProgress) {
             submoduleKeys.forEach((submoduleKey, submoduleIndex) => {
                 const submoduleStatus = displayStatus[submoduleKey];
                 if (submoduleStatus !== 'notDisplayed') {
-
                     const submodulePosition = {
                         x: modulePosition.x + submoduleDistance * Math.cos(submoduleAngle),
                         y: modulePosition.y + submoduleDistance * Math.sin(submoduleAngle)
@@ -110,7 +111,7 @@ function renderCustomNetworkVisualization(userProgress) {
 
                     lessonKeys.forEach((lessonKey, lessonIndex) => {
                         const lessonStatus = displayStatus[lessonKey];
-                        if (lessonStatus !== 'notDisplayed') {
+                        if (lessonStatus === 'completed' || lessonStatus === 'connected' || lessonStatus === 'recommended') {
                             const lessonPosition = {
                                 x: submodulePosition.x + lessonDistance * Math.cos(lessonAngle),
                                 y: submodulePosition.y + lessonDistance * Math.sin(lessonAngle)
@@ -154,7 +155,7 @@ function renderNode(svg, x, y, label, radius, status, color) {
             break;
         case 'recommended':
             prefix = "Recommended: "
-            fillColor = '#FFD700';
+            fillColor = '#BDD9DB';
             break;
         case 'connected':
             prefix = "Incomplete: "
@@ -286,7 +287,7 @@ function adjustViewBox(svg) {
 const dummyProgress = {
     vocabulary: {
         Vocabulary_1: {
-            "Lesson 1: Common Phrases": true, // true indicates completion
+            "Lesson 1: Common Phrases": false, // true indicates completion
             "Lesson 2: Numbers and Counting": false,
             "Lesson 3: Colors and Shapes": false,
             "Lesson 4: Time and Days": false,
@@ -324,7 +325,7 @@ const dummyProgress = {
     },
     grammar: {
         Grammar_1: {
-            "Lesson 1: Sentence Structure": true,
+            "Lesson 1: Sentence Structure": false,
             "Lesson 2: Pronouns and Simple Verbs": false,
             "Lesson 3: Present, Past, and Future Tenses": false,
             "Lesson 4: Yes/No Questions and Answers": false
