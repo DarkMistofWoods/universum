@@ -467,6 +467,9 @@ function expandModuleAndSubmodule() {
     const { module, submodule } = getQueryParams();
     // Convert to lowercase before comparison if necessary
     const moduleNameLowerCase = module.toLowerCase();
+    
+    // Debugging: Log the module and submodule values
+    console.log("Module:", module, "Submodule:", submodule);
 
     if (module) {
         // Attempt to find the module element based on the 'data-module' attribute
@@ -476,7 +479,7 @@ function expandModuleAndSubmodule() {
             moduleElement.classList.add('expanded'); // Expand the module if found
             moduleElement.click();
             // Check if a submodule parameter exists and the module element was successfully found
-            if (submodule && moduleElement) {
+            if (submodule) {
                 // Use the found moduleElement as the context for finding the submodule
                 const submoduleElement = moduleElement.querySelector(`.subModule[data-sub-module="${submodule}"]`);
 
@@ -493,6 +496,10 @@ function expandModuleAndSubmodule() {
         } else {
             // Log or handle the case where the module wasn't found
             console.error('Module element not found:', module);
+            // Debugging: Log available modules for inspection
+            document.querySelectorAll('.module').forEach((elem) => {
+                console.log(elem.getAttribute('data-module'));
+            });
         }
     }
 }

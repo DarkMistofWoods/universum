@@ -261,7 +261,7 @@ function renderLine(svg, x1, y1, x2, y2) {
     line.setAttribute('y1', y1);
     line.setAttribute('x2', x2);
     line.setAttribute('y2', y2);
-    line.setAttribute('stroke', '#80A69F');
+    line.setAttribute('stroke', '#BDD9DB');
     line.setAttribute('stroke-width', '1');
     svg.insertBefore(line, svg.firstChild); // Ensure lines are under nodes
 }
