@@ -1,6 +1,20 @@
 import { auth } from './firebase-config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    const signoutButton = document.getElementById('signoutButton');
+    if (signoutButton) {
+        signoutButton.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent the default anchor action
+            auth.signOut().then(() => {
+                console.log('User signed out successfully');
+                // Redirect to login page or show a signed-out state
+                window.location.href = 'index.html'; // Example redirection
+            }).catch((error) => {
+                console.error('Sign Out Error', error);
+            });
+        });
+    }
+
     const savedTheme = localStorage.getItem('theme') || 'light'; // Default to light theme if not set
     updateTheme(savedTheme); // Apply the saved theme
 });
@@ -34,16 +48,6 @@ function updateTheme(theme) {
 
 document.getElementById('sunIcon').addEventListener('click', toggleTheme);
 document.getElementById('moonIcon').addEventListener('click', toggleTheme);
-document.getElementById('signoutButton').addEventListener('click', (e) => {
-    e.preventDefault(); // Prevent the default anchor action
-    auth.signOut().then(() => {
-        console.log('User signed out successfully');
-        // Redirect to login page or show a signed-out state
-        window.location.href = 'index.html'; // Example redirection
-    }).catch((error) => {
-        console.error('Sign Out Error', error);
-    });
-});
 
 function toggleTheme() {
     const newTheme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
