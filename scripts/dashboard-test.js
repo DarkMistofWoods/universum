@@ -145,6 +145,10 @@ function renderCustomNetworkVisualization(userProgress) {
     adjustViewBox(svg)
 }
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 function renderNode(svg, x, y, label, radius, status, color, type, moduleName, subModuleName) {
     // Determine the fill color based on the status
     let fillColor = color;
@@ -224,10 +228,10 @@ function renderNode(svg, x, y, label, radius, status, color, type, moduleName, s
                 url = `../knowledge/${moduleName.toLowerCase()}/level${subModuleName.match(/\d+/)[0]}/lesson-${lessonNumber}.html`;
                 break;
             case 'submodule':
-                url = `../knowledge.html?module=${moduleName}&submodule=${subModuleName}`;
+                url = `../knowledge.html?module=${capitalizeFirstLetter(moduleName)}&submodule=${subModuleName}`;
                 break;
             case 'module':
-                url = `../knowledge.html?module=${moduleName}`;
+                url = `../knowledge.html?module=${capitalizeFirstLetter(moduleName)}`;
                 break;
             default:
                 console.error('Unknown node type', type);

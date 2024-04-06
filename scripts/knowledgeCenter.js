@@ -470,22 +470,22 @@ function capitalizeFirstLetter(string) {
 function expandModuleAndSubmodule() {
     const { module, submodule } = getQueryParams();
     // Capitalize the first letter of the module name to match the HTML attribute
-    const moduleNameCapitalized = capitalizeFirstLetter(module);
+    // const moduleNameCapitalized = capitalizeFirstLetter(module);
     
     // Debugging: Log the module and submodule values
-    console.log("Module:", module, "Submodule:", submodule);
+    // console.log("Module:", module, "Submodule:", submodule);
 
     if (module) {
-        // Attempt to find the module element based on the 'data-module' attribute
-        const moduleElement = document.querySelector(`.module[data-module="${moduleNameCapitalized}"]`);
+        const moduleElementId = courseContent.find(m => m.moduleName.toLowerCase() === module.toLowerCase())?.moduleId;
+        const moduleElement = document.getElementById(moduleElementId);
 
         if (moduleElement) {
             moduleElement.classList.add('expanded'); // Expand the module if found
             moduleElement.click();
             // Check if a submodule parameter exists and the module element was successfully found
             if (submodule) {
-                // Use the found moduleElement as the context for finding the submodule
-                const submoduleElement = moduleElement.querySelector(`.subModule[data-sub-module="${submodule}"]`);
+                const submoduleElementId = moduleElement.querySelector(`[data-sub-module="${submodule}"]`)?.id;
+                const submoduleElement = document.getElementById(submoduleElementId);
 
                 if (submoduleElement) {
                     submoduleElement.classList.add('expanded'); // Expand the submodule if found
