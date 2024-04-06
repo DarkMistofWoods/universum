@@ -476,7 +476,7 @@ function expandModuleAndSubmodule() {
             // Check if a submodule parameter exists and the module element was successfully found
             if (submodule && moduleElement) {
                 // Use the found moduleElement as the context for finding the submodule
-                const submoduleElement = moduleElement.querySelector(`.subModule[data-module="${submodule}"]`);
+                const submoduleElement = moduleElement.querySelector(`.subModule[data-sub-module="${submodule}"]`);
 
                 if (submoduleElement) {
                     submoduleElement.classList.add('expanded'); // Expand the submodule if found
