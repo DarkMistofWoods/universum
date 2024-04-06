@@ -431,7 +431,7 @@ const userProgress = {
 
 // Placeholder for recommended module, submodule, and lessons
 const recommendations = {
-    module: "vocabulary",
+    module: "Vocabulary",
     subModule: "Vocabulary_1",
     lessons: ["Lesson 1: Common Phrases"]
     // Assuming at least one lesson is recommended
@@ -549,6 +549,7 @@ function updateModuleProgress() {
 }
 
 function toggleModule(module) {
+    console.log("Toggling expansion")
     const isExpanded = module.classList.toggle('expanded');
     const subModules = module.querySelectorAll('.subModule');
     subModules.forEach(subModule => {
