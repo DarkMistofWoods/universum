@@ -995,8 +995,9 @@ label {
 .module {
     background-color: var(--color-tertiary);
     border-radius: 30px;
-    margin-bottom: 10px;
-    padding: 15px;
+    margin-bottom: 40px;
+    padding: 30px;
+    font-size: large;
     cursor: pointer;
 }
 
