@@ -9,7 +9,7 @@
     --dashboard-icon-url: url('../icons/Universum-Dashboard-Icon-Light.svg');
     --settings-icon-url: url('../icons/Universum-Settings-Icon-Light.svg');
     --knowledge-icon-url: url('../icons/Universum-Knowledge-Icon-Light.svg');
-    --knowledge-icon-url: url('../icons/Signout-Icon-Light.svg');
+    --signout-icon-url: url('../icons/Signout-Icon-Light.svg');
 }
 
 /* Dark theme */
@@ -23,7 +23,7 @@
     --dashboard-icon-url: url('../icons/Universum-Dashboard-Icon-Dark.svg');
     --settings-icon-url: url('../icons/Universum-Settings-Icon-Dark.svg');
     --knowledge-icon-url: url('../icons/Universum-Knowledge-Icon-Dark.svg');
-    --knowledge-icon-url: url('../icons/Signout-Icon-Dark.svg');
+    --signout-icon-url: url('../icons/Signout-Icon-Dark.svg');
 }
 
 #moonIcon {
