@@ -357,8 +357,8 @@ const dummyProgress = {
     vocabulary: {
         Vocabulary_1: {
             "Lesson 1: Common Phrases": {
-                completed: true, // completion is determined by having an average quiz score of 60% or above (server) should not revert to false if it's already true
-                quizScores: [80, 90, 85, 92, 88] // Five most recent scores
+                completed: false, // completion is determined by having an average quiz score of 60% or above (server) should not revert to false if it's already true
+                quizScores: [] // Five most recent scores
             },
             "Lesson 2: Numbers and Counting": {
                 completed: false,
