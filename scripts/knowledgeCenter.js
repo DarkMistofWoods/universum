@@ -484,7 +484,7 @@ function expandModuleAndSubmodule() {
             toggleModule(moduleElement);
             // Check if a submodule parameter exists and the module element was successfully found
             if (submodule) {
-                const submoduleElementId = moduleElement.querySelector(`[data-sub-module="${submodule}"]`)?.id;
+                const submoduleElementId = moduleElement.querySelector(`[data-sub-module="${capitalizeFirstLetter(submodule)}"]`)?.id;
                 const submoduleElement = document.getElementById(submoduleElementId);
 
                 if (submoduleElement) {
