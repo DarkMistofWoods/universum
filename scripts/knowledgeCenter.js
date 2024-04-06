@@ -439,6 +439,7 @@ const recommendations = {
 
 document.addEventListener('DOMContentLoaded', function() {
     renderContent(); // Newly structured function to render content and apply initial settings
+    expandModuleAndSubmodule();
 });
 
 function renderContent() {
@@ -460,6 +461,36 @@ function renderContent() {
     applyLearningMode();
     attachEventListeners(); // Attach event listeners after content is generated
     updateModuleProgress();
+}
+
+function expandModuleAndSubmodule() {
+    const { module, submodule } = getQueryParams();
+    
+    if (module) {
+        const moduleElement = document.querySelector(`.module[data-module="${module}"]`);
+        if (moduleElement) {
+            moduleElement.classList.add('expanded'); // Expand the module
+            // Optionally, if modules are toggled by clicking, you could simulate a click instead
+            // moduleElement.click();
+        }
+
+        if (submodule) {
+            const submoduleElement = moduleElement.querySelector(`.subModule[data-submodule="${submodule}"]`);
+            if (submoduleElement) {
+                submoduleElement.classList.add('expanded'); // Expand the submodule
+                // Scroll the submodule into view
+                submoduleElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    }
+}
+
+function getQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+        module: params.get('module'),
+        submodule: params.get('submodule')
+    };
 }
 
 function updateModuleProgress() {

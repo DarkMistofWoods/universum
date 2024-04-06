@@ -88,7 +88,7 @@ function renderCustomNetworkVisualization(userProgress) {
                 y: center.y + moduleDistance * Math.sin(moduleAngle)
             };
             modulePositions.push(modulePosition); // Store position for later use
-            renderNode(svg, modulePosition.x, modulePosition.y, moduleKey, moduleRadius, displayStatus[moduleKey], '#5F736F');
+            renderNode(svg, modulePosition.x, modulePosition.y, moduleKey, moduleRadius, displayStatus[moduleKey], '#5F736F', 'module', moduleKey);
 
             const submoduleKeys = Object.keys(userProgress[moduleKey]);
             const submoduleAngleIncrement = (2 * Math.PI) / submoduleKeys.length;
@@ -102,7 +102,7 @@ function renderCustomNetworkVisualization(userProgress) {
                         y: modulePosition.y + submoduleDistance * Math.sin(submoduleAngle)
                     };
                     
-                    renderNode(svg, submodulePosition.x, submodulePosition.y, submoduleKey, submoduleRadius, displayStatus[submoduleKey], '#80A69F');
+                    renderNode(svg, submodulePosition.x, submodulePosition.y, submoduleKey, submoduleRadius, displayStatus[submoduleKey], '#80A69F', 'submodule', moduleKey, submoduleKey);
                     renderLine(svg, modulePosition.x, modulePosition.y, submodulePosition.x, submodulePosition.y);
 
                     const lessonKeys = Object.keys(userProgress[moduleKey][submoduleKey]);
@@ -116,7 +116,7 @@ function renderCustomNetworkVisualization(userProgress) {
                                 x: submodulePosition.x + lessonDistance * Math.cos(lessonAngle),
                                 y: submodulePosition.y + lessonDistance * Math.sin(lessonAngle)
                             };
-                            renderNode(svg, lessonPosition.x, lessonPosition.y, lessonKey, lessonRadius, displayStatus[lessonKey], '#95BFB8');
+                            renderNode(svg, lessonPosition.x, lessonPosition.y, lessonKey, lessonRadius, displayStatus[lessonKey], '#95BFB8', 'lesson', moduleKey, submoduleKey);
                             renderLine(svg, submodulePosition.x, submodulePosition.y, lessonPosition.x, lessonPosition.y);
 
                             lessonAngle += lessonAngleIncrement;
@@ -145,7 +145,7 @@ function renderCustomNetworkVisualization(userProgress) {
     adjustViewBox(svg)
 }
 
-function renderNode(svg, x, y, label, radius, status, color) {
+function renderNode(svg, x, y, label, radius, status, color, type, moduleName, subModuleName) {
     // Determine the fill color based on the status
     let fillColor = color;
     let prefix = ""; // text indicator for if the current node is finished
@@ -216,9 +216,28 @@ function renderNode(svg, x, y, label, radius, status, color) {
     circle.addEventListener('click', function() {
         const textLabels = svg.querySelectorAll('.node-label');
         textLabels.forEach(label => label.remove()); // Remove all text labels
+
+        let url;
+        switch(type) {
+            case 'lesson':
+                const lessonNumber = label.match(/\d+/)[0]; // Assumes lesson labels contain numbers
+                url = `../knowledge/${moduleName.toLowerCase()}/level${subModuleName.match(/\d+/)[0]}/lesson-${lessonNumber}.html`;
+                break;
+            case 'submodule':
+                url = `../knowledge.html?module=${moduleName}&submodule=${subModuleName}`;
+                break;
+            case 'module':
+                url = `../knowledge.html?module=${moduleName}`;
+                break;
+            default:
+                console.error('Unknown node type');
+                url = 'knowledge.html'; // Redirect after the animation
+                return;
+        }
+
         // Implement the pulse animation (optional)
         setTimeout(() => {
-            window.location.href = 'knowledge.html'; // Redirect after the animation
+            window.location.href = url; // Redirect after the animation
         }, 400); // Adjust time to match the pulse animation duration
     });
 }
