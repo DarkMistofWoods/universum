@@ -441,7 +441,7 @@ document.addEventListener('DOMContentLoaded', function() {
     renderContent().then(() => {
         setTimeout(() => {
             expandModuleAndSubmodule();
-        }, 0.1); // Even a 0ms timeout can push the execution to the next tick of the event loop
+        }, 0.75); // Even a 0ms timeout can push the execution to the next tick of the event loop
     });
 });
 
@@ -498,7 +498,7 @@ function expandModuleAndSubmodule() {
                 if (submoduleElement) {
                     // submoduleElement.classList.add('expanded'); // Expand the submodule if found
                     toggleLessonsVisibility(submoduleElement);
-                    // Optionally scroll the submodule into view
+                    // Scroll the submodule into view
                     submoduleElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 } else {
                     // Log or handle the case where the submodule wasn't found
