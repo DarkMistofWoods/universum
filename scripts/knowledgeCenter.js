@@ -504,6 +504,8 @@ function expandModuleAndSubmodule() {
                     // Log or handle the case where the submodule wasn't found
                     console.error('Submodule element not found:', submodule);
                 }
+            } else {
+                moduleElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         } else {
             // Log or handle the case where the module wasn't found
