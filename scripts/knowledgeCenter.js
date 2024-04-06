@@ -282,12 +282,12 @@ const courseContent = [
 let userLearningMode = "Guided Learning"; // Or "Self-Directed Exploration"
 
 // Placeholder for user's progress in each lesson
-const userProgress = {
+const dummyProgress = {
     vocabulary: {
         Vocabulary_1: {
             "Lesson 1: Common Phrases": {
-                completed: true, // completion is determined by having an average quiz score of 60% or above (server) should not revert to false if it's already true
-                quizScores: [80, 90, 85, 92, 88] // Five most recent scores
+                completed: false, // completion is determined by having an average quiz score of 60% or above (server) should not revert to false if it's already true
+                quizScores: [] // Five most recent scores
             },
             "Lesson 2: Numbers and Counting": {
                 completed: false,
@@ -717,22 +717,55 @@ const recommendations = {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
+    // userProgress = dummyProgress;
+    // initializeKnowledgeCenter();
+});
+
+let userProgress = {}; // Initialize empty object to hold user progress
+auth.onAuthStateChanged(async (user) => {
+    // User is signed in, retrieve progress from Firestore
+    try {
+        const userProgressRef = doc(db, 'userProgress', user.uid);
+        const progressDoc = await getDoc(userProgressRef);
+        if (progressDoc.exists()) {
+            userProgress = progressDoc.data(); // Use real progress data
+            // Call any functions here that depend on userProgress being initialized
+            initializeKnowledgeCenter();
+        } else {
+            console.log("No user progress found. Using demo data.");
+            userProgress = dummyProgress; // Fallback to dummy progress data
+            initializeKnowledgeCenter();
+        }
+    } catch (error) {
+        console.error("Error fetching user progress:", error);
+        userProgress = dummyProgress; // Fallback on error
+        initializeKnowledgeCenter();
+    }
+    
+    // retrieve user profile from Firestore
+    try {
+        const userProfilesRef = doc(db, 'userProfiles', user.uid);
+        const profilesDoc = await getDoc(userProfilesRef);
+        
+        if (profilesDoc.exists()) {
+            const profileData = profilesDoc.data();
+            const settings = profileData.settings; // This line is crucial if your settings are nested
+            userLearningMode = settings.learningPath;
+        } else {
+            console.log("No user profile found.");
+        }
+    } catch (error) {
+        console.error("Error fetching user profile: ", error);
+    }
+});
+
+function initializeKnowledgeCenter() {
     renderContent().then(() => {
         setTimeout(() => {
             expandModuleAndSubmodule();
         }, 0.75); // Even a 0ms timeout can push the execution to the next tick of the event loop
     });
-});
-
-auth.onAuthStateChanged(async (user) => {
-    if (user) {
-        // User is signed in, continue with page-specific logic
-        // await renderContent(user);
-    } else {
-        // User is not signed in, redirect to login
-        window.location.href = 'login.html';
-    }
-});
+}
 
 async function renderContent() {
     return new Promise((resolve, reject) => {
