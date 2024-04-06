@@ -438,29 +438,34 @@ const recommendations = {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-    renderContent(); // Newly structured function to render content and apply initial settings
-    expandModuleAndSubmodule();
+    renderContent().then(() => {
+        expandModuleAndSubmodule();
+    });
 });
 
 function renderContent() {
-    const knowledgeCenter = document.getElementById('knowledgeCenter');
-    knowledgeCenter.innerHTML = '';
-    courseContent.forEach(module => {
-        const isRecommendedModule = module.moduleName === recommendations.module;
-        let moduleHtml = `
-            <div class="module ${isRecommendedModule ? 'recommended' : ''}" id="${module.moduleId}" data-module="${module.moduleName}">
-                <h3>${module.moduleName}</h3>
-                <div class="progressBar"><div class="progress"><span class="progress-text"></span></div></div>
-                ${generateSubModulesHtml(module.subModules, isRecommendedModule)}
-            </div>
-        `;
-        knowledgeCenter.insertAdjacentHTML('beforeend', moduleHtml);
-    });
+    return new Promise((resolve, reject) => {
+        const knowledgeCenter = document.getElementById('knowledgeCenter');
+        knowledgeCenter.innerHTML = '';
+        courseContent.forEach(module => {
+            const isRecommendedModule = module.moduleName === recommendations.module;
+            let moduleHtml = `
+                <div class="module ${isRecommendedModule ? 'recommended' : ''}" id="${module.moduleId}" data-module="${module.moduleName}">
+                    <h3>${module.moduleName}</h3>
+                    <div class="progressBar"><div class="progress"><span class="progress-text"></span></div></div>
+                    ${generateSubModulesHtml(module.subModules, isRecommendedModule)}
+                </div>
+            `;
+            knowledgeCenter.insertAdjacentHTML('beforeend', moduleHtml);
+        });
 
-    // Apply learning mode restrictions and update module progress
-    applyLearningMode();
-    attachEventListeners(); // Attach event listeners after content is generated
-    updateModuleProgress();
+        // Apply learning mode restrictions and update module progress
+        applyLearningMode();
+        attachEventListeners(); // Attach event listeners after content is generated
+        updateModuleProgress();
+
+        resolve();
+    });
 }
 
 function capitalizeFirstLetter(string) {
@@ -489,8 +494,6 @@ function expandModuleAndSubmodule() {
         }
 
         if (submodule) {
-            console.log("Before transformation: " + submodule);
-            console.log("After transformation: " + capitalizeFirstLetter(submodule));
             const submoduleElementId = moduleElement.querySelector(`[data-sub-module="${capitalizeFirstLetter(submodule)}"]`)?.id;
             const submoduleElement = document.getElementById(submoduleElementId);
 
