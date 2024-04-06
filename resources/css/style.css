@@ -74,6 +74,7 @@
 }
 
 .nav-icon {
+    position: relative;
     display: block;
     width: 36px; /* Adjust size as necessary */
     height: 36px;
