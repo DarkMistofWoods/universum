@@ -489,7 +489,7 @@ function expandModuleAndSubmodule() {
 
                 if (submoduleElement) {
                     submoduleElement.classList.add('expanded'); // Expand the submodule if found
-                    submoduleElement.click();
+                    toggleLessonsVisibility(submoduleElement);
                     // Optionally scroll the submodule into view
                     submoduleElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 } else {
