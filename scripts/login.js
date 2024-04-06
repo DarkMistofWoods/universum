@@ -87,7 +87,7 @@ async function initializeUserProfile(user) {
             audioSpeed: "normal",
             dailyGoals: "",
             learningPath: "guided",
-            privacySettings: "public",
+            privacySettings: "private",
             feedbackFrequency: "daily"
         }
     }

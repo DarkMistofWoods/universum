@@ -71,7 +71,7 @@ async function loadUserSettings(user) {
                 document.getElementById('notificationSettings').value = settings.notificationSettings || 'weekly';
                 document.getElementById('languageInterface').value = settings.languageInterface || 'en';
                 document.getElementById('dailyGoals').value = settings.dailyGoals || '';
-                document.getElementById('privacySettings').value = settings.privacySettings || 'public';
+                document.getElementById('privacySettings').value = settings.privacySettings || 'private';
                 document.getElementById('feedbackFrequency').value = settings.feedbackFrequency || 'daily';
 
                 // Handle radio buttons
