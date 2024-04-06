@@ -487,7 +487,7 @@ function expandModuleAndSubmodule() {
         const moduleElement = document.querySelector(`[data-module="${capitalizeFirstLetter(module)}"]`);
 
         if (moduleElement) {
-            moduleElement.classList.add('expanded'); // Expand the module if found
+            // moduleElement.classList.add('expanded'); // Expand the module if found
             toggleModule(moduleElement);
             // Check if a submodule parameter exists and the module element was successfully found
             if (submodule) {
@@ -496,7 +496,7 @@ function expandModuleAndSubmodule() {
                 const submoduleElement = moduleElement.querySelector(`[data-sub-module="${capitalizeFirstLetter(submodule)}"]`);
 
                 if (submoduleElement) {
-                    submoduleElement.classList.add('expanded'); // Expand the submodule if found
+                    // submoduleElement.classList.add('expanded'); // Expand the submodule if found
                     toggleLessonsVisibility(submoduleElement);
                     // Optionally scroll the submodule into view
                     submoduleElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
