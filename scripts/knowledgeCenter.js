@@ -279,7 +279,7 @@ const courseContent = [
     // Add more modules
 ];
 
-let userLearningMode = "Guided Learning"; // Or "Self-Directed Exploration"
+let userLearningMode = "guided"; // Or "exploration"
 
 // Placeholder for user's progress in each lesson
 const dummyProgress = {
@@ -749,7 +749,7 @@ auth.onAuthStateChanged(async (user) => {
         
         if (profilesDoc.exists()) {
             const profileData = profilesDoc.data();
-            const settings = profileData.settings; // This line is crucial if your settings are nested
+            const settings = profileData.settings; // This line is crucial since the settings are nested
             userLearningMode = settings.learningPath;
         } else {
             console.log("No user profile found.");
@@ -958,7 +958,7 @@ function generateSubModulesHtml(subModules, isParentModuleRecommended, moduleNam
 
 function isLessonRecommendedOrCompleted(lessonTitle, subModuleId, moduleName) {
     // In Guided Learning mode, a lesson is accessible if it's recommended or already completed
-    if (userLearningMode === "Guided Learning") {
+    if (userLearningMode === "guided") {
         const moduleData = userProgress[moduleName.toLowerCase()];
         const subModuleData = moduleData && moduleData[subModuleId];
         const lessonData = subModuleData && subModuleData[lessonTitle];
@@ -977,7 +977,7 @@ function applyLearningMode() {
     // For "Self-Directed Exploration", no need to lock lessons, so no action is required
     document.querySelectorAll('.lessonsList a').forEach(link => {
         // Adjust based on userLearningMode
-        if (userLearningMode === "Guided Learning") {
+        if (userLearningMode === "guided") {
             lockOrUnlockLessons();
         }
         // The locking logic is integrated within the generation of the lesson links
