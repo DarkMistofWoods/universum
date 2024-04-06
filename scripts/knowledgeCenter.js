@@ -439,7 +439,9 @@ const recommendations = {
 
 document.addEventListener('DOMContentLoaded', function() {
     renderContent().then(() => {
-        expandModuleAndSubmodule();
+        setTimeout(() => {
+            expandModuleAndSubmodule();
+        }, 0); // Even a 0ms timeout can push the execution to the next tick of the event loop
     });
 });
 
@@ -552,7 +554,6 @@ function updateModuleProgress() {
 }
 
 function toggleModule(module) {
-    console.log("Toggling expansion")
     const isExpanded = module.classList.toggle('expanded');
     const subModules = module.querySelectorAll('.subModule');
     subModules.forEach(subModule => {
