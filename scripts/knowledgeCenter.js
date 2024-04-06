@@ -441,11 +441,11 @@ document.addEventListener('DOMContentLoaded', function() {
     renderContent().then(() => {
         setTimeout(() => {
             expandModuleAndSubmodule();
-        }, 0); // Even a 0ms timeout can push the execution to the next tick of the event loop
+        }, 0.1); // Even a 0ms timeout can push the execution to the next tick of the event loop
     });
 });
 
-function renderContent() {
+async function renderContent() {
     return new Promise((resolve, reject) => {
         const knowledgeCenter = document.getElementById('knowledgeCenter');
         knowledgeCenter.innerHTML = '';
@@ -483,31 +483,31 @@ function expandModuleAndSubmodule() {
     // console.log("Module:", module, "Submodule:", submodule);
 
     if (module) {
-        const moduleElementId = courseContent.find(m => m.moduleName.toLowerCase() === module.toLowerCase())?.moduleId;
-        const moduleElement = document.getElementById(moduleElementId);
+        // Find the module element using only the data-module attribute
+        const moduleElement = document.querySelector(`[data-module="${capitalizeFirstLetter(module)}"]`);
 
         if (moduleElement) {
             moduleElement.classList.add('expanded'); // Expand the module if found
             toggleModule(moduleElement);
             // Check if a submodule parameter exists and the module element was successfully found
+            if (submodule) {
+                // Find the submodule element within the module using only the data-sub-module attribute
+                // Note: Adjust the attribute name if necessary to match your HTML exactly.
+                const submoduleElement = moduleElement.querySelector(`[data-sub-module="${capitalizeFirstLetter(submodule)}"]`);
+
+                if (submoduleElement) {
+                    submoduleElement.classList.add('expanded'); // Expand the submodule if found
+                    toggleLessonsVisibility(submoduleElement);
+                    // Optionally scroll the submodule into view
+                    submoduleElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    // Log or handle the case where the submodule wasn't found
+                    console.error('Submodule element not found:', submodule);
+                }
+            }
         } else {
             // Log or handle the case where the module wasn't found
             console.error('Module element not found:', module);
-        }
-
-        if (submodule) {
-            const submoduleElementId = moduleElement.querySelector(`[data-sub-module="${capitalizeFirstLetter(submodule)}"]`)?.id;
-            const submoduleElement = document.getElementById(submoduleElementId);
-
-            if (submoduleElement) {
-                submoduleElement.classList.add('expanded'); // Expand the submodule if found
-                toggleLessonsVisibility(submoduleElement);
-                // Optionally scroll the submodule into view
-                submoduleElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else {
-                // Log or handle the case where the submodule wasn't found
-                console.error('Submodule element not found:', submodule);
-            }
         }
     }
 }
