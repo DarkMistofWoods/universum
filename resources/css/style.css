@@ -1053,6 +1053,7 @@ label {
     margin-right: 10px;
     padding: 6px;
     background: #BDD9DB; /* Change as per your design */
+    border: 2px dotted var(--color-quaternary);
     border-radius: 10px;
     color: var(--color-quaternary);
     font-size: 0.8em;

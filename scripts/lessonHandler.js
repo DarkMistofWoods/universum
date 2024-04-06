@@ -16,17 +16,39 @@ const functions = getFunctions();
 const updateUserProgress = httpsCallable(functions, 'updateUserProgress');
 
 // Function that calls updateUserProgress
-async function completeLesson(moduleName, lessonName) {
-    try {
-      // Use await to wait for the promise from updateUserProgress to resolve
-      const completed = true; // Assuming the lesson is now completed
-      const result = await updateUserProgress({ module: moduleName, lesson: lessonName, completed });
+async function updateLesson(moduleKey, submoduleKey, lessonKey, newScore) {
+  try {
+      let lesson = userProgress[moduleKey][submoduleKey][lessonKey];
+
+      // Initialize quizScores array if it doesn't exist
+      if (!lesson.quizScores) {
+          lesson.quizScores = [];
+      }
+
+      // Add the new score and ensure only the five most recent scores are kept
+      if (newScore !== undefined) {
+          lesson.quizScores.push(newScore);
+          while (lesson.quizScores.length > 5) {
+              lesson.quizScores.shift(); // Remove the oldest score if more than five are stored
+          }
+      }
+
+      // Calculate the average score, ensuring we avoid division by zero
+      const averageScore = lesson.quizScores.length > 0 
+      ? lesson.quizScores.reduce((acc, score) => acc + score, 0) / lesson.quizScores.length
+      : 0;
+
+      // Update the completed status based on the average score
+      lesson.completed = averageScore > 60;
       
+      const result = await updateUserProgress({ module: moduleKey, lesson: lessonKey, completed: lesson.completed });
       console.log(result.data); // Success response
-      // Handle any additional logic after updating progress successfully
-    } catch (error) {
-      console.error("Error updating progress:", error); // Handle errors
-    }
+
+      // Note: The actual updating to a backend or Firebase should consider the structure change
+      // and possibly use a different approach or additional data handling
+  } catch (error) {
+      console.error("Error in completeLesson:", error); // Handle errors
+  }
 }
 
 // To call updateUserProgress from completeLesson:
