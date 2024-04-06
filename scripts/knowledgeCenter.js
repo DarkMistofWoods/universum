@@ -463,17 +463,21 @@ function renderContent() {
     updateModuleProgress();
 }
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 function expandModuleAndSubmodule() {
     const { module, submodule } = getQueryParams();
-    // Convert to lowercase before comparison if necessary
-    const moduleNameLowerCase = module.toLowerCase();
+    // Capitalize the first letter of the module name to match the HTML attribute
+    const moduleNameCapitalized = capitalizeFirstLetter(module);
     
     // Debugging: Log the module and submodule values
     console.log("Module:", module, "Submodule:", submodule);
 
     if (module) {
         // Attempt to find the module element based on the 'data-module' attribute
-        const moduleElement = document.querySelector(`.module[data-module="${moduleNameLowerCase}"]`);
+        const moduleElement = document.querySelector(`.module[data-module="${moduleNameCapitalized}"]`);
 
         if (moduleElement) {
             moduleElement.classList.add('expanded'); // Expand the module if found
