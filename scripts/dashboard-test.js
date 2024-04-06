@@ -1,8 +1,10 @@
 let displayStatus = {} 
-function preprocessDataForDisplayStatus(userProgress) {
+
+function preprocessDataForDisplayStatus(userProgress, recommendations) {
     Object.keys(userProgress).forEach(moduleKey => {
         let allSubmodulesCompleted = true;
         let anySubmoduleOrLessonCompleted = false;
+
     
         Object.keys(userProgress[moduleKey]).forEach(submoduleKey => {
             let allLessonsCompleted = true;
@@ -38,6 +40,15 @@ function preprocessDataForDisplayStatus(userProgress) {
             displayStatus[moduleKey] = 'notDisplayed'; // No submodules or lessons are completed
         }
     });
+
+    if (recommendations) {
+        // Mark recommended lessons
+        recommendations.lessons.forEach(lesson => {
+            if (displayStatus[lesson]) {
+                displayStatus[lesson] = 'recommended';
+            }
+        });
+    }
 }
 
 // Helper function to mark lessons as 'connected' if their parent submodule is 'connected' but not all lessons are completed
@@ -89,6 +100,7 @@ function renderCustomNetworkVisualization(userProgress) {
                         x: modulePosition.x + submoduleDistance * Math.cos(submoduleAngle),
                         y: modulePosition.y + submoduleDistance * Math.sin(submoduleAngle)
                     };
+                    
                     renderNode(svg, submodulePosition.x, submodulePosition.y, submoduleKey, submoduleRadius, displayStatus[submoduleKey], '#80A69F');
                     renderLine(svg, modulePosition.x, modulePosition.y, submodulePosition.x, submodulePosition.y);
 
@@ -129,15 +141,23 @@ function renderCustomNetworkVisualization(userProgress) {
 
     const bounds = calculateBounds(modulePositions);
     svg.setAttribute('viewBox', `${bounds.minX} ${bounds.minY} ${bounds.maxX - bounds.minX} ${bounds.maxY - bounds.minY}`);
+    adjustViewBox(svg)
 }
 
 function renderNode(svg, x, y, label, radius, status, color) {
     // Determine the fill color based on the status
     let fillColor = color;
+    let prefix = ""; // text indicator for if the current node is finished
+
     switch (status) { // filter node based on it's completion or connection status
         case 'completed':
             break;
+        case 'recommended':
+            prefix = "Recommended: "
+            fillColor = '#FFD700';
+            break;
         case 'connected':
+            prefix = "Incomplete: "
             fillColor = '#505959'; // A color indicating connection but not completion, e.g., grey
             break;
         default:
@@ -159,14 +179,17 @@ function renderNode(svg, x, y, label, radius, status, color) {
         this.setAttribute('r', parseFloat(radius) + 2); // Make the node larger
         // Optionally, show the name above the node here
         const nodeName = this.getAttribute('data-name');
+        const formattedName = formatNodeName(nodeName)
+        
         const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
         text.setAttribute('x', x);
         text.setAttribute('y', y - radius - 10); // Position the text above the node
         text.setAttribute('text-anchor', 'middle'); // Center the text above the node
         text.setAttribute('fill', '#262223'); // Text color
         text.setAttribute('class', 'node-label'); // CSS class for styling
-        text.textContent = nodeName;
+        text.textContent = prefix.concat(formattedName);
         svg.appendChild(text); // Add text to the SVG
+
         const textSize = text.getBBox();
 
         // Create background rect based on text size
@@ -199,6 +222,19 @@ function renderNode(svg, x, y, label, radius, status, color) {
     });
 }
 
+function formatNodeName(nodeName) {
+    // Step 1: Remove text before and including a colon if present
+    let formattedName = nodeName.includes(':') ? nodeName.split(':').pop().trim() : nodeName;
+
+    // Step 2: Replace underscores with spaces
+    formattedName = formattedName.replace(/_/g, ' ');
+
+    // Step 3: Capitalize the first letter
+    formattedName = formattedName.charAt(0).toUpperCase() + formattedName.slice(1);
+
+    return formattedName;
+}
+
 function renderLine(svg, x1, y1, x2, y2) {
     const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     line.setAttribute('x1', x1);
@@ -214,7 +250,10 @@ function renderLine(svg, x1, y1, x2, y2) {
 function calculateBounds(modulePositions) {
     let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
 
-    // Assuming modulePositions contains the positions of all modules and their connected nodes
+    if (modulePositions.length === 0) {
+        return { minX: 0, maxX: 800, minY: 0, maxY: 600 }; // Default viewBox if no positions
+    }
+
     modulePositions.forEach(pos => {
         minX = Math.min(minX, pos.x);
         maxX = Math.max(maxX, pos.x);
@@ -222,26 +261,33 @@ function calculateBounds(modulePositions) {
         maxY = Math.max(maxY, pos.y);
     });
 
-    // Include submodules and lessons in the bounds calculation
-    // You need to ensure that positions of all nodes (including submodules and lessons) are included
-    // This might involve extending the modulePositions array or creating a new comprehensive array
-
-    // Adjust the bounds slightly to ensure there's padding around the network, so it's not too tight to the edges
-    const padding = 200; // Adjust padding as needed
+    const padding = 100; // Increased padding to prevent overlap
     minX -= padding;
     maxX += padding;
     minY -= padding;
     maxY += padding;
 
+    // Ensure the bounds are finite numbers
+    minX = isFinite(minX) ? minX : 0;
+    maxX = isFinite(maxX) ? maxX : 800;
+    minY = isFinite(minY) ? minY : 0;
+    maxY = isFinite(maxY) ? maxY : 600;
+
     return { minX, maxX, minY, maxY };
+}
+
+function adjustViewBox(svg) {
+    const bbox = svg.getBBox();
+    const padding = 100; // Adjust padding as needed
+    svg.setAttribute('viewBox', `${bbox.x - padding} ${bbox.y - padding} ${bbox.width + 2 * padding} ${bbox.height + 2 * padding}`);
 }
 
 // Placeholder for user's progress in each lesson
 const dummyProgress = {
-    Vocabulary: {
+    vocabulary: {
         Vocabulary_1: {
             "Lesson 1: Common Phrases": true, // true indicates completion
-            "Lesson 2: Numbers and Counting": true,
+            "Lesson 2: Numbers and Counting": false,
             "Lesson 3: Colors and Shapes": false,
             "Lesson 4: Time and Days": false,
         },
@@ -276,7 +322,7 @@ const dummyProgress = {
             "Lesson 4: Politics and Society": false,
         }
     },
-    Grammar: {
+    grammar: {
         Grammar_1: {
             "Lesson 1: Sentence Structure": true,
             "Lesson 2: Pronouns and Simple Verbs": false,
@@ -314,7 +360,7 @@ const dummyProgress = {
             "Lesson 4: Humor and Playfulness in Language": false
         }
     },
-    Comprehension: {
+    comprehension: {
         Comprehension_1: {
             "Lesson 1: Understanding Basic Greetings and Introductions": false,
             "Lesson 2: Numbers and Time": false,
@@ -352,7 +398,7 @@ const dummyProgress = {
             "Lesson 4: Comprehension Through Creation": false
         }
     },
-    Math: {
+    math: {
         Math_1: {
             "Lesson 1: Introduction to Base-12 System": false,
             "Lesson 2: Counting in Base-12": false,
@@ -387,7 +433,15 @@ const dummyProgress = {
     // Include other modules and submodules as necessary
 };
 
+// Placeholder for recommended module, submodule, and lessons
+const recommendations = {
+    module: "vocabulary",
+    subModule: "Vocabulary_1",
+    lessons: ["Lesson 1: Common Phrases"]
+    // Assuming at least one lesson is recommended
+};
+
 document.addEventListener('DOMContentLoaded', () => {
-    preprocessDataForDisplayStatus(dummyProgress); // make sure to add this and the document listener into the final script
+    preprocessDataForDisplayStatus(dummyProgress, recommendations); // make sure to add this and the document listener into the final script
     renderCustomNetworkVisualization(dummyProgress); // Use demo data
 });

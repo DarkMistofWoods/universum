@@ -11,16 +11,8 @@ auth.onAuthStateChanged(async (user) => {
     }
 });
 
-// Placeholder for recommended module, submodule, and lessons
-const recommendations = {
-    module: "Vocabulary",
-    subModule: "Vocabulary_1",
-    lessons: ["Lesson 1: Introduction to Universum Vocabulary"]
-    // Assuming at least one lesson is recommended
-};
-
 let displayStatus = {} 
-function preprocessDataForDisplayStatus(userProgress) {
+function preprocessDataForDisplayStatus(userProgress, recommendations) {
     Object.keys(userProgress).forEach(moduleKey => {
         let allSubmodulesCompleted = true;
         let anySubmoduleOrLessonCompleted = false;
@@ -60,6 +52,15 @@ function preprocessDataForDisplayStatus(userProgress) {
             displayStatus[moduleKey] = 'notDisplayed'; // No submodules or lessons are completed
         }
     });
+
+    if (recommendations) {
+        // Mark recommended lessons
+        recommendations.lessons.forEach(lesson => {
+            if (displayStatus[lesson]) {
+                displayStatus[lesson] = 'recommended';
+            }
+        });
+    }
 }
 
 async function initializeDashboard(user) {
@@ -84,12 +85,12 @@ async function initializeDashboard(user) {
         if (progressDoc.exists()) {
             const progressData = progressDoc.data();
             // call functions to update the progress visualizer here
-            preprocessDataForDisplayStatus(progressData);
+            preprocessDataForDisplayStatus(progressData, recommendations);
             renderCustomNetworkVisualization(progressData);
         } else {
             console.log("No user progress found. Using demo data.");
             
-            preprocessDataForDisplayStatus(dummyProgress);
+            preprocessDataForDisplayStatus(dummyProgress, recommendations);
             renderCustomNetworkVisualization(dummyProgress); // Use demo data
         }
     } catch (error) {
@@ -146,6 +147,7 @@ function renderCustomNetworkVisualization(userProgress) {
                         x: modulePosition.x + submoduleDistance * Math.cos(submoduleAngle),
                         y: modulePosition.y + submoduleDistance * Math.sin(submoduleAngle)
                     };
+                    
                     renderNode(svg, submodulePosition.x, submodulePosition.y, submoduleKey, submoduleRadius, displayStatus[submoduleKey], '#80A69F');
                     renderLine(svg, modulePosition.x, modulePosition.y, submodulePosition.x, submodulePosition.y);
 
@@ -193,8 +195,13 @@ function renderNode(svg, x, y, label, radius, status, color) {
     // Determine the fill color based on the status
     let fillColor = color;
     let prefix = ""; // text indicator for if the current node is finished
+
     switch (status) { // filter node based on it's completion or connection status
         case 'completed':
+            break;
+        case 'recommended':
+            prefix = "Recommended: "
+            fillColor = '#FFD700';
             break;
         case 'connected':
             prefix = "Incomplete: "
@@ -327,7 +334,7 @@ const dummyProgress = {
     vocabulary: {
         Vocabulary_1: {
             "Lesson 1: Common Phrases": true, // true indicates completion
-            "Lesson 2: Numbers and Counting": true,
+            "Lesson 2: Numbers and Counting": false,
             "Lesson 3: Colors and Shapes": false,
             "Lesson 4: Time and Days": false,
         },
@@ -471,6 +478,14 @@ const dummyProgress = {
         }
     },
     // Include other modules and submodules as necessary
+};
+
+// Placeholder for recommended module, submodule, and lessons
+const recommendations = {
+    module: "vocabulary",
+    subModule: "Vocabulary_1",
+    lessons: ["Lesson 1: Common Phrases"]
+    // Assuming at least one lesson is recommended
 };
 
 document.addEventListener('DOMContentLoaded', () => {
