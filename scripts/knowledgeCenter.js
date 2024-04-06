@@ -472,7 +472,7 @@ function expandModuleAndSubmodule() {
 
         if (moduleElement) {
             moduleElement.classList.add('expanded'); // Expand the module if found
-
+            moduleElement.click();
             // Check if a submodule parameter exists and the module element was successfully found
             if (submodule && moduleElement) {
                 // Use the found moduleElement as the context for finding the submodule
@@ -480,6 +480,7 @@ function expandModuleAndSubmodule() {
 
                 if (submoduleElement) {
                     submoduleElement.classList.add('expanded'); // Expand the submodule if found
+                    submoduleElement.click();
                     // Optionally scroll the submodule into view
                     submoduleElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 } else {
