@@ -1,4 +1,16 @@
 import { getFunctions, httpsCallable } from 'firebase/functions';
+import { auth, db } from './firebase-config.js';
+import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
+
+auth.onAuthStateChanged(async (user) => {
+    if (user) {
+        // User is signed in, continue with page-specific logic
+        // await renderContent(user);
+    } else {
+        // User is not signed in, redirect to login
+        window.location.href = 'login.html';
+    }
+});
 
 const functions = getFunctions();
 const updateUserProgress = httpsCallable(functions, 'updateUserProgress');

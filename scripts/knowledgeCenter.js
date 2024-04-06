@@ -1,3 +1,6 @@
+import { auth, db } from './firebase-config.js';
+import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
+
 const courseContent = [
     {
         moduleName: "Vocabulary",
@@ -443,6 +446,16 @@ document.addEventListener('DOMContentLoaded', function() {
             expandModuleAndSubmodule();
         }, 0.75); // Even a 0ms timeout can push the execution to the next tick of the event loop
     });
+});
+
+auth.onAuthStateChanged(async (user) => {
+    if (user) {
+        // User is signed in, continue with page-specific logic
+        // await renderContent(user);
+    } else {
+        // User is not signed in, redirect to login
+        window.location.href = 'login.html';
+    }
 });
 
 async function renderContent() {
