@@ -817,6 +817,17 @@ label {
     font-size: xx-small;
     pointer-events: none; /* Prevents the text from interfering with mouse events */
 }
+
+.legend {
+    text-align: center; /* Center the legend text */
+    font-size: 20px; /* Increase font size */
+    margin-top: 20px; /* Add some space above the legend for visual separation */
+    display: block; /* Ensure it's a block-level element if it isn't already */
+}
+
+.legend span {
+    color:#BDD9DB;
+}
 /* END OF DASHBOARD */
 
 /* SETTINGS */
