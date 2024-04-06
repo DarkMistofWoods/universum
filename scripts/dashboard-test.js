@@ -230,8 +230,7 @@ function renderNode(svg, x, y, label, radius, status, color, type, moduleName, s
                 url = `../knowledge.html?module=${moduleName}`;
                 break;
             default:
-                console.error('Unknown node type');
-                url = 'knowledge.html'; // Redirect after the animation
+                console.error('Unknown node type', type);
                 return;
         }
 

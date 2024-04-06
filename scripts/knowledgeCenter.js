@@ -495,15 +495,16 @@ function expandModuleAndSubmodule() {
                 } else {
                     // Log or handle the case where the submodule wasn't found
                     console.error('Submodule element not found:', submodule);
+                    
+                    // Debugging: Log available modules for inspection
+                    document.querySelectorAll('.subModule').forEach((elem) => {
+                        console.log(elem.getAttribute('data-sub-module'));
+                    });
                 }
             }
         } else {
             // Log or handle the case where the module wasn't found
             console.error('Module element not found:', module);
-            // Debugging: Log available modules for inspection
-            document.querySelectorAll('.module').forEach((elem) => {
-                console.log(elem.getAttribute('data-module'));
-            });
         }
     }
 }
