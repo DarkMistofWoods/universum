@@ -730,16 +730,13 @@ auth.onAuthStateChanged(async (user) => {
         if (progressDoc.exists()) {
             userProgress = progressDoc.data(); // Use real progress data
             // Call any functions here that depend on userProgress being initialized
-            initializeKnowledgeCenter();
         } else {
             console.log("No user progress found. Using demo data.");
             userProgress = dummyProgress; // Fallback to dummy progress data
-            initializeKnowledgeCenter();
         }
     } catch (error) {
         console.error("Error fetching user progress:", error);
         userProgress = dummyProgress; // Fallback on error
-        initializeKnowledgeCenter();
     }
     
     // retrieve user profile from Firestore
@@ -751,11 +748,14 @@ auth.onAuthStateChanged(async (user) => {
             const profileData = profilesDoc.data();
             const settings = profileData.settings; // This line is crucial since the settings are nested
             userLearningMode = settings.learningPath;
+            initializeKnowledgeCenter();
         } else {
             console.log("No user profile found.");
+            initializeKnowledgeCenter();
         }
     } catch (error) {
         console.error("Error fetching user profile: ", error);
+        initializeKnowledgeCenter();
     }
 });
 
