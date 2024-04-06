@@ -465,10 +465,12 @@ function renderContent() {
 
 function expandModuleAndSubmodule() {
     const { module, submodule } = getQueryParams();
+    // Convert to lowercase before comparison if necessary
+    const moduleNameLowerCase = module.toLowerCase();
 
     if (module) {
         // Attempt to find the module element based on the 'data-module' attribute
-        const moduleElement = document.querySelector(`.module[data-module="${module}"]`);
+        const moduleElement = document.querySelector(`.module[data-module="${moduleNameLowerCase}"]`);
 
         if (moduleElement) {
             moduleElement.classList.add('expanded'); // Expand the module if found

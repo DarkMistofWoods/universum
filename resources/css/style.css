@@ -991,12 +991,12 @@ label {
 }
 
 .module.recommended {
-    border: 2px dotted var(--color-primary); /* Change as per your design */
+    border: 2px dotted #BDD9DB; /* Change as per your design */
     position: relative;
 }
 
 .module .recommended {
-    border: 2px dotted var(--color-primary); /* Change as per your design */
+    border: 2px dotted #BDD9DB; /* Change as per your design */
     position: relative;
 }
 
@@ -1008,7 +1008,7 @@ label {
     margin-top: 10px;
     margin-right: 10px;
     padding: 6px;
-    background: var(--color-primary); /* Change as per your design */
+    background: #BDD9DB; /* Change as per your design */
     border-radius: 10px;
     color: var(--color-quaternary);
     font-size: 0.8em;

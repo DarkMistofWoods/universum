@@ -166,8 +166,6 @@ function renderNode(svg, x, y, label, radius, status, color, type, moduleName, s
             return;
     }
 
-    console.log(moduleName)
-
     const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     circle.setAttribute('cx', x);
     circle.setAttribute('cy', y);
