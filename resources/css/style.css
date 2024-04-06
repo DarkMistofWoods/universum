@@ -58,6 +58,10 @@
     background-repeat: no-repeat;
 }
 
+#authIcons {
+    display: none; /* Hide authenticated icons by default */
+}
+
 #navControls {
     cursor: pointer;
     position: fixed;
@@ -85,8 +89,28 @@
     box-shadow: 0 0 15px rgba(0,0,0,0.75); /* Add shadow */
 }
 
-#authIcons {
-    display: none; /* Hide authenticated icons by default */
+/* The text element */
+.nav-text {
+    position: absolute;
+    color: var(--color-tertiary);
+    right: 130%; /* Start off to the right of the icon, making space for the text */
+    top: 0%; /* Align to the middle of the parent vertically */
+    transform: translateY(-50%) translateX(100%); /* Adjust for vertical centering and start off-screen */
+    background: transparent;
+    white-space: nowrap; /* Ensure the text does not wrap */
+    opacity: 0; /* Start as invisible */
+    transition: opacity 0.5s, transform 0.5s; /* Smooth transition for both properties */
+    text-align: right; /* Right-align the text */
+    max-width: 200; /* Start with max-width 0 and increase on hover */
+    z-index: -10;
+}
+
+/* Change properties on hover */
+.nav-icon:hover .nav-text {
+    text-shadow: 2px 2px 6px black;
+    transform: translateY(-50%) translateX(0%); /* Move text to its final position */
+    opacity: 1; /* Make text visible */
+    max-width: 200px; /* Adjust as necessary to fit longer texts */
 }
 
 /* Global Styles */
