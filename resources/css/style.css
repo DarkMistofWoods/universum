@@ -1168,7 +1168,7 @@ label {
     cursor: pointer;
     pointer-events: auto;
     overflow: hidden;
-    max-height: 50px; /* Initial max height */
+    height: 20px; /* Initial height */
     padding: 20px;
     border: 1px solid var(--color-quaternary);
     box-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Initial state */
@@ -1182,7 +1182,7 @@ label {
     color: var(--color-primary);
     max-height: auto; /* Adjust based on content */
     box-shadow: 0 8px 16px rgba(0,0,0,0.75); /* Increased shadow */
-    padding-bottom: 50px;
+    padding-bottom: 80px;
     margin-bottom: 20px; /* Shift downward */
 }
 
