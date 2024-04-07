@@ -352,6 +352,33 @@ function adjustViewBox(svg) {
     svg.setAttribute('viewBox', `${bbox.x - padding} ${bbox.y - padding} ${bbox.width + 2 * padding} ${bbox.height + 2 * padding}`);
 }
 
+function updateStats(userProgress) {
+    let totalLessonsCompleted = 0;
+    let totalModulesCompleted = 0;
+    let totalQuizScores = [];
+    let totalQuizzes = 0;
+
+    Object.values(userProgress).forEach(module => {
+        Object.values(module).forEach(subModule => {
+            Object.values(subModule).forEach(lesson => {
+                if (lesson.completed) totalLessonsCompleted++;
+                totalQuizScores = totalQuizScores.concat(lesson.quizScores);
+            });
+        });
+
+        if (Object.values(module).every(subModule => Object.values(subModule).every(lesson => lesson.completed))) {
+            totalModulesCompleted++;
+        }
+    });
+
+    const averageQuizScore = totalQuizScores.length > 0 ? totalQuizScores.reduce((acc, score) => acc + score, 0) / totalQuizScores.length : 0;
+
+    document.getElementById('stat1').textContent = `Total Lessons Completed: ${totalLessonsCompleted}`;
+    document.getElementById('stat2').textContent = `Modules Completed: ${totalModulesCompleted}`;
+    document.getElementById('stat3').textContent = `Average Quiz Score: ${averageQuizScore.toFixed(2)}%`;
+}
+
+
 // Placeholder for user's progress in each lesson
 const dummyProgress = {
     vocabulary: {
@@ -789,4 +816,15 @@ const recommendations = {
 
 document.addEventListener('DOMContentLoaded', () => {
     // initializeDashboard();
+    document.querySelectorAll('.stat').forEach(stat => {
+        stat.addEventListener('click', function() {
+            this.classList.toggle('expanded');
+            // Example of dynamically adding detailed information
+            if (this.classList.contains('expanded')) {
+                this.innerHTML += "<div class='stat-details'>Detailed Information Here</div>"; // Update with actual details
+            } else {
+                this.querySelector('.stat-details').remove();
+            }
+        });
+    });    
 });
