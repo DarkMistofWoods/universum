@@ -1181,13 +1181,6 @@ label {
     margin-bottom: 20px; /* Shift downward */
 }
 
-#userStats h2 {
-    cursor: pointer;
-    /* This ensures the text is centered irrespective of the container's alignment */
-    text-align: center;
-    width: 100%;
-}
-
 /* Additional styles for responsiveness and aesthetics */
 @media (max-width: 768px) {
     #searchBox {

@@ -416,12 +416,12 @@ function buildDetailedLessonsContent(details) {
         let moduleContent = '';
         Object.entries(details[moduleKey]).forEach(([submoduleKey, lessonsCompleted]) => {
             if (lessonsCompleted > 0) {
-                moduleContent += `<li>${submoduleKey}: ${lessonsCompleted} lessons completed</li>`;
+                moduleContent += `<li>${formatNodeName(submoduleKey)}: ${lessonsCompleted} lessons completed</li>`;
                 hasCompletedAnyLessons = true;
             }
         });
         if (moduleContent) {
-            content += `<li>${moduleKey}<ul>${moduleContent}</ul></li>`;
+            content += `<li>${capitalizeFirstLetter(moduleKey)}<ul>${moduleContent}</ul></li>`;
         }
     });
 
@@ -436,12 +436,12 @@ function buildDetailedQuizScoresContent(details) {
         let moduleContent = '';
         Object.entries(details[moduleKey]).forEach(([submoduleKey, averageScore]) => {
             if (averageScore !== "N/A") {
-                moduleContent += `<li>${submoduleKey}: Average Quiz Score ${averageScore}</li>`;
+                moduleContent += `<li>${formatNodeName(submoduleKey)}: Average Quiz Score ${averageScore}</li>`;
                 hasQuizScores = true;
             }
         });
         if (moduleContent) {
-            content += `<li>${moduleKey}<ul>${moduleContent}</ul></li>`;
+            content += `<li>${capitalizeFirstLetter(moduleKey)}<ul>${moduleContent}</ul></li>`;
         }
     });
 
