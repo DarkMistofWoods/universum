@@ -1162,6 +1162,10 @@ label {
     margin-top: 20px;
 }
 
+#userStats bold {
+    font-weight: 600;
+}
+
 .stat {
     transition: all 0.5s ease;
     cursor: pointer;
@@ -1178,6 +1182,7 @@ label {
 }
 
 .stat.expanded {
+    color: var(--color-primary);
     max-height: auto; /* Adjust based on content */
     box-shadow: 0 8px 16px rgba(0,0,0,0.75); /* Increased shadow */
     padding-bottom: 50px;

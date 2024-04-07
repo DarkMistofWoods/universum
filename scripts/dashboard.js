@@ -448,6 +448,24 @@ function buildDetailedQuizScoresContent(details) {
     return hasQuizScores ? `<ul><strong>${content}</strong></ul>` : "No quizzes completed";
 }
 
+function buildCompletedModulesContent(modulesCompletedDetails) {
+    // Assuming modulesCompletedDetails is an object with module names as keys and a boolean indicating completion as values
+    const completedModules = Object.entries(modulesCompletedDetails)
+        .filter(([moduleName, completed]) => completed)
+        .map(([moduleName]) => moduleName);
+
+    if (completedModules.length === 0) {
+        return "No modules completed";
+    }
+
+    // Generate HTML list of completed modules
+    const content = completedModules
+        .map(moduleName => `<li>${moduleName}</li>`)
+        .join('');
+
+    return `<ul>${content}</ul>`;
+}
+
 function initializeStatsInteraction(detailedStats) {
     document.querySelectorAll('.stat').forEach(stat => {
         stat.addEventListener('click', function() {
@@ -473,7 +491,7 @@ function initializeStatsInteraction(detailedStats) {
                     detailedContent = buildDetailedLessonsContent(detailedStats.lessonsCompletedDetails);
                     break;
                 case 'stat2':
-                    // This stat will display a list of modules completed
+                    detailedContent = buildCompletedModulesContent(detailedStats.modulesCompletedDetails || {});
                     break;
                 case 'stat3':
                     detailedContent = buildDetailedQuizScoresContent(detailedStats.quizScoresDetails);
