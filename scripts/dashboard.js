@@ -12,19 +12,36 @@ auth.onAuthStateChanged(async (user) => {
 });
 
 let displayStatus = {} 
+// Assuming userProgress is fetched and available
+let detailedStats = {};
+
 function preprocessDataForDisplayStatus(userProgress, recommendations) {
+    const detailedStats = {
+        lessonsCompletedDetails: {},
+        quizScoresDetails: {}
+    };
+
     Object.keys(userProgress).forEach(moduleKey => {
+        detailedStats.lessonsCompletedDetails[moduleKey] = {};
+        detailedStats.quizScoresDetails[moduleKey] = {};
+
         let allSubmodulesCompleted = true;
         let anySubmoduleOrLessonCompleted = false;
 
     
         Object.keys(userProgress[moduleKey]).forEach(submoduleKey => {
+            let lessonsCompleted = 0;
+            let quizScores = [];
+
             let allLessonsCompleted = true;
             let anyLessonCompleted = false;
     
             Object.keys(userProgress[moduleKey][submoduleKey]).forEach(lessonKey => {
                 const completed = userProgress[moduleKey][submoduleKey][lessonKey].completed;
                 if (completed) {
+                    lessonsCompleted++;
+                    quizScores = quizScores.concat(lesson.quizScores || []);
+
                     anyLessonCompleted = true;
                     anySubmoduleOrLessonCompleted = true;
                     displayStatus[lessonKey] = 'completed'; // Mark the lesson as completed
@@ -33,6 +50,9 @@ function preprocessDataForDisplayStatus(userProgress, recommendations) {
                     allSubmodulesCompleted = false;
                 }
             });
+
+            detailedStats.lessonsCompletedDetails[moduleKey][submoduleKey] = lessonsCompleted;
+            detailedStats.quizScoresDetails[moduleKey][submoduleKey] = quizScores.length > 0 ? (quizScores.reduce((sum, score) => sum + score, 0) / quizScores.length).toFixed(2) : "N/A";
     
             if (allLessonsCompleted) {
                 displayStatus[submoduleKey] = 'completed'; // All lessons in this submodule are completed
@@ -63,6 +83,8 @@ function preprocessDataForDisplayStatus(userProgress, recommendations) {
             displayStatus[lesson] = 'recommended'; // Always mark recommended lessons
         });
     }
+
+    return detailedStats;
 }
 
 async function initializeDashboard(user) {
@@ -87,13 +109,17 @@ async function initializeDashboard(user) {
         if (progressDoc.exists()) {
             const progressData = progressDoc.data();
             // call functions to update the progress visualizer here
-            preprocessDataForDisplayStatus(progressData, recommendations);
+            detailedStats = preprocessDataForDisplayStatus(progressData, recommendations);
             renderCustomNetworkVisualization(progressData);
+            updateStats(progressData);
+            initializeStatsInteraction();
         } else {
             console.log("No user progress found. Using demo data.");
             
-            preprocessDataForDisplayStatus(dummyProgress, recommendations);
+            detailedStats = preprocessDataForDisplayStatus(dummyProgress, recommendations);
             renderCustomNetworkVisualization(dummyProgress); // Use demo data
+            updateStats(dummyProgress);
+            initializeStatsInteraction();
         }
     } catch (error) {
         console.error("Error initializing dashboard: ", error);
@@ -378,6 +404,64 @@ function updateStats(userProgress) {
     document.getElementById('stat3').textContent = `Average Quiz Score: ${averageQuizScore.toFixed(2)}%`;
 }
 
+function buildDetailedLessonsContent(details) {
+    let content = '<ul>';
+    Object.keys(details).forEach(moduleKey => {
+        content += `<li>${moduleKey}`;
+        content += '<ul>';
+        Object.entries(details[moduleKey]).forEach(([submoduleKey, lessonsCompleted]) => {
+            content += `<li>${submoduleKey}: ${lessonsCompleted} lessons completed</li>`;
+        });
+        content += '</ul></li>';
+    });
+    content += '</ul>';
+    return content;
+}
+
+function buildDetailedQuizScoresContent(details) {
+    let content = '<ul>';
+    Object.keys(details).forEach(moduleKey => {
+        content += `<li>${moduleKey}`;
+        content += '<ul>';
+        Object.entries(details[moduleKey]).forEach(([submoduleKey, averageScore]) => {
+            content += `<li>${submoduleKey}: Average Quiz Score ${averageScore}</li>`;
+        });
+        content += '</ul></li>';
+    });
+    content += '</ul>';
+    return content;
+}
+
+function initializeStatsInteraction() {
+    document.querySelectorAll('.stat').forEach(stat => {
+        stat.addEventListener('click', function() {
+            this.classList.toggle('expanded');
+
+            let detailedContent = '';
+            // Determine which type of details to build based on the clicked stat
+            switch (this.id) {
+                case 'stat1':
+                    detailedContent = buildDetailedLessonsContent(detailedStats.lessonsCompletedDetails);
+                    break;
+                case 'stat2':
+                    // Example: Handle other stats as needed
+                    break;
+                case 'stat3':
+                    detailedContent = buildDetailedQuizScoresContent(detailedStats.quizScoresDetails);
+                    break;
+            }
+
+            const detailsDiv = this.querySelector('.stat-details') || document.createElement('div');
+            detailsDiv.className = 'stat-details';
+            detailsDiv.innerHTML = detailedContent;
+            if (!this.querySelector('.stat-details')) {
+                this.appendChild(detailsDiv);
+            } else {
+                // Optionally, remove or update the detailsDiv if already exists
+            }
+        });
+    });
+}
 
 // Placeholder for user's progress in each lesson
 const dummyProgress = {
@@ -816,15 +900,4 @@ const recommendations = {
 
 document.addEventListener('DOMContentLoaded', () => {
     // initializeDashboard();
-    document.querySelectorAll('.stat').forEach(stat => {
-        stat.addEventListener('click', function() {
-            this.classList.toggle('expanded');
-            // Example of dynamically adding detailed information
-            if (this.classList.contains('expanded')) {
-                this.innerHTML += "<div class='stat-details'>Detailed Information Here</div>"; // Update with actual details
-            } else {
-                this.querySelector('.stat-details').remove();
-            }
-        });
-    });    
 });
