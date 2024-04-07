@@ -1204,7 +1204,7 @@ label {
 
 .chart-container {
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
     min-height: 300px; /* Adjust based on your needs */
     padding: 20px;
