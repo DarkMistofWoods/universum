@@ -1182,6 +1182,7 @@ label {
 }
 
 #userStats h2 {
+    cursor: pointer;
     /* This ensures the text is centered irrespective of the container's alignment */
     text-align: center;
     width: 100%;

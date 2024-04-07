@@ -37,10 +37,10 @@ function preprocessDataForDisplayStatus(userProgress, recommendations) {
             let anyLessonCompleted = false;
     
             Object.keys(userProgress[moduleKey][submoduleKey]).forEach(lessonKey => {
-                const completed = userProgress[moduleKey][submoduleKey][lessonKey].completed;
+                const lesson = userProgress[moduleKey][submoduleKey][lessonKey]; // Correctly access the lesson object
+                const completed = lesson.completed;
                 if (completed) {
                     lessonsCompleted++;
-                    quizScores = quizScores.concat(lesson.quizScores || []);
 
                     anyLessonCompleted = true;
                     anySubmoduleOrLessonCompleted = true;
@@ -48,6 +48,10 @@ function preprocessDataForDisplayStatus(userProgress, recommendations) {
                 } else {
                     allLessonsCompleted = false;
                     allSubmodulesCompleted = false;
+                }
+                
+                if (lesson.quizScores) {
+                    quizScores = quizScores.concat(lesson.quizScores || []);
                 }
             });
 
@@ -112,15 +116,15 @@ async function initializeDashboard(user) {
             detailedStats = preprocessDataForDisplayStatus(progressData, recommendations);
             renderCustomNetworkVisualization(progressData);
             updateStats(progressData);
-            initializeStatsInteraction();
         } else {
             console.log("No user progress found. Using demo data.");
             
             detailedStats = preprocessDataForDisplayStatus(dummyProgress, recommendations);
             renderCustomNetworkVisualization(dummyProgress); // Use demo data
             updateStats(dummyProgress);
-            initializeStatsInteraction();
         }
+
+        initializeStatsInteraction(detailedStats);
     } catch (error) {
         console.error("Error initializing dashboard: ", error);
     }
@@ -432,7 +436,7 @@ function buildDetailedQuizScoresContent(details) {
     return content;
 }
 
-function initializeStatsInteraction() {
+function initializeStatsInteraction(detailedStats) {
     document.querySelectorAll('.stat').forEach(stat => {
         stat.addEventListener('click', function() {
             this.classList.toggle('expanded');
@@ -444,10 +448,13 @@ function initializeStatsInteraction() {
                     detailedContent = buildDetailedLessonsContent(detailedStats.lessonsCompletedDetails);
                     break;
                 case 'stat2':
-                    // Example: Handle other stats as needed
+                    // This stat will display a list of modules completed
                     break;
                 case 'stat3':
                     detailedContent = buildDetailedQuizScoresContent(detailedStats.quizScoresDetails);
+                    break;
+                case 'statComparison':
+                    // This stat will display a radar chart showing the user's stats vs the world
                     break;
             }
 
@@ -457,7 +464,7 @@ function initializeStatsInteraction() {
             if (!this.querySelector('.stat-details')) {
                 this.appendChild(detailsDiv);
             } else {
-                // Optionally, remove or update the detailsDiv if already exists
+                this.querySelector('.stat-details').innerHTML = detailedContent; // Update existing content
             }
         });
     });
