@@ -12,8 +12,6 @@ auth.onAuthStateChanged(async (user) => {
 });
 
 let displayStatus = {} 
-// Assuming userProgress is fetched and available
-let detailedStats = {};
 
 function preprocessDataForDisplayStatus(userProgress, recommendations) {
     const detailedStats = {
@@ -109,6 +107,8 @@ async function initializeDashboard(user) {
 
         const userProgressRef = doc(db, 'userProgress', user.uid);
         const progressDoc = await getDoc(userProgressRef); 
+        // Assuming userProgress is fetched and available
+        let detailedStats = {};
         
         if (progressDoc.exists()) {
             const progressData = progressDoc.data();
