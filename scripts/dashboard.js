@@ -478,8 +478,9 @@ function handleStatComparisonClick(statDiv, detailedStats) {
         chartContainer.appendChild(canvas);
         statDiv.appendChild(chartContainer);
 
-        // Assuming userProgress and globalDummyProgress are accessible
-        displayRadarChart(userProgress, globalDummyProgress);
+        // Pre-process the global dummy stats
+        const preparedGlobalProgress = preprocessDataForDisplayStatus(globalDummyProgress);
+        displayRadarChart(detailedStats, preparedGlobalProgress);
     }
 }
 
@@ -503,53 +504,35 @@ function updateOrAppendDetailsDiv(statDiv, detailedContent) {
     }
 }
 
-function displayRadarChart(userProgress, globalDummyProgress) {
-    const userAverageScores = {};
-    const globalAverageScores = {};
-
-    // Calculate user's average scores by module
-    Object.keys(userProgress).forEach(moduleKey => {
-        const quizScores = [];
-        Object.values(userProgress[moduleKey]).forEach(submodule => {
-            Object.values(submodule).forEach(lesson => {
-                if (lesson.quizScores && lesson.quizScores.length) {
-                    quizScores.push(...lesson.quizScores);
-                }
-            });
-        });
-        const averageScore = quizScores.length ? quizScores.reduce((sum, score) => sum + score, 0) / quizScores.length : 0;
-        userAverageScores[moduleKey] = averageScore;
+function displayRadarChart(detailedStats, globalDummyProgress) {
+    const userModuleNames = Object.keys(detailedStats.quizScoresDetails); // Assuming this structure exists
+    const userAverageScores = userModuleNames.map(moduleName => {
+        const submoduleScores = Object.values(detailedStats.quizScoresDetails[moduleName]);
+        const moduleAverage = submoduleScores.reduce((sum, score) => sum + parseFloat(score), 0) / submoduleScores.length;
+        return moduleAverage;
     });
 
-    // Calculate global average scores by module
-    Object.keys(globalDummyProgress).forEach(moduleKey => {
-        const quizScores = [];
-        Object.values(globalDummyProgress[moduleKey]).forEach(submodule => {
-            Object.values(submodule).forEach(lesson => {
-                if (lesson.quizScores && lesson.quizScores.length) {
-                    quizScores.push(...lesson.quizScores);
-                }
-            });
-        });
-        const averageScore = quizScores.length ? quizScores.reduce((sum, score) => sum + score, 0) / quizScores.length : 0;
-        globalAverageScores[moduleKey] = averageScore;
+    // Assume globalDummyProgress has been processed similarly to detailedStats
+    // or process it here to match the structure expected by detailedStats
+    const globalAverageScores = userModuleNames.map(moduleName => {
+        // Placeholder for global average scores per module. Adjust as necessary.
+        return globalDummyProgress[moduleName] ? globalDummyProgress[moduleName].globalAverage : 0;
     });
 
-    // Setup and display the radar chart
-    const ctx = document.getElementById('radarChart').getContext('2d'); // Ensure you have a canvas element with id="radarChart"
+    const ctx = document.getElementById('radarChart').getContext('2d');
     new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: Object.keys(userAverageScores),
+            labels: userModuleNames,
             datasets: [{
                 label: 'Your Average Scores',
-                data: Object.values(userAverageScores),
+                data: userAverageScores,
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1
             }, {
                 label: 'Global Average Scores',
-                data: Object.values(globalAverageScores),
+                data: globalAverageScores,
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1
