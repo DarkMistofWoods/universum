@@ -530,6 +530,8 @@ function displayRadarChart(detailedStats, globalStats) {
     document.querySelector('.chart-container').appendChild(ctx.canvas);
     const labels = Object.keys(globalStats.quizScoresDetails);
     
+    // find a way to capitalize labels
+
     // User's average scores
     const userAverageScores = labels.map(label => parseFloat(detailedStats.quizScoresDetails[label]));
     
@@ -572,11 +574,18 @@ function displayRadarChart(detailedStats, globalStats) {
                         backgroundColor: 'transparent'
                     },
                     ticks: {
-                        // Chart.js 3.x uses this to style the ticks
-                        backdropColor: 'transparent', // Removes the background color
+                        color: '#262223',
+                        backdropColor: 'transparent' // Removes the background color
                     },
                     angleLines: {
-                        display: false
+                        color: '#262223',
+                        display: true
+                    },
+                    grid: {
+                        color: '#262223', // Change the color of the circular grid lines
+                    },
+                    pointLabels: {
+                        color: '#262223', // For changing the point labels color (outer labels of the radar)
                     },
                     suggestedMin: 0,
                     suggestedMax: 100,
