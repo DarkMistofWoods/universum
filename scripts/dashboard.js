@@ -466,16 +466,114 @@ function buildCompletedModulesContent(modulesCompletedDetails) {
     return `<ul>${content}</ul>`;
 }
 
+function handleStatComparisonClick(statDiv, detailedStats) {
+    const chartContainer = document.createElement('div');
+    chartContainer.className = 'chart-container';
+
+    // Check if there's already a canvas to avoid creating multiple
+    let canvas = statDiv.querySelector('canvas');
+    if (!canvas) {
+        canvas = document.createElement('canvas');
+        canvas.id = 'radarChart';
+        chartContainer.appendChild(canvas);
+        statDiv.appendChild(chartContainer);
+
+        // Assuming userProgress and globalDummyProgress are accessible
+        displayRadarChart(userProgress, globalDummyProgress);
+    }
+}
+
+function closeOtherStats(currentStat) {
+    document.querySelectorAll('.stat.expanded').forEach(expandedStat => {
+        if (expandedStat !== currentStat) {
+            expandedStat.classList.remove('expanded');
+            expandedStat.querySelector('.stat-details')?.remove();
+        }
+    });
+}
+
+function updateOrAppendDetailsDiv(statDiv, detailedContent) {
+    const detailsDiv = statDiv.querySelector('.stat-details') || document.createElement('div');
+    detailsDiv.className = 'stat-details';
+    detailsDiv.innerHTML = detailedContent;
+    if (!statDiv.querySelector('.stat-details')) {
+        statDiv.appendChild(detailsDiv);
+    } else {
+        statDiv.querySelector('.stat-details').innerHTML = detailedContent;
+    }
+}
+
+function displayRadarChart(userProgress, globalDummyProgress) {
+    const userAverageScores = {};
+    const globalAverageScores = {};
+
+    // Calculate user's average scores by module
+    Object.keys(userProgress).forEach(moduleKey => {
+        const quizScores = [];
+        Object.values(userProgress[moduleKey]).forEach(submodule => {
+            Object.values(submodule).forEach(lesson => {
+                if (lesson.quizScores && lesson.quizScores.length) {
+                    quizScores.push(...lesson.quizScores);
+                }
+            });
+        });
+        const averageScore = quizScores.length ? quizScores.reduce((sum, score) => sum + score, 0) / quizScores.length : 0;
+        userAverageScores[moduleKey] = averageScore;
+    });
+
+    // Calculate global average scores by module
+    Object.keys(globalDummyProgress).forEach(moduleKey => {
+        const quizScores = [];
+        Object.values(globalDummyProgress[moduleKey]).forEach(submodule => {
+            Object.values(submodule).forEach(lesson => {
+                if (lesson.quizScores && lesson.quizScores.length) {
+                    quizScores.push(...lesson.quizScores);
+                }
+            });
+        });
+        const averageScore = quizScores.length ? quizScores.reduce((sum, score) => sum + score, 0) / quizScores.length : 0;
+        globalAverageScores[moduleKey] = averageScore;
+    });
+
+    // Setup and display the radar chart
+    const ctx = document.getElementById('radarChart').getContext('2d'); // Ensure you have a canvas element with id="radarChart"
+    new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: Object.keys(userAverageScores),
+            datasets: [{
+                label: 'Your Average Scores',
+                data: Object.values(userAverageScores),
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+            }, {
+                label: 'Global Average Scores',
+                data: Object.values(globalAverageScores),
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                r: {
+                    angleLines: {
+                        display: false
+                    },
+                    suggestedMin: 50,
+                    suggestedMax: 100
+                }
+            }
+        }
+    });
+}
+
 function initializeStatsInteraction(detailedStats) {
     document.querySelectorAll('.stat').forEach(stat => {
         stat.addEventListener('click', function() {
-            // Close any currently expanded stat
-            document.querySelectorAll('.stat.expanded').forEach(expandedStat => {
-                if (expandedStat !== this) {
-                    expandedStat.classList.remove('expanded');
-                    expandedStat.querySelector('.stat-details').remove();
-                }
-            });
+            // Close any other expanded stats
+            closeOtherStats(this);
 
             this.classList.toggle('expanded');
             let detailedContent = '';
@@ -497,18 +595,11 @@ function initializeStatsInteraction(detailedStats) {
                     detailedContent = buildDetailedQuizScoresContent(detailedStats.quizScoresDetails);
                     break;
                 case 'statComparison':
-                    // This stat will display a radar chart showing the user's stats vs the world
+                    detailedContent = handleStatComparisonClick(this, detailedStats);
                     break;
             }
 
-            const detailsDiv = this.querySelector('.stat-details') || document.createElement('div');
-            detailsDiv.className = 'stat-details';
-            detailsDiv.innerHTML = detailedContent;
-            if (!this.querySelector('.stat-details')) {
-                this.appendChild(detailsDiv);
-            } else {
-                this.querySelector('.stat-details').innerHTML = detailedContent; // Update existing content
-            }
+            updateOrAppendDetailsDiv(this, detailedContent);
         });
     });
 }

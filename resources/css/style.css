@@ -1193,6 +1193,13 @@ label {
     margin-left: 0;
 }
 
+.chart-container {
+    padding: 10px;
+    margin-top: 10px; /* Adjust space above the chart */
+    background-color: #f9f9f9; /* Light background for the chart area */
+    border-radius: 5px; /* Optional: round corners */
+}
+
 /* Additional styles for responsiveness and aesthetics */
 @media (max-width: 768px) {
     #searchBox {
