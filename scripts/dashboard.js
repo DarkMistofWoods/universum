@@ -409,39 +409,64 @@ function updateStats(userProgress) {
 }
 
 function buildDetailedLessonsContent(details) {
-    let content = '<ul>';
+    let content = '';
+    let hasCompletedAnyLessons = false;
+
     Object.keys(details).forEach(moduleKey => {
-        content += `<li>${moduleKey}`;
-        content += '<ul>';
+        let moduleContent = '';
         Object.entries(details[moduleKey]).forEach(([submoduleKey, lessonsCompleted]) => {
-            content += `<li>${submoduleKey}: ${lessonsCompleted} lessons completed</li>`;
+            if (lessonsCompleted > 0) {
+                moduleContent += `<li>${submoduleKey}: ${lessonsCompleted} lessons completed</li>`;
+                hasCompletedAnyLessons = true;
+            }
         });
-        content += '</ul></li>';
+        if (moduleContent) {
+            content += `<li>${moduleKey}<ul>${moduleContent}</ul></li>`;
+        }
     });
-    content += '</ul>';
-    return content;
+
+    return hasCompletedAnyLessons ? `<ul>${content}</ul>` : "No lessons completed";
 }
 
 function buildDetailedQuizScoresContent(details) {
-    let content = '<ul>';
+    let content = '';
+    let hasQuizScores = false;
+
     Object.keys(details).forEach(moduleKey => {
-        content += `<li>${moduleKey}`;
-        content += '<ul>';
+        let moduleContent = '';
         Object.entries(details[moduleKey]).forEach(([submoduleKey, averageScore]) => {
-            content += `<li>${submoduleKey}: Average Quiz Score ${averageScore}</li>`;
+            if (averageScore !== "N/A") {
+                moduleContent += `<li>${submoduleKey}: Average Quiz Score ${averageScore}</li>`;
+                hasQuizScores = true;
+            }
         });
-        content += '</ul></li>';
+        if (moduleContent) {
+            content += `<li>${moduleKey}<ul>${moduleContent}</ul></li>`;
+        }
     });
-    content += '</ul>';
-    return content;
+
+    return hasQuizScores ? `<ul>${content}</ul>` : "No quizzes completed";
 }
 
 function initializeStatsInteraction(detailedStats) {
     document.querySelectorAll('.stat').forEach(stat => {
         stat.addEventListener('click', function() {
-            this.classList.toggle('expanded');
+            // Close any currently expanded stat
+            document.querySelectorAll('.stat.expanded').forEach(expandedStat => {
+                if (expandedStat !== this) {
+                    expandedStat.classList.remove('expanded');
+                    expandedStat.querySelector('.stat-details').remove();
+                }
+            });
 
+            this.classList.toggle('expanded');
             let detailedContent = '';
+
+            if (!this.classList.contains('expanded')) {
+                this.querySelector('.stat-details')?.remove();
+                return;
+            }
+
             // Determine which type of details to build based on the clicked stat
             switch (this.id) {
                 case 'stat1':
