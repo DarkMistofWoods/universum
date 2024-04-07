@@ -100,7 +100,7 @@
 /* The text element */
 .nav-text {
     position: absolute;
-    color: var(--color-tertiary);
+    color: var(--color-primary);
     right: 130%; /* Start off to the right of the icon, making space for the text */
     top: 0%; /* Align to the middle of the parent vertically */
     transform: translateY(-50%) translateX(100%); /* Adjust for vertical centering and start off-screen */
