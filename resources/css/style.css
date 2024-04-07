@@ -26,6 +26,13 @@
     --signout-icon-url: url('../icons/Signout-Icon-Dark.svg');
 }
 
+/* Global Styles */
+* {
+    transition: all 0.5s ease;
+    font-family: "Verdana", sans-serif;
+    color: var(--color-secondary);
+}
+
 #moonIcon {
     fill: var(--color-secondary); /* Default to black in light theme */
 }
@@ -114,12 +121,6 @@
     max-width: 200px; /* Adjust as necessary to fit longer texts */
 }
 
-/* Global Styles */
-* {
-    transition: all 0.5s ease;
-    font-family: "Verdana", sans-serif;
-    color: var(--color-secondary);
-}
 /* Typography */
 h2, h3, h4 {
     background-color: transparent;
