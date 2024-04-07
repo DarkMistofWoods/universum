@@ -436,7 +436,7 @@ function buildDetailedQuizScoresContent(details) {
         let moduleContent = '';
         Object.entries(details[moduleKey]).forEach(([submoduleKey, averageScore]) => {
             if (averageScore !== "N/A") {
-                moduleContent += `<li>${formatNodeName(submoduleKey)}: Average Quiz Score ${averageScore}</li>`;
+                moduleContent += `<li>${formatNodeName(submoduleKey)}: Average Quiz Score ${averageScore}%</li>`;
                 hasQuizScores = true;
             }
         });
