@@ -119,7 +119,7 @@ async function initializeDashboard(user) {
         } else {
             console.log("No user progress found. Using demo data.");
             
-            detailedStats = preprocessDataForDisplayStatus(dummyProgress, recommendations);
+            detailedStats = preprocessGlobalDummyProgress(dummyProgress);
             renderCustomNetworkVisualization(dummyProgress); // Use demo data
             updateStats(dummyProgress);
         }
@@ -467,20 +467,18 @@ function buildCompletedModulesContent(modulesCompletedDetails) {
 }
 
 function handleStatComparisonClick(statDiv, detailedStats) {
-    const chartContainer = document.createElement('div');
+    const chartContainer = statDiv.querySelector('.chart-container') || document.createElement('div');
     chartContainer.className = 'chart-container';
+    statDiv.appendChild(chartContainer); // Append the chart container if not already present
 
-    // Check if there's already a canvas to avoid creating multiple
-    let canvas = statDiv.querySelector('canvas');
+    let canvas = chartContainer.querySelector('canvas');
     if (!canvas) {
         canvas = document.createElement('canvas');
-        canvas.id = 'radarChart';
         chartContainer.appendChild(canvas);
-        statDiv.appendChild(chartContainer);
-
-        // Pre-process the global dummy stats
-        const preparedGlobalProgress = preprocessDataForDisplayStatus(globalDummyProgress);
-        displayRadarChart(detailedStats, preparedGlobalProgress);
+        displayRadarChart(detailedStats, preprocessGlobalDummyProgress(globalDummyProgress)); // Call with detailedStats
+    } else {
+        // If the canvas exists, you may want to update or clear the existing chart
+        // This depends on whether you're re-using the canvas or prefer to redraw
     }
 }
 
@@ -504,26 +502,44 @@ function updateOrAppendDetailsDiv(statDiv, detailedContent) {
     }
 }
 
-function displayRadarChart(detailedStats, globalDummyProgress) {
-    const userModuleNames = Object.keys(detailedStats.quizScoresDetails); // Assuming this structure exists
-    const userAverageScores = userModuleNames.map(moduleName => {
-        const submoduleScores = Object.values(detailedStats.quizScoresDetails[moduleName]);
-        const moduleAverage = submoduleScores.reduce((sum, score) => sum + parseFloat(score), 0) / submoduleScores.length;
-        return moduleAverage;
+function preprocessGlobalDummyProgress(globalDummyProgress) {
+    const quizScoresDetails = {};
+
+    Object.keys(globalDummyProgress).forEach(moduleKey => {
+        let allScores = [];
+        Object.values(globalDummyProgress[moduleKey]).forEach(submodule => {
+            Object.values(submodule).forEach(lesson => {
+                if (lesson.quizScores && lesson.quizScores.length) {
+                    allScores = allScores.concat(lesson.quizScores);
+                }
+            });
+        });
+
+        const averageScore = allScores.length > 0
+            ? allScores.reduce((sum, score) => sum + score, 0) / allScores.length
+            : 0;
+        quizScoresDetails[moduleKey] = averageScore.toFixed(2); // Store the average score for the module
     });
 
-    // Assume globalDummyProgress has been processed similarly to detailedStats
-    // or process it here to match the structure expected by detailedStats
-    const globalAverageScores = userModuleNames.map(moduleName => {
-        // Placeholder for global average scores per module. Adjust as necessary.
-        return globalDummyProgress[moduleName] ? globalDummyProgress[moduleName].globalAverage : 0;
-    });
+    return { quizScoresDetails }; // Structure it similar to detailedStats for consistency
+}
+
+function displayRadarChart(detailedStats, globalStats) {
+    // Setup Chart.js Radar Chart
+    const ctx = document.createElement('canvas').getContext('2d');
+    document.querySelector('.chart-container').appendChild(ctx.canvas);
+    const labels = Object.keys(detailedStats.quizScoresDetails);
     
-    const ctx = document.getElementById('radarChart').getContext('2d');
+    // User's average scores
+    const userAverageScores = labels.map(label => parseFloat(detailedStats.quizScoresDetails[label]));
+    
+    // Global average scores
+    const globalAverageScores = labels.map(label => parseFloat(globalStats.quizScoresDetails[label]));
+
     new Chart(ctx, {
         type: 'radar',
         data: {
-            labels: userModuleNames,
+            labels: labels,
             datasets: [{
                 label: 'Your Average Scores',
                 data: userAverageScores,
@@ -548,14 +564,14 @@ function displayRadarChart(detailedStats, globalDummyProgress) {
         },
         options: {
             maintainAspectRatio: false, // Allows chart to fill container
-            aspectRatio: 1, // Default aspect ratio, adjust as needed
+           // aspectRatio: 1, // Default aspect ratio, adjust as needed
             scales: {
                 r: {
                     angleLines: {
                         display: false
                     },
-                    suggestedMax: 100, 
-                    beginAtZero: true
+                    suggestedMin: 0,
+                    suggestedMax: 100,
                 }
             },
             plugins: {
