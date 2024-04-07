@@ -567,6 +567,14 @@ function displayRadarChart(detailedStats, globalStats) {
            // aspectRatio: 1, // Default aspect ratio, adjust as needed
             scales: {
                 r: {
+                    pointLabels: {
+                        // Chart.js 2.x uses this to style point labels
+                        backgroundColor: 'transparent'
+                    },
+                    ticks: {
+                        // Chart.js 3.x uses this to style the ticks
+                        backdropColor: 'transparent', // Removes the background color
+                    },
                     angleLines: {
                         display: false
                     },
