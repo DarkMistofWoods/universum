@@ -1183,7 +1183,7 @@ label {
 }
 
 .stat.expanded {
-    background-color: var(--color-primary);
+    background-color: var(--color-tertiary);
     color: var(--color-primary);
     max-height: 500px; /* Adjust based on content */
     box-shadow: 0 8px 16px rgba(0,0,0,0.75); /* Increased shadow */
@@ -1199,7 +1199,7 @@ label {
 }
 
 .stat-details li {
-    color: var(--color-quaternary);
+    color: var(--color-background);
 }
 
 .chart-container {
