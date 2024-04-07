@@ -835,6 +835,8 @@ label {
 }  
 
 .interactive-node {
+    filter: drop-shadow(0 4px 4px rgba(0,0,0,0.25)); /* Shadow effect */
+    transition: all 0.5s ease;
     transform-origin: center; /* Ensure transformations scale from the center */
     position: relative;
     cursor: pointer;

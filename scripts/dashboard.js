@@ -596,7 +596,7 @@ function initializeStatsInteraction(detailedStats) {
                     break;
                 case 'statComparison':
                     detailedContent = handleStatComparisonClick(this, detailedStats);
-                    break;
+                    return;
             }
 
             updateOrAppendDetailsDiv(this, detailedContent);
