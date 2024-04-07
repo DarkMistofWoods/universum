@@ -528,7 +528,7 @@ function displayRadarChart(detailedStats, globalStats) {
     // Setup Chart.js Radar Chart
     const ctx = document.createElement('canvas').getContext('2d');
     document.querySelector('.chart-container').appendChild(ctx.canvas);
-    const labels = Object.keys(detailedStats.quizScoresDetails);
+    const labels = Object.keys(globalStats.quizScoresDetails);
     
     // User's average scores
     const userAverageScores = labels.map(label => parseFloat(detailedStats.quizScoresDetails[label]));
@@ -547,9 +547,9 @@ function displayRadarChart(detailedStats, globalStats) {
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1,
                 pointBackgroundColor: 'rgba(255, 99, 132, 1)',
-                pointBorderColor: '#fff',
+                pointBorderColor: '#262223',
                 pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgba(255, 99, 132, 1)'
+                pointHoverBorderColor: '#5F736F'
             }, {
                 label: 'Global Average Scores',
                 data: globalAverageScores,
@@ -557,9 +557,9 @@ function displayRadarChart(detailedStats, globalStats) {
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1,
                 pointBackgroundColor: 'rgba(255, 99, 132, 1)',
-                pointBorderColor: '#fff',
+                pointBorderColor: '#262223',
                 pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgba(255, 99, 132, 1)'
+                pointHoverBorderColor: '#5F736F'
             }]
         },
         options: {
