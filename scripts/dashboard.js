@@ -425,7 +425,7 @@ function buildDetailedLessonsContent(details) {
         }
     });
 
-    return hasCompletedAnyLessons ? `<ul>${content}</ul>` : "No lessons completed";
+    return hasCompletedAnyLessons ? `<ul><strong>${content}</strong></ul>` : "No lessons completed";
 }
 
 function buildDetailedQuizScoresContent(details) {
@@ -445,7 +445,7 @@ function buildDetailedQuizScoresContent(details) {
         }
     });
 
-    return hasQuizScores ? `<ul>${content}</ul>` : "No quizzes completed";
+    return hasQuizScores ? `<ul><strong>${content}</strong></ul>` : "No quizzes completed";
 }
 
 function initializeStatsInteraction(detailedStats) {
