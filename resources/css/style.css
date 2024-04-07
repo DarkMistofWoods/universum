@@ -1183,8 +1183,9 @@ label {
 }
 
 .stat.expanded {
+    background-color: var(--color-primary);
     color: var(--color-primary);
-    max-height: 200px; /* Adjust based on content */
+    max-height: 500px; /* Adjust based on content */
     box-shadow: 0 8px 16px rgba(0,0,0,0.75); /* Increased shadow */
     padding-bottom: 80px;
     margin-bottom: 20px; /* Shift downward */
@@ -1197,7 +1198,16 @@ label {
     margin-left: 0;
 }
 
+.stat-details li {
+    color: var(--color-quaternary);
+}
+
 .chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px; /* Adjust based on your needs */
+    padding: 20px;
     padding: 10px;
     margin-top: 10px; /* Adjust space above the chart */
     background-color: transparent; /* Light background for the chart area */
