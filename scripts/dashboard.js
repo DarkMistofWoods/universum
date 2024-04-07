@@ -547,6 +547,8 @@ function displayRadarChart(detailedStats, globalDummyProgress) {
             }]
         },
         options: {
+            maintainAspectRatio: false, // Allows chart to fill container
+            aspectRatio: 1, // Default aspect ratio, adjust as needed
             scales: {
                 r: {
                     angleLines: {
@@ -559,6 +561,7 @@ function displayRadarChart(detailedStats, globalDummyProgress) {
             plugins: {
                 legend: {
                     labels: {
+                        position: 'top',
                         color: 'black' // Change text color here
                     }
                 }
