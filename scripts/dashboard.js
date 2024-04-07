@@ -562,7 +562,7 @@ function displayRadarChart(detailedStats, globalDummyProgress) {
                 legend: {
                     labels: {
                         position: 'top',
-                        color: 'black' // Change text color here
+                        color: '#262223' // Change text color here
                     }
                 }
             }
