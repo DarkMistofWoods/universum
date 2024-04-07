@@ -518,7 +518,7 @@ function displayRadarChart(detailedStats, globalDummyProgress) {
         // Placeholder for global average scores per module. Adjust as necessary.
         return globalDummyProgress[moduleName] ? globalDummyProgress[moduleName].globalAverage : 0;
     });
-
+    
     const ctx = document.getElementById('radarChart').getContext('2d');
     new Chart(ctx, {
         type: 'radar',
@@ -529,13 +529,21 @@ function displayRadarChart(detailedStats, globalDummyProgress) {
                 data: userAverageScores,
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
-                borderWidth: 1
+                borderWidth: 1,
+                pointBackgroundColor: 'rgba(255, 99, 132, 1)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgba(255, 99, 132, 1)'
             }, {
                 label: 'Global Average Scores',
                 data: globalAverageScores,
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1
+                borderWidth: 1,
+                pointBackgroundColor: 'rgba(255, 99, 132, 1)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgba(255, 99, 132, 1)'
             }]
         },
         options: {
@@ -544,8 +552,15 @@ function displayRadarChart(detailedStats, globalDummyProgress) {
                     angleLines: {
                         display: false
                     },
-                    suggestedMin: 50,
-                    suggestedMax: 100
+                    suggestedMax: 100, 
+                    beginAtZero: true
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'black' // Change text color here
+                    }
                 }
             }
         }
