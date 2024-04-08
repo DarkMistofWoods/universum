@@ -943,34 +943,6 @@ function calculateAverageQuizScore(quizScores) {
     }
 }
 
-function shouldUnlockLesson(currentLesson, currentSubModuleLessons, userProgressForSubModule, recommendations) {
-    // In Guided Learning mode, a lesson is accessible if it's recommended or already completed
-    if (userLearningMode === "guided") {
-        // Check if the lesson is completed
-        if (userProgressForSubModule[currentLesson.title]?.completed) {
-            return true; // The lesson is completed and should be unlocked
-        }
-
-        // Check if the lesson is recommended
-        if (recommendations.lessons.includes(currentLesson.title)) {
-            return true; // The lesson is recommended and should be unlocked
-        }
-
-        // Check if the previous lesson in the sequence is completed, to unlock the next one
-        const currentLessonIndex = currentSubModuleLessons.findIndex(lesson => lesson.title === currentLesson.title);
-        if (currentLessonIndex > 0) { // Ensuring there is a previous lesson
-            const previousLessonTitle = currentSubModuleLessons[currentLessonIndex - 1].title;
-            if (userProgressForSubModule[previousLessonTitle]?.completed) {
-                return true; // The previous lesson is completed, so this one should be unlocked
-            }
-        }
-
-        return false; // If none of the above conditions are met, the lesson remains locked
-    } else {
-        return true;
-    }
-}
-
 function generateSubModulesHtml(subModules, isParentModuleRecommended, moduleName) {
     return subModules.map(subModule => {
         const isRecommendedSubModule = isParentModuleRecommended && subModule.subModuleId === recommendations.subModule;
@@ -982,12 +954,10 @@ function generateSubModulesHtml(subModules, isParentModuleRecommended, moduleNam
                     ${subModule.lessons.map(lesson => {
                         const lessonData = userProgress[moduleName.toLowerCase()]?.[subModule.subModuleId]?.[lesson.title] || {};
                         const averageScoreText = calculateAverageQuizScore(lessonData.quizScores || []);
-                        const userProgressForSubModule = userProgress[subModule.subModuleId] || {};
                         
-                        const lessonUnlocked = shouldUnlockLesson(lesson, subModule.lessons, userProgressForSubModule, recommendations);
-                        const lockedClass = lessonUnlocked ? '' : 'locked';
+                        const isAccessible = isLessonRecommendedOrCompleted(lesson.title, subModule.subModuleId, moduleName);
                         return `<li>
-                            <a href="${lesson.pageUrl}" class="lessonLink ${lockedClass}" data-lesson="${lesson.title}">
+                            <a href="${lesson.pageUrl}" class="lessonLink ${isAccessible ? '' : 'locked'}" data-lesson="${lesson.title}">
                                 ${lesson.title} <span class="quizScore">${averageScoreText}</span>
                             </a>
                         </li>`;
@@ -1040,12 +1010,12 @@ function lockOrUnlockLessons() {
                 const isRecommended = recommendations.lessons.includes(lesson.title); // Assuming recommendations is an array of lesson titles
 
                 if (unlockNext) {
-                    console.log("Unlocking lesson: " + lesson.title)
                     unlockLesson(lesson);
                     unlockNext = false; // Reset after unlocking unless it's recommended
                 }
 
                 if (isRecommended) {
+                    console.log("Unlocking lesson: " + lesson.title)
                     unlockLesson(lesson);
                     // Do not set unlockNext true for recommended lessons to prevent unlocking the next lesson automatically
                 } else if (isCompleted) {
