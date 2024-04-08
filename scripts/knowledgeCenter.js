@@ -933,6 +933,16 @@ function attachEventListeners() {
     });
 }
 
+function calculateAverageQuizScore(quizScores) {
+    if (quizScores.length === 0) {
+        return "Incomplete";
+    } else {
+        const sum = quizScores.reduce((acc, score) => acc + score, 0);
+        const average = sum / quizScores.length;
+        return average.toFixed(2) + '%'; // Format to two decimal places
+    }
+}
+
 function generateSubModulesHtml(subModules, isParentModuleRecommended, moduleName) {
     return subModules.map(subModule => {
         const isRecommendedSubModule = isParentModuleRecommended && subModule.subModuleId === recommendations.subModule;
@@ -942,11 +952,13 @@ function generateSubModulesHtml(subModules, isParentModuleRecommended, moduleNam
                 <div class="progressBar"><div class="progress"></div></div>
                 <ul class="lessonsList">
                     ${subModule.lessons.map(lesson => {
+                        const lessonData = userProgress[moduleName.toLowerCase()]?.[subModule.subModuleId]?.[lesson.title] || {};
+                        const averageScoreText = calculateAverageQuizScore(lessonData.quizScores || []);
+                        
                         const isAccessible = isLessonRecommendedOrCompleted(lesson.title, subModule.subModuleId, moduleName);
-
                         return `<li>
                             <a href="${lesson.pageUrl}" class="lessonLink ${isAccessible ? '' : 'locked'}" data-lesson="${lesson.title}">
-                                ${lesson.title}
+                                ${lesson.title} <span class="quizScore">${averageScoreText}</span>
                             </a>
                         </li>`;
                     }).join('')}

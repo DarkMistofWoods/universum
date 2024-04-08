@@ -1093,6 +1093,17 @@ label {
     opacity: 0.5; /* Visual indicator that the lesson is locked */
 }
 
+.lessonLink {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quizScore {
+    color: var(--color-secondary); /* Example color - adjust as needed */
+    margin-left: auto; /* Ensures it aligns to the right */
+}
+
 .subModule {
     position: relative;
     border: 2px solid transparent;
