@@ -1014,14 +1014,14 @@ function lockOrUnlockLessons() {
                     unlockNext = false; // Reset after unlocking unless it's recommended
                 }
 
-                if (isRecommended) {
+                if (isCompleted) {
+                    console.log("Found completed lesson: " + lesson.title)
+                    unlockNext = true; // Set to unlock the next lesson only if current lesson is completed and not just recommended
+                 } else if (isRecommended) {
                     console.log("Unlocking lesson: " + lesson.title)
                     unlockLesson(lesson);
                     // Do not set unlockNext true for recommended lessons to prevent unlocking the next lesson automatically
-                } else if (isCompleted) {
-                    console.log("Found completed lesson: " + lesson.title)
-                    unlockNext = true; // Set to unlock the next lesson only if current lesson is completed and not just recommended
-                }
+               }
 
                 // Handling the last lesson in the submodule
                 if (isCompleted && lessonIndex === lessonArray.length - 1) {
