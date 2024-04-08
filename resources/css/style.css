@@ -1066,7 +1066,7 @@ label {
 
 .lessonsList {
     list-style-type: none; /* Removes the list bullet */
-    padding-left: 10; /* Removes default padding */
+    padding-left: 0; /* Removes default padding */
     text-align: left; /* Aligns text to the right */
     display: none;
 }
@@ -1074,7 +1074,10 @@ label {
 .lessonsList li {
     margin-right: 20px; /* Adjusts spacing on the right if needed */
     margin-top: 15px;
+    padding: 0 25px;
     color: var(--color-primary);
+    background-color: var(--color-tertiary);
+    border-radius: 15px;
     font-size: medium;
 }
 
@@ -1085,7 +1088,7 @@ label {
 
 .lessonsList a:hover {
     color: var(--color-secondary);
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .lessonLink.locked {
@@ -1100,7 +1103,7 @@ label {
 }
 
 .quizScore {
-    color: var(--color-secondary); /* Example color - adjust as needed */
+    color: var(--color-background); /* Example color - adjust as needed */
     margin-left: auto; /* Ensures it aligns to the right */
 }
 

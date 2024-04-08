@@ -1,0 +1,424 @@
+{
+    "Vocabulary": {
+        "Vocabulary_1": {
+            "Lesson 1: Common Phrases": {
+                "completed": false,
+                "quizScores": [78]
+            },
+            "Lesson 2: Numbers and Counting": {
+                "completed": false,
+                "quizScores": [89] 
+            },
+            "Lesson 3: Colors and Shapes": {
+                "completed": false,
+                "quizScores": [32] 
+            },
+            "Lesson 4: Time and Days": {
+                "completed": false,
+                "quizScores": [65] 
+            }
+        },
+        "Vocabulary_2": {
+            "Lesson 1: Family and People": {
+                "completed": false,
+                "quizScores": [78] 
+            },
+            "Lesson 2: Food and Drink": {
+                "completed": false,
+                "quizScores": [57] 
+            },
+            "Lesson 3: Clothing and Body": {
+                "completed": false,
+                "quizScores": [67] 
+            },
+            "Lesson 4: Home and Daily Routines": {
+                "completed": false,
+                "quizScores": [86] 
+            }
+        },
+        "Vocabulary_3": {
+            "Lesson 1: Nature and Weather": {
+                "completed": false,
+                "quizScores": [82] 
+            },
+            "Lesson 2: City and Transportation": {
+                "completed": false,
+                "quizScores": [76] 
+            },
+            "Lesson 3: Shopping and Money": {
+                "completed": false,
+                "quizScores": [76] 
+            },
+            "Lesson 4: Health and Emergency": {
+                "completed": false,
+                "quizScores": [82] 
+            }
+        },
+        "Vocabulary_4": {
+            "Lesson 1: Emotions and Opinions": {
+                "completed": false,
+                "quizScores": [76] 
+            },
+            "Lesson 2: Hobbies and Leisure": {
+                "completed": false,
+                "quizScores": [73] 
+            },
+            "Lesson 3: Education and Work": {
+                "completed": false,
+                "quizScores": [82] 
+            },
+            "Lesson 4: Travel and Culture": {
+                "completed": false,
+                "quizScores": [92] 
+            }
+        },
+        "Vocabulary_5": {
+            "Lesson 1: Complex Descriptions": {
+                "completed": false,
+                "quizScores": [83] 
+            },
+            "Lesson 2: Abstract Concepts": {
+                "completed": false,
+                "quizScores": [92] 
+            },
+            "Lesson 3: Formal and Informal Language": {
+                "completed": false,
+                "quizScores": [91] 
+            },
+            "Lesson 4: Compound Word Construction": {
+                "completed": false,
+                "quizScores": [73] 
+            }
+        },
+        "Vocabulary_6": {
+            "Lesson 1: Science and Technology": {
+                "completed": false,
+                "quizScores": [95] 
+            },
+            "Lesson 2: Arts and Literature": {
+                "completed": false,
+                "quizScores": [72] 
+            },
+            "Lesson 3: Business and Economy": {
+                "completed": false,
+                "quizScores": [92] 
+            },
+            "Lesson 4: Politics and Society": {
+                "completed": false,
+                "quizScores": [82] 
+            }
+        }
+    },
+    "Grammar": {
+        "Grammar_1": {
+            "Lesson 1: Sentence Structure": {
+                "completed": false,
+                "quizScores": [72] 
+            },
+            "Lesson 2: Pronouns and Simple Verbs": {
+                "completed": false,
+                "quizScores": [82] 
+            },
+            "Lesson 3: Present, Past, and Future Tenses": {
+                "completed": false,
+                "quizScores": [83] 
+            },
+            "Lesson 4: Yes/No Questions and Answers": {
+                "completed": false,
+                "quizScores": [95] 
+            }
+        },
+        "Grammar_2": {
+            "Lesson 1: Negation": {
+                "completed": false,
+                "quizScores": [72] 
+            },
+            "Lesson 2: Plurals and Quantity": {
+                "completed": false,
+                "quizScores": [85] 
+            },
+            "Lesson 3: Descriptive Language": {
+                "completed": false,
+                "quizScores": [74] 
+            },
+            "Lesson 4: Prepositions and Directions": {
+                "completed": false,
+                "quizScores": [83] 
+            }
+        },
+        "Grammar_3": {
+            "Lesson 1: Possessive Structures": {
+                "completed": false,
+                "quizScores": [82] 
+            },
+            "Lesson 2: Comparatives and Superlatives": {
+                "completed": false,
+                "quizScores": [85] 
+            },
+            "Lesson 3: Imperatives and Commands": {
+                "completed": false,
+                "quizScores": [74] 
+            },
+            "Lesson 4: Question Words": {
+                "completed": false,
+                "quizScores": [76] 
+            }
+        },
+        "Grammar_4": {
+            "Lesson 1: Conjunctions and Complex Sentences": {
+                "completed": false,
+                "quizScores": [95] 
+            },
+            "Lesson 2: Conditional Sentences": {
+                "completed": false,
+                "quizScores": [87] 
+            },
+            "Lesson 3: Expressing Opinions and Emotions": {
+                "completed": false,
+                "quizScores": [73] 
+            },
+            "Lesson 4: Indirect Speech and Reported Questions": {
+                "completed": false,
+                "quizScores": [91] 
+            }
+        },
+        "Grammar_5": {
+            "Lesson 1: Nuances of Politeness": {
+                "completed": false,
+                "quizScores": [76] 
+            },
+            "Lesson 2: Cultural Expressions and Idioms": {
+                "completed": false,
+                "quizScores": [78] 
+            },
+            "Lesson 3: Error Correction and Clarification": {
+                "completed": false,
+                "quizScores": [76] 
+            },
+            "Lesson 4: Style and Register": {
+                "completed": false,
+                "quizScores": [73] 
+            }
+        },
+        "Grammar_6": {
+            "Lesson 1: Debating and Persuasion": {
+                "completed": false,
+                "quizScores": [81] 
+            },
+            "Lesson 2: Storytelling and Narration": {
+                "completed": false,
+                "quizScores": [72] 
+            },
+            "Lesson 3: Academic and Formal Writing": {
+                "completed": false,
+                "quizScores": [71] 
+            },
+            "Lesson 4: Humor and Playfulness in Language": {
+                "completed": false,
+                "quizScores": [83] 
+            }
+        }
+    },
+    "Comprehension": {
+        "Comprehension_1": {
+            "Lesson 1: Understanding Basic Greetings and Introductions": {
+                "completed": false,
+                "quizScores": [91] 
+            },
+            "Lesson 2: Numbers and Time": {
+                "completed": false,
+                "quizScores": [98] 
+            },
+            "Lesson 3: Common Phrases and Responses": {
+                "completed": false,
+                "quizScores": [73] 
+            },
+            "Lesson 4: Simple Instructions and Commands": {
+                "completed": false,
+                "quizScores": [61] 
+            }
+        },
+        "Comprehension_2": {
+            "Lesson 1: Shopping Conversations": {
+                "completed": false,
+                "quizScores": [73] 
+            },
+            "Lesson 2: Restaurant and Food": {
+                "completed": false,
+                "quizScores": [82] 
+            },
+            "Lesson 3: Directions and Transportation": {
+                "completed": false,
+                "quizScores": [97] 
+            },
+            "Lesson 4: Weather and Seasons": {
+                "completed": false,
+                "quizScores": [82] 
+            }
+        },
+        "Comprehension_3": {
+            "Lesson 1: Educational Content": {
+                "completed": false,
+                "quizScores": [93] 
+            },
+            "Lesson 2: Work and Occupation Dialogues": {
+                "completed": false,
+                "quizScores": [71] 
+            },
+            "Lesson 3: Health and Wellness": {
+                "completed": false,
+                "quizScores": [82] 
+            },
+            "Lesson 4: Entertainment and Media": {
+                "completed": false,
+                "quizScores": [91] 
+            }
+        },
+        "Comprehension_4": {
+            "Lesson 1: Narratives and Storytelling": {
+                "completed": false,
+                "quizScores": [72] 
+            },
+            "Lesson 2: Opinions and Arguments": {
+                "completed": false,
+                "quizScores": [82] 
+            },
+            "Lesson 3: Cultural and Historical Texts": {
+                "completed": false,
+                "quizScores": [73] 
+            },
+            "Lesson 4: Technical and Scientific Articles": {
+                "completed": false,
+                "quizScores": [81] 
+            }
+        },
+        "Comprehension_5": {
+            "Lesson 1: Abstract and Philosophical Texts": {
+                "completed": false,
+                "quizScores": [72] 
+            },
+            "Lesson 2: Poetry and Literature": {
+                "completed": false,
+                "quizScores": [75] 
+            },
+            "Lesson 3: News and Current Events": {
+                "completed": false,
+                "quizScores": [76] 
+            },
+            "Lesson 4: Formal and Academic Papers": {
+                "completed": false,
+                "quizScores": [72] 
+            }
+        },
+        "Comprehension_6": {
+            "Lesson 1: Interactive Scenarios and Role Plays": {
+                "completed": false,
+                "quizScores": [82] 
+            },
+            "Lesson 2: Listening and Audio Comprehension": {
+                "completed": false,
+                "quizScores": [91] 
+            },
+            "Lesson 3: Visual Comprehension and Interpretation": {
+                "completed": false,
+                "quizScores": [82] 
+            },
+            "Lesson 4: Comprehension Through Creation": {
+                "completed": false,
+                "quizScores": [73] 
+            }
+        }
+    },
+    "Math": {
+        "Math_1": {
+            "Lesson 1: Introduction to Base-12 System": {
+                "completed": false,
+                "quizScores": [82] 
+            },
+            "Lesson 2: Counting in Base-12": {
+                "completed": false,
+                "quizScores": [91] 
+            },
+            "Lesson 3: Basic Operations in Base-12": {
+                "completed": false,
+                "quizScores": [82] 
+            },
+            "Lesson 4: Multiplication and Division in Base-12": {
+                "completed": false,
+                "quizScores": [83] 
+            }
+        },
+        "Math_2": {
+            "Lesson 1: Carrying and Borrowing in Base-12": {
+                "completed": false,
+                "quizScores": [71] 
+            },
+            "Lesson 2: Advanced Multiplication and Division": {
+                "completed": false,
+                "quizScores": [91] 
+            },
+            "Lesson 3: Fractions in Base-12": {
+                "completed": false,
+                "quizScores": [82] 
+            },
+            "Lesson 4: Converting Between Base-10 and Base-12": {
+                "completed": false,
+                "quizScores": [71] 
+            }
+        },
+        "Math_3": {
+            "Lesson 1: Base-12 Place Values": {
+                "completed": false,
+                "quizScores": [84] 
+            },
+            "Lesson 2: Using Base-12 in Practical Situations": {
+                "completed": false,
+                "quizScores": [74] 
+            },
+            "Lesson 3: Decimals in Base-12": {
+                "completed": false,
+                "quizScores": [57] 
+            },
+            "Lesson 4: Ratios and Proportions in Base-12": {
+                "completed": false,
+                "quizScores": [54] 
+            }
+        },
+        "Math_4": {
+            "Lesson 1: Geometric Shapes and Measurements in Base-12": {
+                "completed": false,
+                "quizScores": [75] 
+            },
+            "Lesson 2: Algebraic Expressions in Base-12": {
+                "completed": false,
+                "quizScores": [83] 
+            },
+            "Lesson 3: Graphing in Base-12": {
+                "completed": false,
+                "quizScores": [85] 
+            },
+            "Lesson 4: Statistics and Probability in Base-12": {
+                "completed": false,
+                "quizScores": [73] 
+            }
+        },
+        "Math_5": {
+            "Lesson 1: Mathematical Puzzles in Base-12": {
+                "completed": false,
+                "quizScores": [83] 
+            },
+            "Lesson 2: Exploring Patterns and Sequences in Base-12": {
+                "completed": false,
+                "quizScores": [75] 
+            },
+            "Lesson 3: Base-12 in Science and Technology": {
+                "completed": false,
+                "quizScores": [77] 
+            },
+            "Lesson 4: Theoretical Math in Base-12": {
+                "completed": false,
+                "quizScores": [88] 
+            }
+        }
+    }
+}
