@@ -944,26 +944,31 @@ function calculateAverageQuizScore(quizScores) {
 }
 
 function shouldUnlockLesson(currentLesson, currentSubModuleLessons, userProgressForSubModule, recommendations) {
-    // Check if the lesson is completed
-    if (userProgressForSubModule[currentLesson.title]?.completed) {
-        return true; // The lesson is completed and should be unlocked
-    }
-
-    // Check if the lesson is recommended
-    if (recommendations.lessons.includes(currentLesson.title)) {
-        return true; // The lesson is recommended and should be unlocked
-    }
-
-    // Check if the previous lesson in the sequence is completed, to unlock the next one
-    const currentLessonIndex = currentSubModuleLessons.findIndex(lesson => lesson.title === currentLesson.title);
-    if (currentLessonIndex > 0) { // Ensuring there is a previous lesson
-        const previousLessonTitle = currentSubModuleLessons[currentLessonIndex - 1].title;
-        if (userProgressForSubModule[previousLessonTitle]?.completed) {
-            return true; // The previous lesson is completed, so this one should be unlocked
+    // In Guided Learning mode, a lesson is accessible if it's recommended or already completed
+    if (userLearningMode === "guided") {
+        // Check if the lesson is completed
+        if (userProgressForSubModule[currentLesson.title]?.completed) {
+            return true; // The lesson is completed and should be unlocked
         }
-    }
 
-    return false; // If none of the above conditions are met, the lesson remains locked
+        // Check if the lesson is recommended
+        if (recommendations.lessons.includes(currentLesson.title)) {
+            return true; // The lesson is recommended and should be unlocked
+        }
+
+        // Check if the previous lesson in the sequence is completed, to unlock the next one
+        const currentLessonIndex = currentSubModuleLessons.findIndex(lesson => lesson.title === currentLesson.title);
+        if (currentLessonIndex > 0) { // Ensuring there is a previous lesson
+            const previousLessonTitle = currentSubModuleLessons[currentLessonIndex - 1].title;
+            if (userProgressForSubModule[previousLessonTitle]?.completed) {
+                return true; // The previous lesson is completed, so this one should be unlocked
+            }
+        }
+
+        return false; // If none of the above conditions are met, the lesson remains locked
+    } else {
+        return true;
+    }
 }
 
 function generateSubModulesHtml(subModules, isParentModuleRecommended, moduleName) {
