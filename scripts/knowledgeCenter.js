@@ -999,16 +999,19 @@ function applyLearningMode() {
 
 function lockOrUnlockLessons() {
     console.log(userProgress);
+
     courseContent.forEach(module => {
         module.subModules.forEach(subModule => {
             let previousLessonCompleted = false;
 
             subModule.lessons.forEach(lesson => {
-                const lessonSelector = `.lessonLink[data-lesson="${lesson.title}"][data-sub-module="${subModule.subModuleId}"]`;
+                const lessonSelector = `.lessonLink[data-lesson="${capitalizeFirstLetter(lesson.title)}"][data-sub-module="${capitalizeFirstLetter(subModule.subModuleId)}"]`;
                 const link = document.querySelector(lessonSelector);
 
-                if (!link) return;
-
+                if (!link) {
+                    console.log("No link found, returning.");
+                    return;
+                }
                 const moduleNameLower = module.moduleName.toLowerCase();
                 const lessonData = userProgress[moduleNameLower]?.[subModule.subModuleId]?.[lesson.title] || {};
                 const isCompleted = lessonData.completed;
