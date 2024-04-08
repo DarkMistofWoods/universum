@@ -998,6 +998,7 @@ function applyLearningMode() {
 }
 
 function lockOrUnlockLessons() {
+    console.log(userProgress);
     courseContent.forEach(module => {
         module.subModules.forEach(subModule => {
             let previousLessonCompleted = false;
@@ -1017,10 +1018,11 @@ function lockOrUnlockLessons() {
 
                 // Unlock lessons that are completed, recommended, or the immediate next lesson after a completed one
                 if (isCompleted || isRecommended || previousLessonCompleted) {
-                    console.log("Unlocking: " + lessonData)
+                    console.log("Unlocking: " + lessonData);
                     link.classList.remove('locked');
                     previousLessonCompleted = true; // Allow unlocking of the next lesson in sequence
                 } else {
+                    console.log("Locking: " + lessonData);
                     link.classList.add('locked');
                     previousLessonCompleted = false; // Block access to further lessons until this one is completed
                 }
