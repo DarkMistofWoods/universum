@@ -1010,6 +1010,7 @@ function lockOrUnlockLessons() {
                 const isRecommended = recommendations.lessons.includes(lesson.title); // Assuming recommendations is an array of lesson titles
 
                 if (unlockNext) {
+                    console.log("Unlocking lesson: " + lesson.title)
                     unlockLesson(lesson);
                     unlockNext = false; // Reset after unlocking unless it's recommended
                 }
@@ -1018,6 +1019,7 @@ function lockOrUnlockLessons() {
                     unlockLesson(lesson);
                     // Do not set unlockNext true for recommended lessons to prevent unlocking the next lesson automatically
                 } else if (isCompleted) {
+                    console.log("Found completed lesson: " + lesson.title)
                     unlockNext = true; // Set to unlock the next lesson only if current lesson is completed and not just recommended
                 }
 
