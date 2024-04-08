@@ -534,9 +534,11 @@ function displayRadarChart(detailedStats, globalStats) {
 
     // User's average scores
     const userAverageScores = labels.map(label => parseFloat(detailedStats.quizScoresDetails[label]));
+    console.log("User Scores: " + userAverageScores);
     
     // Global average scores
     const globalAverageScores = labels.map(label => parseFloat(globalStats.quizScoresDetails[label]));
+    console.log("Global Scores: " + globalAverageScores);
 
     new Chart(ctx, {
         type: 'radar',
