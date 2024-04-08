@@ -763,6 +763,8 @@ function initializeKnowledgeCenter() {
     renderContent().then(() => {
         setTimeout(() => {
             expandModuleAndSubmodule();
+            // Apply learning mode restrictions and update module progress
+            applyLearningMode();
         }, 0.75); // Even a 0ms timeout can push the execution to the next tick of the event loop
     });
 }
@@ -783,8 +785,6 @@ async function renderContent() {
             knowledgeCenter.insertAdjacentHTML('beforeend', moduleHtml);
         });
 
-        // Apply learning mode restrictions and update module progress
-        applyLearningMode();
         attachEventListeners(); // Attach event listeners after content is generated
         updateModuleProgress();
 
