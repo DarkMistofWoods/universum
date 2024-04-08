@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="./resources/css/style.css">
     
     <script src="./scripts/userNavigation.js" type="module"></script>
+
+    <script>
+        // Immediately set theme before page content loads
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light'; // Default to light if not set
+            document.documentElement.setAttribute('data-theme', savedTheme); // Use documentElement for earliest possible application
+        })();
+    </script>
 </head>
 <body>
     <div id="navControls">

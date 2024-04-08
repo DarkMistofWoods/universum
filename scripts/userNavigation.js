@@ -30,7 +30,7 @@ auth.onAuthStateChanged((user) => {
 });
 
 function updateTheme(theme) {
-    document.body.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
 
     // Update icon visibility based on the current theme
@@ -50,6 +50,6 @@ document.getElementById('sunIcon').addEventListener('click', toggleTheme);
 document.getElementById('moonIcon').addEventListener('click', toggleTheme);
 
 function toggleTheme() {
-    const newTheme = document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     updateTheme(newTheme);
 }
