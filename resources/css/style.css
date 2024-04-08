@@ -115,7 +115,7 @@
 
 /* Change properties on hover */
 .nav-icon:hover .nav-text {
-    text-shadow: 2px 2px 6px black;
+    text-shadow: 2px 2px 8px black;
     transform: translateY(-50%) translateX(0%); /* Move text to its final position */
     opacity: 1; /* Make text visible */
     max-width: 200px; /* Adjust as necessary to fit longer texts */
