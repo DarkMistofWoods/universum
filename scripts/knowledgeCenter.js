@@ -1017,6 +1017,7 @@ function lockOrUnlockLessons() {
 
                 // Unlock lessons that are completed, recommended, or the immediate next lesson after a completed one
                 if (isCompleted || isRecommended || previousLessonCompleted) {
+                    console.log("Unlocking: " + lessonData)
                     link.classList.remove('locked');
                     previousLessonCompleted = true; // Allow unlocking of the next lesson in sequence
                 } else {
