@@ -998,25 +998,72 @@ function applyLearningMode() {
 }
 
 function lockOrUnlockLessons() {
-    document.querySelectorAll('.lessonsList a').forEach(link => {
-        const lessonName = link.getAttribute('data-lesson');
-        const moduleName = link.closest('.module').getAttribute('data-module').toLowerCase().trim();
-        const subModuleName = link.closest('.subModule').getAttribute('data-sub-module').trim();
+    courseContent.forEach(module => {
+        module.subModules.forEach((subModule, subModuleIndex) => {
+            subModule.lessons.forEach((lesson, lessonIndex) => {
+                const lessonSelector = `.lessonLink[data-lesson="${lesson.title}"][data-sub-module="${subModule.subModuleId}"]`;
+                const link = document.querySelector(lessonSelector);
 
-        // Determine if the lesson should be accessible
-        const isRecommended = recommendations.module.toLowerCase() === moduleName &&
-                              recommendations.subModule === subModuleName &&
-                              recommendations.lessons.includes(lessonName);
-        
-        const isCompleted = userProgress[moduleName] && 
-                            userProgress[moduleName][subModuleName] && 
-                            userProgress[moduleName][subModuleName][lessonName].completed;
-                            
-        if (!isRecommended && !isCompleted) {
-            // Mark as locked if not recommended or completed
-            link.classList.add('locked');
-        } else {
-            link.classList.remove('locked');
-        }
+                if (link) {
+                    const lessonData = userProgress[module.moduleName.toLowerCase()]?.[subModule.subModuleId]?.[lesson.title] || {};
+                    const isCompleted = lessonData.completed;
+                    const nextLesson = getNextLesson(courseContent, module.moduleId, subModule.subModuleId, lessonIndex);
+
+                    // Unlock the current lesson if it's completed
+                    if (isCompleted) {
+                        link.classList.remove('locked');
+                        // If there's a next lesson, unlock it
+                        if (nextLesson) {
+                            const nextLessonSelector = `.lessonLink[data-lesson="${nextLesson.lesson.title}"][data-sub-module="${nextLesson.subModule.subModuleId}"]`;
+                            const nextLink = document.querySelector(nextLessonSelector);
+                            if (nextLink) {
+                                nextLink.classList.remove('locked');
+                            }
+                        }
+                    } else {
+                        // Lock the lesson if it's not completed and not the first lesson or if no lessons before it are completed
+                        if (lessonIndex !== 0 && !isAnyPreviousLessonCompleted(subModule, lessonIndex)) {
+                            link.classList.add('locked');
+                        }
+                    }
+                }
+            });
+        });
     });
+}
+
+// Utility function to determine if any previous lesson in the subModule is completed
+function isAnyPreviousLessonCompleted(subModule, lessonIndex) {
+    for (let i = 0; i < lessonIndex; i++) {
+        const previousLessonTitle = subModule.lessons[i].title;
+        if (userProgress[subModule.subModuleId]?.[previousLessonTitle]?.completed) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// Utility function to get the next lesson object
+function getNextLesson(courseContent, currentModuleId, currentSubModuleId, currentLessonIndex) {
+    const currentModule = courseContent.find(module => module.moduleId === currentModuleId);
+    const currentSubModuleIndex = currentModule.subModules.findIndex(subModule => subModule.subModuleId === currentSubModuleId);
+    const currentSubModule = currentModule.subModules[currentSubModuleIndex];
+
+    // Check if there is a next lesson in the current submodule
+    if (currentLessonIndex < currentSubModule.lessons.length - 1) {
+        return {
+            subModule: currentSubModule,
+            lesson: currentSubModule.lessons[currentLessonIndex + 1]
+        };
+    } else {
+        // Check if there is a next submodule
+        const nextSubModule = currentModule.subModules[currentSubModuleIndex + 1];
+        if (nextSubModule) {
+            return {
+                subModule: nextSubModule,
+                lesson: nextSubModule.lessons[0]
+            };
+        }
+    }
+    return null; // No next lesson found
 }
