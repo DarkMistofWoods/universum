@@ -1007,7 +1007,7 @@ function lockOrUnlockLessons() {
             subModule.lessons.forEach((lesson, lessonIndex, lessonArray) => {
                 const lessonData = userProgress[moduleKey]?.[subModuleKey]?.[lesson.title];
                 const isCompleted = lessonData?.completed;
-                const isRecommended = recommendations.includes(lesson.title); // Assuming recommendations is an array of lesson titles
+                const isRecommended = recommendations.lessons.includes(lesson.title); // Assuming recommendations is an array of lesson titles
 
                 if (unlockNext) {
                     unlockLesson(lesson);
