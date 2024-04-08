@@ -574,18 +574,18 @@ function displayRadarChart(detailedStats, globalStats) {
                         backgroundColor: 'transparent'
                     },
                     ticks: {
-                        color: '#262223',
+                        color: '#5F736F',
                         backdropColor: 'transparent' // Removes the background color
                     },
                     angleLines: {
-                        color: '#262223',
+                        color: '#5F736F',
                         display: true
                     },
                     grid: {
-                        color: '#262223', // Change the color of the circular grid lines
+                        color: '#5F736F', // Change the color of the circular grid lines
                     },
                     pointLabels: {
-                        color: '#262223', // For changing the point labels color (outer labels of the radar)
+                        color: '#5F736F', // For changing the point labels color (outer labels of the radar)
                     },
                     suggestedMin: 0,
                     suggestedMax: 100,
@@ -595,7 +595,7 @@ function displayRadarChart(detailedStats, globalStats) {
                 legend: {
                     labels: {
                         position: 'top',
-                        color: '#262223' // Change text color here
+                        color: '#5F736F' // Change text color here
                     }
                 }
             }
