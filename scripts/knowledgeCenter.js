@@ -987,19 +987,15 @@ function isLessonRecommendedOrCompleted(lessonTitle, subModuleId, moduleName) {
 
 function applyLearningMode() {
     // For "Self-Directed Exploration", no need to lock lessons, so no action is required
-    document.querySelectorAll('.lessonsList a').forEach(link => {
-        // Adjust based on userLearningMode
-        if (userLearningMode === "guided") {
-            lockOrUnlockLessons();
-        }
-        // The locking logic is integrated within the generation of the lesson links
-        // This function could be extended for additional logic specific to learning modes
-    });
+    // Adjust based on userLearningMode
+    if (userLearningMode === "guided") {
+        lockOrUnlockLessons();
+    }
+    // The locking logic is integrated within the generation of the lesson links
+    // This function could be extended for additional logic specific to learning modes
 }
 
 function lockOrUnlockLessons() {
-    console.log(userProgress);
-
     courseContent.forEach(module => {
         module.subModules.forEach(subModule => {
             let previousLessonCompleted = false;
