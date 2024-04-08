@@ -1007,21 +1007,25 @@ function lockOrUnlockLessons() {
                 if (link) {
                     const lessonData = userProgress[module.moduleName.toLowerCase()]?.[subModule.subModuleId]?.[lesson.title] || {};
                     const isCompleted = lessonData.completed;
-                    const nextLesson = getNextLesson(courseContent, module.moduleId, subModule.subModuleId, lessonIndex);
+                    const isRecommended = recommendations.lessons.includes(lesson.title) && recommendations.subModule === subModule.subModuleId && recommendations.module === module.moduleName;
 
-                    // Unlock the current lesson if it's completed
-                    if (isCompleted) {
+                    // Unlock the lesson if it's completed or recommended
+                    if (isCompleted || isRecommended) {
                         link.classList.remove('locked');
-                        // If there's a next lesson, unlock it
-                        if (nextLesson) {
-                            const nextLessonSelector = `.lessonLink[data-lesson="${nextLesson.lesson.title}"][data-sub-module="${nextLesson.subModule.subModuleId}"]`;
-                            const nextLink = document.querySelector(nextLessonSelector);
-                            if (nextLink) {
-                                nextLink.classList.remove('locked');
+
+                        // Unlock the next lesson if the current lesson is completed
+                        if (isCompleted) {
+                            const nextLessonInfo = getNextLesson(courseContent, module.moduleId, subModule.subModuleId, lessonIndex);
+                            if (nextLessonInfo) {
+                                const nextLessonSelector = `.lessonLink[data-lesson="${nextLessonInfo.lesson.title}"][data-sub-module="${nextLessonInfo.subModule.subModuleId}"]`;
+                                const nextLink = document.querySelector(nextLessonSelector);
+                                if (nextLink) {
+                                    nextLink.classList.remove('locked');
+                                }
                             }
                         }
                     } else {
-                        // Lock the lesson if it's not completed and not the first lesson or if no lessons before it are completed
+                        // Lock the lesson if not completed, not recommended, and not the first lesson or if no lessons before it are completed
                         if (lessonIndex !== 0 && !isAnyPreviousLessonCompleted(subModule, lessonIndex)) {
                             link.classList.add('locked');
                         }
