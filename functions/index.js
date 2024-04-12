@@ -61,6 +61,11 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
         goalsData: []
     };
 
+    console.log('User created:', user.uid);
+    console.log('Course content:', courseContent);
+    console.log('Progress data:', progressData);
+    console.log('User progress data:', userProgressData);
+    
     await db.collection('userProgress').doc(userId).set(userProgressData);
     console.log('User progress initialized.');
 });
