@@ -1,106 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Universum Dashboard</title>
+    <title>Dashboard</title>
     <link rel="stylesheet" href="./resources/css/style.css">
-    
-    <script src="./scripts/firebase-config.js" type="module"></script>
-    <script src="./scripts/userNavigation.js" type="module"></script>
-    <script src="./scripts/dashboard.js" type="module"></script>
 
-    <!-- Add other scripts as needed, always with type="module" -->
-
-    <script>
-        // Immediately set theme before page content loads
-        (function() {
-            const savedTheme = localStorage.getItem('theme') || 'light'; // Default to light if not set
+    <script> // Immediately set theme before page content loads
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'theme-dark'; // Default to light if not set
             document.documentElement.setAttribute('data-theme', savedTheme); // Use documentElement for earliest possible application
         })();
     </script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
 </head>
+
 <body>
-    <div id="navControls">
-        <div id="themeSelector">
-            <img class="nav-icon" id="sunIcon" src="./resources/icons/Universum-Sun-Icon.svg" alt="Light Mode" style="display: none;" />
-            <img class="nav-icon" id="moonIcon" src="./resources/icons/Universum-Moon-Icon.svg" alt="Dark Mode" />
-        </div>
-        <div id="authIcons">
-            <a href="dashboard.html">
-                <div id="dashboardIcon" class="nav-icon">
-                    <span class="nav-text">Dashboard</span>
-                </div>
-            </a>
-            <a href="knowledge.html">
-                <div id="knowledgeIcon" class="nav-icon">
-                    <span class="nav-text">Knowledge</span>
-                </div>
-            </a>
-            <a href="settings.html">
-                <div id="settingsIcon" class="nav-icon">
-                    <span class="nav-text">Settings</span>
-                </div>
-            </a>
-            <a href="index.html" id="signoutButton">
-                <div id="signoutIcon" class="nav-icon">
-                    <span class="nav-text">Sign Out</span>
-                </div>
-            </a>
-            <!-- Additional icons can be added here with the same class 'nav-icon' -->
-        </div>
+    <div id="themeSelector">
+        <img class="theme-icon" id="sunIcon" src="./resources/icons/Universum-Sun-Icon.svg" alt="Light Mode"
+            style="display: none;" />
+        <img class="theme-icon" id="moonIcon" src="./resources/icons/Universum-Moon-Icon.svg" alt="Dark Mode" />
     </div>
-    
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="lexicon.html">Lexicon</a></li>
-            <li><a href="phonology.html">Phonology</a></li>
-            <li><a href="grammar.html">Grammar</a></li>
-            <li><a href="compounds.html">Compounds</a></li>
-            <li><a href="base12math.html">Base-12 Math</a></li>
-        </ul>
-    </nav>
-    
-    <a href="index.html" class="universum">Universum</a>
 
-    <div id="mainContent">
-        <!-- Greeting Section -->
-        <div id="greeting" class="greeting">
-            <h1>sal, <span id="userName">User</span>!</h1>
-            <h2>This is your interactive learning dashboard.</h2>
-        </div><br>
+    <div class="circle-container">
+        <svg class="nav-circle" viewBox="0 0 100 100">
+            <!-- Points go here -->
+        </svg>
+        <div class="center-text">Page Name</div>
+    </div>
 
-        <!-- Stats Section -->
-        <h2>Your Progress</h2>
-        <section id="userStats">
-            <!-- Raw user progress data goes here -->
-            <div class="stat" id="stat1">Total Lessons Completed: 15</div>
-            <div class="stat" id="stat2">Modules Completed: 2</div>
-            <div class="stat" id="stat3">Average Quiz Score: 85%</div>
-            <div class="stat" id="statComparison">Your Proficiency vs. Global Proficiency</div>
+    <div class="container-secondary">
+        <section class="user-profile">
+            <h2>Welcome to your dashboard,</h2>
+            <h2 class="display-name">New User</h2>
+            <!-- Add more user profile information here -->
         </section>
 
-        <!-- Dashboard Section --> 
-        <div class="dashboard">
-            <div id="networkVisualization">
-                <svg width="800" height="800"></svg>
+        <section class="dashboard-layout">
+            <div class="widget progress-tracker grid-2-x-2">
+                <div class="content">
+                    <h3>Progress Tracker</h3>
+                    <!-- Progress tracker content -->
+                </div>
+            </div>
+            <div class="widget recent-achievements grid-2-x-1">
+                <div class="content">
+                    <h3>Recent Achievements</h3>
+                    <div class="achievement">
+                        <h4>Achievement 1</h4>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <h4>Achievement 2</h4>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                    <div class="achievement">
+                        <h4>Achievement 3</h4>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 40%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="widget recommendations grid-2-x-1">
+                <div class="content">
+                    <!-- Recommendations content -->
+                </div>
+            </div>
+            <div class="widget learning-goals grid-2-x-1">
+                <div class="content">
+                    <!-- Learning goals content -->
+                </div>
+            </div>
+            <div class="widget social-sharing grid-1-x-1">
+                <div class="content">
+                    <h3>Share Your Progress</h3>
+                    <div class="social-sharing-buttons">
+                        <button class="social-button" data-platform="meta">
+                            <img src="./resources/icons/meta-media-icon.svg" alt="Meta" />
+                        </button>
+                        <button class="social-button" data-platform="x">
+                            <img src="./resources/icons/x-media-icon.svg" alt="X" />
+                        </button>
+                        <button class="social-button" data-platform="linkedin">
+                            <img src="./resources/icons/linkedin-media-icon.svg" alt="LinkedIn" />
+                        </button>
+                    </div>
+                    <p class="sharing-message">Share your language learning journey with your friends and followers!</p>
+                </div>
+            </div>
+            <div class="widget feedback grid-1-x-1">
+                <div class="content">
+                    <h3>Feedback</h3>
+                    <div class="rating">
+                        <input type="radio" id="star1" name="rating" value="1">
+                        <label for="star1"></label>
+                        <input type="radio" id="star2" name="rating" value="2">
+                        <label for="star2"></label>
+                        <input type="radio" id="star3" name="rating" value="3">
+                        <label for="star3"></label>
+                        <input type="radio" id="star4" name="rating" value="4">
+                        <label for="star4"></label>
+                        <input type="radio" id="star5" name="rating" value="5">
+                        <label for="star5"></label>
+                    </div>
+                    <textarea id="comment" placeholder="Please leave a comment"></textarea>
+                    <button id="submitFeedback">Submit</button>
+                </div>
+            </div>
+        </section>
+
+        <div class="header">
+            <div class="settings-icon">
+                <a href="./settings.hmtl"><img src="./resources/icons/Universum-Settings-Icon.svg" alt="Settings"></a>
             </div>
         </div>
-
-        <div class="legend">
-            <span>■</span> Recommended
-        </div>
-        
     </div>
-    <!--
-    <script src="./scripts/dashboard-test.js"></script>
-    -->
 
     <footer>
         <p>© 2024 Universum Language Project</p>
     </footer>
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
+
+<script src="./resources/js/navigation.js"></script>
+<script src="./resources/js/themeSelector.js"></script>
+<script src="./resources/js/dashboard.js"></script>
+
 </html>

@@ -1,100 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Login</title>
+    <title>Login</title>
     <link rel="stylesheet" href="./resources/css/style.css">
-
-    <script src="./scripts/firebase-config.js" type="module"></script>
-    <script src="./scripts/login.js" type="module"></script>
-    <script src="./scripts/userNavigation.js" type="module"></script>
-    <!-- Add other scripts as needed, always with type="module" -->
 
     <script>
         // Immediately set theme before page content loads
-        (function() {
-            const savedTheme = localStorage.getItem('theme') || 'light'; // Default to light if not set
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'theme-dark'; // Default to light if not set
             document.documentElement.setAttribute('data-theme', savedTheme); // Use documentElement for earliest possible application
         })();
     </script>
 </head>
-<body>
-    <div id="navControls">
-        <div id="themeSelector">
-            <img class="nav-icon" id="sunIcon" src="./resources/icons/Universum-Sun-Icon.svg" alt="Light Mode" style="display: none;" />
-            <img class="nav-icon" id="moonIcon" src="./resources/icons/Universum-Moon-Icon.svg" alt="Dark Mode" />
-        </div>
-        <div id="authIcons">
-            <a href="dashboard.html">
-                <div id="dashboardIcon" class="nav-icon">
-                    <span class="nav-text">Dashboard</span>
-                </div>
-            </a>
-            <a href="knowledge.html">
-                <div id="knowledgeIcon" class="nav-icon">
-                    <span class="nav-text">Knowledge</span>
-                </div>
-            </a>
-            <a href="settings.html">
-                <div id="settingsIcon" class="nav-icon">
-                    <span class="nav-text">Settings</span>
-                </div>
-            </a>
-            <a href="index.html" id="signoutButton">
-                <div id="signoutIcon" class="nav-icon">
-                    <span class="nav-text">Sign Out</span>
-                </div>
-            </a>
-            <!-- Additional icons can be added here with the same class 'nav-icon' -->
-        </div>
-    </div>
-    
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="lexicon.html">Lexicon</a></li>
-            <li><a href="phonology.html">Phonology</a></li>
-            <li><a href="grammar.html">Grammar</a></li>
-            <li><a href="compounds.html">Compounds</a></li>
-            <li><a href="base12math.html">Base-12 Math</a></li>
-        </ul>
-    </nav>
-    <a href="index.html" class="universum">Universum</a>
 
-    <div id="mainContent">
-        <div class="container">
-            <h2>Sign Up or Log In</h2>
-            <h4>Email</h4>
-            <input type="email" id="userEmail"><br>
-            <h4>Password</h4>
-            <button id="clearPasswordButton">Clear Password</button>
-            <div class="interactive-password-container">
-                <svg id="linesContainer" width="300" height="300"></svg>
-                <div class="number" data-value="0">0</div>
-                <div class="number" data-value="1">1</div>
-                <div class="number" data-value="2">2</div>
-                <div class="number" data-value="3">3</div>
-                <div class="number" data-value="4">4</div>
-                <div class="number" data-value="5">5</div>
-                <div class="number" data-value="6">6</div>
-                <div class="number" data-value="7">7</div>
-                <div class="number" data-value="8">8</div>
-                <div class="number" data-value="9">9</div>
-                <div class="number" data-value="x">𝒳</div>
-                <div class="number" data-value="e">ε</div>
-                <div id="passwordArea" class="password-area"></div> <!-- Don't forget the area to display the password -->
-            </div>
-            <button id="loginButton">Login</button>
-            <button id="signupButton">Signup</button>
-            <span id="loginErrorMessage"></span>
-        </div>
+<body>
+    <div id="themeSelector">
+        <img class="theme-icon" id="sunIcon" src="./resources/icons/Universum-Sun-Icon.svg" alt="Light Mode"
+            style="display: none;" />
+        <img class="theme-icon" id="moonIcon" src="./resources/icons/Universum-Moon-Icon.svg" alt="Dark Mode" />
     </div>
-    
-    <script src="./scripts/sectionAnimation.js"></script>
+
+    <div class="logo-container">
+        <a href="index.html" class="universum">Universum</a>
+    </div>
+
+    <div class="form-container">
+        <h2>Sign Up or Log In</h2>
+        <h4>Email</h4>
+        <input type="email" id="userEmail" placeholder="Enter Email"><br>
+        <h4>Password</h4>
+        <p>(Please select 8-16 points.)</p>
+        <button id="clearPasswordButton" class="button-tertiary">Clear Password</button>
+        <div class="interactive-password-container">
+            <svg id="linesContainer" width="300" height="300"></svg>
+            <div class="number" data-value="0">0</div>
+            <div class="number" data-value="1">1</div>
+            <div class="number" data-value="2">2</div>
+            <div class="number" data-value="3">3</div>
+            <div class="number" data-value="4">4</div>
+            <div class="number" data-value="5">5</div>
+            <div class="number" data-value="6">6</div>
+            <div class="number" data-value="7">7</div>
+            <div class="number" data-value="8">8</div>
+            <div class="number" data-value="9">9</div>
+            <div class="number" data-value="x">𝒳</div>
+            <div class="number" data-value="e">ε</div>
+            <div id="passwordArea" class="password-area"></div> <!-- Don't forget the area to display the password -->
+        </div>
+        <button id="otherOptionsButton" class="button-tertiary">Other Options</button>
+        <div id="manualPasswordContainer">
+            <input type="text" id="manualPasswordInput" placeholder="Enter Password">
+        </div>
+        <span id="loginErrorMessage"></span>
+        <div class="button-container">
+            <button id="loginButton" class="button-secondary">Login</button>
+            <button id="signupButton" class="button-secondary">Signup</button>
+        </div>
+        <button id="forgotPasswordButton" class="button-tertiary">Forgot Password</button>
+    </div>
 
     <footer>
         <p>© 2024 Universum Language Project</p>
     </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+    <script type="module" src="./resources/js/login.js"></script>
+    <script src="./resources/js/themeSelector.js"></script>
 </body>
+
 </html>
