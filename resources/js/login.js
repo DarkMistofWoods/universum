@@ -203,10 +203,6 @@ async function createAccount() {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        // Call the Firebase Cloud Function to initialize user progress
-        const initializeUserProgressFunction = firebase.functions().httpsCallable('initializeUserProgress');
-        await initializeUserProgressFunction({ userId: user.uid });
-
         window.location.href = 'dashboard.html';
     } catch (error) {
         console.error("Signup error: ", error);
