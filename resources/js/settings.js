@@ -1,4 +1,5 @@
 import { db, auth } from './firebase-config.js';
+import { doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
 
 // Default settings
 const defaultSettings = {
@@ -15,35 +16,38 @@ const defaultSettings = {
 
 async function saveSettings(userId, settings) {
     try {
-        await db.collection('userProfiles').doc(userId).update({ settings });
-        console.log('Settings saved successfully.');
+      const userProfileRef = doc(db, 'userProfiles', userId);
+      await updateDoc(userProfileRef, { settings });
+      console.log('Settings saved successfully.');
     } catch (error) {
-        console.error('Error saving settings:', error);
+      console.error('Error saving settings:', error);
     }
 }
 
 async function loadSettings(userId) {
-    try {
-        const doc = await db.collection('userProfiles').doc(userId).get();
-        if (doc.exists) {
-            return doc.data().settings || defaultSettings;
-        } else {
-            return defaultSettings;
-        }
-    } catch (error) {
-        console.error('Error loading settings:', error);
-        return defaultSettings;
+  try {
+    const userProfileRef = doc(db, 'userProfiles', userId);
+    const docSnapshot = await getDoc(userProfileRef);
+    if (docSnapshot.exists()) {
+      return docSnapshot.data().settings || defaultSettings;
+    } else {
+      return defaultSettings;
     }
+  } catch (error) {
+    console.error('Error loading settings:', error);
+    return defaultSettings;
+  }
 }
 
 async function updateEmail(userId, newEmail) {
-    try {
-        await auth.currentUser.updateEmail(newEmail);
-        await db.collection('userProfiles').doc(userId).update({ email: newEmail });
-        console.log('Email updated successfully.');
-    } catch (error) {
-        console.error('Error updating email:', error);
-    }
+  try {
+    await updateEmail(auth.currentUser, newEmail);
+    const userProfileRef = doc(db, 'userProfiles', userId);
+    await updateDoc(userProfileRef, { email: newEmail });
+    console.log('Email updated successfully.');
+  } catch (error) {
+    console.error('Error updating email:', error);
+  }
 }
 
 document.querySelector('form').addEventListener('submit', async (e) => {
