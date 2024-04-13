@@ -318,6 +318,38 @@ async function initializeUserProfile(user) {
     console.log('User profile initialized.');
 }
 
+async function handleForgotPassword() {
+    const email = document.getElementById('userEmail').value.trim();
+    const loginErrorMessage = document.getElementById('loginErrorMessage');
+
+    if (!email) {
+        displayErrorMessage("Please enter your email address.");
+        return;
+    }
+
+    if (!validateEmail(email, loginErrorMessage)) {
+        return;
+    }
+
+    try {
+        await auth.sendPasswordResetEmail(email);
+        displaySuccessMessage("Password reset email sent. Please check your inbox.");
+    } catch (error) {
+        console.error("Error sending password reset email: ", error);
+        displayErrorMessage("An error occurred while sending the password reset email. Please try again.");
+    }
+}
+
+function displaySuccessMessage(message) {
+    const loginErrorMessage = document.getElementById('loginErrorMessage');
+    loginErrorMessage.textContent = message;
+    loginErrorMessage.style.color = 'green';
+    setTimeout(() => {
+        loginErrorMessage.textContent = '';
+        loginErrorMessage.style.color = 'red';
+    }, 5000);
+}
+
 // Run the function to position numbers when the document is loaded
 document.addEventListener('DOMContentLoaded', () => {
     positionNumbers();
@@ -338,10 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const forgotPasswordButton = document.getElementById('forgotPasswordButton');
 
-    forgotPasswordButton.addEventListener('click', () => {
-        // TODO: Implement forgot password functionality
-        console.log('Forgot password button clicked');
-    });
+    forgotPasswordButton.addEventListener('click', handleForgotPassword);
 
     const emailInput = document.getElementById('userEmail');
     const manualPasswordInput = document.getElementById('manualPasswordInput');
