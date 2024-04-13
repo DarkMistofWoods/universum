@@ -160,10 +160,65 @@ function validateManualPassword(password, errorMessage) {
 }
 
 function containsMaliciousInput(input) {
-    // Add your logic to detect and prevent malicious input
-    // For example, you can use a library like DOMPurify to sanitize the input
-    // return DOMPurify.sanitize(input) !== input;
-    return false; // Placeholder implementation
+    // Remove leading and trailing whitespace
+    input = input.trim();
+
+    // Check for common XSS (cross-site scripting) patterns
+    const xssPatterns = [
+        /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
+        /javascript:/gi,
+        /onload=/gi,
+        /onerror=/gi,
+        /onmouseover=/gi,
+        /onclick=/gi,
+        /onkeydown=/gi,
+        /onsubmit=/gi,
+        /onchange=/gi,
+        /onmouseout=/gi,
+        /onkeypress=/gi,
+        /onkeyup=/gi,
+        /onblur=/gi,
+        /onfocus=/gi,
+        /onreset=/gi,
+        /onselect=/gi,
+        /onabort=/gi,
+    ];
+
+    for (const pattern of xssPatterns) {
+        if (pattern.test(input)) {
+            return true;
+        }
+    }
+
+    // Check for SQL injection patterns
+    const sqlInjectionPatterns = [
+        /['";]+/g,
+        /\b(ALTER|CREATE|DELETE|DROP|EXEC|INSERT|INTO|SELECT|UNION|UPDATE)\b/gi,
+    ];
+
+    for (const pattern of sqlInjectionPatterns) {
+        if (pattern.test(input)) {
+            return true;
+        }
+    }
+
+    // Check for other malicious patterns or keywords
+    const maliciousPatterns = [
+        /eval\(/gi,
+        /document\.write/gi,
+        /alert\(/gi,
+        /window\./gi,
+        /<[a-z]+.*?(on[a-z]+\s*=|javascript:).+?>.*?<\/[a-z]+>/gi,
+    ];
+
+    for (const pattern of maliciousPatterns) {
+        if (pattern.test(input)) {
+            return true;
+        }
+    }
+
+    // If none of the above patterns match, consider the input safe
+    return false;
 }
 
 // Function to handle user login
