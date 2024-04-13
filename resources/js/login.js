@@ -204,7 +204,7 @@ async function createAccount() {
         const user = userCredential.user;
         await initializeUserProfile(user);
 
-        // window.location.href = 'dashboard.html';
+        window.location.href = 'dashboard.html';
     } catch (error) {
         console.error("Signup error: ", error);
         loginErrorMessage.textContent = error.message;
@@ -239,9 +239,18 @@ async function initializeUserProfile(user) {
         displayName: "New User",
         email: user.email,
         settings: {
-            // ... (default settings) ...
+            learningPace: 'medium',
+            contentPreferences: [],
+            notificationSettings: 'never',
+            languageInterface: 'english',
+            audioSpeed: 'normal',
+            dailyGoals: '',
+            learningPath: 'guided',
+            privacySettings: 'private',
+            feedbackFrequency: 'weekly'
         }
     };
+    
     await setDoc(doc(db, 'userProfiles', user.uid), userProfileData);
     console.log('User profile initialized.');
 }
