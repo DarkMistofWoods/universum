@@ -111,7 +111,10 @@ function clearPassword() {
 function displayErrorMessage(message, svgContainer) {
     const loginErrorMessage = document.getElementById('loginErrorMessage');
     loginErrorMessage.textContent = message;
-    setTimeout(() => loginErrorMessage.textContent = '', 2500);
+    setTimeout(() => {
+        loginErrorMessage.textContent = '';
+        clearPassword();
+    }, 2500);
 }
 
 function updateInfoArea() {
