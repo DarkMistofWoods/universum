@@ -91,7 +91,9 @@ function drawLine(container, startPoint, endPoint, index) {
 function clearPassword() {
     const passwordArea = document.getElementById('passwordArea');
     const svgContainer = document.getElementById('linesContainer');
+    const loginErrorMessage = document.getElementById('loginErrorMessage');
 
+    loginErrorMessage.textContent = ""; // Clear any error messages
     passwordArea.textContent = ""; // Clear the displayed password pattern
     selectedPoints = []; // Clear the current password sequence
 
