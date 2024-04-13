@@ -259,7 +259,7 @@ function updateLearningGoals(goalsData) {
     const learningGoalsContainer = document.querySelector('.learning-goals .content');
 
     // Clear the previous content
-    learningGoalsContainer.innerHTML = '';
+    learningGoalsContainer.innerHTML = '<h3>Your Learning Goals</h3>';
 
     // Check if the goals data is available
     if (goalsData) {

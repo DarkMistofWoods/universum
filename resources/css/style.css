@@ -600,7 +600,7 @@ svg#linesContainer {
 .recommendations .content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     /* Additional styles for the recommendations widget content */
 }
 
@@ -642,6 +642,7 @@ svg#linesContainer {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    justify-content: flex-start;
 }
 
 .learning-goal {
@@ -869,5 +870,4 @@ svg#linesContainer {
         height: 24px;
     }
 }
-
 /* END OF DASHBOARD */
