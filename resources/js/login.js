@@ -178,12 +178,16 @@ async function login() {
         return;
     }
 
+    if (!validateEmail(email, loginErrorMessage) || !validateManualPassword(password, loginErrorMessage)) {
+        return;
+    }
+
     try {
         await signInWithEmailAndPassword(auth, email, password);
         window.location.href = 'dashboard.html';
     } catch (error) {
         console.error("Login error: ", error);
-        loginErrorMessage.textContent = error.message;
+        loginErrorMessage.textContent = "An error occurred during login. Please try again.";
     }
 }
 
@@ -199,6 +203,10 @@ async function createAccount() {
         return;
     }
 
+    if (!validateEmail(email, loginErrorMessage) || !validateManualPassword(password, loginErrorMessage)) {
+        return;
+    }
+
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
@@ -207,7 +215,7 @@ async function createAccount() {
         window.location.href = 'dashboard.html';
     } catch (error) {
         console.error("Signup error: ", error);
-        loginErrorMessage.textContent = error.message;
+        loginErrorMessage.textContent = "An error occurred during account creation. Please try again.";
     }
 }
 
