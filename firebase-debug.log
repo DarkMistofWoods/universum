@@ -1,0 +1,92 @@
+[debug] [2024-04-13T01:09:39.172Z] ----------------------------------------------------------------------
+[debug] [2024-04-13T01:09:39.174Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\zetle\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2024-04-13T01:09:39.174Z] CLI Version:   13.7.2
+[debug] [2024-04-13T01:09:39.174Z] Platform:      win32
+[debug] [2024-04-13T01:09:39.175Z] Node Version:  v20.12.1
+[debug] [2024-04-13T01:09:39.175Z] Time:          Fri Apr 12 2024 18:09:39 GMT-0700 (Pacific Daylight Time)
+[debug] [2024-04-13T01:09:39.175Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-04-13T01:09:39.229Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-04-13T01:09:39.229Z] > authorizing via signed-in user (zetleader@gmail.com)
+[debug] [2024-04-13T01:09:39.229Z] [iam] checking project universum-20736 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2024-04-13T01:09:39.230Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/universum-20736:testIamPermissions [none]
+[debug] [2024-04-13T01:09:39.231Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/universum-20736:testIamPermissions x-goog-quota-user=projects/universum-20736
+[debug] [2024-04-13T01:09:39.231Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/universum-20736:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2024-04-13T01:09:39.615Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/universum-20736:testIamPermissions 200
+[debug] [2024-04-13T01:09:39.615Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/universum-20736:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2024-04-13T01:09:39.615Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/universum-20736/serviceAccounts/universum-20736@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2024-04-13T01:09:39.615Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/universum-20736/serviceAccounts/universum-20736@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2024-04-13T01:09:40.032Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/universum-20736/serviceAccounts/universum-20736@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2024-04-13T01:09:40.032Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/universum-20736/serviceAccounts/universum-20736@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[info] 
+[info] === Deploying to 'universum-20736'...
+[info] 
+[info] i  deploying functions 
+[debug] [2024-04-13T01:09:40.034Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/universum-20736 [none]
+[debug] [2024-04-13T01:09:40.426Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/universum-20736 200
+[debug] [2024-04-13T01:09:40.427Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/universum-20736 {"projectId":"universum-20736","projectNumber":"821262165744","displayName":"Universum","name":"projects/universum-20736","resources":{"hostingSite":"universum-20736"},"state":"ACTIVE","etag":"1_bf34553d-77d4-46d9-b481-8691500a8854"}
+[info] i  functions: preparing codebase default for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2024-04-13T01:09:40.428Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/universum-20736/services/cloudfunctions.googleapis.com [none]
+[debug] [2024-04-13T01:09:40.428Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/universum-20736/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/universum-20736
+[debug] [2024-04-13T01:09:40.429Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/universum-20736/services/runtimeconfig.googleapis.com [none]
+[debug] [2024-04-13T01:09:40.429Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/universum-20736/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/universum-20736
+[debug] [2024-04-13T01:09:40.429Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/universum-20736/services/cloudbuild.googleapis.com [none]
+[debug] [2024-04-13T01:09:40.429Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/universum-20736/services/cloudbuild.googleapis.com x-goog-quota-user=projects/universum-20736
+[debug] [2024-04-13T01:09:40.430Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/universum-20736/services/artifactregistry.googleapis.com [none]
+[debug] [2024-04-13T01:09:40.430Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/universum-20736/services/artifactregistry.googleapis.com x-goog-quota-user=projects/universum-20736
+[debug] [2024-04-13T01:09:40.895Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/universum-20736/services/runtimeconfig.googleapis.com 200
+[debug] [2024-04-13T01:09:40.895Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/universum-20736/services/runtimeconfig.googleapis.com [omitted]
+[debug] [2024-04-13T01:09:40.900Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/universum-20736/services/artifactregistry.googleapis.com 200
+[debug] [2024-04-13T01:09:40.900Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/universum-20736/services/artifactregistry.googleapis.com [omitted]
+[info] +  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[debug] [2024-04-13T01:09:40.908Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/universum-20736/services/cloudbuild.googleapis.com 200
+[debug] [2024-04-13T01:09:40.908Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/universum-20736/services/cloudbuild.googleapis.com [omitted]
+[info] +  functions: required API cloudbuild.googleapis.com is enabled 
+[debug] [2024-04-13T01:09:40.922Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/universum-20736/services/cloudfunctions.googleapis.com 200
+[debug] [2024-04-13T01:09:40.922Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/universum-20736/services/cloudfunctions.googleapis.com [omitted]
+[info] +  functions: required API cloudfunctions.googleapis.com is enabled 
+[debug] [2024-04-13T01:09:40.922Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/universum-20736/adminSdkConfig [none]
+[debug] [2024-04-13T01:09:41.209Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/universum-20736/adminSdkConfig 200
+[debug] [2024-04-13T01:09:41.210Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/universum-20736/adminSdkConfig {"projectId":"universum-20736","storageBucket":"universum-20736.appspot.com"}
+[debug] [2024-04-13T01:09:41.210Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/universum-20736/configs [none]
+[debug] [2024-04-13T01:09:41.442Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/universum-20736/configs 200
+[debug] [2024-04-13T01:09:41.442Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/universum-20736/configs {}
+[debug] [2024-04-13T01:09:41.443Z] Validating nodejs source
+[debug] [2024-04-13T01:09:42.281Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^12.0.0",
+    "firebase-functions": "^4.3.1",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^3.1.0"
+  },
+  "private": true
+}
+[debug] [2024-04-13T01:09:42.282Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[debug] [2024-04-13T01:09:42.283Z] Could not find functions.yaml. Must use http discovery
+[debug] [2024-04-13T01:09:42.288Z] Found firebase-functions binary at 'C:\Users\zetle\Documents\GitHub\universum\functions\node_modules\.bin\firebase-functions'
+[info] Serving at port 8867
+
+[debug] [2024-04-13T01:09:42.637Z] Got response from /__/functions.yaml {"endpoints":{"initializeUserProgressOnSignUp":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"eventTrigger":{"eventType":"providers/firebase.auth/eventTypes/user.create","eventFilters":{"resource":"projects/universum-20736"},"retry":false},"labels":{},"entryPoint":"initializeUserProgressOnSignUp"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[info] i  functions: preparing functions directory for uploading... 
+[info] i  functions: packaged C:\Users\zetle\Documents\GitHub\universum\functions (63.07 KB) for uploading 
+[debug] [2024-04-13T01:09:47.676Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/universum-20736/locations/-/functions [none]

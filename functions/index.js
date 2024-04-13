@@ -7,7 +7,7 @@
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
 
-const {onRequest} = require("firebase-functions/v2/https");
+const { onRequest } = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
 
 // Create and deploy your first functions
@@ -62,7 +62,7 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
             goalsData: []
         };
 
-        
+
         console.log('User created:', user.uid);
         console.log('Course content:', courseContent);
         console.log('Progress data:', progressData);
@@ -79,7 +79,9 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
 async function fetchCourseContent() {
     try {
         const courseContentPath = path.join(__dirname, '../resources/course-content.json');
+        console.log('Fetching course content from:', courseContentPath);
         const courseContentJson = await fs.promises.readFile(courseContentPath, 'utf-8');
+        console.log('Course content JSON:', courseContentJson);
         return JSON.parse(courseContentJson);
     } catch (error) {
         console.error('Error fetching course content:', error);
