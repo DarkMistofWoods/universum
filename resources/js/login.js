@@ -51,6 +51,12 @@ function generatePassword() {
 function handleSelection(num, position, svgContainer) {
     // Extract the point's value from the data-value attribute
     const pointValue = num.getAttribute('data-value');
+    const infoArea = document.getElementById('passwordArea');
+
+    // Check if an error message is currently being displayed
+    if (infoArea.classList.contains('expanded')) {
+        return; // Exit the function if an error message is displayed
+    }
 
     // Prevent consecutive selections of the same number
     if (selectedPoints.length > 0 && selectedPoints[selectedPoints.length - 1].num === pointValue) {
