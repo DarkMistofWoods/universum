@@ -202,6 +202,7 @@ async function createAccount() {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
+        await initializeUserProfile(user);
 
         // window.location.href = 'dashboard.html';
     } catch (error) {

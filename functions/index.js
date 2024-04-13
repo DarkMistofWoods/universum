@@ -70,7 +70,6 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
 
 
         await db.collection('userProgress').doc(user.uid).set(userProgressData);
-        console.log('User progress initialized.');
     } catch (error) {
         console.error('Error initializing user progress:', error);
         throw new functions.https.HttpsError('internal', error.message);
