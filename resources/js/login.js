@@ -140,8 +140,13 @@ function validateEmail(email, errorMessage) {
 function validateManualPassword(password, errorMessage) {
     const firebasePasswordRegex = /^[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]+$/;
     const maxPasswordLength = 32; // Maximum password length
+    const minPasswordLength = 8; // Minimum password length
 
-    if (password.length > maxPasswordLength) {
+    if (password.length < minPasswordLength) {
+        errorMessage.textContent = 'Password must be at least 8 characters long.';
+        setTimeout(() => errorMessage.textContent = '', 3000); // Clear the message after 3 seconds
+        return false;
+    } else if (password.length > maxPasswordLength) {
         errorMessage.textContent = 'Password must be 32 characters or less.';
         setTimeout(() => errorMessage.textContent = '', 3000); // Clear the message after 3 seconds
         return false;
