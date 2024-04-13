@@ -250,71 +250,9 @@ async function initializeUserProfile(user) {
             feedbackFrequency: 'weekly'
         }
     };
-    
+
     await setDoc(doc(db, 'userProfiles', user.uid), userProfileData);
     console.log('User profile initialized.');
-}
-
-// Function to initialize user progress in Firestore (will need to be a Firebase function)
-async function initializeUserProgress(user) {
-    const courseContent = await fetchCourseContent('./course-content.json');
-    const progressData = {};
-
-    for (const module of courseContent) {
-        progressData[module.moduleId] = {
-            moduleProgress: 0,
-            subModules: {}
-        };
-
-        for (const subModule of module.subModules) {
-            progressData[module.moduleId].subModules[subModule.subModuleId] = {
-                subModuleProgress: 0,
-                lessons: {}
-            };
-
-            for (const lesson of subModule.lessons) {
-                progressData[module.moduleId].subModules[subModule.subModuleId].lessons[lesson.title] = {
-                    completed: false,
-                    recentQuizScores: []
-                };
-            }
-        }
-    }
-
-    const userProgressData = {
-        progressData: { progressData },
-        achievementsData: [
-            { name: 'Achievement 1', progress: 0 },
-            { name: 'Achievement 2', progress: 0 },
-            { name: 'Achievement 3', progress: 0 }
-        ],
-        recommendationsData: {
-            recommendation1: {
-                title: 'Recommendation 1',
-                description: 'Description 1',
-                link: '#'
-            },
-            recommendation2: {
-                title: 'Recommendation 2',
-                description: 'Description 2',
-                link: '#'
-            }
-        },
-        goalsData: [
-            {
-                title: 'Goal 1',
-                progress: 0,
-                target: 10
-            },
-            {
-                title: 'Goal 2',
-                progress: 0,
-                target: 20
-            }
-        ]
-    };
-    await setDoc(doc(db, 'userProgress', user.uid), userProgressData);
-    console.log('User progress initialized.');
 }
 
 // Run the function to position numbers when the document is loaded

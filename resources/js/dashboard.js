@@ -56,22 +56,44 @@ function updateProgressTracker(progressData) {
 
     if (progressData) {
         for (const [moduleId, moduleData] of Object.entries(progressData)) {
-            const moduleElement = createModuleProgressElement(moduleId, moduleData);
-            progressTrackerContainer.appendChild(moduleElement);
+            const completedLessonsInModule = getCompletedLessonsInModule(moduleData);
+            if (completedLessonsInModule.length > 0) {
+                const moduleElement = createModuleProgressElement(moduleId, moduleData);
+                progressTrackerContainer.appendChild(moduleElement);
 
-            for (const [subModuleId, subModuleData] of Object.entries(moduleData.subModules)) {
-                const subModuleElement = createSubModuleProgressElement(subModuleId, subModuleData);
-                progressTrackerContainer.appendChild(subModuleElement);
+                for (const [subModuleId, subModuleData] of Object.entries(moduleData.subModules)) {
+                    const completedLessonsInSubModule = getCompletedLessonsInSubModule(subModuleData);
+                    if (completedLessonsInSubModule.length > 0) {
+                        const subModuleElement = createSubModuleProgressElement(subModuleId, subModuleData);
+                        progressTrackerContainer.appendChild(subModuleElement);
 
-                for (const [lessonTitle, lessonData] of Object.entries(subModuleData.lessons)) {
-                    const lessonElement = createLessonProgressElement(lessonTitle, lessonData);
-                    progressTrackerContainer.appendChild(lessonElement);
+                        for (const [lessonTitle, lessonData] of Object.entries(subModuleData.lessons)) {
+                            if (lessonData.completed) {
+                                const lessonElement = createLessonProgressElement(lessonTitle, lessonData);
+                                progressTrackerContainer.appendChild(lessonElement);
+                            }
+                        }
+                    }
                 }
             }
         }
     } else {
         progressTrackerContainer.innerHTML = '<p>No progress data available.</p>';
     }
+}
+
+function getCompletedLessonsInModule(moduleData) {
+    const completedLessons = [];
+    for (const subModuleData of Object.values(moduleData.subModules)) {
+        completedLessons.push(...getCompletedLessonsInSubModule(subModuleData));
+    }
+    return completedLessons;
+}
+
+function getCompletedLessonsInSubModule(subModuleData) {
+    return Object.entries(subModuleData.lessons)
+        .filter(([, lessonData]) => lessonData.completed)
+        .map(([lessonTitle]) => lessonTitle);
 }
 
 function createModuleProgressElement(moduleId, moduleData) {
