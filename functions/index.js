@@ -78,7 +78,7 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
 
 async function fetchCourseContent() {
     try {
-        const courseContentPath = path.join(__dirname, '../resources/course-content.json');
+        const courseContentPath = path.join(__dirname, './courseContent.json');
         console.log('Fetching course content from:', courseContentPath);
         const courseContentJson = await fs.promises.readFile(courseContentPath, 'utf-8');
         console.log('Course content JSON:', courseContentJson);
