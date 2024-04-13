@@ -1,4 +1,4 @@
-import { db, auth } from './resources/js/firebase-config.js';
+import { db, auth } from './firebase-config.js';
 
 // Default settings
 const defaultSettings = {
