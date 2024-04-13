@@ -55,14 +55,14 @@ function handleSelection(num, position, svgContainer) {
     // Prevent consecutive selections of the same number
     if (selectedPoints.length > 0 && selectedPoints[selectedPoints.length - 1].num === pointValue) {
         updateInfoArea("Consecutive selections of the same point are not allowed.");
-        setTimeout(() => clearPassword(), 3000); // Clear the message after 3 seconds
+        clearPassword();
         return; // Exit the function if the current point is the same as the last one
     }
 
     // Limit the number of selected points to 16
     if (selectedPoints.length >= 16) {
         updateInfoArea("Maximum of 16 points reached.");
-        setTimeout(() => clearPassword(), 3000); // Clear the message after 3 seconds
+        clearPassword();
         return;
     }
 
@@ -91,16 +91,15 @@ function drawLine(container, startPoint, endPoint, index) {
 function clearPassword() {
     const passwordArea = document.getElementById('passwordArea');
     const svgContainer = document.getElementById('linesContainer');
-    const loginErrorMessage = document.getElementById('loginErrorMessage');
 
-    loginErrorMessage.textContent = ""; // Clear any error messages
-    passwordArea.textContent = ""; // Clear the displayed password pattern
     selectedPoints = []; // Clear the current password sequence
 
     // remove the drawn lines
     while (svgContainer.firstChild) {
         svgContainer.removeChild(svgContainer.firstChild);
     }
+
+    setTimeout(() => passwordArea.textContent = "", 2500); // Update the info area after a short delay
 }
 
 function updateInfoArea(message = "") {
@@ -288,7 +287,7 @@ function getPassword() {
 
     if (selectedPassword && manualPassword) {
         updateInfoArea("Please clear one of the password options.");
-        setTimeout(() => clearPassword(), 3000);
+        clearPassword();
         return null;
     } else if (selectedPassword) {
         return generatePassword();
