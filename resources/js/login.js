@@ -47,6 +47,8 @@ function generatePassword() {
     return password;
 }
 
+let errorMessageDisplayed = false;
+
 // Handle selection of a point 
 function handleSelection(num, position, svgContainer) {
     // Extract the point's value from the data-value attribute
@@ -55,7 +57,14 @@ function handleSelection(num, position, svgContainer) {
 
     // Check if an error message is currently being displayed
     if (loginErrorMessage.textContent !== '') {
+        errorMessageDisplayed = true;
         return; // Exit the function if an error message is displayed
+    }
+
+    // Reset the selectedPoints array if an error message was previously displayed
+    if (errorMessageDisplayed) {
+        selectedPoints = [];
+        errorMessageDisplayed = false;
     }
 
     // Prevent consecutive selections of the same number
@@ -109,7 +118,6 @@ function displayErrorMessage(message, svgContainer) {
     const loginErrorMessage = document.getElementById('loginErrorMessage');
     const passwordArea = document.getElementById('passwordArea');
 
-    selectedPoints = []; // Clear the selected points array
     passwordArea.textContent = ''; // Clear the password area content
 
     // Remove the drawn lines
@@ -118,7 +126,10 @@ function displayErrorMessage(message, svgContainer) {
     }
 
     loginErrorMessage.textContent = message;
-    setTimeout(() => loginErrorMessage.textContent = '', 2500);
+    setTimeout(() => {
+        loginErrorMessage.textContent = '';
+        errorMessageDisplayed = false;
+    }, 2500);
 }
 
 function updateInfoArea() {
