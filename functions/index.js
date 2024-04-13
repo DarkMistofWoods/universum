@@ -28,53 +28,58 @@ admin.initializeApp();
 const db = admin.firestore();
 
 exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (user) => {
-    const userId = user.userId;
+    try {
+        console.log('initializeUserProgressOnSignUp triggered for user:', user.uid);
 
-    const courseContent = await fetchCourseContent();
-    const progressData = {};
+        const courseContent = await fetchCourseContent();
+        const progressData = {};
 
-    for (const module of courseContent) {
-        progressData[module.moduleId] = {
-            moduleProgress: 0,
-            subModules: {}
-        };
-
-        for (const subModule of module.subModules) {
-            progressData[module.moduleId].subModules[subModule.subModuleId] = {
-                subModuleProgress: 0,
-                lessons: {}
+        for (const module of courseContent) {
+            progressData[module.moduleId] = {
+                moduleProgress: 0,
+                subModules: {}
             };
 
-            for (const lesson of subModule.lessons) {
-                progressData[module.moduleId].subModules[subModule.subModuleId].lessons[lesson.title] = {
-                    completed: false,
-                    recentQuizScores: []
+            for (const subModule of module.subModules) {
+                progressData[module.moduleId].subModules[subModule.subModuleId] = {
+                    subModuleProgress: 0,
+                    lessons: {}
                 };
+
+                for (const lesson of subModule.lessons) {
+                    progressData[module.moduleId].subModules[subModule.subModuleId].lessons[lesson.title] = {
+                        completed: false,
+                        recentQuizScores: []
+                    };
+                }
             }
         }
+
+        const userProgressData = {
+            progressData: progressData,
+            achievementsData: [],
+            recommendationsData: {},
+            goalsData: []
+        };
+
+        
+        console.log('User created:', user.uid);
+        console.log('Course content:', courseContent);
+        console.log('Progress data:', progressData);
+        console.log('User progress data:', userProgressData);
+
+
+        await db.collection('userProgress').doc(user.uid).set(userProgressData);
+        console.log('User progress initialized.');
+    } catch (error) {
+        console.error('Error initializing user progress:', error);
+        throw new functions.https.HttpsError('internal', error.message);
     }
-
-    const userProgressData = {
-        progressData: progressData,
-        achievementsData: [],
-        recommendationsData: {},
-        goalsData: []
-    };
-
-    /*
-    console.log('User created:', user.uid);
-    console.log('Course content:', courseContent);
-    console.log('Progress data:', progressData);
-    console.log('User progress data:', userProgressData);
-    */
-
-    await db.collection('userProgress').doc(userId).set(userProgressData);
-    console.log('User progress initialized.');
 });
 
 async function fetchCourseContent() {
     try {
-        const courseContentPath = path.join(__dirname, '../courseContent.json');
+        const courseContentPath = path.join(__dirname, '../resources/course-content.json');
         const courseContentJson = await fs.promises.readFile(courseContentPath, 'utf-8');
         return JSON.parse(courseContentJson);
     } catch (error) {
