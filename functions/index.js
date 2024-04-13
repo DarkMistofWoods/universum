@@ -28,7 +28,7 @@ admin.initializeApp();
 const db = admin.firestore();
 
 exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (user) => {
-    const userId = data.userId;
+    const userId = user.userId;
 
     const courseContent = await fetchCourseContent();
     const progressData = {};
@@ -61,11 +61,13 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
         goalsData: []
     };
 
+    /*
     console.log('User created:', user.uid);
     console.log('Course content:', courseContent);
     console.log('Progress data:', progressData);
     console.log('User progress data:', userProgressData);
-    
+    */
+
     await db.collection('userProgress').doc(userId).set(userProgressData);
     console.log('User progress initialized.');
 });
