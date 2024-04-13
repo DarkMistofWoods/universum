@@ -57,9 +57,25 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
 
         const userProgressData = {
             progressData: progressData,
-            achievementsData: [],
-            recommendationsData: {},
-            goalsData: []
+            achievementsData: [
+                { name: 'Complete 10 lessons', progress: 0 },
+                { name: 'Learn 20 words', progress: 0 },
+                { name: 'Score 100% on three separate quizzes', progress: 0 }
+            ],
+            recommendationsData: {
+                recommendation1: {
+                    title: 'Start with vocabulary',
+                    description: 'Learn the commonly used words first.',
+                    link: '#'
+                }
+            },
+            goalsData: [
+                {
+                    title: 'Complete 10 lessons',
+                    progress: 0,
+                    target: 10
+                }
+            ]
         };
 
         await db.collection('userProgress').doc(user.uid).set(userProgressData);

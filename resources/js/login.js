@@ -4,6 +4,39 @@ import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase
 // Display numbers in a circle, drawing lines between every one
 let selectedPoints = []; // Store the sequence of selected points
 
+const demoProgressData = {
+    progressData: { progressData },
+    achievementsData: [
+        { name: 'Complete 10 lessons', progress: 0 },
+        { name: 'Learn 20 words', progress: 0 },
+        { name: 'Score 100% on three separate quizzes', progress: 0 }
+    ],
+    recommendationsData: {
+        recommendation1: {
+            title: 'Recommendation 1',
+            description: 'Description 1',
+            link: '#'
+        },
+        recommendation2: {
+            title: 'Recommendation 2',
+            description: 'Description 2',
+            link: '#'
+        }
+    },
+    goalsData: [
+        {
+            title: 'Goal 1',
+            progress: 0,
+            target: 10
+        },
+        {
+            title: 'Goal 2',
+            progress: 0,
+            target: 20
+        }
+    ]
+};
+
 // Modified to only position numbers, not draw lines initially
 function positionNumbers() {
     const numbers = document.querySelectorAll('.number');
@@ -250,7 +283,7 @@ async function initializeUserProfile(user) {
             feedbackFrequency: 'weekly'
         }
     };
-
+    
     await setDoc(doc(db, 'userProfiles', user.uid), userProfileData);
     console.log('User profile initialized.');
 }
