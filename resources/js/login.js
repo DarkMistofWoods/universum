@@ -61,14 +61,12 @@ function handleSelection(num, position, svgContainer) {
     // Prevent consecutive selections of the same number
     if (selectedPoints.length > 0 && selectedPoints[selectedPoints.length - 1].num === pointValue) {
         displayErrorMessage("Consecutive selections of the same point are not allowed.");
-        selectedPoints = []; // Reset the selectedPoints array
         return;
     }
 
     // Limit the number of selected points to 16
     if (selectedPoints.length >= 16) {
         displayErrorMessage("Maximum of 16 points reached.");
-        selectedPoints = []; // Reset the selectedPoints array
         return;
     }
 
@@ -110,6 +108,9 @@ function clearPassword() {
 function displayErrorMessage(message) {
     const loginErrorMessage = document.getElementById('loginErrorMessage');
     loginErrorMessage.textContent = message;
+
+    clearPassword(); // Clear the password sequence
+
     setTimeout(() => loginErrorMessage.textContent = '', 2500);
 }
 
