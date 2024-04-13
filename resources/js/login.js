@@ -99,7 +99,15 @@ function clearPassword() {
         svgContainer.removeChild(svgContainer.firstChild);
     }
 
-    setTimeout(() => passwordArea.textContent = "", 2500); // Update the info area after a short delay
+    setTimeout(() => clearMessage, 2500); // Update the info area after a short delay
+}
+
+function clearMessage() { // clears the password message and error message
+    const errorMessage = document.getElementById('loginErrorMessage');
+    const infoArea = document.getElementById('passwordArea');
+
+    errorMessage.textContent = '';
+    infoArea.textContent = '';
 }
 
 function updateInfoArea(message = "") {
