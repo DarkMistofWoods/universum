@@ -51,31 +51,25 @@ let errorMessageDisplayed = false;
 
 // Handle selection of a point 
 function handleSelection(num, position, svgContainer) {
-    // Extract the point's value from the data-value attribute
     const pointValue = num.getAttribute('data-value');
     const loginErrorMessage = document.getElementById('loginErrorMessage');
 
     // Check if an error message is currently being displayed
     if (loginErrorMessage.textContent !== '') {
-        errorMessageDisplayed = true;
         return; // Exit the function if an error message is displayed
-    }
-
-    // Reset the selectedPoints array if an error message was previously displayed
-    if (errorMessageDisplayed) {
-        selectedPoints = [];
-        errorMessageDisplayed = false;
     }
 
     // Prevent consecutive selections of the same number
     if (selectedPoints.length > 0 && selectedPoints[selectedPoints.length - 1].num === pointValue) {
         displayErrorMessage("Consecutive selections of the same point are not allowed.", svgContainer);
+        clearPassword();
         return;
     }
 
     // Limit the number of selected points to 16
     if (selectedPoints.length >= 16) {
         displayErrorMessage("Maximum of 16 points reached.", svgContainer);
+        clearPassword();
         return;
     }
 
@@ -84,8 +78,8 @@ function handleSelection(num, position, svgContainer) {
         drawLine(svgContainer, lastPoint, position, selectedPoints.length);
     }
 
-    selectedPoints.push({ num: pointValue, position }); // Store the data-value attribute instead of the element itself
-    updateInfoArea(); // Update the info area with the current sequence
+    selectedPoints.push({ num: pointValue, position });
+    updateInfoArea();
 }
 
 function drawLine(container, startPoint, endPoint, index) {
@@ -105,8 +99,8 @@ function clearPassword() {
     const passwordArea = document.getElementById('passwordArea');
     const svgContainer = document.getElementById('linesContainer');
 
-    selectedPoints = []; // Clear the current password sequence
-    passwordArea.textContent = ''; // Clear the password area
+    selectedPoints = []; // Clear the selected points array
+    passwordArea.textContent = ''; // Clear the password area content
 
     // Remove the drawn lines
     while (svgContainer.firstChild) {
@@ -116,20 +110,8 @@ function clearPassword() {
 
 function displayErrorMessage(message, svgContainer) {
     const loginErrorMessage = document.getElementById('loginErrorMessage');
-    const passwordArea = document.getElementById('passwordArea');
-
-    passwordArea.textContent = ''; // Clear the password area content
-
-    // Remove the drawn lines
-    while (svgContainer.firstChild) {
-        svgContainer.removeChild(svgContainer.firstChild);
-    }
-
     loginErrorMessage.textContent = message;
-    setTimeout(() => {
-        loginErrorMessage.textContent = '';
-        errorMessageDisplayed = false;
-    }, 2500);
+    setTimeout(() => loginErrorMessage.textContent = '', 2500);
 }
 
 function updateInfoArea() {
