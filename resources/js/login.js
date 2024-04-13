@@ -51,30 +51,30 @@ function generatePassword() {
 function handleSelection(num, position, svgContainer) {
     // Extract the point's value from the data-value attribute
     const pointValue = num.getAttribute('data-value');
-    const infoArea = document.getElementById('passwordArea');
+    const loginErrorMessage = document.getElementById('loginErrorMessage');
 
     // Check if an error message is currently being displayed
-    if (infoArea.classList.contains('expanded')) {
+    if (loginErrorMessage.textContent !== '') {
         return; // Exit the function if an error message is displayed
     }
 
     // Prevent consecutive selections of the same number
     if (selectedPoints.length > 0 && selectedPoints[selectedPoints.length - 1].num === pointValue) {
-        updateInfoArea("Consecutive selections of the same point are not allowed.");
-        clearPassword();
-        return; // Exit the function if the current point is the same as the last one
+        displayErrorMessage("Consecutive selections of the same point are not allowed.");
+        selectedPoints = []; // Reset the selectedPoints array
+        return;
     }
 
     // Limit the number of selected points to 16
     if (selectedPoints.length >= 16) {
-        updateInfoArea("Maximum of 16 points reached.");
-        clearPassword();
+        displayErrorMessage("Maximum of 16 points reached.");
+        selectedPoints = []; // Reset the selectedPoints array
         return;
     }
 
     if (selectedPoints.length > 0) {
         const lastPoint = selectedPoints[selectedPoints.length - 1].position;
-        drawLine(svgContainer, lastPoint, position, selectedPoints.length); // Pass length for color differentiation
+        drawLine(svgContainer, lastPoint, position, selectedPoints.length);
     }
 
     selectedPoints.push({ num: pointValue, position }); // Store the data-value attribute instead of the element itself
@@ -99,35 +99,24 @@ function clearPassword() {
     const svgContainer = document.getElementById('linesContainer');
 
     selectedPoints = []; // Clear the current password sequence
+    passwordArea.textContent = ''; // Clear the password area
 
-    // remove the drawn lines
+    // Remove the drawn lines
     while (svgContainer.firstChild) {
         svgContainer.removeChild(svgContainer.firstChild);
     }
-
-    setTimeout(() => clearMessage, 2500); // Update the info area after a short delay
 }
 
-function clearMessage() { // clears the password message and error message
-    const errorMessage = document.getElementById('loginErrorMessage');
-    const infoArea = document.getElementById('passwordArea');
-
-    errorMessage.textContent = '';
-    infoArea.textContent = '';
+function displayErrorMessage(message) {
+    const loginErrorMessage = document.getElementById('loginErrorMessage');
+    loginErrorMessage.textContent = message;
+    setTimeout(() => loginErrorMessage.textContent = '', 2500);
 }
 
-function updateInfoArea(message = "") {
+function updateInfoArea() {
     const infoArea = document.getElementById('passwordArea');
     const passwordText = generatePassword();
-    if (message) {
-        // If a message is provided, display it directly
-        infoArea.textContent = message;
-        infoArea.classList.add('expanded'); // Add the 'expanded' class to show the message
-    } else {
-        // If no message is provided, proceed to display the password pattern
-        infoArea.textContent = passwordText;
-        infoArea.classList.remove('expanded'); // Remove the 'expanded' class
-    }
+    infoArea.textContent = passwordText;
 }
 
 function validateEmail(email, errorMessage) {
@@ -135,19 +124,15 @@ function validateEmail(email, errorMessage) {
     const maxEmailLength = 254; // Common maximum email length
 
     if (email.length > maxEmailLength) {
-        errorMessage.textContent = 'Email must be 254 characters or less.';
-        setTimeout(() => errorMessage.textContent = '', 3000); // Clear the message after 3 seconds
+        displayErrorMessage('Email must be 254 characters or less.');
         return false;
     } else if (!emailRegex.test(email)) {
-        errorMessage.textContent = 'Please enter a valid email address.';
-        setTimeout(() => errorMessage.textContent = '', 3000); // Clear the message after 3 seconds
+        displayErrorMessage('Please enter a valid email address.');
         return false;
     } else if (containsMaliciousInput(email)) {
-        errorMessage.textContent = 'Email input contains potentially malicious content.';
-        setTimeout(() => errorMessage.textContent = '', 3000); // Clear the message after 3 seconds
+        displayErrorMessage('Email input contains potentially malicious content.');
         return false;
     } else {
-        errorMessage.textContent = '';
         return true;
     }
 }
@@ -158,23 +143,18 @@ function validateManualPassword(password, errorMessage) {
     const minPasswordLength = 8; // Minimum password length
 
     if (password.length < minPasswordLength) {
-        errorMessage.textContent = 'Password must be at least 8 characters long.';
-        setTimeout(() => errorMessage.textContent = '', 3000); // Clear the message after 3 seconds
+        displayErrorMessage('Password must be at least 8 characters long.');
         return false;
     } else if (password.length > maxPasswordLength) {
-        errorMessage.textContent = 'Password must be 32 characters or less.';
-        setTimeout(() => errorMessage.textContent = '', 3000); // Clear the message after 3 seconds
+        displayErrorMessage('Password must be 32 characters or less.');
         return false;
     } else if (!firebasePasswordRegex.test(password)) {
-        errorMessage.textContent = 'Password can only contain letters, numbers, and the following special characters: !@#$%^&*(),.?":{}|<>';
-        setTimeout(() => errorMessage.textContent = '', 3000); // Clear the message after 3 seconds
+        displayErrorMessage('Password can only contain letters, numbers, and the following special characters: !@#$%^&*(),.?":{}|<>');
         return false;
     } else if (containsMaliciousInput(password)) {
-        errorMessage.textContent = 'Password input contains potentially malicious content.';
-        setTimeout(() => errorMessage.textContent = '', 3000); // Clear the message after 3 seconds
+        displayErrorMessage('Password input contains potentially malicious content.');
         return false;
     } else {
-        errorMessage.textContent = '';
         return true;
     }
 }
@@ -300,7 +280,7 @@ function getPassword() {
     const manualPassword = document.getElementById('manualPasswordInput').value.trim();
 
     if (selectedPassword && manualPassword) {
-        updateInfoArea("Please clear one of the password options.");
+        displayErrorMessage("Please clear one of the password options.");
         clearPassword();
         return null;
     } else if (selectedPassword) {
