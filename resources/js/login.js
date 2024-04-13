@@ -180,7 +180,7 @@ async function login() {
 
     try {
         await signInWithEmailAndPassword(auth, email, password);
-        // window.location.href = 'dashboard.html';
+        window.location.href = 'dashboard.html';
     } catch (error) {
         console.error("Login error: ", error);
         loginErrorMessage.textContent = error.message;
@@ -203,7 +203,7 @@ async function createAccount() {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        window.location.href = 'dashboard.html';
+        // window.location.href = 'dashboard.html';
     } catch (error) {
         console.error("Signup error: ", error);
         loginErrorMessage.textContent = error.message;
