@@ -60,15 +60,13 @@ function handleSelection(num, position, svgContainer) {
 
     // Prevent consecutive selections of the same number
     if (selectedPoints.length > 0 && selectedPoints[selectedPoints.length - 1].num === pointValue) {
-        displayErrorMessage("Consecutive selections of the same point are not allowed.");
-        clearPassword(); // Clear the password area and selected points
+        displayErrorMessage("Consecutive selections of the same point are not allowed.", svgContainer);
         return;
     }
 
     // Limit the number of selected points to 16
     if (selectedPoints.length >= 16) {
-        displayErrorMessage("Maximum of 16 points reached.");
-        clearPassword(); // Clear the password area and selected points
+        displayErrorMessage("Maximum of 16 points reached.", svgContainer);
         return;
     }
 
@@ -107,8 +105,18 @@ function clearPassword() {
     }
 }
 
-function displayErrorMessage(message) {
+function displayErrorMessage(message, svgContainer) {
     const loginErrorMessage = document.getElementById('loginErrorMessage');
+    const passwordArea = document.getElementById('passwordArea');
+
+    selectedPoints = []; // Clear the selected points array
+    passwordArea.textContent = ''; // Clear the password area content
+
+    // Remove the drawn lines
+    while (svgContainer.firstChild) {
+        svgContainer.removeChild(svgContainer.firstChild);
+    }
+
     loginErrorMessage.textContent = message;
     setTimeout(() => loginErrorMessage.textContent = '', 2500);
 }
@@ -119,40 +127,40 @@ function updateInfoArea() {
     infoArea.textContent = passwordText;
 }
 
-function validateEmail(email, errorMessage) {
+function validateEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const maxEmailLength = 254; // Common maximum email length
 
     if (email.length > maxEmailLength) {
-        displayErrorMessage('Email must be 254 characters or less.');
+        displayErrorMessage('Email must be 254 characters or less.', document.getElementById('linesContainer'));
         return false;
     } else if (!emailRegex.test(email)) {
-        displayErrorMessage('Please enter a valid email address.');
+        displayErrorMessage('Please enter a valid email address.', document.getElementById('linesContainer'));
         return false;
     } else if (containsMaliciousInput(email)) {
-        displayErrorMessage('Email input contains potentially malicious content.');
+        displayErrorMessage('Email input contains potentially malicious content.', document.getElementById('linesContainer'));
         return false;
     } else {
         return true;
     }
 }
 
-function validateManualPassword(password, errorMessage) {
+function validateManualPassword(password) {
     const firebasePasswordRegex = /^[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]+$/;
     const maxPasswordLength = 32; // Maximum password length
     const minPasswordLength = 8; // Minimum password length
 
     if (password.length < minPasswordLength) {
-        displayErrorMessage('Password must be at least 8 characters long.');
+        displayErrorMessage('Password must be at least 8 characters long.', document.getElementById('linesContainer'));
         return false;
     } else if (password.length > maxPasswordLength) {
-        displayErrorMessage('Password must be 32 characters or less.');
+        displayErrorMessage('Password must be 32 characters or less.', document.getElementById('linesContainer'));
         return false;
     } else if (!firebasePasswordRegex.test(password)) {
-        displayErrorMessage('Password can only contain letters, numbers, and the following special characters: !@#$%^&*(),.?":{}|<>');
+        displayErrorMessage('Password can only contain letters, numbers, and the following special characters: !@#$%^&*(),.?":{}|<>', document.getElementById('linesContainer'));
         return false;
     } else if (containsMaliciousInput(password)) {
-        displayErrorMessage('Password input contains potentially malicious content.');
+        displayErrorMessage('Password input contains potentially malicious content.', document.getElementById('linesContainer'));
         return false;
     } else {
         return true;
@@ -333,10 +341,10 @@ async function handleForgotPassword() {
 
     try {
         await auth.sendPasswordResetEmail(email);
-        displaySuccessMessage("Password reset email sent. Please check your inbox.");
+        displaySuccessMessage("Password reset email sent. Please check your inbox.", document.getElementById('linesContainer'));
     } catch (error) {
         console.error("Error sending password reset email: ", error);
-        displayErrorMessage("An error occurred while sending the password reset email. Please try again.");
+        displayErrorMessage("An error occurred while sending the password reset email. Please try again.", document.getElementById('linesContainer'));
     }
 }
 
