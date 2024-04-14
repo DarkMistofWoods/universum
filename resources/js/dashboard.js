@@ -34,11 +34,37 @@ async function fetchUserProgress(userId) {
     }
 }
 
+// Function to fetch user profile data from Firestore
+async function fetchUserProfile(userId) {
+    try {
+        const userProfileRef = doc(db, 'userProfiles', userId);
+        const userProfileSnapshot = await getDoc(userProfileRef);
+
+        if (userProfileSnapshot.exists()) {
+            const userProfileData = userProfileSnapshot.data();
+            updateDisplayName(userProfileData.displayName);
+        } else {
+            console.log('User profile document does not exist');
+            updateDisplayName('New User');
+        }
+    } catch (error) {
+        console.error('Error fetching user profile:', error);
+        updateDisplayName('New User');
+    }
+}
+
+// Function to update the display name element
+function updateDisplayName(displayName) {
+    const displayNameElement = document.querySelector('.display-name');
+    displayNameElement.textContent = displayName;
+}
+
 // Function to handle user authentication state changes
 function handleAuthStateChanged(user) {
     if (user) {
         const userId = user.uid;
         fetchUserProgress(userId);
+        fetchUserProfile(userId); // Fetch user profile data
     } else {
         console.log('User is not authenticated');
         window.location.href = '/login.html';
