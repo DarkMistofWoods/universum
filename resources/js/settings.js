@@ -19,8 +19,10 @@ async function saveSettings(userId, settings) {
         const userProfileRef = doc(db, 'userProfiles', userId);
         await setDoc(userProfileRef, { settings }, { merge: true });
         console.log('Settings saved successfully.');
+        document.getElementById('settings-info').textContent = 'Settings saved successfully.';
     } catch (error) {
         console.error('Error saving settings:', error);
+        document.getElementById('settings-info').textContent = 'Error saving settings. Please try again.';
     }
 }
 
@@ -42,12 +44,14 @@ async function loadSettings(userId) {
 async function updateEmail(userId, newEmail) {
     try {
         const user = auth.currentUser;
-        await user.updateProfile({ email: newEmail });
+        await user.verifyBeforeUpdateEmail(newEmail);
         const userProfileRef = doc(db, 'userProfiles', userId);
         await updateDoc(userProfileRef, { email: newEmail });
-        console.log('Email updated successfully.');
+        console.log('Email verification sent successfully.');
+        document.getElementById('email-info').textContent = 'Email verification sent. Please check your inbox.';
     } catch (error) {
         console.error('Error updating email:', error);
+        document.getElementById('email-info').textContent = 'Error updating email. Please try again.';
     }
 }
 
