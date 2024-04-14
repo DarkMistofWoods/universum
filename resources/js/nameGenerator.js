@@ -35,21 +35,28 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     generateButton.addEventListener('click', function () {
+        console.log("Generate button clicked"); // Add this line
         const attr1 = document.getElementById('attribute1').value;
         const attr2 = document.getElementById('attribute2').value;
         const attr3 = document.getElementById('attribute3').value;
+
+        console.log("Selected attributes:", attr1, attr2, attr3); // Add this line
 
         if (!attr1 || !attr2 || !attr3) {
             console.log("Please select options from all dropdowns.");
             return;
         }
 
-        let firstName = capitalizeFirstLetter(generateRandomName([attr1, attr2], true)); // For first name, pass true
+        let firstName = capitalizeFirstLetter(generateRandomName([attr1, attr2], true));
+        console.log("Generated first name:", firstName);
+
         let lastName = "";
-        // Ensure lastName is distinct from firstName
         do {
-            lastName = capitalizeFirstLetter(generateRandomName([attr1, attr2, attr3], false)); // For last name, pass false
-        } while (lastName.length < firstName.length); // Ensure last name is not shorter than the first name
+            lastName = capitalizeFirstLetter(generateRandomName([attr1, attr2, attr3], false));
+            console.log("Generated last name:", lastName);
+        } while (lastName.length < firstName.length);
+
+        console.log("Full name:", firstName + ' ' + lastName);
 
         nameOutput.value = firstName + ' ' + lastName;
 
@@ -130,15 +137,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     const saveToProfileButton = document.getElementById('saveToProfile');
-    saveToProfileButton.addEventListener('click', function() {
+    saveToProfileButton.addEventListener('click', function () {
         const user = auth.currentUser;
         const generatedName = document.getElementById('nameOutput').value;
-        
+
         if (!generatedName) {
             alert('Please generate a name first.');
             return;
         }
-    
+
         if (user) {
             // User is signed in, proceed to save the generated name
             saveGeneratedName(user, generatedName);
@@ -146,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // User is not signed in, redirect to login page after storing the generated name temporarily
             localStorage.setItem('pendingNameSave', generatedName);
             // Replace 'login.html' with the path to your actual login page
-            window.location.href = 'login.html'; 
+            window.location.href = 'login.html';
         }
     });
 
@@ -154,17 +161,17 @@ document.addEventListener('DOMContentLoaded', function () {
     function saveGeneratedName(user, generatedName) {
         // Create a reference to the user's document in 'userProfiles' collection
         const userDocRef = doc(db, 'userProfiles', user.uid);
-    
+
         // Set the displayName in the user's document
         setDoc(userDocRef, { displayName: generatedName }, { merge: true })
-        .then(() => {
-            alert('Name saved to your profile successfully!');
-            // Clear any pending name save after successful save
-            localStorage.removeItem('pendingNameSave');
-        })
-        .catch(error => {
-            console.error("Error saving name to profile: ", error);
-            alert('There was a problem saving your name. Please try again.');
-        });
+            .then(() => {
+                alert('Name saved to your profile successfully!');
+                // Clear any pending name save after successful save
+                localStorage.removeItem('pendingNameSave');
+            })
+            .catch(error => {
+                console.error("Error saving name to profile: ", error);
+                alert('There was a problem saving your name. Please try again.');
+            });
     }
 });
