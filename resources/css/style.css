@@ -217,6 +217,7 @@ input {
     /* Adjust based on your design */
     height: 300px;
     margin: auto;
+    cursor: pointer;
     /* Additional styles for the SVG circle */
 }
 

@@ -274,20 +274,47 @@ circleContainer.addEventListener('click', (e) => {
 // Add event listener for hover on the center of the navigation circle
 const centerText = document.querySelector('.center-text');
 
-circleContainer.addEventListener('mouseenter', (e) => {
+navCircle.addEventListener('mouseenter', (e) => {
     const navCircleRect = navCircle.getBoundingClientRect();
     const centerRadius = 15;
-    const clickX = e.clientX - navCircleRect.left;
-    const clickY = e.clientY - navCircleRect.top;
-    const distance = Math.sqrt(Math.pow(clickX - navCircleRect.width / 2, 2) + Math.pow(clickY - navCircleRect.height / 2, 2));
+    const mouseX = e.clientX - navCircleRect.left;
+    const mouseY = e.clientY - navCircleRect.top;
+    const distance = Math.sqrt(Math.pow(mouseX - navCircleRect.width / 2, 2) + Math.pow(mouseY - navCircleRect.height / 2, 2));
 
     if (distance <= centerRadius) {
+        navCircle.style.cursor = 'pointer';
         centerText.classList.add('center-area-hover');
+        highlightIntersectingLines();
     } else {
+        navCircle.style.cursor = 'default';
         centerText.classList.remove('center-area-hover');
+        resetLineHighlights();
     }
 });
 
-circleContainer.addEventListener('mouseleave', () => {
+navCircle.addEventListener('mouseleave', () => {
+    navCircle.style.cursor = 'default';
     centerText.classList.remove('center-area-hover');
+    resetLineHighlights();
 });
+
+function highlightIntersectingLines() {
+    const lines = document.querySelectorAll('.nav-line');
+    lines.forEach(line => {
+        const x1 = parseFloat(line.getAttribute('x1'));
+        const y1 = parseFloat(line.getAttribute('y1'));
+        const x2 = parseFloat(line.getAttribute('x2'));
+        const y2 = parseFloat(line.getAttribute('y2'));
+
+        if ((x1 === centerX && y1 === centerY) || (x2 === centerX && y2 === centerY)) {
+            line.classList.add('highlighted');
+        }
+    });
+}
+
+function resetLineHighlights() {
+    const lines = document.querySelectorAll('.nav-line');
+    lines.forEach(line => {
+        line.classList.remove('highlighted');
+    });
+}
