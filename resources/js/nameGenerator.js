@@ -6,32 +6,38 @@ document.addEventListener('DOMContentLoaded', function () {
     const nameOutput = document.getElementById('nameOutput');
 
     const termMappings = {
-        kevi: "Sage",
-        batoki: "Power",
-        kasomi: "Innovation",
-        lumiso: "Harmony",
-        risoli: "Happiness",
-        pafoli: "Fluidity",
-        taneli: "Stability",
-        kubini: "Passion",
-        lumini: "Freedom",
-        ki: "Student",
-        vi: "Leader",
-        kaso: "Maker",
-        seni: "Elder",
-        bato: "Warrior",
-        solumi: "Caregiver",
-        pali: "One",
-        telo: "Two",
-        basi: "Three",
-        kuna: "Four",
-        muto: "Five",
-        nifi: "Six",
-        sato: "Seven",
-        luko: "Eight",
-        rupo: "Nine",
-        vemi: "X",
-        lana: "ε"
+        attribute: {
+            kevi: "Sage",
+            batoki: "Power",
+            kasomi: "Innovation",
+            lumiso: "Harmony",
+            risoli: "Happiness",
+            pafoli: "Fluidity",
+            taneli: "Stability",
+            kubini: "Passion",
+            lumini: "Freedom"
+        },
+        role: {
+            ki: "Student",
+            vi: "Leader",
+            kaso: "Maker",
+            seni: "Elder",
+            bato: "Warrior",
+            solumi: "Caregiver"
+        },
+        number: {
+            pali: "One",
+            telo: "Two",
+            basi: "Three",
+            kuna: "Four",
+            muto: "Five",
+            nifi: "Six",
+            sato: "Seven",
+            luko: "Eight",
+            rupo: "Nine",
+            vemi: "X",
+            lana: "ε"
+        }
     };
 
     generateButton.addEventListener('click', function () {
@@ -67,13 +73,18 @@ document.addEventListener('DOMContentLoaded', function () {
             termsOutput.id = 'termsOutput';
             // Find the container to which the new div should be appended
             const container = document.querySelector('.container-secondary');
-            // Insert the termsOutput div right after the nameOutput element within the container
-            container.insertBefore(termsOutput, nameOutput.nextSibling);
+            if (container) {
+                // Insert the termsOutput div right after the nameOutput element within the container
+                container.insertBefore(termsOutput, nameOutput.nextSibling);
+            } else {
+                // If the container is not found, append the termsOutput div after the nameOutput element
+                nameOutput.parentNode.insertBefore(termsOutput, nameOutput.nextSibling);
+            }
         }
 
         termsOutput.innerHTML = `
-            <p><strong>First Name Derived From:</strong> ${attr1}, ${attr2} -> ${firstName}</p>
-            <p><strong>Last Name Derived From:</strong> ${attr1}, ${attr2}, ${attr3} -> ${lastName}</p>
+            <p><strong>First Name Derived From:</strong> ${termMappings.attribute[attr1]}, ${termMappings.role[attr2]} -> ${firstName}</p>
+            <p><strong>Last Name Derived From:</strong> ${termMappings.attribute[attr1]}, ${termMappings.role[attr2]}, ${termMappings.number[attr3]} -> ${lastName}</p>
         `;
     });
 
