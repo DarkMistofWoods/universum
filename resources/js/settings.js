@@ -41,7 +41,8 @@ async function loadSettings(userId) {
 
 async function updateEmail(userId, newEmail) {
     try {
-        await auth.currentUser.updateEmail(newEmail);
+        const user = auth.currentUser;
+        await user.updateProfile({ email: newEmail });
         const userProfileRef = doc(db, 'userProfiles', userId);
         await updateDoc(userProfileRef, { email: newEmail });
         console.log('Email updated successfully.');
