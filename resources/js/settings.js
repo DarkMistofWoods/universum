@@ -50,35 +50,6 @@ async function updateEmail(userId, newEmail) {
     }
 }
 
-document.querySelector('form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const userId = auth.currentUser.uid;
-
-    const settings = {
-        learningPace: document.querySelector('[name="learning-pace"]').value,
-        contentPreferences: Array.from(document.querySelectorAll('[name="content-pref"]:checked')).map(checkbox => checkbox.value),
-        notificationSettings: document.querySelector('[name="notifications"]').value,
-        languageInterface: document.querySelector('[name="language-interface"]').value,
-        audioSpeed: document.querySelector('[name="audio-speed"]:checked').value,
-        dailyGoals: document.querySelector('[name="daily-goals"]').value,
-        learningPath: document.querySelector('[name="learning-path"]:checked').value,
-        privacySettings: document.querySelector('[name="privacy"]').value,
-        feedbackFrequency: document.querySelector('[name="feedback"]').value
-    };
-
-    await saveSettings(userId, settings);
-});
-
-document.querySelector('#update-email-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const userId = auth.currentUser.uid;
-    const newEmail = document.querySelector('#new-email').value;
-
-    await updateEmail(userId, newEmail);
-});
-
 auth.onAuthStateChanged(async (user) => {
     if (user) {
         const settings = await loadSettings(user.uid);
@@ -94,6 +65,35 @@ auth.onAuthStateChanged(async (user) => {
         document.querySelector(`[name="learning-path"][value="${settings.learningPath}"]`).checked = true;
         document.querySelector('[name="privacy"]').value = settings.privacySettings;
         document.querySelector('[name="feedback"]').value = settings.feedbackFrequency;
+
+        document.querySelector('form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+        
+            const userId = auth.currentUser.uid;
+        
+            const settings = {
+                learningPace: document.querySelector('[name="learning-pace"]').value,
+                contentPreferences: Array.from(document.querySelectorAll('[name="content-pref"]:checked')).map(checkbox => checkbox.value),
+                notificationSettings: document.querySelector('[name="notifications"]').value,
+                languageInterface: document.querySelector('[name="language-interface"]').value,
+                audioSpeed: document.querySelector('[name="audio-speed"]:checked').value,
+                dailyGoals: document.querySelector('[name="daily-goals"]').value,
+                learningPath: document.querySelector('[name="learning-path"]:checked').value,
+                privacySettings: document.querySelector('[name="privacy"]').value,
+                feedbackFrequency: document.querySelector('[name="feedback"]').value
+            };
+        
+            await saveSettings(userId, settings);
+        });
+        
+        document.querySelector('#update-email-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+        
+            const userId = auth.currentUser.uid;
+            const newEmail = document.querySelector('#new-email').value;
+        
+            await updateEmail(userId, newEmail);
+        });
     } else {
         // Handle the case when the user is not authenticated
         console.log('User is not authenticated.');
