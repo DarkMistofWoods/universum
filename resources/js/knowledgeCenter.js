@@ -123,22 +123,26 @@ function handleAuthStateChanged(user) {
                 .then(courseContent => {
                     courseContent.forEach(module => {
                         const moduleElement = document.getElementById(`${module.moduleId}`);
-                        const progress = calculateProgress(progressData, module.moduleId);
-                        moduleElement.querySelector('.progress').style.width = `${progress}%`;
-                        
-                        moduleElement.addEventListener('click', () => {
-                            moduleElement.classList.toggle('expanded');
-                            const subModulesContainer = moduleElement.querySelector('.submodules-container');
-                            if (subModulesContainer) {
-                                subModulesContainer.remove();
-                            } else {
-                                const subModuleElements = createSubModuleElements(module.subModules, progressData, module.moduleId);
-                                const subModulesContainer = document.createElement('div');
-                                subModulesContainer.classList.add('submodules-container');
-                                subModulesContainer.append(...subModuleElements);
-                                moduleElement.appendChild(subModulesContainer);
-                            }
-                        });
+                        if (moduleElement) {
+                            const progress = calculateProgress(progressData, module.moduleId);
+                            moduleElement.querySelector('.progress').style.width = `${progress}%`;
+                            
+                            moduleElement.addEventListener('click', () => {
+                                moduleElement.classList.toggle('expanded');
+                                const subModulesContainer = moduleElement.querySelector('.submodules-container');
+                                if (subModulesContainer) {
+                                    subModulesContainer.remove();
+                                } else {
+                                    const subModuleElements = createSubModuleElements(module.subModules, progressData, module.moduleId);
+                                    const subModulesContainer = document.createElement('div');
+                                    subModulesContainer.classList.add('submodules-container');
+                                    subModulesContainer.append(...subModuleElements);
+                                    moduleElement.appendChild(subModulesContainer);
+                                }
+                            });
+                        } else {
+                            console.warn(`Module element not found for module ID: ${module.moduleId}`);
+                        }
                     });
                 })
                 .catch(error => {
