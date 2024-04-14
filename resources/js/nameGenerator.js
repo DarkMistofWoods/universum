@@ -2,7 +2,7 @@ import { auth, db } from './firebase-config.js';
 import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
 
 document.addEventListener('DOMContentLoaded', function () {
-    const generateButton = document.querySelector('button');
+    const generateButton = document.getElementById('generateName');
     const nameOutput = document.getElementById('nameOutput');
 
     const termMappings = {
