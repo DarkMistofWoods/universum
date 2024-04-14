@@ -960,7 +960,7 @@ fieldset {
 /* END OF DASHBOARD */
 /* KNOWLEDGE CENTER */
 .knowledge-container {
-    width: 85%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -975,12 +975,13 @@ fieldset {
 
 .knowledge-card {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 85%;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 95%;
     height: fit-content;
     padding: 20px;
-    background-color: var(--color-tertiary);
+    background-color: var(--color-quaternary);
+    border: 2px solid var(--color-secondary);
     border-radius: 15px;
     box-shadow: 3px 3px 5px #00000047;
     margin: 10px;
@@ -995,12 +996,12 @@ fieldset {
 .knowledge-card p {
     color: var(--color-secondary);
     font-size: medium;
-    padding: 5px 10px 0;
-    margin: auto;
+    padding: 5px 0;
+    margin-bottom: 5px;
 }
 
 .knowledge-card .progress-bar {
-    width: 40%;
+    width: 90%;
     height: 15px;
     justify-content: flex-start;
     background-color: var(--color-background);
@@ -1019,7 +1020,8 @@ fieldset {
 
 .knowledge-card.expanded {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    background-color: var(--color-tertiary);
 }
 
 .knowledge-card .submodules-container,
@@ -1039,10 +1041,14 @@ fieldset {
 
 .knowledge-card .submodule,
 .knowledge-card .lesson {
-    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 90%;
     margin: 5px 0;
     padding: 10px;
     background-color: var(--color-quaternary);
+    border: 1px solid var(--color-secondary);
     border-radius: 10px;
     box-shadow: 3px 3px 5px #00000047;
     text-align: center;
@@ -1050,5 +1056,30 @@ fieldset {
 
 .knowledge-card .submodule.expanded {
     background-color: var(--color-tertiary);
+}
+
+.knowledge-card .submodule h4,
+.knowledge-card .lesson h4 {
+    color: var(--color-secondary);
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.knowledge-card .submodule .progress-bar,
+.knowledge-card .lesson .progress-bar {
+    width: 90%;
+    height: 15px;
+    background-color: var(--color-background);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.knowledge-card .submodule .progress,
+.knowledge-card .lesson .progress {
+    height: 100%;
+    background-color: var(--color-secondary);
+    border-radius: 10px;
+    width: 0;
+    margin-left: 0;
 }
 /* END OF KNOWLEDGE CENTER */
