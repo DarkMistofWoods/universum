@@ -237,6 +237,7 @@ input {
 }
 
 .center-text {
+    pointer-events: none;
     cursor: default;
     color: var(--color-primary);
     background: var(--color-quaternary);

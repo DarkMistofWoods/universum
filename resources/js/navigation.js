@@ -260,7 +260,7 @@ circleContainer.addEventListener('click', (e) => {
     const navCircleRect = navCircle.getBoundingClientRect();
 
     // Check if the click occurred within the center area (adjust the radius as needed)
-    const centerRadius = 60; // Adjust this value to control the size of the center area
+    const centerRadius = 90; // Adjust this value to control the size of the center area
     const clickX = e.clientX - navCircleRect.left;
     const clickY = e.clientY - navCircleRect.top;
     const distance = Math.sqrt(Math.pow(clickX - navCircleRect.width / 2, 2) + Math.pow(clickY - navCircleRect.height / 2, 2));
