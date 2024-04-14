@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
         lana: "ε"
     };
 
-    generateButton.addEventListener('click', function() {
+    generateButton.addEventListener('click', function () {
         const attr1 = document.getElementById('attribute1').value;
         const attr2 = document.getElementById('attribute2').value;
         const attr3 = document.getElementById('attribute3').value;
@@ -53,15 +53,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         nameOutput.value = firstName + ' ' + lastName;
 
-         // Create or select the termsOutput div
-         let termsOutput = document.getElementById('termsOutput');
-         if (!termsOutput) {
-             termsOutput = document.createElement('div');
-             termsOutput.id = 'termsOutput';
-             // Find the container to which the new div should be appended
-             const container = document.querySelector('.container-secondary');
-             // Insert the termsOutput div right after the nameOutput element within the container
-             container.insertBefore(termsOutput, nameOutput.nextSibling);
+        // Create or select the termsOutput div
+        let termsOutput = document.getElementById('termsOutput');
+        if (!termsOutput) {
+            termsOutput = document.createElement('div');
+            termsOutput.id = 'termsOutput';
+            // Find the container to which the new div should be appended
+            const container = document.querySelector('.container-secondary');
+            // Insert the termsOutput div right after the nameOutput element within the container
+            container.insertBefore(termsOutput, nameOutput.nextSibling);
         }
 
         termsOutput.innerHTML = `
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         return adjustToCVCV(name);
     }
-    
+
     function extractSyllables(word) {
         let syllables = [];
         for (let i = 0; i < word.length; i += 2) {
@@ -102,11 +102,11 @@ document.addEventListener('DOMContentLoaded', function () {
             [array[i], array[j]] = [array[j], array[i]]; // ES6 array destructuring for swapping
         }
     }
-    
+
     function isVowel(char) {
         return ['a', 'e', 'i', 'o', 'u'].includes(char.toLowerCase());
     }
-    
+
     function getRandomVowel() {
         const vowels = ['a', 'e', 'i', 'o', 'u'];
         return vowels[Math.floor(Math.random() * vowels.length)];
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
-    
+
     function adjustToCVCV(name) {
         // If the name length after construction is odd, remove the last character before adjustment
         if (name.length % 2 !== 0) {
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Please generate a name first.');
             return;
         }
-
+    
         if (user) {
             // User is signed in, proceed to save the generated name
             saveGeneratedName(user, generatedName);
@@ -152,9 +152,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to save the generated name to the user's profile
     function saveGeneratedName(user, generatedName) {
-        // Create a reference to the user's document in 'userSettings' collection
+        // Create a reference to the user's document in 'userProfiles' collection
         const userDocRef = doc(db, 'userProfiles', user.uid);
-
+    
         // Set the displayName in the user's document
         setDoc(userDocRef, { displayName: generatedName }, { merge: true })
         .then(() => {
