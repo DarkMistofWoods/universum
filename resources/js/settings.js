@@ -66,7 +66,7 @@ auth.onAuthStateChanged(async (user) => {
         document.querySelector('[name="privacy"]').value = settings.privacySettings;
         document.querySelector('[name="feedback"]').value = settings.feedbackFrequency;
 
-        document.querySelector('form').addEventListener('submit', async (e) => {
+        document.getElementById('saveSettingsButton').addEventListener('click', async (e) => {
             e.preventDefault();
         
             const userId = auth.currentUser.uid;
