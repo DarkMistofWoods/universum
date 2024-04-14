@@ -123,9 +123,9 @@ function createLessonElements(lessons, progressData, moduleId, subModuleId) {
         
         const quizPercentageElement = document.createElement('div');
         quizPercentageElement.classList.add('quiz-percentage');
-        const latestQuizScore = progressData?.[moduleId]?.subModules?.[subModuleId]?.lessons?.[lesson.title]?.quizScores?.slice(-1)?.[0] || 'Incomplete';
+        const latestQuizScore = progressData?.[moduleId]?.subModules?.[subModuleId]?.lessons?.[lesson.title]?.quizScores?.slice(-1)?.[0];
         const averageQuizScore = calculateAverageQuizScore(progressData?.[moduleId]?.subModules?.[subModuleId]?.lessons?.[lesson.title]?.quizScores || []);
-        quizPercentageElement.textContent = `${latestQuizScore !== 'Incomplete' ? `Latest: ${latestQuizScore}%` : 'Incomplete'} | ${averageQuizScore !== 'Incomplete' ? `Avg: ${averageQuizScore}` : 'Incomplete'}`;
+        quizPercentageElement.textContent = `Latest Quiz: ${latestQuizScore ? `${latestQuizScore}%` : 'Incomplete'} | Average Quiz: ${averageQuizScore !== 'Incomplete' ? averageQuizScore : 'Incomplete'}`;
         
         lessonElement.appendChild(titleElement);
         lessonElement.appendChild(progressBarElement);
