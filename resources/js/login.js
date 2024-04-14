@@ -302,8 +302,11 @@ function getPassword() {
 
 // Function to initialize user profile in Firestore
 async function initializeUserProfile(user) {
+    const pendingNameSave = localStorage.getItem('pendingNameSave');
+    const displayName = pendingNameSave ? pendingNameSave : "New User";
+
     const userProfileData = {
-        displayName: "New User",
+        displayName: displayName,
         email: user.email,
         settings: {
             learningPace: 'medium',
@@ -320,6 +323,9 @@ async function initializeUserProfile(user) {
     
     await setDoc(doc(db, 'userProfiles', user.uid), userProfileData);
     console.log('User profile initialized.');
+
+    // Remove the pendingNameSave from localStorage after saving it to the user profile
+    localStorage.removeItem('pendingNameSave');
 }
 
 async function handleForgotPassword() {
