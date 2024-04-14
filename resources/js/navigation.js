@@ -1,3 +1,6 @@
+import { auth, db } from './firebase-config.js';
+import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
+
 const navigationPoints = [
     { pageName: "Settings", url: "./settings.html" },
     { pageName: "Achievements", url: "./achievements.html" },
@@ -38,6 +41,19 @@ let positions = [];
 for(let i = 0; i < numberOfPoints + 1; i++) {
     let angle = (i / numberOfPoints) * (2 * Math.PI); // Angle in radians
     positions.push(calculatePosition(angle, radius));
+}
+
+// Function to check if user is signed in
+function isUserSignedIn() {
+    return new Promise((resolve, reject) => {
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                resolve(true);
+            } else {
+                resolve(false);
+            }
+        });
+    });
 }
 
 // Function to create a point with event listeners
@@ -85,12 +101,16 @@ function createPoint(angle, radius, pageName, url, index, svgContainer) {
         }
     });
 
-    hitArea.addEventListener('click', (e) => {
+    hitArea.addEventListener('click', async (e) => {
         if ('ontouchstart' in window || navigator.maxTouchPoints) { // Check for touch capability
             e.preventDefault(); // Prevent default to allow for the tap logic
             if (isTappedOnce) {
-                // Second tap, proceed to navigate
-                window.location.href = url;
+                const isSignedIn = await isUserSignedIn();
+                if (isSignedIn || !['Settings', 'Achievements', 'Challenges', 'Community', 'Knowledge Center', 'Dashboard', 'Current Progress', 'Community Progress'].includes(pageName)) {
+                    window.location.href = url;
+                } else {
+                    window.location.href = 'login.html';
+                }
             } else {
                 // First tap
                 document.querySelector('.center-text').textContent = pageName;
@@ -116,8 +136,12 @@ function createPoint(angle, radius, pageName, url, index, svgContainer) {
                 }, 2500); // Adjust timeout as needed
             }
         } else {
-            // Non-touch devices, navigate immediately
-            window.location.href = url;
+            const isSignedIn = await isUserSignedIn();
+            if (isSignedIn || !['Settings', 'Achievements', 'Challenges', 'Community', 'Knowledge Center', 'Dashboard', 'Current Progress', 'Community Progress'].includes(pageName)) {
+                window.location.href = url;
+            } else {
+                window.location.href = 'login.html';
+            }
         }
     });
 
@@ -145,12 +169,16 @@ function createPoint(angle, radius, pageName, url, index, svgContainer) {
     });
 
     // Handling click/tap
-    point.addEventListener('click', (e) => {
+    point.addEventListener('click', async (e) => {
         if ('ontouchstart' in window || navigator.maxTouchPoints) { // Check for touch capability
             e.preventDefault(); // Prevent default to allow for the tap logic
             if (isTappedOnce) {
-                // Second tap, proceed to navigate
-                window.location.href = url;
+                const isSignedIn = await isUserSignedIn();
+                if (isSignedIn || !['Settings', 'Achievements', 'Challenges', 'Community', 'Knowledge Center', 'Dashboard', 'Current Progress', 'Community Progress'].includes(pageName)) {
+                    window.location.href = url;
+                } else {
+                    window.location.href = 'login.html';
+                }
             } else {
                 // First tap
                 document.querySelector('.center-text').textContent = pageName;
@@ -174,8 +202,12 @@ function createPoint(angle, radius, pageName, url, index, svgContainer) {
                 }, 2500); // Adjust timeout as needed
             }
         } else {
-            // Non-touch devices, navigate immediately
-            window.location.href = url;
+            const isSignedIn = await isUserSignedIn();
+            if (isSignedIn || !['Settings', 'Achievements', 'Challenges', 'Community', 'Knowledge Center', 'Dashboard', 'Current Progress', 'Community Progress'].includes(pageName)) {
+                window.location.href = url;
+            } else {
+                window.location.href = 'login.html';
+            }
         }
     });
 
