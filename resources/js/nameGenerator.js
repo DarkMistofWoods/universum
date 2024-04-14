@@ -72,14 +72,9 @@ document.addEventListener('DOMContentLoaded', function () {
             termsOutput = document.createElement('div');
             termsOutput.id = 'termsOutput';
             // Find the container to which the new div should be appended
-            const container = document.querySelector('.container-secondary');
-            if (container) {
-                // Append the termsOutput div to the container
-                container.appendChild(termsOutput);
-            } else {
-                // If the container is not found, append the termsOutput div after the nameOutput element
-                nameOutput.insertAdjacentElement('afterend', termsOutput);
-            }
+            const container = document.getElementById('nameGeneratorContainer');
+            // Insert the termsOutput div right after the nameOutput element within the container
+            container.insertBefore(termsOutput, nameOutput.nextSibling);
         }
 
         termsOutput.innerHTML = `
