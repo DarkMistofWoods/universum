@@ -445,7 +445,7 @@ svg#linesContainer {
     margin: 0 0 10px;
 }
 
-.settings-form select {
+select {
     border-radius: 5px;
     padding: 5px;
     background-color: var(--color-quaternary);
