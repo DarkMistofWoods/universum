@@ -1,5 +1,4 @@
-import { auth, db } from './firebase-config.js';
-import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
+import { auth } from './firebase-config.js';
 
 const navigationPoints = [
     { pageName: "Settings", url: "./settings.html" },
