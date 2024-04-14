@@ -180,4 +180,43 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert('There was a problem saving your name. Please try again.');
             });
     }
+
+    // Function to populate dropdown options based on termMappings
+    function populateDropdownOptions() {
+        const attributeDropdown = document.getElementById('attribute1');
+        const roleDropdown = document.getElementById('attribute2');
+        const numberDropdown = document.getElementById('attribute3');
+
+        // Clear existing options
+        attributeDropdown.innerHTML = '<option value="">Select Attribute/Quality</option>';
+        roleDropdown.innerHTML = '<option value="">Select Role</option>';
+        numberDropdown.innerHTML = '<option value="">Select Desired Number</option>';
+
+        // Populate attribute options
+        for (const [key, value] of Object.entries(termMappings.attribute)) {
+            const option = document.createElement('option');
+            option.value = key;
+            option.textContent = value;
+            attributeDropdown.appendChild(option);
+        }
+
+        // Populate role options
+        for (const [key, value] of Object.entries(termMappings.role)) {
+            const option = document.createElement('option');
+            option.value = key;
+            option.textContent = value;
+            roleDropdown.appendChild(option);
+        }
+
+        // Populate number options
+        for (const [key, value] of Object.entries(termMappings.number)) {
+            const option = document.createElement('option');
+            option.value = key;
+            option.textContent = value;
+            numberDropdown.appendChild(option);
+        }
+    }
+
+    // Call the function to populate dropdown options
+    populateDropdownOptions();
 });
