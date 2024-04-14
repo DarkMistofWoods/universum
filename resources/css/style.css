@@ -15,7 +15,7 @@
     --color-tertiary: #737373;
     --color-quaternary: #BFBFBF;
     --color-background: #F2F2F2;
-    --filter-primary: invert(94%) sepia(19%) saturate(322%) hue-rotate(319deg) brightness(98%) contrast(94%);
+    --filter-primary: invert(0%) sepia(0%) saturate(0%) hue-rotate(0) brightness(50%) contrast(100%);
 }
 
 /* GLOBAL STYLES */
