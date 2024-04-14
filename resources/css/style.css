@@ -477,6 +477,10 @@ fieldset {
     padding: 20px;
 }
 
+#nameGeneratorContainer select {
+    margin: 0 5px;
+}
+
 #nameOutput {
     font-size: large;
     color: var(--color-secondary)
