@@ -360,9 +360,30 @@ function displaySuccessMessage(message) {
     }, 5000);
 }
 
+// Function to check if user is signed in
+function isUserSignedIn() {
+    return new Promise((resolve, reject) => {
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                resolve(true);
+            } else {
+                resolve(false);
+            }
+        });
+    });
+}
+
 // Run the function to position numbers when the document is loaded
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     positionNumbers();
+
+    // Check if the user is already signed in
+    const isSignedIn = await isUserSignedIn();
+    if (isSignedIn) {
+        // Redirect to the dashboard page if the user is signed in
+        window.location.href = 'dashboard.html';
+        return;
+    }
 
     document.getElementById('loginButton').addEventListener('click', login);
     document.getElementById('signupButton').addEventListener('click', createAccount);
