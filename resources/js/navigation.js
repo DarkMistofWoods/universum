@@ -260,7 +260,7 @@ circleContainer.addEventListener('click', (e) => {
     const navCircleRect = navCircle.getBoundingClientRect();
 
     // Check if the click occurred within the center area (adjust the radius as needed)
-    const centerRadius = 90; // Adjust this value to control the size of the center area
+    const centerRadius = 180; // Adjust this value to control the size of the center area
     const clickX = e.clientX - navCircleRect.left;
     const clickY = e.clientY - navCircleRect.top;
     const distance = Math.sqrt(Math.pow(clickX - navCircleRect.width / 2, 2) + Math.pow(clickY - navCircleRect.height / 2, 2));
@@ -276,7 +276,7 @@ const centerText = document.querySelector('.center-text');
 
 navCircle.addEventListener('mouseenter', (e) => {
     const navCircleRect = navCircle.getBoundingClientRect();
-    const centerRadius = 15;
+    const centerRadius = 180;
     const mouseX = e.clientX - navCircleRect.left;
     const mouseY = e.clientY - navCircleRect.top;
     const distance = Math.sqrt(Math.pow(mouseX - navCircleRect.width / 2, 2) + Math.pow(mouseY - navCircleRect.height / 2, 2));
