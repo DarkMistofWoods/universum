@@ -1094,19 +1094,12 @@ fieldset {
 
 .knowledge-card .submodule .quiz-percentage,
 .knowledge-card .lesson .quiz-percentage {
-    position: absolute;
+    position: relative;
+    margin: auto;
+    margin-bottom: 15px;
     top: 10px;
     right: 10px;
     font-size: 12px;
     color: var(--color-secondary);
-}
-
-.knowledge-card .lesson .quiz-percentage::before {
-    content: "Latest: ";
-}
-
-.knowledge-card .lesson .quiz-percentage::after {
-    content: " | Avg: ";
-    margin-left: 5px;
 }
 /* END OF KNOWLEDGE CENTER */
