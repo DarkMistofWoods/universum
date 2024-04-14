@@ -78,8 +78,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         termsOutput.innerHTML = `
-            <p><strong>First Name Derived From:</strong> ${termMappings.attribute[attr1]}, ${termMappings.role[attr2]} -> ${firstName}</p>
-            <p><strong>Last Name Derived From:</strong> ${termMappings.attribute[attr1]}, ${termMappings.role[attr2]}, ${termMappings.number[attr3]} -> ${lastName}</p>
+            <p><strong>First Name Derived From:</strong> ${attr1}, ${attr2} -> ${firstName}</p>
+            <p><strong>Last Name Derived From:</strong> ${attr1}, ${attr2}, ${attr3} -> ${lastName}</p>
         `;
     });
 

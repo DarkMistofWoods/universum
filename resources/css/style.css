@@ -477,12 +477,19 @@ fieldset {
     padding: 20px;
 }
 
+#nameOutput {
+    font-size: large;
+    color: var(--color-secondary)
+}
+
 #termsOutput {
     display: block;
     text-align: left;
     background: var(--color-background);
-    border: 1px solid var(--color-secondary);
+    border: 2px solid var(--color-secondary);
     border-radius: 15px;
+    margin-top: 5px;
+    width: auto;
 }
 /* END OF FORMS */
 
