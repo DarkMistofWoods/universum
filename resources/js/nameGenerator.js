@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
              termsOutput = document.createElement('div');
              termsOutput.id = 'termsOutput';
              // Find the container to which the new div should be appended
-             const container = document.querySelector('.container');
+             const container = document.querySelector('.container-secondary');
              // Insert the termsOutput div right after the nameOutput element within the container
              container.insertBefore(termsOutput, nameOutput.nextSibling);
         }
