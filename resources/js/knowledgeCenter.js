@@ -65,7 +65,7 @@ function createSubModuleElements(subModules, progressData, moduleId) {
         const completedLessons = Object.values(progressData?.[moduleId]?.subModules?.[subModule.subModuleId]?.lessons || {}).filter(lesson => lesson.completed);
         const quizScores = completedLessons.map(lesson => lesson.quizScores || []).flat();
         const averageQuizScore = calculateAverageQuizScore(quizScores);
-        quizPercentageElement.textContent = averageQuizScore;
+        quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Avg: ${averageQuizScore}` : 'Incomplete';
         
         subModuleElement.appendChild(titleElement);
         subModuleElement.appendChild(progressBarElement);
@@ -125,7 +125,7 @@ function createLessonElements(lessons, progressData, moduleId, subModuleId) {
         quizPercentageElement.classList.add('quiz-percentage');
         const latestQuizScore = progressData?.[moduleId]?.subModules?.[subModuleId]?.lessons?.[lesson.title]?.quizScores?.slice(-1)?.[0] || 'Incomplete';
         const averageQuizScore = calculateAverageQuizScore(progressData?.[moduleId]?.subModules?.[subModuleId]?.lessons?.[lesson.title]?.quizScores || []);
-        quizPercentageElement.textContent = `${latestQuizScore}${averageQuizScore !== 'Incomplete' ? ` | ${averageQuizScore}` : ''}`;
+        quizPercentageElement.textContent = `${latestQuizScore !== 'Incomplete' ? `Latest: ${latestQuizScore}%` : 'Incomplete'} | ${averageQuizScore !== 'Incomplete' ? `Avg: ${averageQuizScore}` : 'Incomplete'}`;
         
         lessonElement.appendChild(titleElement);
         lessonElement.appendChild(progressBarElement);
