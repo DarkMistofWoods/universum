@@ -476,6 +476,14 @@ fieldset {
     margin-bottom: 5px;
     padding: 20px;
 }
+
+#termsOutput {
+    display: block;
+    text-align: left;
+    background: var(--color-background);
+    border: 1px solid var(--color-secondary);
+    border-radius: 15px;
+}
 /* END OF FORMS */
 
 /* DASHBOARD */
