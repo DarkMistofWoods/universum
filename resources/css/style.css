@@ -1018,12 +1018,15 @@ fieldset {
 }
 
 .knowledge-card.expanded {
-    height: auto;
+    flex-direction: column;
+    align-items: center;
 }
 
 .knowledge-card .submodules-container,
 .knowledge-card .lessons-container {
     display: none;
+    width: 100%;
+    margin-top: 10px;
 }
 
 .knowledge-card.expanded .submodules-container,
@@ -1032,13 +1035,20 @@ fieldset {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 10px;
 }
 
 .knowledge-card .submodule,
 .knowledge-card .lesson {
-    width: 100%;
+    width: 80%;
     margin: 5px 0;
     padding: 10px;
+    background-color: var(--color-quaternary);
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px #00000047;
+    text-align: center;
+}
+
+.knowledge-card .submodule.expanded {
+    background-color: var(--color-tertiary);
 }
 /* END OF KNOWLEDGE CENTER */

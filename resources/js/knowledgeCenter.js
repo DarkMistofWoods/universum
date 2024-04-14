@@ -63,7 +63,8 @@ function createSubModuleElements(subModules, progressData, moduleId) {
         subModuleElement.appendChild(titleElement);
         subModuleElement.appendChild(progressBarElement);
         
-        subModuleElement.addEventListener('click', () => {
+        subModuleElement.addEventListener('click', (event) => {
+            event.stopPropagation();
             subModuleElement.classList.toggle('expanded');
             const lessonsContainer = subModuleElement.querySelector('.lessons-container');
             if (lessonsContainer) {
