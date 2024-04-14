@@ -1,0 +1,532 @@
+[
+    {
+        "moduleName": "Vocabulary",
+        "moduleId": "vocabularyModule",
+        "subModules": [
+            {
+                "subModuleName": "Introduction to Universum Vocabulary",
+                "subModuleId": "Vocabulary_1",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Common Phrases",
+                        "pageUrl": "../knowledge/vocabulary/level1/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Numbers and Counting",
+                        "pageUrl": "../knowledge/vocabulary/level1/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Colors and Shapes",
+                        "pageUrl": "../knowledge/vocabulary/level1/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Time and Days",
+                        "pageUrl": "../knowledge/vocabulary/level1/lesson-4.html"
+                    }
+                ]
+            },
+            {
+                "subModuleName": "Everyday Vocabulary",
+                "subModuleId": "Vocabulary_2",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Family and People",
+                        "pageUrl": "../knowledge/vocabulary/level2/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Food and Drink",
+                        "pageUrl": "../knowledge/vocabulary/level2/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Clothing and Body",
+                        "pageUrl": "../knowledge/vocabulary/level2/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Home and Daily Routines",
+                        "pageUrl": "../knowledge/vocabulary/level2/lesson-4.html"
+                    }
+                ]
+            },
+            {
+                "subModuleName": "Describing the World",
+                "subModuleId": "Vocabulary_3",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Nature and Weather",
+                        "pageUrl": "../knowledge/vocabulary/level3/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: City and Transportation",
+                        "pageUrl": "../knowledge/vocabulary/level3/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Shopping and Money",
+                        "pageUrl": "../knowledge/vocabulary/level3/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Health and Emergency",
+                        "pageUrl": "../knowledge/vocabulary/level3/lesson-4.html"
+                    }
+                ]
+            },
+            {
+                "subModuleName": "Expressing Ideas and Feelings",
+                "subModuleId": "Vocabulary_4",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Emotions and Opinions",
+                        "pageUrl": "../knowledge/vocabulary/level4/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Hobbies and Leisure",
+                        "pageUrl": "../knowledge/vocabulary/level4/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Education and Work",
+                        "pageUrl": "../knowledge/vocabulary/level4/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Travel and Culture",
+                        "pageUrl": "../knowledge/vocabulary/level4/lesson-4.html"
+                    }
+                ]
+            },
+            {
+                "subModuleName": "Advanced Communication",
+                "subModuleId": "Vocabulary_5",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Complex Descriptions",
+                        "pageUrl": "../knowledge/vocabulary/level5/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Abstract Concepts",
+                        "pageUrl": "../knowledge/vocabulary/level5/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Formal and Informal Language",
+                        "pageUrl": "../knowledge/vocabulary/level5/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Compound Word Construction",
+                        "pageUrl": "../knowledge/vocabulary/level5/lesson-4.html"
+                    }
+                ]
+            },
+            {
+                "subModuleName": "Specialized Vocabulary",
+                "subModuleId": "Vocabulary_6",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Science and Technology",
+                        "pageUrl": "../knowledge/vocabulary/level6/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Arts and Literature",
+                        "pageUrl": "../knowledge/vocabulary/level6/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Business and Economy",
+                        "pageUrl": "../knowledge/vocabulary/level6/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Politics and Society",
+                        "pageUrl": "../knowledge/vocabulary/level6/lesson-4.html"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "moduleName": "Grammar",
+        "moduleId": "grammarModule",
+        "subModules": [
+            {
+                "subModuleName": "Basics of Universum Grammar",
+                "subModuleId": "Grammar_1",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Sentence Structure",
+                        "pageUrl": "../knowledge/grammar/level1/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Pronouns and Simple Verbs",
+                        "pageUrl": "../knowledge/grammar/level1/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Present, Past, and Future Tenses",
+                        "pageUrl": "../knowledge/grammar/level1/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Yes/No Questions and Answers",
+                        "pageUrl": "../knowledge/grammar/level1/lesson-4.html"
+                    }
+                ]
+            },
+            {
+                "subModuleName": "Building Complexity",
+                "subModuleId": "Grammar_2",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Negation",
+                        "pageUrl": "../knowledge/grammar/level2/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Plurals and Quantity",
+                        "pageUrl": "../knowledge/grammar/level2/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Descriptive Language",
+                        "pageUrl": "../knowledge/grammar/level2/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Prepositions and Directions",
+                        "pageUrl": "../knowledge/grammar/level2/lesson-4.html"
+                    }
+                ]
+            },
+            {
+                "subModuleName": "Expanding Expressions",
+                "subModuleId": "Grammar_3",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Possessive Structures",
+                        "pageUrl": "../knowledge/grammar/level3/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Comparatives and Superlatives",
+                        "pageUrl": "../knowledge/grammar/level3/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Imperatives and Commands",
+                        "pageUrl": "../knowledge/grammar/level3/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Question Words",
+                        "pageUrl": "../knowledge/grammar/level3/lesson-4.html"
+                    }
+                ]
+            },
+            {
+                "subModuleName": "Advanced Structures",
+                "subModuleId": "Grammar_4",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Conjunctions and Complex Sentences",
+                        "pageUrl": "../knowledge/grammar/level4/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Conditional Sentences",
+                        "pageUrl": "../knowledge/grammar/level4/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Expressing Opinions and Emotions",
+                        "pageUrl": "../knowledge/grammar/level4/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Indirect Speech and Reported Questions",
+                        "pageUrl": "../knowledge/grammar/level4/lesson-4.html"
+                    }
+                ]
+            },
+            {
+                "subModuleName": "Advanced Communication",
+                "subModuleId": "Grammar_5",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Nuances of Politeness",
+                        "pageUrl": "../knowledge/grammar/level5/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Cultural Expressions and Idioms",
+                        "pageUrl": "../knowledge/grammar/level5/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Error Correction and Clarification",
+                        "pageUrl": "../knowledge/grammar/level5/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Style and Register",
+                        "pageUrl": "../knowledge/grammar/level5/lesson-4.html"
+                    }
+                ]
+            },
+            {
+                "subModuleName": "Mastering Fluency",
+                "subModuleId": "Grammar_6",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Debating and Persuasion",
+                        "pageUrl": "../knowledge/grammar/level6/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Storytelling and Narration",
+                        "pageUrl": "../knowledge/grammar/level6/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Academic and Formal Writing",
+                        "pageUrl": "../knowledge/grammar/level6/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Humor and Playfulness in Language",
+                        "pageUrl": "../knowledge/grammar/level6/lesson-4.html"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "moduleName": "Comprehension",
+        "moduleId": "comprehensionModule",
+        "subModules": [
+            {
+                "subModuleName": "Foundations of Comprehension",
+                "subModuleId": "Comprehension_1",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Understanding Basic Greetings and Introductions",
+                        "pageUrl": "../knowledge/comprehension/level1/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Numbers and Time",
+                        "pageUrl": "../knowledge/comprehension/level1/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Common Phrases and Responses",
+                        "pageUrl": "../knowledge/comprehension/level1/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Simple Instructions and Commands",
+                        "pageUrl": "../knowledge/comprehension/level1/lesson-4.html"
+                    }
+                ]
+            },
+            {
+                "subModuleName": "Everyday Situations",
+                "subModuleId": "Comprehension_2",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Shopping Conversations",
+                        "pageUrl": "../knowledge/comprehension/level2/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Restaurant and Food",
+                        "pageUrl": "../knowledge/comprehension/level2/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Directions and Transportation",
+                        "pageUrl": "../knowledge/comprehension/level2/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Weather and Seasons",
+                        "pageUrl": "../knowledge/comprehension/level2/lesson-4.html"
+                    }
+                ]
+            },
+            {
+                "subModuleName": "Expanding Knowledge",
+                "subModuleId": "Comprehension_3",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Educational Content",
+                        "pageUrl": "../knowledge/comprehension/level3/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Work and Occupation Dialogues",
+                        "pageUrl": "../knowledge/comprehension/level3/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Health and Wellness",
+                        "pageUrl": "../knowledge/comprehension/level3/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Entertainment and Media",
+                        "pageUrl": "../knowledge/comprehension/level3/lesson-4.html"
+                    }
+                ]
+            },
+            {
+                "subModuleName": "Advanced Interpretation",
+                "subModuleId": "Comprehension_4",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Narratives and Storytelling",
+                        "pageUrl": "../knowledge/comprehension/level4/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Opinions and Arguments",
+                        "pageUrl": "../knowledge/comprehension/level4/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Cultural and Historical Texts",
+                        "pageUrl": "../knowledge/comprehension/level4/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Technical and Scientific Articles",
+                        "pageUrl": "../knowledge/comprehension/level4/lesson-4.html"
+                    }
+                ]
+            },
+            {
+                "subModuleName": "Mastery of Comprehension",
+                "subModuleId": "Comprehension_5",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Abstract and Philosophical Texts",
+                        "pageUrl": "../knowledge/comprehension/level5/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Poetry and Literature",
+                        "pageUrl": "../knowledge/comprehension/level5/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: News and Current Events",
+                        "pageUrl": "../knowledge/comprehension/level5/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Formal and Academic Papers",
+                        "pageUrl": "../knowledge/comprehension/level5/lesson-4.html"
+                    }
+                ]
+            },
+            {
+                "subModuleName": "Applied Comprehension",
+                "subModuleId": "Comprehension_6",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Interactive Scenarios and Role Plays",
+                        "pageUrl": "../knowledge/comprehension/level6/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Listening and Audio Comprehension",
+                        "pageUrl": "../knowledge/comprehension/level6/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Visual Comprehension and Interpretation",
+                        "pageUrl": "../knowledge/comprehension/level6/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Comprehension Through Creation",
+                        "pageUrl": "../knowledge/comprehension/level6/lesson-4.html"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "moduleName": "Math",
+        "moduleId": "mathModule",
+        "subModules": [
+            {
+                "subModuleName": "Understanding Base-12 Basics",
+                "subModuleId": "Math_1",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Introduction to Base-12 System",
+                        "pageUrl": "../knowledge/math/level1/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Counting in Base-12",
+                        "pageUrl": "../knowledge/math/level1/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Basic Operations in Base-12",
+                        "pageUrl": "../knowledge/math/level1/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Multiplication and Division in Base-12",
+                        "pageUrl": "../knowledge/math/level1/lesson-4.html"
+                    }
+                ]
+            },
+            {
+                "subModuleName": "Advancing with Arithmetic",
+                "subModuleId": "Math_2",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Carrying and Borrowing in Base-12",
+                        "pageUrl": "../knowledge/math/level2/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Advanced Multiplication and Division",
+                        "pageUrl": "../knowledge/math/level2/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Fractions in Base-12",
+                        "pageUrl": "../knowledge/math/level2/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Converting Between Base-10 and Base-12",
+                        "pageUrl": "../knowledge/math/level2/lesson-4.html"
+                    }
+                ]
+            },
+            {
+                "subModuleName": "Exploring Further Concepts",
+                "subModuleId": "Math_3",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Base-12 Place Values",
+                        "pageUrl": "../knowledge/math/level3/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Using Base-12 in Practical Situations",
+                        "pageUrl": "../knowledge/math/level3/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Decimals in Base-12",
+                        "pageUrl": "../knowledge/math/level3/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Ratios and Proportions in Base-12",
+                        "pageUrl": "../knowledge/math/level3/lesson-4.html"
+                    }
+                ]
+            },
+            {
+                "subModuleName": "Dive into Geometry and Algebra",
+                "subModuleId": "Math_4",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Geometric Shapes and Measurements in Base-12",
+                        "pageUrl": "../knowledge/math/level4/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Algebraic Expressions in Base-12",
+                        "pageUrl": "../knowledge/math/level4/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Graphing in Base-12",
+                        "pageUrl": "../knowledge/math/level4/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Statistics and Probability in Base-12",
+                        "pageUrl": "../knowledge/math/level4/lesson-4.html"
+                    }
+                ]
+            },
+            {
+                "subModuleName": "Complex Applications and Theoretical Concepts",
+                "subModuleId": "Math_5",
+                "lessons": [
+                    {
+                        "title": "Lesson 1: Mathematical Puzzles in Base-12",
+                        "pageUrl": "../knowledge/math/level5/lesson-1.html"
+                    },
+                    {
+                        "title": "Lesson 2: Exploring Patterns and Sequences in Base-12",
+                        "pageUrl": "../knowledge/math/level5/lesson-2.html"
+                    },
+                    {
+                        "title": "Lesson 3: Base-12 in Science and Technology",
+                        "pageUrl": "../knowledge/math/level5/lesson-3.html"
+                    },
+                    {
+                        "title": "Lesson 4: Theoretical Math in Base-12",
+                        "pageUrl": "../knowledge/math/level5/lesson-4.html"
+                    }
+                ]
+            }
+        ]
+    }
+]
