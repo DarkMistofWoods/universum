@@ -74,11 +74,11 @@ document.addEventListener('DOMContentLoaded', function () {
             // Find the container to which the new div should be appended
             const container = document.querySelector('.container-secondary');
             if (container) {
-                // Insert the termsOutput div right after the nameOutput element within the container
-                container.insertBefore(termsOutput, nameOutput.nextSibling);
+                // Append the termsOutput div to the container
+                container.appendChild(termsOutput);
             } else {
                 // If the container is not found, append the termsOutput div after the nameOutput element
-                nameOutput.parentNode.insertBefore(termsOutput, nameOutput.nextSibling);
+                nameOutput.insertAdjacentElement('afterend', termsOutput);
             }
         }
 
