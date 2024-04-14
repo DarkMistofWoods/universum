@@ -1,5 +1,5 @@
 import { db, auth } from './firebase-config.js';
-import { doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
+import { doc, getDoc, setDoc, updateDoc  } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
 
 // Default settings
 const defaultSettings = {
@@ -17,7 +17,7 @@ const defaultSettings = {
 async function saveSettings(userId, settings) {
     try {
         const userProfileRef = doc(db, 'userProfiles', userId);
-        await updateDoc(userProfileRef, { settings });
+        await setDoc(userProfileRef, { settings }, { merge: true });
         console.log('Settings saved successfully.');
     } catch (error) {
         console.error('Error saving settings:', error);
@@ -41,7 +41,7 @@ async function loadSettings(userId) {
 
 async function updateEmail(userId, newEmail) {
     try {
-        await updateEmail(auth.currentUser, newEmail);
+        await auth.currentUser.updateEmail(newEmail);
         const userProfileRef = doc(db, 'userProfiles', userId);
         await updateDoc(userProfileRef, { email: newEmail });
         console.log('Email updated successfully.');
