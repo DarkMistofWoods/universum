@@ -118,7 +118,7 @@ function handleAuthStateChanged(user) {
     if (user) {
         const userId = user.uid;
         fetchUserProgress(userId).then(progressData => {
-            fetch('/resources/courseContent.json')
+            fetch('resources/courseContent.json')
                 .then(response => response.json())
                 .then(courseContent => {
                     courseContent.forEach(module => {
