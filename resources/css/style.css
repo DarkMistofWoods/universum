@@ -489,6 +489,17 @@ select {
     color: var(--color-secondary);
 }
 
+#update-email-form span {
+    display: block;
+    margin-top: 10px;
+    color: var(--color-secondary);
+}
+
+.settings-form span {
+    display: block;
+    color: var(--color-secondary);
+}
+
 fieldset {
     border-radius: 15px;
     background: var(--color-tertiary);

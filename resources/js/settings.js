@@ -19,10 +19,10 @@ async function saveSettings(userId, settings) {
         const userProfileRef = doc(db, 'userProfiles', userId);
         await setDoc(userProfileRef, { settings }, { merge: true });
         console.log('Settings saved successfully.');
-        document.getElementById('settings-info').textContent = 'Settings saved successfully.';
+        document.getElementsByClassName('settings-info').textContent = 'Settings saved successfully.';
     } catch (error) {
         console.error('Error saving settings:', error);
-        document.getElementById('settings-info').textContent = 'Error saving settings. Please try again.';
+        document.getElementsByClassName('settings-info').textContent = 'Error saving settings. Please try again.';
     }
 }
 
