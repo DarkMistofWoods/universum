@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Center</title>
+    <link rel="stylesheet" href="./resources/css/style.css">
+
+    <script>
+        // Immediately set theme before page content loads
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'theme-dark'; // Default to dark if not set
+            document.documentElement.setAttribute('data-theme', savedTheme); // Use documentElement for earliest possible application
+        })();
+    </script>
+    <script type="module" src="./resources/js/firebase-config.js"></script>
+    <script type="module" src="./resources/js/navigation.js"></script>
+    <script type="module" src="./resources/js/miniDash.js"></script>
+    <script type="module" src="./resources/js/knowledgeCenter.js"></script>
+
+</head>
+
+<body>
+    <div id="themeSelector">
+        <img class="theme-icon" id="sunIcon" src="./resources/icons/Universum-Sun-Icon.svg" alt="Light Mode"
+            style="display: none;" />
+        <img class="theme-icon" id="moonIcon" src="./resources/icons/Universum-Moon-Icon.svg" alt="Dark Mode" />
+    </div>
+    
+    <div class="circle-container">
+        <svg class="nav-circle" viewBox="0 0 100 100">
+            <!-- Points go here -->
+        </svg>
+        <div class="center-text">Page Name</div>
+    </div>
+
+    <div class="container-secondary">
+        <h2>Knowledge Center</h2>
+        <p>Here you will find all of the recommended learning courses for Universum.</p>
+        <div class="header">
+            <div class="minidash-icon" id="settings-icon">
+                <a href="./settings.html"><img src="./resources/icons/Universum-Settings-Icon.svg" alt="Settings" title="Go to Settings"></a>
+            </div>
+            <div class="minidash-icon" id="signout-icon">
+                <img src="./resources/icons/Universum-Signout-Icon.svg" alt="Sign Out" title="Sign Out">
+            </div>
+        </div>
+        <div class="knowledge-container">
+            <div class="knowledge-card" id="vocabulary-module">
+                <h3>Vocabulary</h3>
+                <p>Master the foundation of the Universum lexicon.</p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 10%;"></div>
+                </div>
+            </div>
+            <div class="knowledge-card" id="grammar-module">
+                <h3>Grammar</h3>
+                <p>Master the art of forming sentences in Universum.</p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 10%;"></div>
+                </div>
+            </div>
+            <div class="knowledge-card" id="comprehension-module">
+                <h3>Comprehension</h3>
+                <p>Master communication in Universum.</p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 10%;"></div>
+                </div>
+            </div>
+            <div class="knowledge-card" id="math-module">
+                <h3>Math</h3>
+                <p>Master the foundation of Base-12 math.</p>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 10%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Universum Language Project</p>
+    </footer>
+</body>
+
+<script src="./resources/js/themeSelector.js"></script>
+
+</html>

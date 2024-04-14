@@ -169,12 +169,12 @@ input {
 .minidash-icon {
     position: relative;
     display: inline-block;
-    background-color: var(--color-tertiary);
-    border-radius: 30px;
-    width: 50px;
-    height: 50px;
+    background-color: var(--color-background);
+    border-radius: 36px;
+    width: 36px;
+    height: 36px;
     padding: 5px 5px;
-    margin: 0 10px 25px;
+    margin: 0 10px 15px;
 }
 
 .minidash-icon:hover {
@@ -525,7 +525,8 @@ fieldset {
     background: var(--color-background);
     border: 2px solid var(--color-secondary);
     border-radius: 15px;
-    margin-top: 5px;
+    padding: 10px 5px;
+    margin-top: 10px;
     width: auto;
 }
 /* END OF FORMS */
@@ -887,7 +888,6 @@ fieldset {
     cursor: pointer;
 }
 
-/* Responsive styles */
 @media (max-width: 1024px) {
     .dashboard-layout {
         grid-template-columns: repeat(2, 1fr);
@@ -958,3 +958,87 @@ fieldset {
     }
 }
 /* END OF DASHBOARD */
+/* KNOWLEDGE CENTER */
+.knowledge-container {
+    width: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 36px;
+    padding: 30px 36px;
+    text-align: center;
+    height: fit-content;
+    background: linear-gradient(-200deg, var(--color-quaternary), var(--color-tertiary));
+    border-radius: 50px;
+}
+
+.knowledge-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 85%;
+    height: fit-content;
+    padding: 20px;
+    background-color: var(--color-tertiary);
+    border-radius: 15px;
+    box-shadow: 3px 3px 5px #00000047;
+    margin: 10px;
+}
+
+.knowledge-card h3 {
+    color: var(--color-primary);
+    font-size: large;
+    margin: 0;
+}
+
+.knowledge-card p {
+    color: var(--color-secondary);
+    font-size: medium;
+    padding: 5px 10px 0;
+    margin: auto;
+}
+
+.knowledge-card .progress-bar {
+    width: 40%;
+    height: 15px;
+    justify-content: flex-start;
+    background-color: var(--color-background);
+    border-radius: 10px;
+    margin-top: 0;
+    overflow: hidden;
+}
+
+.knowledge-card .progress {
+    height: 100%;
+    background-color: var(--color-secondary);
+    border-radius: 10px;
+    width: 0;
+    margin-left: 0;
+}
+
+.knowledge-card.expanded {
+    height: auto;
+}
+
+.knowledge-card .submodules-container,
+.knowledge-card .lessons-container {
+    display: none;
+}
+
+.knowledge-card.expanded .submodules-container,
+.knowledge-card.expanded .lessons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.knowledge-card .submodule,
+.knowledge-card .lesson {
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+}
+/* END OF KNOWLEDGE CENTER */
