@@ -974,6 +974,7 @@ fieldset {
 }
 
 .knowledge-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -1081,5 +1082,31 @@ fieldset {
     border-radius: 10px;
     width: 0;
     margin-left: 0;
+}
+
+.knowledge-card .quiz-percentage {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 14px;
+    color: var(--color-secondary);
+}
+
+.knowledge-card .submodule .quiz-percentage,
+.knowledge-card .lesson .quiz-percentage {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 12px;
+    color: var(--color-secondary);
+}
+
+.knowledge-card .lesson .quiz-percentage::before {
+    content: "Latest: ";
+}
+
+.knowledge-card .lesson .quiz-percentage::after {
+    content: " | Avg: ";
+    margin-left: 5px;
 }
 /* END OF KNOWLEDGE CENTER */
