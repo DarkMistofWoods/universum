@@ -41,12 +41,9 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     generateButton.addEventListener('click', function () {
-        console.log("Generate button clicked"); // Add this line
         const attr1 = document.getElementById('attribute1').value;
         const attr2 = document.getElementById('attribute2').value;
         const attr3 = document.getElementById('attribute3').value;
-
-        console.log("Selected attributes:", attr1, attr2, attr3); // Add this line
 
         if (!attr1 || !attr2 || !attr3) {
             console.log("Please select options from all dropdowns.");
@@ -54,15 +51,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         let firstName = capitalizeFirstLetter(generateRandomName([attr1, attr2], true));
-        console.log("Generated first name:", firstName);
 
         let lastName = "";
         do {
             lastName = capitalizeFirstLetter(generateRandomName([attr1, attr2, attr3], false));
-            console.log("Generated last name:", lastName);
         } while (lastName.length < firstName.length);
-
-        console.log("Full name:", firstName + ' ' + lastName);
 
         nameOutput.value = firstName + ' ' + lastName;
 
