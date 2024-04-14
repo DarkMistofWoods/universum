@@ -137,18 +137,19 @@ input {
     cursor: pointer;
 }
 
-.settings-icon {
+.minidash-icon {
     background-color: var(--color-tertiary);
     border-radius: 30px;
     width: 50px;
-    padding: 5px 5px 1px;
+    padding: 5px 5px 2px;
+    margin: 10px;
 }
 
-.settings-icon:hover {
+.minidash-icon:hover {
     background-color: var(--color-quaternary);
 }
 
-.settings-icon img {
+.minidash-icon img {
     width: 100%;
     height: 100%;
     filter: var(--filter-primary);
