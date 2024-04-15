@@ -1052,7 +1052,6 @@ fieldset {
     width: 95%;
     margin: 5px 0;
     padding: 10px;
-    background-color: var(--color-quaternary);
     border: 1px solid var(--color-secondary);
     border-radius: 10px;
     box-shadow: 3px 3px 5px #00000047;
@@ -1065,7 +1064,7 @@ fieldset {
 
 .knowledge-card .submodule h4,
 .knowledge-card .lesson h4 {
-    color: var(--color-secondary);
+    color: var(--color-primary);
     margin: 0;
     margin-bottom: 10px;
 }
@@ -1113,14 +1112,20 @@ fieldset {
 }
 
 .locked {
-
+    background-color: var(--color-quaternary);
 }
 
 .unlocked {
+    background-color: var(--color-quaternary);
+}
 
+.unlocked:hover {
+    background-color: var(--color-tertiary);
 }
 
 .lock-icon {
-    
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
 /* END OF KNOWLEDGE CENTER */
