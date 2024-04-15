@@ -41,7 +41,7 @@ function calculateProgress(progressData, moduleId, subModuleId = null, lessonTit
 }
 
 // Function to create submodule elements
-function createSubModuleElements(subModules, progressData, moduleId, recommendationsData) {
+function createSubModuleElements(subModules, progressData, moduleId, recommendationsData, isFirstModule, isFirstSubModule) {
     const subModuleElements = subModules.map(subModule => {
         const subModuleElement = document.createElement('div');
         subModuleElement.classList.add('knowledge-card', 'submodule');
@@ -82,7 +82,7 @@ function createSubModuleElements(subModules, progressData, moduleId, recommendat
             if (lessonsContainer) {
                 lessonsContainer.remove();
             } else {
-                const lessonsContainer = createLessonElements(subModule.lessons, progressData, moduleId, subModule.subModuleId, recommendationsData);
+                const lessonsContainer = createLessonElements(subModule.lessons, progressData, moduleId, subModule.subModuleId, recommendationsData, isFirstModule, index === 0);
                 subModuleElement.appendChild(lessonsContainer);
             }
         });
@@ -104,7 +104,7 @@ function calculateAverageQuizScore(quizScores) {
 }
 
 // Function to create lesson elements
-function createLessonElements(lessons, progressData, moduleId, subModuleId, recommendationsData) {
+function createLessonElements(lessons, progressData, moduleId, subModuleId, recommendationsData, isFirstModule, isFirstSubModule) {
     const lessonsContainer = document.createElement('div');
     lessonsContainer.classList.add('lessons-container');
     
@@ -134,7 +134,7 @@ function createLessonElements(lessons, progressData, moduleId, subModuleId, reco
         
         const isCompleted = lessonData.completed || false;
         const isRecommended = recommendationsData?.some(recommendation => recommendation.lessonTitle === lesson.title) || false;
-        const isFirstLesson = index === 0;
+        const isFirstLesson = isFirstModule && isFirstSubModule && index === 0;
         const isPreviousLessonCompleted = index > 0 && (progressData?.[moduleId]?.subModules?.[subModuleId]?.lessons?.[lessons[index - 1].title]?.completed || false);
         
         if (isCompleted || isRecommended || isFirstLesson || isPreviousLessonCompleted) {
@@ -173,7 +173,7 @@ function handleAuthStateChanged(user) {
                 fetch('resources/courseContent.json')
                     .then(response => response.json())
                     .then(courseContent => {
-                        courseContent.forEach(module => {
+                        courseContent.forEach((module, moduleIndex) => {
                             const moduleElement = document.getElementById(`${module.moduleId}`);
                             if (moduleElement) {
                                 const totalLessons = module.subModules.reduce((count, subModule) => count + subModule.lessons.length, 0);
@@ -198,7 +198,7 @@ function handleAuthStateChanged(user) {
                                     if (subModulesContainer) {
                                         subModulesContainer.remove();
                                     } else {
-                                        const subModuleElements = createSubModuleElements(module.subModules, progressData, module.moduleId, recommendationsData);
+                                        const subModuleElements = createSubModuleElements(module.subModules, progressData, module.moduleId, recommendationsData, moduleIndex === 0);
                                         const subModulesContainer = document.createElement('div');
                                         subModulesContainer.classList.add('submodules-container');
                                         subModulesContainer.append(...subModuleElements);
