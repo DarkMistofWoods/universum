@@ -125,7 +125,7 @@ function createLessonElements(lessons, progressData, moduleId, subModuleId) {
         quizPercentageElement.classList.add('quiz-percentage');
         const latestQuizScore = progressData?.[moduleId]?.subModules?.[subModuleId]?.lessons?.[lesson.title]?.quizScores?.slice(-1)?.[0];
         const averageQuizScore = calculateAverageQuizScore(progressData?.[moduleId]?.subModules?.[subModuleId]?.lessons?.[lesson.title]?.quizScores || []);
-        quizPercentageElement.textContent = `Latest Quiz: ${latestQuizScore ? `${latestQuizScore}%` : 'Incomplete'} | Average Quiz: ${averageQuizScore !== 'Incomplete' ? averageQuizScore : 'Incomplete'}`;
+        quizPercentageElement.textContent = `Latest Quiz: ${latestQuizScore ? `${latestQuizScore}%` : 'Incomplete'} | Average Score: ${averageQuizScore !== 'Incomplete' ? averageQuizScore : 'Incomplete'}`;
         
         lessonElement.appendChild(titleElement);
         lessonElement.appendChild(progressBarElement);
@@ -150,15 +150,19 @@ function handleAuthStateChanged(user) {
                     courseContent.forEach(module => {
                         const moduleElement = document.getElementById(`${module.moduleId}`);
                         if (moduleElement) {
-                            const progress = calculateProgress(progressData, module.moduleId);
+                            const totalLessons = module.subModules.reduce((count, subModule) => count + subModule.lessons.length, 0);
+                            const completedLessons = Object.values(progressData?.[module.moduleId]?.subModules || {}).reduce((count, subModule) => {
+                                return count + Object.values(subModule.lessons).filter(lesson => lesson.completed).length;
+                            }, 0);
+                            const progress = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
                             moduleElement.querySelector('.progress').style.width = `${progress}%`;
-                            
+
                             const quizPercentageElement = moduleElement.querySelector('.quiz-percentage');
                             const completedSubModules = Object.values(progressData?.[module.moduleId]?.subModules || {}).filter(subModule => subModule.subModuleProgress === 100);
                             const quizScores = completedSubModules.map(subModule => Object.values(subModule.lessons).map(lesson => lesson.quizScores || []).flat()).flat();
                             const averageQuizScore = calculateAverageQuizScore(quizScores);
-                            quizPercentageElement.textContent = averageQuizScore;
-                            
+                            quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Avg: ${averageQuizScore}` : 'Incomplete';
+
                             moduleElement.addEventListener('click', () => {
                                 moduleElement.classList.toggle('expanded');
                                 const subModulesContainer = moduleElement.querySelector('.submodules-container');
