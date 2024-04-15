@@ -41,8 +41,8 @@ function calculateProgress(progressData, moduleId, subModuleId = null, lessonTit
 }
 
 // Function to create submodule elements
-function createSubModuleElements(subModules, progressData, moduleId, recommendationsData, isFirstModule, isFirstSubModule) {
-    const subModuleElements = subModules.map(subModule => {
+function createSubModuleElements(subModules, progressData, moduleId, recommendationsData, isFirstModule) {
+    const subModuleElements = subModules.map((subModule, subModuleIndex) => {
         const subModuleElement = document.createElement('div');
         subModuleElement.classList.add('knowledge-card', 'submodule');
         subModuleElement.setAttribute('data-module-id', moduleId);
@@ -69,12 +69,12 @@ function createSubModuleElements(subModules, progressData, moduleId, recommendat
         const completedLessonsForQuiz = Object.values(progressData?.[moduleId]?.subModules?.[subModule.subModuleId]?.lessons || {}).filter(lesson => lesson.completed);
         const quizScores = completedLessonsForQuiz.map(lesson => lesson.recentQuizScores || []).flat();
         const averageQuizScore = calculateAverageQuizScore(quizScores);
-        quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Average Score: ${averageQuizScore}` : 'Incomplete';
+        quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Avg: ${averageQuizScore}` : 'Incomplete';
         
         subModuleElement.appendChild(titleElement);
         subModuleElement.appendChild(progressBarElement);
         subModuleElement.appendChild(quizPercentageElement);
-    
+        
         subModuleElement.addEventListener('click', (event) => {
             event.stopPropagation();
             subModuleElement.classList.toggle('expanded');
@@ -82,7 +82,7 @@ function createSubModuleElements(subModules, progressData, moduleId, recommendat
             if (lessonsContainer) {
                 lessonsContainer.remove();
             } else {
-                const lessonsContainer = createLessonElements(subModule.lessons, progressData, moduleId, subModule.subModuleId, recommendationsData, isFirstModule, index === 0);
+                const lessonsContainer = createLessonElements(subModule.lessons, progressData, moduleId, subModule.subModuleId, recommendationsData, isFirstModule, subModuleIndex === 0);
                 subModuleElement.appendChild(lessonsContainer);
             }
         });
