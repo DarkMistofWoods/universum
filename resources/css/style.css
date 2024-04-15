@@ -988,6 +988,10 @@ fieldset {
     margin: 10px;
 }
 
+.knowledge-card:hover {
+    cursor: pointer;
+}
+
 .knowledge-card h3 {
     color: var(--color-primary);
     font-size: large;
@@ -1045,7 +1049,7 @@ fieldset {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 90%;
+    width: 95%;
     margin: 5px 0;
     padding: 10px;
     background-color: var(--color-quaternary);
@@ -1099,10 +1103,9 @@ fieldset {
 .knowledge-card .lesson .quiz-percentage {
     position: relative;
     margin: auto;
-    margin-bottom: 5px;
-    top: 7px;
-    right: 10px;
-    font-size: 12px;
+    top: 5px;
+    right: 5px;
+    font-size: small;
     color: var(--color-tertiary);
     background-color: var(--color-background);
     padding: 5px 10px;
