@@ -1,8 +1,8 @@
 {
     "Pafo": {
         "definition": "water, a fundamental element, nourishing and essential for life",
-        "class": "Noun",
-        "category": "Root Words"
+        "class": "Concept",
+        "category": "Nature"
     },
     "Kubi": {
         "definition": "fire, a fundamental elemental force, represents warmth or danger",
@@ -11,8 +11,8 @@
     },
     "Tane": {
         "definition": "earth, the ground or soil, representing nature and stability",
-        "class": "Noun",
-        "category": "Root Words"
+        "class": "Concept",
+        "category": "Nature"
     },
     "Lumi": {
         "definition": "air, the invisible substance we breathe, represents freedom and life",
@@ -21,8 +21,8 @@
     },
     "Soru": {
         "definition": "food, essential for survival, representing nourishment",
-        "class": "Noun",
-        "category": "Root Words"
+        "class": "Concept",
+        "category": "Daily Life"
     },
     "Bato": {
         "definition": "stone, a hard and natural substance, represents strength and permanence",
@@ -36,8 +36,8 @@
     },
     "Rino": {
         "definition": "animal, a non-human creature, represents the diversity of life",
-        "class": "Noun",
-        "category": "Root Words"
+        "class": "Concept",
+        "category": "Nature"
     },
     "Menu": {
         "definition": "person, a human being, an observer and participant in the world",
@@ -46,18 +46,18 @@
     },
     "Voki": {
         "definition": "voice, the sound produced by humans, represents communication",
-        "class": "Noun",
-        "category": "Root Words"
+        "class": "Concept",
+        "category": "Daily Life"
     },
     "Pika": {
         "definition": "go, basic movement or travel",
-        "class": "Verb",
-        "category": "Root Words"
+        "class": "Action",
+        "category": "Daily Life"
     },
     "Tuki": {
         "definition": "see, the act of visual perception",
-        "class": "Verb",
-        "category": "Root Words"
+        "class": "Action",
+        "category": "Daily Life"
     },
     "Benu": {
         "definition": "eat, the act of consuming food",
@@ -86,8 +86,8 @@
     },
     "Vasi": {
         "definition": "live, the state or act of living or being alive",
-        "class": "Verb",
-        "category": "Root Words"
+        "class": "Action",
+        "category": "Nature"
     },
     "Loko": {
         "definition": "find, the act of discovering something",
@@ -96,18 +96,18 @@
     },
     "Riso": {
         "definition": "laugh, the act of expressing joy or amusement",
-        "class": "Verb",
-        "category": "Root Words"
+        "class": "Action",
+        "category": "Emotional/Qualitative"
     },
     "Puno": {
         "definition": "big, large in size or amount",
-        "class": "Adjective",
-        "category": "Root Words"
+        "class": "Attribute",
+        "category": "Emotional/Qualitative"
     },
     "Tise": {
         "definition": "small, small in size or amount",
-        "class": "Adjective",
-        "category": "Root Words"
+        "class": "Attribute",
+        "category": "Emotional/Qualitative"
     },
     "Bela": {
         "definition": "good, desirable, favorable, or of high quality",
@@ -122,12 +122,12 @@
     "Lata": {
         "definition": "fast, moving or capable of moving at high speed",
         "class": "Attribute",
-        "category": "Daily Life"
+        "category": "Emotional/Qualitative"
     },
     "Ronu": {
         "definition": "slow, moving or capable of moving at low speed",
-        "class": "Adjective",
-        "category": "Root Words"
+        "class": "Attribute",
+        "category": "Emotional/Qualitative"
     },
     "Mifi": {
         "definition": "soft, gentle or not hard in texture",
@@ -136,13 +136,13 @@
     },
     "Soko": {
         "definition": "hard, firm or rigid in texture",
-        "class": "Adjective",
-        "category": "Root Words"
+        "class": "Attribute",
+        "category": "Emotional/Qualitative"
     },
     "Vune": {
         "definition": "new, not old, recently created or discovered",
-        "class": "Adjective",
-        "category": "Root Words"
+        "class": "Attribute",
+        "category": "Daily Life"
     },
     "Feko": {
         "definition": "old, having existed for a long time",
@@ -152,61 +152,61 @@
     "Ya": {
         "definition": "I/me",
         "class": "Pronoun (Personal)",
-        "category": "Root Words"
+        "category": "Grammar"
     },
     "Ye": {
         "definition": "you",
         "class": "Pronoun (Personal)",
-        "category": "Root Words"
+        "category": "Grammar"
     },
     "Yi": {
         "definition": "he/she/it(gender-neutral)",
         "class": "Pronoun (Personal)",
-        "category": "Root Words"
+        "category": "Grammar"
     },
     "Yo": {
         "definition": "we/us",
         "class": "Pronoun (Personal)",
-        "category": "Root Words"
+        "category": "Grammar"
     },
     "Yu": {
         "definition": "you(plural)",
         "class": "Pronoun (Personal)",
-        "category": "Root Words"
+        "category": "Grammar"
     },
     "Yaya": {
         "definition": "they/them",
         "class": "Pronoun (Personal)",
-        "category": "Root Words"
+        "category": "Grammar"
     },
     "Yasa": {
         "definition": "my/mine",
         "class": "Pronoun (Possessive)",
-        "category": "Root Words"
+        "category": "Grammar"
     },
     "Yesa": {
         "definition": "your/yours",
         "class": "Pronoun (Possessive)",
-        "category": "Root Words"
+        "category": "Grammar"
     },
     "Yisa": {
         "definition": "his/her/its(gender-neutral)",
         "class": "Pronoun (Possessive)",
-        "category": "Root Words"
+        "category": "Grammar"
     },
     "Yosa": {
         "definition": "our/ours",
         "class": "Pronoun (Possessive)",
-        "category": "Root Words"
+        "category": "Grammar"
     },
     "Yayasa": {
         "definition": "their/theirs",
         "class": "Pronoun (Possessive)",
-        "category": "Root Words"
+        "category": "Grammar"
     },
     "Yusa": {
         "definition": "your/yours",
         "class": "Pronoun (Possessive)",
-        "category": "Root Words"
+        "category": "Grammar"
     }
 }
