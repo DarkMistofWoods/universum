@@ -6,8 +6,8 @@
     },
     "Kubi": {
         "definition": "fire, a fundamental elemental force, represents warmth or danger",
-        "class": "Noun",
-        "category": "Root Words"
+        "class": "Concept",
+        "category": "Nature"
     },
     "Tane": {
         "definition": "earth, the ground or soil, representing nature and stability",
@@ -16,8 +16,8 @@
     },
     "Lumi": {
         "definition": "air, the invisible substance we breathe, represents freedom and life",
-        "class": "Noun",
-        "category": "Root Words"
+        "class": "Concept",
+        "category": "Nature"
     },
     "Soru": {
         "definition": "food, essential for survival, representing nourishment",
@@ -26,13 +26,13 @@
     },
     "Bato": {
         "definition": "stone, a hard and natural substance, represents strength and permanence",
-        "class": "Noun",
-        "category": "Root Words"
+        "class": "Concept",
+        "category": "Nature"
     },
     "Fali": {
         "definition": "tree, a type of large plant, symbolizing growth and nature",
-        "class": "Noun",
-        "category": "Root Words"
+        "class": "Concept",
+        "category": "Nature"
     },
     "Rino": {
         "definition": "animal, a non-human creature, represents the diversity of life",
@@ -41,8 +41,8 @@
     },
     "Menu": {
         "definition": "person, a human being, an observer and participant in the world",
-        "class": "Noun",
-        "category": "Root Words"
+        "class": "Concept",
+        "category": "Daily Life"
     },
     "Voki": {
         "definition": "voice, the sound produced by humans, represents communication",
@@ -61,28 +61,28 @@
     },
     "Benu": {
         "definition": "eat, the act of consuming food",
-        "class": "Verb",
-        "category": "Root Words"
+        "class": "Action",
+        "category": "Daily Life"
     },
     "Kaso": {
         "definition": "make, the act of creating or constructing",
-        "class": "Verb",
-        "category": "Root Words"
+        "class": "Action",
+        "category": "Daily Life"
     },
     "Miso": {
         "definition": "talk, engaging in verbal communication",
-        "class": "Verb",
-        "category": "Root Words"
+        "class": "Action",
+        "category": "Daily Life"
     },
     "Napi": {
         "definition": "take, the act of acquiring or holding something",
-        "class": "Verbs",
-        "category": "Root Words"
+        "class": "Action",
+        "category": "Daily Life"
     },
     "Fato": {
         "definition": "give, the act of transferring something to someone",
-        "class": "Verb",
-        "category": "Root Words"
+        "class": "Action",
+        "category": "Daily Life"
     },
     "Vasi": {
         "definition": "live, the state or act of living or being alive",
@@ -91,8 +91,8 @@
     },
     "Loko": {
         "definition": "find, the act of discovering something",
-        "class": "Verb",
-        "category": "Root Words"
+        "class": "Action",
+        "category": "Daily Life"
     },
     "Riso": {
         "definition": "laugh, the act of expressing joy or amusement",
@@ -111,18 +111,18 @@
     },
     "Bela": {
         "definition": "good, desirable, favorable, or of high quality",
-        "class": "Adjective",
-        "category": "Root Words"
+        "class": "Attribute",
+        "category": "Emotional/Qualitative"
     },
     "Keva": {
         "definition": "bad, undesirable, unfavorable, or of low quality",
-        "class": "Adjective",
-        "category": "Root Words"
+        "class": "Attribute",
+        "category": "Emotional/Qualitative"
     },
     "Lata": {
         "definition": "fast, moving or capable of moving at high speed",
-        "class": "Adjective",
-        "category": "Root Words"
+        "class": "Attribute",
+        "category": "Daily Life"
     },
     "Ronu": {
         "definition": "slow, moving or capable of moving at low speed",
@@ -131,8 +131,8 @@
     },
     "Mifi": {
         "definition": "soft, gentle or not hard in texture",
-        "class": "Adjective",
-        "category": "Root Words"
+        "class": "Attribute",
+        "category": "Emotional/Qualitative"
     },
     "Soko": {
         "definition": "hard, firm or rigid in texture",
@@ -146,8 +146,8 @@
     },
     "Feko": {
         "definition": "old, having existed for a long time",
-        "class": "Adjective",
-        "category": "Root Words"
+        "class": "Attribute",
+        "category": "Emotional/Qualitative"
     },
     "Ya": {
         "definition": "I/me",
