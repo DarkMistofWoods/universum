@@ -242,6 +242,7 @@ input {
     color: var(--color-primary);
     background: var(--color-quaternary);
     border: 2px solid var(--color-secondary);
+    box-shadow: 3px 3px 5px #00000047;
     border-radius: 25px;
     padding: 10px 10px;
     position: absolute;
