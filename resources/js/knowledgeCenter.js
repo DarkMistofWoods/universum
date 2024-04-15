@@ -67,8 +67,8 @@ function createSubModuleElements(subModules, progressData, moduleId) {
         
         const quizPercentageElement = document.createElement('div');
         quizPercentageElement.classList.add('quiz-percentage');
-        const completedLessons = Object.values(progressData?.[moduleId]?.subModules?.[subModule.subModuleId]?.lessons || {}).filter(lesson => lesson.completed);
-        const quizScores = completedLessons.map(lesson => lesson.recentQuizScores || []).flat();
+        const completedLessonsForQuiz = Object.values(progressData?.[moduleId]?.subModules?.[subModule.subModuleId]?.lessons || {}).filter(lesson => lesson.completed);
+        const quizScores = completedLessonsForQuiz.map(lesson => lesson.recentQuizScores || []).flat();
         const averageQuizScore = calculateAverageQuizScore(quizScores);
         quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Avg: ${averageQuizScore}` : 'Incomplete';
         
