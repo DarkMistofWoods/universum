@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar</title>
+    <link rel="stylesheet" href="./resources/css/style.css">
+
+    <script>
+        // Immediately set theme before page content loads
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'theme-dark'; // Default to dark if not set
+            document.documentElement.setAttribute('data-theme', savedTheme); // Use documentElement for earliest possible application
+        })();
+    </script>
+    <script type="module" src="./resources/js/firebase-config.js"></script>
+    <script type="module" src="./resources/js/navigation.js"></script>
+    <script type="module" src="./resources/js/miniDash.js"></script>
+
+</head>
+
+<body>
+    <div id="themeSelector">
+        <img class="theme-icon" id="sunIcon" src="./resources/icons/Universum-Sun-Icon.svg" alt="Light Mode"
+            style="display: none;" />
+        <img class="theme-icon" id="moonIcon" src="./resources/icons/Universum-Moon-Icon.svg" alt="Dark Mode" />
+    </div>
+
+    <div class="circle-container">
+        <svg class="nav-circle" viewBox="0 0 100 100">
+            <!-- Points go here -->
+        </svg>
+        <div class="center-text">Page Name</div>
+    </div>
+
+    <div class="container-secondary">
+        <h2>Grammar</h2>
+        <p>Learn how to form sentences in Universum.</p>
+        <div class="header">
+            <div class="minidash-icon" id="settings-icon">
+                <a href="./settings.html"><img src="./resources/icons/Universum-Settings-Icon.svg" alt="Settings"
+                        title="Go to Settings"></a>
+            </div>
+            <div class="minidash-icon" id="signout-icon">
+                <img src="./resources/icons/Universum-Signout-Icon.svg" alt="Sign Out" title="Sign Out">
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2024 Universum Language Project</p>
+    </footer>
+</body>
+
+<script src="./resources/js/themeSelector.js"></script>
+
+</html>

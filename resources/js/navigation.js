@@ -3,7 +3,7 @@ import { auth } from './firebase-config.js';
 const navigationPoints = [
     { pageName: "Settings", url: "./settings.html" },
     { pageName: "Achievements", url: "./achievements.html" },
-    { pageName: "Base-12 Math", url: "./base-12-math.hmtl" },
+    { pageName: "Base-12 Math", url: "./base-12-math.html" },
     { pageName: "Grammar", url: "./grammar.html" },
     { pageName: "Phonology", url: "./phonology.html" },
     { pageName: "Lexicon", url: "./lexicon.html" },

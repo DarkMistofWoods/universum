@@ -130,7 +130,7 @@ function createLessonElements(lessons, progressData, moduleId, subModuleId, reco
         const lessonData = progressData?.[moduleId]?.subModules?.[subModuleId]?.lessons?.[lesson.title] || {};
         const latestQuizScore = lessonData.recentQuizScores?.slice(-1)?.[0] || null;
         const averageQuizScore = calculateAverageQuizScore(lessonData.recentQuizScores || []);
-        quizPercentageElement.textContent = `Latest Quiz: ${latestQuizScore !== null ? `${latestQuizScore}%` : 'Incomplete'} | Average Quiz: ${averageQuizScore !== 'Incomplete' ? averageQuizScore : 'Incomplete'}`;
+        quizPercentageElement.textContent = `Latest Quiz: ${latestQuizScore !== null ? `${latestQuizScore}%` : 'Incomplete'} | Average Score: ${averageQuizScore !== 'Incomplete' ? averageQuizScore : 'Incomplete'}`;
         
         const isCompleted = lessonData.completed || false;
         const isRecommended = recommendationsData?.some(recommendation => recommendation.lessonTitle === lesson.title) || false;
