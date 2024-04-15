@@ -69,7 +69,7 @@ function createSubModuleElements(subModules, progressData, moduleId) {
         const completedLessonsForQuiz = Object.values(progressData?.[moduleId]?.subModules?.[subModule.subModuleId]?.lessons || {}).filter(lesson => lesson.completed);
         const quizScores = completedLessonsForQuiz.map(lesson => lesson.recentQuizScores || []).flat();
         const averageQuizScore = calculateAverageQuizScore(quizScores);
-        quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Average: ${averageQuizScore}` : 'Incomplete';
+        quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Average Score: ${averageQuizScore}` : 'Incomplete';
         
         subModuleElement.appendChild(titleElement);
         subModuleElement.appendChild(progressBarElement);
@@ -169,7 +169,7 @@ function handleAuthStateChanged(user) {
                                 .filter(lesson => lesson.completed && lesson.recentQuizScores && lesson.recentQuizScores.length > 0);
                             const quizScores = completedLessonsWithScores.flatMap(lesson => lesson.recentQuizScores);
                             const averageQuizScore = calculateAverageQuizScore(quizScores);
-                            quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Average: ${averageQuizScore}` : 'Incomplete';
+                            quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Average Score: ${averageQuizScore}` : 'Incomplete';
                             
                             moduleElement.addEventListener('click', () => {
                                 moduleElement.classList.toggle('expanded');
