@@ -8,7 +8,9 @@ async function fetchUserProgress(userId) {
         const userProgressSnapshot = await getDoc(userProgressRef);
 
         if (userProgressSnapshot.exists()) {
-            return userProgressSnapshot.data().progressData;
+            const progressData = userProgressSnapshot.data().progressData;
+            console.log('Fetched progress data:', progressData);
+            return progressData;
         } else {
             console.log('User progress document does not exist');
             return null;
@@ -158,10 +160,14 @@ function handleAuthStateChanged(user) {
                             moduleElement.querySelector('.progress').style.width = `${progress}%`;
 
                             const quizPercentageElement = moduleElement.querySelector('.quiz-percentage');
+                            console.log('Quiz percentage element:', quizPercentageElement);
                             const completedSubModules = Object.values(progressData?.[module.moduleId]?.subModules || {}).filter(subModule => subModule.subModuleProgress === 100);
                             const quizScores = completedSubModules.map(subModule => Object.values(subModule.lessons).map(lesson => lesson.quizScores || []).flat()).flat();
                             const averageQuizScore = calculateAverageQuizScore(quizScores);
+                            console.log('Module quiz scores:', quizScores);
+                            console.log('Module average quiz score:', averageQuizScore);
                             quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Avg: ${averageQuizScore}` : 'Incomplete';
+                            console.log('Quiz percentage text content:', quizPercentageElement.textContent);
 
                             moduleElement.addEventListener('click', () => {
                                 moduleElement.classList.toggle('expanded');

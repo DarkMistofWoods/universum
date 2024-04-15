@@ -36,13 +36,11 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
 
         for (const module of courseContent) {
             progressData[module.moduleId] = {
-                moduleProgress: 0,
                 subModules: {}
             };
 
             for (const subModule of module.subModules) {
                 progressData[module.moduleId].subModules[subModule.subModuleId] = {
-                    subModuleProgress: 0,
                     lessons: {}
                 };
 
