@@ -57,7 +57,10 @@ function createSubModuleElements(subModules, progressData, moduleId) {
         
         const progressElement = document.createElement('div');
         progressElement.classList.add('progress');
-        const progress = calculateProgress(progressData, moduleId, subModule.subModuleId);
+        
+        const totalLessons = subModule.lessons.length;
+        const completedLessons = Object.values(progressData?.[moduleId]?.subModules?.[subModule.subModuleId]?.lessons || {}).filter(lesson => lesson.completed).length;
+        const progress = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
         progressElement.style.width = `${progress}%`;
         
         progressBarElement.appendChild(progressElement);
@@ -65,7 +68,7 @@ function createSubModuleElements(subModules, progressData, moduleId) {
         const quizPercentageElement = document.createElement('div');
         quizPercentageElement.classList.add('quiz-percentage');
         const completedLessons = Object.values(progressData?.[moduleId]?.subModules?.[subModule.subModuleId]?.lessons || {}).filter(lesson => lesson.completed);
-        const quizScores = completedLessons.map(lesson => lesson.quizScores || []).flat();
+        const quizScores = completedLessons.map(lesson => lesson.recentQuizScores || []).flat();
         const averageQuizScore = calculateAverageQuizScore(quizScores);
         quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Avg: ${averageQuizScore}` : 'Incomplete';
         
@@ -160,14 +163,10 @@ function handleAuthStateChanged(user) {
                             moduleElement.querySelector('.progress').style.width = `${progress}%`;
 
                             const quizPercentageElement = moduleElement.querySelector('.quiz-percentage');
-                            console.log('Quiz percentage element:', quizPercentageElement);
                             const completedSubModules = Object.values(progressData?.[module.moduleId]?.subModules || {}).filter(subModule => subModule.subModuleProgress === 100);
-                            const quizScores = completedSubModules.map(subModule => Object.values(subModule.lessons).map(lesson => lesson.quizScores || []).flat()).flat();
+                            const quizScores = completedSubModules.map(subModule => Object.values(subModule.lessons).map(lesson => lesson.recentQuizScores || []).flat()).flat();
                             const averageQuizScore = calculateAverageQuizScore(quizScores);
-                            console.log('Module quiz scores:', quizScores);
-                            console.log('Module average quiz score:', averageQuizScore);
                             quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Avg: ${averageQuizScore}` : 'Incomplete';
-                            console.log('Quiz percentage text content:', quizPercentageElement.textContent);
 
                             moduleElement.addEventListener('click', () => {
                                 moduleElement.classList.toggle('expanded');

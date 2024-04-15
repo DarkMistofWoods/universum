@@ -1089,17 +1089,23 @@ fieldset {
     top: 10px;
     right: 10px;
     font-size: 14px;
-    color: var(--color-secondary);
+    color: var(--color-tertiary);
+    background-color: var(--color-background);
+    padding: 5px 10px;
+    border-radius: 15px;
 }
 
 .knowledge-card .submodule .quiz-percentage,
 .knowledge-card .lesson .quiz-percentage {
     position: relative;
     margin: auto;
-    margin-bottom: 15px;
-    top: 10px;
+    margin-bottom: 5px;
+    top: 7px;
     right: 10px;
     font-size: 12px;
-    color: var(--color-secondary);
+    color: var(--color-tertiary);
+    background-color: var(--color-background);
+    padding: 5px 10px;
+    border-radius: 15px;
 }
 /* END OF KNOWLEDGE CENTER */
