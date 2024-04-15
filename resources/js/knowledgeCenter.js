@@ -156,17 +156,21 @@ function handleAuthStateChanged(user) {
                         const moduleElement = document.getElementById(`${module.moduleId}`);
                         if (moduleElement) {
                             const totalLessons = module.subModules.reduce((count, subModule) => count + subModule.lessons.length, 0);
-                            
-                            const quizPercentageElement = moduleElement.querySelector('.quiz-percentage');
                             const completedLessons = Object.values(progressData?.[module.moduleId]?.subModules || {})
                                 .flatMap(subModule => Object.values(subModule.lessons))
-                                .filter(lesson => lesson.completed);
-                            const quizScores = completedLessons.flatMap(lesson => lesson.recentQuizScores || []);
-                            const averageQuizScore = calculateAverageQuizScore(quizScores);
-                            quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Avg: ${averageQuizScore}` : 'Incomplete';
+                                .filter(lesson => lesson.completed)
+                                .length;
                             const progress = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
                             moduleElement.querySelector('.progress').style.width = `${progress}%`;
-
+                            
+                            const quizPercentageElement = moduleElement.querySelector('.quiz-percentage');
+                            const completedLessonsWithScores = Object.values(progressData?.[module.moduleId]?.subModules || {})
+                                .flatMap(subModule => Object.values(subModule.lessons))
+                                .filter(lesson => lesson.completed && lesson.recentQuizScores && lesson.recentQuizScores.length > 0);
+                            const quizScores = completedLessonsWithScores.flatMap(lesson => lesson.recentQuizScores);
+                            const averageQuizScore = calculateAverageQuizScore(quizScores);
+                            quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Avg: ${averageQuizScore}` : 'Incomplete';
+                            
                             moduleElement.addEventListener('click', () => {
                                 moduleElement.classList.toggle('expanded');
                                 const subModulesContainer = moduleElement.querySelector('.submodules-container');
