@@ -1,4 +1,4 @@
-import { db, auth } from './firebase-config.js';
+import { db, auth, fetchUserSettings } from './firebase-config.js';
 import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
 
 // Function to fetch user progress data from Firestore
@@ -41,7 +41,7 @@ function calculateProgress(progressData, moduleId, subModuleId = null, lessonTit
 }
 
 // Function to create submodule elements
-function createSubModuleElements(subModules, progressData, moduleId) {
+function createSubModuleElements(subModules, progressData, moduleId, recommendationsData) {
     const subModuleElements = subModules.map(subModule => {
         const subModuleElement = document.createElement('div');
         subModuleElement.classList.add('knowledge-card', 'submodule');
@@ -74,7 +74,7 @@ function createSubModuleElements(subModules, progressData, moduleId) {
         subModuleElement.appendChild(titleElement);
         subModuleElement.appendChild(progressBarElement);
         subModuleElement.appendChild(quizPercentageElement);
-        
+    
         subModuleElement.addEventListener('click', (event) => {
             event.stopPropagation();
             subModuleElement.classList.toggle('expanded');
@@ -82,7 +82,7 @@ function createSubModuleElements(subModules, progressData, moduleId) {
             if (lessonsContainer) {
                 lessonsContainer.remove();
             } else {
-                const lessonsContainer = createLessonElements(subModule.lessons, progressData, moduleId, subModule.subModuleId);
+                const lessonsContainer = createLessonElements(subModule.lessons, progressData, moduleId, subModule.subModuleId, recommendationsData);
                 subModuleElement.appendChild(lessonsContainer);
             }
         });
@@ -104,11 +104,11 @@ function calculateAverageQuizScore(quizScores) {
 }
 
 // Function to create lesson elements
-function createLessonElements(lessons, progressData, moduleId, subModuleId) {
+function createLessonElements(lessons, progressData, moduleId, subModuleId, recommendationsData) {
     const lessonsContainer = document.createElement('div');
     lessonsContainer.classList.add('lessons-container');
     
-    const lessonElements = lessons.map(lesson => {
+    const lessonElements = lessons.map((lesson, index) => {
         const lessonElement = document.createElement('div');
         lessonElement.classList.add('knowledge-card', 'lesson');
         
@@ -130,7 +130,25 @@ function createLessonElements(lessons, progressData, moduleId, subModuleId) {
         const lessonData = progressData?.[moduleId]?.subModules?.[subModuleId]?.lessons?.[lesson.title] || {};
         const latestQuizScore = lessonData.recentQuizScores?.slice(-1)?.[0] || null;
         const averageQuizScore = calculateAverageQuizScore(lessonData.recentQuizScores || []);
-        quizPercentageElement.textContent = `Latest Quiz: ${latestQuizScore !== null ? `${latestQuizScore}%` : 'Incomplete'} | Average Score: ${averageQuizScore !== 'Incomplete' ? averageQuizScore : 'Incomplete'}`;
+        quizPercentageElement.textContent = `Latest Quiz: ${latestQuizScore !== null ? `${latestQuizScore}%` : 'Incomplete'} | Average Quiz: ${averageQuizScore !== 'Incomplete' ? averageQuizScore : 'Incomplete'}`;
+        
+        const isCompleted = lessonData.completed || false;
+        const isRecommended = recommendationsData?.some(recommendation => recommendation.lessonTitle === lesson.title) || false;
+        const isFirstLesson = index === 0;
+        const isPreviousLessonCompleted = index > 0 && (progressData?.[moduleId]?.subModules?.[subModuleId]?.lessons?.[lessons[index - 1].title]?.completed || false);
+        
+        if (isCompleted || isRecommended || isFirstLesson || isPreviousLessonCompleted) {
+            lessonElement.classList.add('unlocked');
+            lessonElement.addEventListener('click', () => {
+                window.location.href = lesson.pageUrl;
+            });
+        } else {
+            lessonElement.classList.add('locked');
+            const lockIcon = document.createElement('span');
+            lockIcon.classList.add('lock-icon');
+            lockIcon.textContent = '🔒';
+            titleElement.appendChild(lockIcon);
+        }
         
         lessonElement.appendChild(titleElement);
         lessonElement.appendChild(progressBarElement);
@@ -148,51 +166,57 @@ function createLessonElements(lessons, progressData, moduleId, subModuleId) {
 function handleAuthStateChanged(user) {
     if (user) {
         const userId = user.uid;
-        fetchUserProgress(userId).then(progressData => {
-            fetch('resources/courseContent.json')
-                .then(response => response.json())
-                .then(courseContent => {
-                    courseContent.forEach(module => {
-                        const moduleElement = document.getElementById(`${module.moduleId}`);
-                        if (moduleElement) {
-                            const totalLessons = module.subModules.reduce((count, subModule) => count + subModule.lessons.length, 0);
-                            const completedLessons = Object.values(progressData?.[module.moduleId]?.subModules || {})
-                                .flatMap(subModule => Object.values(subModule.lessons))
-                                .filter(lesson => lesson.completed)
-                                .length;
-                            const progress = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
-                            moduleElement.querySelector('.progress').style.width = `${progress}%`;
-                            
-                            const quizPercentageElement = moduleElement.querySelector('.quiz-percentage');
-                            const completedLessonsWithScores = Object.values(progressData?.[module.moduleId]?.subModules || {})
-                                .flatMap(subModule => Object.values(subModule.lessons))
-                                .filter(lesson => lesson.completed && lesson.recentQuizScores && lesson.recentQuizScores.length > 0);
-                            const quizScores = completedLessonsWithScores.flatMap(lesson => lesson.recentQuizScores);
-                            const averageQuizScore = calculateAverageQuizScore(quizScores);
-                            quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Average Score: ${averageQuizScore}` : 'Incomplete';
-                            
-                            moduleElement.addEventListener('click', () => {
-                                moduleElement.classList.toggle('expanded');
-                                const subModulesContainer = moduleElement.querySelector('.submodules-container');
-                                if (subModulesContainer) {
-                                    subModulesContainer.remove();
-                                } else {
-                                    const subModuleElements = createSubModuleElements(module.subModules, progressData, module.moduleId);
-                                    const subModulesContainer = document.createElement('div');
-                                    subModulesContainer.classList.add('submodules-container');
-                                    subModulesContainer.append(...subModuleElements);
-                                    moduleElement.appendChild(subModulesContainer);
-                                }
-                            });
-                        } else {
-                            console.warn(`Module element not found for module ID: ${module.moduleId}`);
-                        }
+        Promise.all([fetchUserProgress(userId), fetchUserSettings(userId)])
+            .then(([progressData, userSettings]) => {
+                const recommendationsData = userSettings?.guidedLearningPath ? progressData?.recommendationsData || [] : [];
+                
+                fetch('resources/courseContent.json')
+                    .then(response => response.json())
+                    .then(courseContent => {
+                        courseContent.forEach(module => {
+                            const moduleElement = document.getElementById(`${module.moduleId}`);
+                            if (moduleElement) {
+                                const totalLessons = module.subModules.reduce((count, subModule) => count + subModule.lessons.length, 0);
+                                const completedLessons = Object.values(progressData?.[module.moduleId]?.subModules || {})
+                                    .flatMap(subModule => Object.values(subModule.lessons))
+                                    .filter(lesson => lesson.completed)
+                                    .length;
+                                const progress = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
+                                moduleElement.querySelector('.progress').style.width = `${progress}%`;
+                                
+                                const quizPercentageElement = moduleElement.querySelector('.quiz-percentage');
+                                const completedLessonsWithScores = Object.values(progressData?.[module.moduleId]?.subModules || {})
+                                    .flatMap(subModule => Object.values(subModule.lessons))
+                                    .filter(lesson => lesson.completed && lesson.recentQuizScores && lesson.recentQuizScores.length > 0);
+                                const quizScores = completedLessonsWithScores.flatMap(lesson => lesson.recentQuizScores);
+                                const averageQuizScore = calculateAverageQuizScore(quizScores);
+                                quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Average Score: ${averageQuizScore}` : 'Incomplete';
+                                
+                                moduleElement.addEventListener('click', () => {
+                                    moduleElement.classList.toggle('expanded');
+                                    const subModulesContainer = moduleElement.querySelector('.submodules-container');
+                                    if (subModulesContainer) {
+                                        subModulesContainer.remove();
+                                    } else {
+                                        const subModuleElements = createSubModuleElements(module.subModules, progressData, module.moduleId, recommendationsData);
+                                        const subModulesContainer = document.createElement('div');
+                                        subModulesContainer.classList.add('submodules-container');
+                                        subModulesContainer.append(...subModuleElements);
+                                        moduleElement.appendChild(subModulesContainer);
+                                    }
+                                });
+                            } else {
+                                console.warn(`Module element not found for module ID: ${module.moduleId}`);
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching course content:', error);
                     });
-                })
-                .catch(error => {
-                    console.error('Error fetching course content:', error);
-                });
-        });
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+            });
     } else {
         console.log('User is not authenticated');
         // Handle the case when user is not authenticated

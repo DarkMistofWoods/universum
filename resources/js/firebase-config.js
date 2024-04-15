@@ -18,4 +18,23 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-export { db, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword };
+// Function to fetch user settings from Firestore
+async function fetchUserSettings(userId) {
+    try {
+        const userProfileRef = doc(db, 'userProfiles', userId);
+        const userProfileSnapshot = await getDoc(userProfileRef);
+
+        if (userProfileSnapshot.exists()) {
+            const userProfile = userProfileSnapshot.data();
+            return userProfile.settings || null;
+        } else {
+            console.log('User profile document does not exist');
+            return null;
+        }
+    } catch (error) {
+        console.error('Error fetching user settings:', error);
+        return null;
+    }
+}
+
+export { db, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, fetchUserSettings };
