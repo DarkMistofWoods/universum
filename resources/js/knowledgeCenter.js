@@ -169,7 +169,7 @@ function handleAuthStateChanged(user) {
                                 .filter(lesson => lesson.completed && lesson.recentQuizScores && lesson.recentQuizScores.length > 0);
                             const quizScores = completedLessonsWithScores.flatMap(lesson => lesson.recentQuizScores);
                             const averageQuizScore = calculateAverageQuizScore(quizScores);
-                            quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Avg: ${averageQuizScore}` : 'Incomplete';
+                            quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Average: ${averageQuizScore}` : 'Incomplete';
                             
                             moduleElement.addEventListener('click', () => {
                                 moduleElement.classList.toggle('expanded');
