@@ -37,4 +37,14 @@ async function fetchUserSettings(userId) {
     }
 }
 
-export { db, auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, fetchUserSettings };
+export {
+    db,
+    auth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    fetchUserSettings,
+    collection,
+    addDoc,
+    updateDoc,
+    doc
+  };
