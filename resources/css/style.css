@@ -477,6 +477,7 @@ select {
 }
 
 #update-email-form {
+    margin-top: 20px;
     margin-bottom: 10px;
 }
 
@@ -1209,11 +1210,12 @@ fieldset {
     list-style-type: none;
     padding-left: 20px;
     margin-bottom: 0;
+    min-width: 30%;
 }
 
 .class-section li {
     margin-bottom: 5px;
-    text-align: center;
+    text-align: left;
 }
 
 #lexiconContent strong {
