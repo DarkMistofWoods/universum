@@ -9,6 +9,9 @@ import {
     doc
 } from './firebase-config.js';
 
+// Import the renderLesson function from the lesson-specific script
+import { renderLesson } from './lessonVocabulary.js';
+
 // Function to handle user feedback
 async function handleUserFeedback(lessonId, feedback) {
     try {

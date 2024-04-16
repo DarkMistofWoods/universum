@@ -1,9 +1,21 @@
 // Import necessary functions and data
 import { renderLessonLayout } from './lessonCore.js';
-import vocabularyData from '../data.json';
+
+// Function to load the vocabulary data from data.json
+async function loadVocabularyData() {
+    try {
+      const response = await fetch('resources/data.json');
+      const vocabularyData = await response.json();
+      return vocabularyData;
+    } catch (error) {
+      console.error('Error loading vocabulary data:', error);
+      return null;
+    }
+}
 
 // Function to generate lesson content based on the current lesson
-function generateLessonContent(currentLesson) {
+async function generateLessonContent(currentLesson) {
+  const vocabularyData = await loadVocabularyData();
   const lessonTerms = getVocabularyTerms(currentLesson);
   const introductionContent = generateIntroductionContent(lessonTerms);
   const flashcardsContent = generateFlashcardsContent(lessonTerms);
