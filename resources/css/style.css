@@ -1164,7 +1164,7 @@ fieldset {
 }
 
 #lexiconContent {
-    max-height: 600px;
+    max-height: 800px;
     overflow-y: auto;
     padding: 20px;
     border-radius: 4px;
@@ -1172,20 +1172,23 @@ fieldset {
 }
 
 .lexicon-grid {
+    max-height: 800px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-gap: 20px;
 }
 
 .category-section {
-    background-color: var(--color-quaternary);
+    display: block;
+    background-color: var(--color-background);
+    border-radius: 30px;
     padding: 20px;
-    border-radius: 4px;
+    text-align: left;
 }
 
 .category-section h3 {
     font-size: 24px;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .class-section {

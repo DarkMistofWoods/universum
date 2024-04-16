@@ -74,9 +74,9 @@ function setupSearch(data) {
     
     searchInput.addEventListener('input', function() {
         const searchTerm = searchInput.value.toLowerCase();
-        const listItems = document.querySelectorAll('.lexicon-list li');
-        const classHeadings = document.querySelectorAll('.lexicon-list h4');
-        const categoryHeadings = document.querySelectorAll('.lexicon-list h3');
+        const listItems = document.querySelectorAll('#lexiconContent li');
+        const classHeadings = document.querySelectorAll('#lexiconContent h4');
+        const categoryHeadings = document.querySelectorAll('#lexiconContent h3');
         
         listItems.forEach(item => {
             const term = item.getAttribute('data-term');
@@ -90,8 +90,10 @@ function setupSearch(data) {
         });
         
         classHeadings.forEach(heading => {
-            const nextElement = heading.nextElementSibling;
-            if (nextElement && nextElement.tagName === 'UL' && !nextElement.querySelector('li:not([style*="display: none"])')) {
+            const listItems = heading.nextElementSibling.querySelectorAll('li');
+            const visibleItems = Array.from(listItems).filter(item => item.style.display !== 'none');
+            
+            if (visibleItems.length === 0) {
                 heading.style.display = 'none';
             } else {
                 heading.style.display = 'block';
@@ -99,8 +101,10 @@ function setupSearch(data) {
         });
         
         categoryHeadings.forEach(heading => {
-            const nextElements = getNextSiblings(heading);
-            if (nextElements.every(element => element.tagName === 'H4' && element.style.display === 'none')) {
+            const classHeadings = heading.parentElement.querySelectorAll('h4');
+            const visibleClassHeadings = Array.from(classHeadings).filter(heading => heading.style.display !== 'none');
+            
+            if (visibleClassHeadings.length === 0) {
                 heading.style.display = 'none';
             } else {
                 heading.style.display = 'block';
