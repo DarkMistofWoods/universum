@@ -2,211 +2,536 @@
     "Pafo": {
         "definition": "water, a fundamental element, nourishing and essential for life",
         "class": "Concept",
-        "category": "Nature"
+        "category": "Root Words"
     },
     "Kubi": {
         "definition": "fire, a fundamental elemental force, represents warmth or danger",
         "class": "Concept",
-        "category": "Nature"
+        "category": "Root Words"
     },
     "Tane": {
         "definition": "earth, the ground or soil, representing nature and stability",
         "class": "Concept",
-        "category": "Nature"
+        "category": "Root Words"
     },
     "Lumi": {
         "definition": "air, the invisible substance we breathe, represents freedom and life",
         "class": "Concept",
-        "category": "Nature"
+        "category": "Root Words"
     },
     "Soru": {
         "definition": "food, essential for survival, representing nourishment",
         "class": "Concept",
-        "category": "Daily Life"
+        "category": "Root Words"
     },
     "Bato": {
         "definition": "stone, a hard and natural substance, represents strength and permanence",
         "class": "Concept",
-        "category": "Nature"
+        "category": "Root Words"
     },
     "Fali": {
         "definition": "tree, a type of large plant, symbolizing growth and nature",
         "class": "Concept",
-        "category": "Nature"
+        "category": "Root Words"
     },
     "Rino": {
         "definition": "animal, a non-human creature, represents the diversity of life",
         "class": "Concept",
-        "category": "Nature"
+        "category": "Root Words"
     },
     "Menu": {
         "definition": "person, a human being, an observer and participant in the world",
         "class": "Concept",
-        "category": "Daily Life"
+        "category": "Root Words"
     },
     "Voki": {
         "definition": "voice, the sound produced by humans, represents communication",
         "class": "Concept",
-        "category": "Daily Life"
+        "category": "Root Words"
     },
     "Pika": {
         "definition": "go, basic movement or travel",
         "class": "Action",
-        "category": "Daily Life"
+        "category": "Root Words"
     },
     "Tuki": {
         "definition": "see, the act of visual perception",
         "class": "Action",
-        "category": "Daily Life"
+        "category": "Root Words"
     },
     "Benu": {
         "definition": "eat, the act of consuming food",
         "class": "Action",
-        "category": "Daily Life"
+        "category": "Root Words"
     },
     "Kaso": {
         "definition": "make, the act of creating or constructing",
         "class": "Action",
-        "category": "Daily Life"
+        "category": "Root Words"
     },
     "Miso": {
         "definition": "talk, engaging in verbal communication",
         "class": "Action",
-        "category": "Daily Life"
+        "category": "Root Words"
     },
     "Napi": {
         "definition": "take, the act of acquiring or holding something",
         "class": "Action",
-        "category": "Daily Life"
+        "category": "Root Words"
     },
     "Fato": {
         "definition": "give, the act of transferring something to someone",
         "class": "Action",
-        "category": "Daily Life"
+        "category": "Root Words"
     },
     "Vasi": {
         "definition": "live, the state or act of living or being alive",
         "class": "Action",
-        "category": "Nature"
+        "category": "Root Words"
     },
     "Loko": {
         "definition": "find, the act of discovering something",
         "class": "Action",
-        "category": "Daily Life"
+        "category": "Root Words"
     },
     "Riso": {
         "definition": "laugh, the act of expressing joy or amusement",
         "class": "Action",
-        "category": "Emotional/Qualitative"
+        "category": "Root Words"
     },
     "Puno": {
         "definition": "big, large in size or amount",
         "class": "Attribute",
-        "category": "Emotional/Qualitative"
+        "category": "Root Words"
     },
     "Tise": {
         "definition": "small, small in size or amount",
         "class": "Attribute",
-        "category": "Emotional/Qualitative"
+        "category": "Root Words"
     },
     "Bela": {
         "definition": "good, desirable, favorable, or of high quality",
         "class": "Attribute",
-        "category": "Emotional/Qualitative"
+        "category": "Root Words"
     },
     "Keva": {
         "definition": "bad, undesirable, unfavorable, or of low quality",
         "class": "Attribute",
-        "category": "Emotional/Qualitative"
+        "category": "Root Words"
     },
     "Lata": {
         "definition": "fast, moving or capable of moving at high speed",
         "class": "Attribute",
-        "category": "Emotional/Qualitative"
+        "category": "Root Words"
     },
     "Ronu": {
         "definition": "slow, moving or capable of moving at low speed",
         "class": "Attribute",
-        "category": "Emotional/Qualitative"
+        "category": "Root Words"
     },
     "Mifi": {
         "definition": "soft, gentle or not hard in texture",
         "class": "Attribute",
-        "category": "Emotional/Qualitative"
+        "category": "Root Words"
     },
     "Soko": {
         "definition": "hard, firm or rigid in texture",
         "class": "Attribute",
-        "category": "Emotional/Qualitative"
+        "category": "Root Words"
     },
     "Vune": {
         "definition": "new, not old, recently created or discovered",
         "class": "Attribute",
-        "category": "Daily Life"
+        "category": "Root Words"
     },
     "Feko": {
         "definition": "old, having existed for a long time",
         "class": "Attribute",
-        "category": "Emotional/Qualitative"
+        "category": "Root Words"
     },
     "Ya": {
         "definition": "I/me",
-        "class": "Pronoun (Personal)",
-        "category": "Grammar"
+        "class": "Personal Pronoun",
+        "category": "Functional Words"
     },
     "Ye": {
         "definition": "you",
-        "class": "Pronoun (Personal)",
-        "category": "Grammar"
+        "class": "Personal Pronoun",
+        "category": "Functional Words"
     },
     "Yi": {
         "definition": "he/she/it(gender-neutral)",
-        "class": "Pronoun (Personal)",
-        "category": "Grammar"
+        "class": "Personal Pronoun",
+        "category": "Functional Words"
     },
     "Yo": {
         "definition": "we/us",
-        "class": "Pronoun (Personal)",
-        "category": "Grammar"
+        "class": "Personal Pronoun",
+        "category": "Functional Words"
     },
     "Yu": {
         "definition": "you(plural)",
-        "class": "Pronoun (Personal)",
-        "category": "Grammar"
+        "class": "Personal Pronoun",
+        "category": "Functional Words"
     },
     "Yaya": {
         "definition": "they/them",
-        "class": "Pronoun (Personal)",
-        "category": "Grammar"
+        "class": "Personal Pronoun",
+        "category": "Functional Words"
     },
     "Yasa": {
         "definition": "my/mine",
-        "class": "Pronoun (Possessive)",
-        "category": "Grammar"
+        "class": "Possessive Pronoun",
+        "category": "Functional Words"
     },
     "Yesa": {
         "definition": "your/yours",
-        "class": "Pronoun (Possessive)",
-        "category": "Grammar"
+        "class": "Possessive Pronoun",
+        "category": "Functional Words"
     },
     "Yisa": {
         "definition": "his/her/its(gender-neutral)",
-        "class": "Pronoun (Possessive)",
-        "category": "Grammar"
+        "class": "Possessive Pronoun",
+        "category": "Functional Words"
     },
     "Yosa": {
         "definition": "our/ours",
-        "class": "Pronoun (Possessive)",
-        "category": "Grammar"
+        "class": "Possessive Pronoun",
+        "category": "Functional Words"
     },
     "Yayasa": {
         "definition": "their/theirs",
-        "class": "Pronoun (Possessive)",
-        "category": "Grammar"
+        "class": "Possessive Pronoun",
+        "category": "Functional Words"
     },
     "Yusa": {
         "definition": "your/yours",
-        "class": "Pronoun (Possessive)",
-        "category": "Grammar"
+        "class": "Possessive Pronoun",
+        "category": "Functional Words"
+    },
+    "Ke": {
+        "definition": "and",
+        "class": "Conjunction",
+        "category": "Functional Words"
+    },
+    "Ko": {
+        "definition": "or",
+        "class": "Conjunction",
+        "category": "Functional Words"
+    },
+    "Ku": {
+        "definition": "but",
+        "class": "Conjunction",
+        "category": "Functional Words"
+    },
+    "Kate": {
+        "definition": "because",
+        "class": "Conjunction",
+        "category": "Functional Words"
+    },
+    "Ki": {
+        "definition": "if",
+        "class": "Conjunction",
+        "category": "Functional Words"
+    },
+    "Ba": {
+        "definition": "in",
+        "class": "Preposition",
+        "category": "Functional Words"
+    },
+    "Be": {
+        "definition": "on",
+        "class": "Preposition",
+        "category": "Functional Words"
+    },
+    "Bi": {
+        "definition": "at",
+        "class": "Preposition",
+        "category": "Functional Words"
+    },
+    "Bo": {
+        "definition": "from",
+        "class": "Preposition",
+        "category": "Functional Words"
+    },
+    "Bu": {
+        "definition": "to",
+        "class": "Preposition",
+        "category": "Functional Words"
+    },
+    "Baba": {
+        "definition": "with",
+        "class": "Preposition",
+        "category": "Functional Words"
+    },
+    "Bebe": {
+        "definition": "for",
+        "class": "Preposition",
+        "category": "Functional Words"
+    },
+    "Sa": {
+        "definition": "yes",
+        "class": "Interjection",
+        "category": "Functional Words"
+    },
+    "No": {
+        "definition": "no",
+        "class": "Interjection",
+        "category": "Functional Words"
+    },
+    "Sal": {
+        "definition": "hello, greetings",
+        "class": "Interjection",
+        "category": "Functional Words"
+    },
+    "Soli": {
+        "definition": "goodbye",
+        "class": "Interjection",
+        "category": "Functional Words"
+    },
+    "Tila": {
+        "definition": "please",
+        "class": "Interjection",
+        "category": "Functional Words"
+    },
+    "Tale": {
+        "definition": "thanks",
+        "class": "Interjection",
+        "category": "Functional Words"
+    },
+    "Tulo": {
+        "definition": "sorry",
+        "class": "Interjection",
+        "category": "Functional Words"
+    },
+    "Wa": {
+        "definition": "wow/amazing",
+        "class": "Interjection",
+        "category": "Functional Words"
+    },
+    "Rinotuki": {
+        "definition": "animal-sight, \"rino\" (animal) + \"tuki\" (see) to denote the act of watching or observing animals, perhaps in the context of nature exploration or study",
+        "class": "Concept",
+        "category": "Official Compounds"
+    },
+    "Pafobato": {
+        "definition": "water-stone, \"pafo\" (water) + \"bato\" (stone), this could refer to a type of stone found in water or used in water-related settings, possibly implying something like a stepping stone in a stream or garden",
+        "class": "Concept",
+        "category": "Official Compounds"
+    },
+    "Sorubenu": {
+        "definition": "edible-food, \"soru\" (food) + \"benu\" (eat), focusing on the quality of food being edible or suitable for consumption. This could be used to describe food that's ready to eat or safe to consume",
+        "class": "Concept",
+        "category": "Official Compounds"
+    },
+    "Kubilumi": {
+        "definition": "fire-air, \"kubi\" (fire) + \"lumi\" (air), it might denote a concept like heat, warmth, or smoke spreading through the air, which could be relevant in discussions about weather, climate, or even cooking",
+        "class": "Concept",
+        "category": "Official Compounds"
+    },
+    "Tanelumi": {
+        "definition": "earth-air, \"tane\" (earth) + \"lumi\" (air), this could refer to the smell or quality of air after rain, the scent of earth rising to mingle with the air, often associated with a sense of freshness or renewal",
+        "class": "Concept",
+        "category": "Official Compounds"
+    },
+    "Falirino": {
+        "definition": "tree-animal, \"fali\" (tree) + \"rino\" (animal), potentially used to describe creatures that dwell in trees, like birds or squirrels, focusing on their habitat",
+        "class": "Concept",
+        "category": "Official Compounds"
+    },
+    "Pikavasi": {
+        "definition": "go-live, \"pika\" (go) + \"vasi\" (live), possibly indicating a journey or movement that is essential to life, perhaps used metaphorically to describe life's journey or physically to discuss migration",
+        "class": "Concept",
+        "category": "Official Compounds"
+    },
+    "Benusoru": {
+        "definition": "eat-food, \"benu\" (eat) + \"soru\" (food), meal, focusing on the act of eating, implying a meal. This term already exists as an example of compound formation, highlighting how action and object roots can combine to describe activities or concepts involving both",
+        "class": "Concept",
+        "category": "Official Compounds"
+    },
+    "Vokitane": {
+        "definition": "voice-earth, \"voki\" (voice) + \"tane\" (earth), which could metaphorically describe sounds of nature or the earth, such as the rustling of leaves or the sound of rain hitting the ground, invoking a sense of natural harmony",
+        "class": "Concept",
+        "category": "Official Compounds"
+    },
+    "Misolumi": {
+        "definition": "air-talk, \"miso\" (talk) + \"lumi\" (air), this could denote the act of speaking into the air, possibly in a context where words are not heard or are meant to blend with the surroundings, like a whisper in the wind",
+        "class": "Concept",
+        "category": "Official Compounds"
+    },
+    "Tukibenu": {
+        "definition": "see-eat, \"tuki\" (see) + \"benu\" (eat), could be used to describe the act of visually choosing or examining food before eating, akin to feasting with one's eyes, or perhaps the culinary concept of food presentation",
+        "class": "Concept",
+        "category": "Official Compounds"
+    },
+    "Lumibela": {
+        "definition": "air-good, \"lumi\" (air) + \"bela\" (good), indicating fresh, clean, or pleasantly breezy air, perhaps used to describe ideal weather conditions or the positive aspect of the environment",
+        "class": "Concept",
+        "category": "Official Compounds"
+    },
+    "Vunetane": {
+        "definition": "new-earth, \"vune\" (new) + \"tane\" (earth), could denote freshly tilled soil ready for planting, symbolizing new beginnings, fertility, or the start of a cultivation cycle",
+        "class": "Concept",
+        "category": "Official Compounds"
+    },
+    "Fekopafo": {
+        "definition": "old-water, \"feko\" (old) + \"pafo\" (water), potentially referring to ancient water sources such as old wells or springs, emphasizing their historical significance or the age-old purity of water",
+        "class": "Concept",
+        "category": "Official Compounds"
+    },
+    "Ronukubi": {
+        "definition": "slow-fire, \"ronu\" (slow) + \"kubi\" (fire), this might describe a slow-burning fire or ember, symbolizing endurance, sustained warmth, or the process of slow cooking that brings out deep flavors",
+        "class": "Concept",
+        "category": "Official Compounds"
+    },
+    "Pikabenu": {
+        "definition": "go-eat, \"pika\" (go) + \"benu\" (eat), to describe the act of going out to eat, perhaps in the context of visiting a restaurant or seeking food",
+        "class": "Action",
+        "category": "Official Compounds"
+    },
+    "Tukivasi": {
+        "definition": "see-live, \"tuki\" (see) + \"vasi\" (live), this could mean to witness life or living conditions, implying observation or study of life in different contexts or environments",
+        "class": "Action",
+        "category": "Official Compounds"
+    },
+    "Kasoloko": {
+        "definition": "make-find, \"kaso\" (make) + \"loko\" (find), potentially describing the process of creating something that enables discovery, such as a tool, method, or even a piece of art that reveals insights",
+        "class": "Action",
+        "category": "Official Compounds"
+    },
+    "Napifato": {
+        "definition": "take-give, \"napi\" (take) + \"fato\" (give), to denote the act of exchanging, suggesting a reciprocal action where items, ideas, or energy are passed back and forth",
+        "class": "Action",
+        "category": "Official Compounds"
+    },
+    "Benukaso": {
+        "definition": "eat-make, \"benu\" (eat) + \"kaso\" (make), which could describe the act of preparing food, focusing on the culinary process from ingredients to the finished dish",
+        "class": "Action",
+        "category": "Official Compounds"
+    },
+    "Misotuki": {
+        "definition": "talk-see, \"miso\" (talk) + \"tuki\" (see), to convey the idea of communicating what one sees or experiences, akin to storytelling or reporting",
+        "class": "Action",
+        "category": "Official Compounds"
+    },
+    "Lumipika": {
+        "definition": "air-go, \"lumi\" (air) + \"pika\" (go), might represent the action of airing out or ventilating, suitable for describing the process of refreshing a space or airing laundry",
+        "class": "Action",
+        "category": "Official Compounds"
+    },
+    "Rinonapi": {
+        "definition": "animal-take, \"rino\" (animal) + \"napi\" (take), this could refer to the act of adopting or rescuing an animal, emphasizing the care and commitment involved",
+        "class": "Action",
+        "category": "Official Compounds"
+    },
+    "Falinapi": {
+        "definition": "tree-take, \"fali\" (tree) + \"napi\" (take), potentially describing the action of harvesting or collecting resources from trees, such as fruit picking or sap tapping",
+        "class": "Action",
+        "category": "Official Compounds"
+    },
+    "Kubibenu": {
+        "definition": "fire-eat, \"kubi\" (fire) + \"benu\" (eat), creatively used to describe consuming or utilizing fire, metaphorically speaking, for cooking or energetically for harnessing energy or passion",
+        "class": "Action",
+        "category": "Official Compounds"
+    },
+    "Punoluko": {
+        "definition": "big-eight, \"puno\" (big) + \"luko\" (eight), to describe something as massively large or extensive, possibly referring to something that surpasses expectations in size, like a vast landscape or a grand building",
+        "class": "Attribute",
+        "category": "Official Compounds"
+    },
+    "Tiselana": {
+        "definition": "small-twelve, \"tise\" (small) + \"lana\" (twelve), this could indicate something diminutive but significant, perhaps used to describe small, intricate objects or detailed work that requires close attention",
+        "class": "Attribute",
+        "category": "Official Compounds"
+    },
+    "Belavune": {
+        "definition": "good-new, \"bela\" (good) + \"vune\" (new), to describe something as freshly good or promisingly new, suitable for objects, ideas, or beginnings that are viewed positively and with optimism",
+        "class": "Attribute",
+        "category": "Official Compounds"
+    },
+    "Kevafeko": {
+        "definition": "bad-old, \"keva\" (bad) + \"feko\" (old), which could be used to describe something that has deteriorated over time or no longer serves its purpose, like spoiled food or outdated ideas",
+        "class": "Attribute",
+        "category": "Official Compounds"
+    },
+    "Latapali": {
+        "definition": "fast-one, \"lata\" (fast) + \"pali\" (one), indicating something that is quickest or number one in speed, perhaps used in the context of racing, rapid responses, or fast-processing technology",
+        "class": "Attribute",
+        "category": "Official Compounds"
+    },
+    "Ronubasi": {
+        "definition": "slow-three, \"ronu\" (slow) + \"basi\" (three), to describe a gradual process or movement, emphasizing a deliberate pace, suitable for describing slow-cooked meals, gradual changes, or patient strategies",
+        "class": "Attribute",
+        "category": "Official Compounds"
+    },
+    "Mifisoko": {
+        "definition": "soft-hard, \"mifi\" (soft) + \"soko\" (hard), this could refer to something that combines softness and hardness in its structure or character, like a mattress with a firm core and a soft topping, or a person who is tough yet compassionate",
+        "class": "Attribute",
+        "category": "Official Compounds"
+    },
+    "Sokolumi": {
+        "definition": "hard-air, \"soko\" (hard) + \"lumi\" (air), to describe something as crisp or brisk, potentially used for climates, atmospheres, or even attitudes that have a sharp or invigorating quality",
+        "class": "Attribute",
+        "category": "Official Compounds"
+    },
+    "Vunefali": {
+        "definition": "new-tree, \"vune\" (new) + \"fali\" (tree), indicating something that is freshly grown or newly sprung, suitable for describing young plants, new growth in a garden, or metaphorically new ideas that are beginning to take root",
+        "class": "Attribute",
+        "category": "Official Compounds"
+    },
+    "Fekopika": {
+        "definition": "old-go, \"feko\" (old) + \"pika\" (go), might describe something or someone as experienced or well-traveled, imbuing a sense of wisdom or history with movement or journeying, such as an ancient path or a seasoned traveler",
+        "class": "Attribute",
+        "category": "Official Compounds"
+    },
+    "Fa": {
+        "definition": "[Question-Particle]",
+        "class": "Particle",
+        "category": "Functional Words"
+    },
+    "Ne": {
+        "definition": "[Negative-Particle]",
+        "class": "Particle",
+        "category": "Functional Words"
+    },
+    "Ta": {
+        "definition": "[Past-Particle]",
+        "class": "Particle",
+        "category": "Functional Words"
+    },
+    "Te": {
+        "definition": "[Present-Particle]",
+        "class": "Particle",
+        "category": "Functional Words"
+    },
+    "To": {
+        "definition": "[Future-Particle]",
+        "class": "Particle",
+        "category": "Functional Words"
+    },
+    "Ka": {
+        "definition": "[Plurality-Particle]",
+        "class": "Particle",
+        "category": "Functional Words"
+    },
+    "Mo": {
+        "definition": "[Comparitive-Particle]",
+        "class": "Particle",
+        "category": "Functional Words"
+    },
+    "Mos": {
+        "definition": "[Superlative-Particle]",
+        "class": "Particle",
+        "category": "Functional Words"
+    },
+    "Batofali": {
+        "definition": "stone-tree, \u201cbato\u201d (stone) + \u201cfali\u201d (tree), house or other manmade structure",
+        "class": "Concept",
+        "category": "Official Compounds"
+    },
+    "Vunemenu": {
+        "definition": "new-person, unique person, someone who is new to something",
+        "class": "Concept",
+        "category": "Official Compounds"
     }
 }
