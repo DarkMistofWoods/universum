@@ -30,22 +30,19 @@ function displayLexicon(data) {
         categories[category][termClass].push({ term, definition });
     }
 
+    const lexiconList = document.createElement('div');
+    lexiconList.classList.add('lexicon-list');
+
     // Generate HTML for each category and class
     for (const category in categories) {
-        const categoryElement = document.createElement('div');
-        categoryElement.classList.add('lexicon-category');
-        
         const categoryHeading = document.createElement('h3');
         categoryHeading.textContent = category;
-        categoryElement.appendChild(categoryHeading);
+        lexiconList.appendChild(categoryHeading);
         
         for (const termClass in categories[category]) {
-            const classElement = document.createElement('div');
-            classElement.classList.add('lexicon-class');
-            
             const classHeading = document.createElement('h4');
             classHeading.textContent = termClass;
-            classElement.appendChild(classHeading);
+            lexiconList.appendChild(classHeading);
             
             const termList = document.createElement('ul');
             categories[category][termClass].forEach(({ term, definition }) => {
@@ -56,12 +53,11 @@ function displayLexicon(data) {
                 termList.appendChild(listItem);
             });
             
-            classElement.appendChild(termList);
-            categoryElement.appendChild(classElement);
+            lexiconList.appendChild(termList);
         }
-        
-        lexiconContent.appendChild(categoryElement);
     }
+    
+    lexiconContent.appendChild(lexiconList);
 }
 
 function setupSearch(data) {
@@ -69,41 +65,49 @@ function setupSearch(data) {
     
     searchInput.addEventListener('input', function() {
         const searchTerm = searchInput.value.toLowerCase();
-        const categoryElements = document.querySelectorAll('.lexicon-category');
+        const listItems = document.querySelectorAll('.lexicon-list li');
+        const classHeadings = document.querySelectorAll('.lexicon-list h4');
+        const categoryHeadings = document.querySelectorAll('.lexicon-list h3');
         
-        categoryElements.forEach(categoryElement => {
-            const classElements = categoryElement.querySelectorAll('.lexicon-class');
-            let visibleClasses = 0;
+        listItems.forEach(item => {
+            const term = item.getAttribute('data-term');
+            const definition = item.getAttribute('data-definition');
             
-            classElements.forEach(classElement => {
-                const listItems = classElement.querySelectorAll('li');
-                let visibleItems = 0;
-                
-                listItems.forEach(item => {
-                    const term = item.getAttribute('data-term');
-                    const definition = item.getAttribute('data-definition');
-                    
-                    if (term.includes(searchTerm) || definition.includes(searchTerm)) {
-                        item.style.display = 'list-item';
-                        visibleItems++;
-                    } else {
-                        item.style.display = 'none';
-                    }
-                });
-                
-                if (visibleItems > 0) {
-                    classElement.style.display = 'block';
-                    visibleClasses++;
-                } else {
-                    classElement.style.display = 'none';
-                }
-            });
-            
-            if (visibleClasses > 0) {
-                categoryElement.style.display = 'block';
+            if (term.includes(searchTerm) || definition.includes(searchTerm)) {
+                item.style.display = 'list-item';
             } else {
-                categoryElement.style.display = 'none';
+                item.style.display = 'none';
+            }
+        });
+        
+        classHeadings.forEach(heading => {
+            const nextElement = heading.nextElementSibling;
+            if (nextElement && nextElement.tagName === 'UL' && !nextElement.querySelector('li:not([style*="display: none"])')) {
+                heading.style.display = 'none';
+            } else {
+                heading.style.display = 'block';
+            }
+        });
+        
+        categoryHeadings.forEach(heading => {
+            const nextElements = getNextSiblings(heading);
+            if (nextElements.every(element => element.tagName === 'H4' && element.style.display === 'none')) {
+                heading.style.display = 'none';
+            } else {
+                heading.style.display = 'block';
             }
         });
     });
+}
+
+function getNextSiblings(element) {
+    const siblings = [];
+    let sibling = element.nextElementSibling;
+    
+    while (sibling && (sibling.tagName === 'H4' || sibling.tagName === 'UL')) {
+        siblings.push(sibling);
+        sibling = sibling.nextElementSibling;
+    }
+    
+    return siblings;
 }
