@@ -34,12 +34,18 @@ function displayLexicon(data) {
     for (const category in categories) {
         const categoryElement = document.createElement('div');
         categoryElement.classList.add('lexicon-category');
-        categoryElement.innerHTML = `<h3>${category}</h3>`;
+        
+        const categoryHeading = document.createElement('h3');
+        categoryHeading.textContent = category;
+        categoryElement.appendChild(categoryHeading);
         
         for (const termClass in categories[category]) {
             const classElement = document.createElement('div');
             classElement.classList.add('lexicon-class');
-            classElement.innerHTML = `<h4>${termClass}</h4>`;
+            
+            const classHeading = document.createElement('h4');
+            classHeading.textContent = termClass;
+            classElement.appendChild(classHeading);
             
             const termList = document.createElement('ul');
             categories[category][termClass].forEach(({ term, definition }) => {
@@ -63,16 +69,40 @@ function setupSearch(data) {
     
     searchInput.addEventListener('input', function() {
         const searchTerm = searchInput.value.toLowerCase();
-        const listItems = document.querySelectorAll('#lexiconContent li');
+        const categoryElements = document.querySelectorAll('.lexicon-category');
         
-        listItems.forEach(item => {
-            const term = item.getAttribute('data-term');
-            const definition = item.getAttribute('data-definition');
+        categoryElements.forEach(categoryElement => {
+            const classElements = categoryElement.querySelectorAll('.lexicon-class');
+            let visibleClasses = 0;
             
-            if (term.includes(searchTerm) || definition.includes(searchTerm)) {
-                item.style.display = 'list-item';
+            classElements.forEach(classElement => {
+                const listItems = classElement.querySelectorAll('li');
+                let visibleItems = 0;
+                
+                listItems.forEach(item => {
+                    const term = item.getAttribute('data-term');
+                    const definition = item.getAttribute('data-definition');
+                    
+                    if (term.includes(searchTerm) || definition.includes(searchTerm)) {
+                        item.style.display = 'list-item';
+                        visibleItems++;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                if (visibleItems > 0) {
+                    classElement.style.display = 'block';
+                    visibleClasses++;
+                } else {
+                    classElement.style.display = 'none';
+                }
+            });
+            
+            if (visibleClasses > 0) {
+                categoryElement.style.display = 'block';
             } else {
-                item.style.display = 'none';
+                categoryElement.style.display = 'none';
             }
         });
     });
