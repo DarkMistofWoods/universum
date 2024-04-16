@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function displayLexicon(data) {
     const lexiconContent = document.getElementById('lexiconContent');
+    lexiconContent.innerHTML = ''; // Clear previous content
     const categories = {};
 
     // Group terms by category and class
@@ -42,7 +43,11 @@ function displayLexicon(data) {
             
             const termList = document.createElement('ul');
             categories[category][termClass].forEach(({ term, definition }) => {
-                termList.innerHTML += `<li><strong>${term}:</strong> ${definition}</li>`;
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `<strong>${term}:</strong> ${definition}`;
+                listItem.setAttribute('data-term', term.toLowerCase());
+                listItem.setAttribute('data-definition', definition.toLowerCase());
+                termList.appendChild(listItem);
             });
             
             classElement.appendChild(termList);
@@ -55,30 +60,20 @@ function displayLexicon(data) {
 
 function setupSearch(data) {
     const searchInput = document.getElementById('searchInput');
-    const searchButton = document.getElementById('searchButton');
     
-    searchButton.addEventListener('click', function() {
+    searchInput.addEventListener('input', function() {
         const searchTerm = searchInput.value.toLowerCase();
-        const searchResults = {};
+        const listItems = document.querySelectorAll('#lexiconContent li');
         
-        for (const term in data) {
-            const { definition, class: termClass, category } = data[term];
+        listItems.forEach(item => {
+            const term = item.getAttribute('data-term');
+            const definition = item.getAttribute('data-definition');
             
-            if (term.toLowerCase().includes(searchTerm) || definition.toLowerCase().includes(searchTerm)) {
-                if (!searchResults[category]) {
-                    searchResults[category] = {};
-                }
-                
-                if (!searchResults[category][termClass]) {
-                    searchResults[category][termClass] = [];
-                }
-                
-                searchResults[category][termClass].push({ term, definition });
+            if (term.includes(searchTerm) || definition.includes(searchTerm)) {
+                item.style.display = 'list-item';
+            } else {
+                item.style.display = 'none';
             }
-        }
-        
-        const lexiconContent = document.getElementById('lexiconContent');
-        lexiconContent.innerHTML = '';
-        displayLexicon(searchResults);
+        });
     });
 }

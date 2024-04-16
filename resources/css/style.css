@@ -1171,6 +1171,7 @@ fieldset {
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
+    width: 100%;
 }
 
 .lexicon-category {
@@ -1185,7 +1186,6 @@ fieldset {
 
 .lexicon-class {
     margin-bottom: 20px;
-    margin-left: 20px;
     width: 100%;
 }
 
