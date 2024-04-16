@@ -10,6 +10,7 @@ async function handleSignOut() {
         window.location.href = './index.html';
     } catch (error) {
         console.error('Error signing out:', error);
+        window.location.href = './login.html';
     }
 }
 

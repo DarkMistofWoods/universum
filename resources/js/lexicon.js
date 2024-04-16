@@ -32,10 +32,12 @@ function displayLexicon(data) {
     // Generate HTML for each category and class
     for (const category in categories) {
         const categoryElement = document.createElement('div');
+        categoryElement.classList.add('lexicon-category');
         categoryElement.innerHTML = `<h3>${category}</h3>`;
         
         for (const termClass in categories[category]) {
             const classElement = document.createElement('div');
+            classElement.classList.add('lexicon-class');
             classElement.innerHTML = `<h4>${termClass}</h4>`;
             
             const termList = document.createElement('ul');

@@ -490,6 +490,11 @@ select {
     padding: 5px;
     background-color: var(--color-quaternary);
     color: var(--color-secondary);
+    cursor: pointer;
+}
+
+#update-email-form button:hover {
+    background-color: var(--color-tertiary);
 }
 
 #update-email-form span {
@@ -1146,11 +1151,15 @@ fieldset {
     padding: 8px 16px;
     margin-left: 10px;
     font-size: 16px;
-    background-color: var(--color-secondary);
-    color: var(--color-primary);
+    background-color: var(--color-quaternary);
+    color: var(--color-secondary);
     border-radius: 10px;
-    border: none;
+    border: 2px solid var(--color-secondary);
     cursor: pointer;
+}
+
+#searchButton:hover {
+    background-color: var(--color-tertiary);
 }
 
 #lexiconContent {
@@ -1158,26 +1167,41 @@ fieldset {
     overflow-y: auto;
     padding: 20px;
     border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
 }
 
-#lexiconContent h3 {
+.lexicon-category {
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.lexicon-category h3 {
     font-size: 24px;
     margin-bottom: 10px;
 }
 
-#lexiconContent h4 {
+.lexicon-class {
+    margin-bottom: 20px;
+    margin-left: 20px;
+    width: 100%;
+}
+
+.lexicon-class h4 {
     color: var(--color-secondary);
     font-size: 20px;
     margin-bottom: 10px;
 }
 
-#lexiconContent ul {
+.lexicon-class ul {
     list-style-type: none;
     padding-left: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 0;
 }
 
-#lexiconContent li {
+.lexicon-class li {
     margin-bottom: 5px;
 }
 
