@@ -35,14 +35,20 @@ function displayLexicon(data) {
 
     // Generate HTML for each category and class
     for (const category in categories) {
+        const categorySection = document.createElement('div');
+        categorySection.classList.add('category-section');
+
         const categoryHeading = document.createElement('h3');
         categoryHeading.textContent = category;
-        lexiconList.appendChild(categoryHeading);
+        categorySection.appendChild(categoryHeading);
         
         for (const termClass in categories[category]) {
+            const classSection = document.createElement('div');
+            classSection.classList.add('class-section');
+
             const classHeading = document.createElement('h4');
             classHeading.textContent = termClass;
-            lexiconList.appendChild(classHeading);
+            classSection.appendChild(classHeading);
             
             const termList = document.createElement('ul');
             categories[category][termClass].forEach(({ term, definition }) => {
@@ -53,8 +59,11 @@ function displayLexicon(data) {
                 termList.appendChild(listItem);
             });
             
-            lexiconList.appendChild(termList);
+            classSection.appendChild(termList);
+            categorySection.appendChild(classSection);
         }
+
+        lexiconList.appendChild(categorySection);
     }
     
     lexiconContent.appendChild(lexiconList);

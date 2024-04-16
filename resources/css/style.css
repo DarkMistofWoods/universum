@@ -1171,25 +1171,41 @@ fieldset {
     width: 100%;
 }
 
-.lexicon-list h3 {
+.lexicon-list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.category-section {
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.category-section h3 {
     font-size: 24px;
     margin-bottom: 10px;
 }
 
-.lexicon-list h4 {
+.class-section {
+    margin-bottom: 20px;
+    margin-left: 20px;
+    width: 100%;
+}
+
+.class-section h4 {
     color: var(--color-secondary);
     font-size: 20px;
     margin-bottom: 10px;
-    margin-left: 20px;
 }
 
-.lexicon-list ul {
+.class-section ul {
     list-style-type: none;
-    padding-left: 40px;
-    margin-bottom: 20px;
+    padding-left: 20px;
+    margin-bottom: 0;
 }
 
-.lexicon-list li {
+.class-section li {
     margin-bottom: 5px;
 }
 
