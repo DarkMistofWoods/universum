@@ -371,6 +371,7 @@ function createLearningGoalElement(goal) {
     progressBarElement.appendChild(progressElement);
 
     const removeButton = document.createElement('button');
+    removeButton.classList.add('button-primary');
     removeButton.textContent = 'Remove';
     removeButton.addEventListener('click', () => removeGoal(goalId));
 
@@ -419,6 +420,7 @@ function showAddGoalForm() {
     `;
 
     const addButton = document.createElement('button');
+    addButton.classList.add('button-secondary');
     addButton.textContent = 'Add';
     addButton.addEventListener('click', () => {
         const goalType = goalTypeSelect.value;
@@ -428,6 +430,7 @@ function showAddGoalForm() {
     });
 
     const cancelButton = document.createElement('button');
+    cancelButton.classList.add('button-secondary');
     cancelButton.textContent = 'Cancel';
     cancelButton.addEventListener('click', () => {
         addGoalForm.remove();
