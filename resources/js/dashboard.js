@@ -1,5 +1,5 @@
 import { db, auth } from './firebase-config.js';
-import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
+import { doc, getDoc, collection, getDocs, addDoc, deleteDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
 
 // Function to fetch user progress data from Firestore
 async function fetchUserProgress(userId) {
@@ -328,44 +328,25 @@ function createRecommendationElement(recommendation) {
     return recommendationElement;
 }
 
-function updateLearningGoals(goalsData) {
-    // Get a reference to the learning goals container
+async function updateLearningGoals(goalsData) {
     const learningGoalsContainer = document.querySelector('.learning-goals .content');
-
-    // Clear the previous content
     learningGoalsContainer.innerHTML = '<h3>Your Learning Goals</h3>';
 
-    // Check if the goals data is available
     if (goalsData) {
-        // Update the learning goals widget with the real data
-        for (const goal of Object.values(goalsData)) {
-            const goalElement = createLearningGoalElement(goal);
+        const goalElements = [];
+        for (const [goalId, goal] of Object.entries(goalsData)) {
+            const goalElement = createLearningGoalElement(goalId, goal);
+            goalElements.push(goalElement);
             learningGoalsContainer.appendChild(goalElement);
+        }
+
+        if (goalElements.length < 3) {
+            const addGoalButton = createAddGoalButton();
+            learningGoalsContainer.appendChild(addGoalButton);
         }
     } else {
-        // Display demo data if the back-end is not accessible
-        const demoGoals = [
-            {
-                title: 'Learn 50 new vocabulary words',
-                progress: 30,
-                target: 50
-            },
-            {
-                title: 'Complete 10 grammar lessons',
-                progress: 7,
-                target: 10
-            },
-            {
-                title: 'Achieve a 90% average on quizzes',
-                progress: 85,
-                target: 100
-            }
-        ];
-
-        for (const goal of demoGoals) {
-            const goalElement = createLearningGoalElement(goal);
-            learningGoalsContainer.appendChild(goalElement);
-        }
+        const addGoalButton = createAddGoalButton();
+        learningGoalsContainer.appendChild(addGoalButton);
     }
 }
 
@@ -389,9 +370,102 @@ function createLearningGoalElement(goal) {
 
     progressBarElement.appendChild(progressElement);
 
+    const removeButton = document.createElement('button');
+    removeButton.textContent = 'Remove';
+    removeButton.addEventListener('click', () => removeGoal(goalId));
+
     goalElement.appendChild(titleElement);
     goalElement.appendChild(progressTextElement);
     goalElement.appendChild(progressBarElement);
+    goalElement.appendChild(removeButton);
 
     return goalElement;
+}
+
+function createAddGoalButton() {
+    const addGoalButton = document.createElement('button');
+    addGoalButton.textContent = 'Add Goal';
+    addGoalButton.addEventListener('click', showAddGoalForm);
+    return addGoalButton;
+}
+
+function showAddGoalForm() {
+    const addGoalForm = document.createElement('div');
+    addGoalForm.classList.add('add-goal-form');
+
+    const goalTypeLabel = document.createElement('label');
+    goalTypeLabel.textContent = 'Goal Type:';
+    const goalTypeSelect = document.createElement('select');
+    goalTypeSelect.innerHTML = `
+        <option value="completeLessons">Complete Lessons</option>
+        <option value="learnWords">Learn Words</option>
+        <option value="quizScore">Get a Quiz Score Higher Than</option>
+    `;
+
+    const goalAmountLabel = document.createElement('label');
+    goalAmountLabel.textContent = 'Amount:';
+    const goalAmountSelect = document.createElement('select');
+    goalAmountSelect.innerHTML = `
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+        <option value="35">35</option>
+        <option value="40">40</option>
+        <option value="45">45</option>
+        <option value="50">50</option>
+    `;
+
+    const addButton = document.createElement('button');
+    addButton.textContent = 'Add';
+    addButton.addEventListener('click', () => {
+        const goalType = goalTypeSelect.value;
+        const goalAmount = parseInt(goalAmountSelect.value);
+        addGoal(goalType, goalAmount);
+        addGoalForm.remove();
+    });
+
+    const cancelButton = document.createElement('button');
+    cancelButton.textContent = 'Cancel';
+    cancelButton.addEventListener('click', () => {
+        addGoalForm.remove();
+    });
+
+    addGoalForm.appendChild(goalTypeLabel);
+    addGoalForm.appendChild(goalTypeSelect);
+    addGoalForm.appendChild(goalAmountLabel);
+    addGoalForm.appendChild(goalAmountSelect);
+    addGoalForm.appendChild(addButton);
+    addGoalForm.appendChild(cancelButton);
+
+    const learningGoalsContainer = document.querySelector('.learning-goals .content');
+    learningGoalsContainer.appendChild(addGoalForm);
+}
+
+async function addGoal(goalType, goalAmount) {
+    const userId = auth.currentUser.uid;
+    const userGoalsRef = collection(db, 'users', userId, 'goals');
+    const userGoalsSnapshot = await getDocs(userGoalsRef);
+
+    if (userGoalsSnapshot.size < 3) {
+        const newGoalData = {
+            type: goalType,
+            amount: goalAmount,
+            progress: 0
+        };
+
+        await addDoc(userGoalsRef, newGoalData);
+        fetchUserProgress(userId);
+    } else {
+        alert('You have reached the maximum number of goals (3).');
+    }
+}
+
+async function removeGoal(goalId) {
+    const userId = auth.currentUser.uid;
+    const goalRef = doc(db, 'users', userId, 'goals', goalId);
+    await deleteDoc(goalRef);
+    fetchUserProgress(userId);
 }
