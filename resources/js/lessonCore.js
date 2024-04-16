@@ -239,7 +239,8 @@ async function initializeLesson() {
         processAnalyticsData(analyticsData);
     } else {
         // Redirect the user to the login page
-        window.location.href = '../../login.html';
+        console.log('User not authenticated');
+        // window.location.href = '../../../login.html';
     }
 }
 
