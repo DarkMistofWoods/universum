@@ -124,7 +124,7 @@ function getCompletedLessonsInSubModule(subModuleData) {
 
 function createModuleProgressElement(moduleId, moduleData) {
     const moduleProgress = calculateModuleProgress(moduleData);
-    const currentModule = moduleId;
+    const currentModule = formatModuleId(moduleId);
 
     const moduleElement = document.createElement('div');
     moduleElement.classList.add('module');
@@ -142,9 +142,15 @@ function createModuleProgressElement(moduleId, moduleData) {
     return moduleElement;
 }
 
+function formatModuleId(moduleId) {
+    return moduleId.replace(/([A-Z])/, ' $1').replace(/^./, function(str) {
+        return str.toUpperCase();
+    });
+}
+
 function createSubModuleProgressElement(subModuleId, subModuleData) {
     const submoduleProgress = calculateSubModuleProgress(subModuleData);
-    const currentSubmodule = subModuleId;
+    const currentSubmodule = formatSubModuleId(subModuleId);
     
     const submoduleElement = document.createElement('div');
     submoduleElement.classList.add('submodule');
@@ -160,6 +166,10 @@ function createSubModuleProgressElement(subModuleId, subModuleData) {
     submoduleElement.appendChild(submoduleProgressElement);
 
     return submoduleElement;
+}
+
+function formatSubModuleId(subModuleId) {
+    return subModuleId.replace(/_/g, ' ');
 }
 
 function createLessonProgressElement(lessonTitle, lessonData) {
