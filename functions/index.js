@@ -32,51 +32,55 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
         console.log('initializeUserProgressOnSignUp triggered for user:', user.uid);
 
         const courseContent = await fetchCourseContent();
-        const progressData = {};
 
         for (const module of courseContent) {
-            progressData[module.moduleId] = {
-                subModules: {}
-            };
-
             for (const subModule of module.subModules) {
-                progressData[module.moduleId].subModules[subModule.subModuleId] = {
-                    lessons: {}
-                };
-
                 for (const lesson of subModule.lessons) {
-                    progressData[module.moduleId].subModules[subModule.subModuleId].lessons[lesson.title] = {
+                    const lessonData = {
                         completed: false,
-                        recentQuizScores: []
+                        quizScores: [],
+                        lastAccessed: admin.firestore.FieldValue.serverTimestamp(),
+                        timeSpent: 0
                     };
+
+                    await db.collection('users').doc(user.uid).collection('progress').doc(lesson.lessonId).set(lessonData);
                 }
             }
         }
 
-        const userProgressData = {
-            progressData: progressData,
-            achievementsData: [
-                { name: 'Complete 10 lessons', progress: 0 },
-                { name: 'Learn 20 words', progress: 0 },
-                { name: 'Score 100% on three separate quizzes', progress: 0 }
-            ],
-            recommendationsData: {
-                recommendation1: {
-                    title: 'Start with vocabulary',
-                    description: 'Learn the commonly used words first.',
-                    link: '#'
-                }
-            },
-            goalsData: [
-                {
-                    title: 'Complete 10 lessons',
-                    progress: 0,
-                    target: 10
-                }
-            ]
+        const defaultAchievements = [
+            { type: 'Complete 10 lessons', progress: 0, lastUpdated: admin.firestore.FieldValue.serverTimestamp() },
+            { type: 'Learn 20 words', progress: 0, lastUpdated: admin.firestore.FieldValue.serverTimestamp() },
+            { type: 'Score 100% on three separate quizzes', progress: 0, lastUpdated: admin.firestore.FieldValue.serverTimestamp() }
+        ];
+
+        for (const achievement of defaultAchievements) {
+            await db.collection('users').doc(user.uid).collection('achievements').add(achievement);
+        }
+
+        const defaultRecommendations = {
+            recommendation1: {
+                lessonId: 'Lesson 1: Common Phrases',
+                recommendedOn: admin.firestore.FieldValue.serverTimestamp(),
+                reason: 'Start with vocabulary'
+            }
         };
 
-        await db.collection('userProgress').doc(user.uid).set(userProgressData);
+        for (const [recommendationId, recommendationData] of Object.entries(defaultRecommendations)) {
+            await db.collection('users').doc(user.uid).collection('recommendations').doc(recommendationId).set(recommendationData);
+        }
+
+        const defaultGoals = [
+            {
+                goalDescription: 'Complete 10 lessons',
+                targetDate: admin.firestore.Timestamp.fromDate(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)),
+                progress: 0
+            }
+        ];
+
+        for (const goal of defaultGoals) {
+            await db.collection('users').doc(user.uid).collection('goals').add(goal);
+        }
     } catch (error) {
         console.error('Error initializing user progress:', error);
         throw new functions.https.HttpsError('internal', error.message);

@@ -158,11 +158,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to save the generated name to the user's profile
     function saveGeneratedName(user, generatedName) {
-        // Create a reference to the user's document in 'userProfiles' collection
-        const userDocRef = doc(db, 'userProfiles', user.uid);
-
-        // Set the displayName in the user's document
-        setDoc(userDocRef, { displayName: generatedName }, { merge: true })
+        // Create a reference to the user's profile document in the 'profile' subcollection
+        const userProfileRef = doc(db, 'users', user.uid, 'profile', 'profileData');
+    
+        // Set the displayName in the user's profile document
+        setDoc(userProfileRef, { displayName: generatedName }, { merge: true })
             .then(() => {
                 alert('Name saved to your profile successfully!');
                 // Clear any pending name save after successful save

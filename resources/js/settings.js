@@ -8,7 +8,6 @@ const defaultSettings = {
     notificationSettings: 'never',
     languageInterface: 'english',
     audioSpeed: 'normal',
-    dailyGoals: '',
     learningPath: 'guided',
     privacySettings: 'private',
     feedbackFrequency: 'weekly'
@@ -16,8 +15,8 @@ const defaultSettings = {
 
 async function saveSettings(userId, settings) {
     try {
-        const userProfileRef = doc(db, 'userProfiles', userId);
-        await setDoc(userProfileRef, { settings }, { merge: true });
+        const userSettingsRef = doc(db, 'users', userId, 'settings', 'userSettings');
+        await setDoc(userSettingsRef, settings, { merge: true });
         // console.log('Settings saved successfully.');
         document.querySelector('.settings-info').textContent = 'Settings saved successfully.';
     } catch (error) {
@@ -28,10 +27,10 @@ async function saveSettings(userId, settings) {
 
 async function loadSettings(userId) {
     try {
-        const userProfileRef = doc(db, 'userProfiles', userId);
-        const docSnapshot = await getDoc(userProfileRef);
+        const userSettingsRef = doc(db, 'users', userId, 'settings', 'userSettings');
+        const docSnapshot = await getDoc(userSettingsRef);
         if (docSnapshot.exists()) {
-            return docSnapshot.data().settings || defaultSettings;
+            return docSnapshot.data() || defaultSettings;
         } else {
             return defaultSettings;
         }
@@ -45,7 +44,7 @@ async function updateEmail(userId, newEmail) {
     try {
         const user = auth.currentUser;
         await user.verifyBeforeUpdateEmail(newEmail);
-        const userProfileRef = doc(db, 'userProfiles', userId);
+        const userProfileRef = doc(db, 'users', userId, 'profile', 'profileData');
         await updateDoc(userProfileRef, { email: newEmail });
         console.log('Email verification sent successfully.');
         document.getElementById('email-info').textContent = 'Email verification sent. Please check your inbox.';
@@ -66,7 +65,6 @@ auth.onAuthStateChanged(async (user) => {
         document.querySelector('[name="notifications"]').value = settings.notificationSettings;
         document.querySelector('[name="language-interface"]').value = settings.languageInterface;
         document.querySelector(`[name="audio-speed"][value="${settings.audioSpeed}"]`).checked = true;
-        document.querySelector('[name="daily-goals"]').value = settings.dailyGoals;
         document.querySelector(`[name="learning-path"][value="${settings.learningPath}"]`).checked = true;
         document.querySelector('[name="privacy"]').value = settings.privacySettings;
         document.querySelector('[name="feedback"]').value = settings.feedbackFrequency;
@@ -82,7 +80,6 @@ auth.onAuthStateChanged(async (user) => {
                 notificationSettings: document.querySelector('[name="notifications"]').value,
                 languageInterface: document.querySelector('[name="language-interface"]').value,
                 audioSpeed: document.querySelector('[name="audio-speed"]:checked').value,
-                dailyGoals: document.querySelector('[name="daily-goals"]').value,
                 learningPath: document.querySelector('[name="learning-path"]:checked').value,
                 privacySettings: document.querySelector('[name="privacy"]').value,
                 feedbackFrequency: document.querySelector('[name="feedback"]').value

@@ -4,25 +4,63 @@ import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase
 // Function to fetch user progress data from Firestore
 async function fetchUserProgress(userId) {
     try {
-        const userProgressRef = doc(db, 'userProgress', userId);
-        const userProgressSnapshot = await getDoc(userProgressRef);
+        const userProgressRef = collection(db, 'users', userId, 'progress');
+        const userProgressSnapshot = await getDocs(userProgressRef);
 
-        if (userProgressSnapshot.exists()) {
-            const userData = userProgressSnapshot.data();
-            const progressData = userData.progressData;
-            const achievementsData = userData.achievementsData || [];
-            const recommendationsData = userData.recommendationsData || {};
-            const goalsData = userData.goalsData || [];
+        if (!userProgressSnapshot.empty) {
+            const progressData = {};
+            userProgressSnapshot.forEach(doc => {
+                const lessonId = doc.id;
+                const lessonData = doc.data();
+                progressData[lessonId] = lessonData;
+            });
 
             updateProgressTracker(progressData);
+        } else {
+            console.log('User progress data does not exist');
+            updateProgressTracker(null);
+        }
+
+        const userAchievementsRef = collection(db, 'users', userId, 'achievements');
+        const userAchievementsSnapshot = await getDocs(userAchievementsRef);
+
+        if (!userAchievementsSnapshot.empty) {
+            const achievementsData = userAchievementsSnapshot.docs.map(doc => doc.data());
             updateRecentAchievements(achievementsData);
+        } else {
+            console.log('User achievements data does not exist');
+            updateRecentAchievements(null);
+        }
+
+        const userRecommendationsRef = collection(db, 'users', userId, 'recommendations');
+        const userRecommendationsSnapshot = await getDocs(userRecommendationsRef);
+
+        if (!userRecommendationsSnapshot.empty) {
+            const recommendationsData = {};
+            userRecommendationsSnapshot.forEach(doc => {
+                const recommendationId = doc.id;
+                const recommendationData = doc.data();
+                recommendationsData[recommendationId] = recommendationData;
+            });
             updateRecommendations(recommendationsData);
+        } else {
+            console.log('User recommendations data does not exist');
+            updateRecommendations(null);
+        }
+
+        const userGoalsRef = collection(db, 'users', userId, 'goals');
+        const userGoalsSnapshot = await getDocs(userGoalsRef);
+
+        if (!userGoalsSnapshot.empty) {
+            const goalsData = {};
+            userGoalsSnapshot.forEach(doc => {
+                const goalId = doc.id;
+                const goalData = doc.data();
+                goalsData[goalId] = goalData;
+            });
             updateLearningGoals(goalsData);
         } else {
-            console.log('User progress document does not exist');
-            updateProgressTracker(null);
-            updateRecentAchievements(null);
-            updateRecommendations(null);
+            console.log('User goals data does not exist');
             updateLearningGoals(null);
         }
     } catch (error) {
@@ -37,7 +75,7 @@ async function fetchUserProgress(userId) {
 // Function to fetch user profile data from Firestore
 async function fetchUserProfile(userId) {
     try {
-        const userProfileRef = doc(db, 'userProfiles', userId);
+        const userProfileRef = doc(db, 'users', userId, 'profile', 'profileData');
         const userProfileSnapshot = await getDoc(userProfileRef);
 
         if (userProfileSnapshot.exists()) {

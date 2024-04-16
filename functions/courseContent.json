@@ -9,19 +9,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Common Phrases",
-                        "pageUrl": "../knowledge/vocabulary/level1/lesson-1.html"
+                        "pageUrl": "../knowledge/vocabulary/level1/lesson-1.html",
+                        "lessonId": "Vocabulary_1_1"
                     },
                     {
                         "title": "Lesson 2: Numbers and Counting",
-                        "pageUrl": "../knowledge/vocabulary/level1/lesson-2.html"
+                        "pageUrl": "../knowledge/vocabulary/level1/lesson-2.html",
+                        "lessonId": "Vocabulary_1_2"
                     },
                     {
                         "title": "Lesson 3: Colors and Shapes",
-                        "pageUrl": "../knowledge/vocabulary/level1/lesson-3.html"
+                        "pageUrl": "../knowledge/vocabulary/level1/lesson-3.html",
+                        "lessonId": "Vocabulary_1_3"
                     },
                     {
                         "title": "Lesson 4: Time and Days",
-                        "pageUrl": "../knowledge/vocabulary/level1/lesson-4.html"
+                        "pageUrl": "../knowledge/vocabulary/level1/lesson-4.html",
+                        "lessonId": "Vocabulary_1_4"
                     }
                 ]
             },
@@ -31,19 +35,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Family and People",
-                        "pageUrl": "../knowledge/vocabulary/level2/lesson-1.html"
+                        "pageUrl": "../knowledge/vocabulary/level2/lesson-1.html",
+                        "lessonId": "Vocabulary_2_1"
                     },
                     {
                         "title": "Lesson 2: Food and Drink",
-                        "pageUrl": "../knowledge/vocabulary/level2/lesson-2.html"
+                        "pageUrl": "../knowledge/vocabulary/level2/lesson-2.html",
+                        "lessonId": "Vocabulary_2_2"
                     },
                     {
                         "title": "Lesson 3: Clothing and Body",
-                        "pageUrl": "../knowledge/vocabulary/level2/lesson-3.html"
+                        "pageUrl": "../knowledge/vocabulary/level2/lesson-3.html",
+                        "lessonId": "Vocabulary_2_3"
                     },
                     {
                         "title": "Lesson 4: Home and Daily Routines",
-                        "pageUrl": "../knowledge/vocabulary/level2/lesson-4.html"
+                        "pageUrl": "../knowledge/vocabulary/level2/lesson-4.html",
+                        "lessonId": "Vocabulary_2_4"
                     }
                 ]
             },
@@ -53,19 +61,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Nature and Weather",
-                        "pageUrl": "../knowledge/vocabulary/level3/lesson-1.html"
+                        "pageUrl": "../knowledge/vocabulary/level3/lesson-1.html",
+                        "lessonId": "Vocabulary_3_1"
                     },
                     {
                         "title": "Lesson 2: City and Transportation",
-                        "pageUrl": "../knowledge/vocabulary/level3/lesson-2.html"
+                        "pageUrl": "../knowledge/vocabulary/level3/lesson-2.html",
+                        "lessonId": "Vocabulary_3_2"
                     },
                     {
                         "title": "Lesson 3: Shopping and Money",
-                        "pageUrl": "../knowledge/vocabulary/level3/lesson-3.html"
+                        "pageUrl": "../knowledge/vocabulary/level3/lesson-3.html",
+                        "lessonId": "Vocabulary_3_3"
                     },
                     {
                         "title": "Lesson 4: Health and Emergency",
-                        "pageUrl": "../knowledge/vocabulary/level3/lesson-4.html"
+                        "pageUrl": "../knowledge/vocabulary/level3/lesson-4.html",
+                        "lessonId": "Vocabulary_3_4"
                     }
                 ]
             },
@@ -75,19 +87,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Emotions and Opinions",
-                        "pageUrl": "../knowledge/vocabulary/level4/lesson-1.html"
+                        "pageUrl": "../knowledge/vocabulary/level4/lesson-1.html",
+                        "lessonId": "Vocabulary_4_1"
                     },
                     {
                         "title": "Lesson 2: Hobbies and Leisure",
-                        "pageUrl": "../knowledge/vocabulary/level4/lesson-2.html"
+                        "pageUrl": "../knowledge/vocabulary/level4/lesson-2.html",
+                        "lessonId": "Vocabulary_4_2"
                     },
                     {
                         "title": "Lesson 3: Education and Work",
-                        "pageUrl": "../knowledge/vocabulary/level4/lesson-3.html"
+                        "pageUrl": "../knowledge/vocabulary/level4/lesson-3.html",
+                        "lessonId": "Vocabulary_4_3"
                     },
                     {
                         "title": "Lesson 4: Travel and Culture",
-                        "pageUrl": "../knowledge/vocabulary/level4/lesson-4.html"
+                        "pageUrl": "../knowledge/vocabulary/level4/lesson-4.html",
+                        "lessonId": "Vocabulary_4_4"
                     }
                 ]
             },
@@ -97,19 +113,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Complex Descriptions",
-                        "pageUrl": "../knowledge/vocabulary/level5/lesson-1.html"
+                        "pageUrl": "../knowledge/vocabulary/level5/lesson-1.html",
+                        "lessonId": "Vocabulary_5_1"
                     },
                     {
                         "title": "Lesson 2: Abstract Concepts",
-                        "pageUrl": "../knowledge/vocabulary/level5/lesson-2.html"
+                        "pageUrl": "../knowledge/vocabulary/level5/lesson-2.html",
+                        "lessonId": "Vocabulary_5_2"
                     },
                     {
                         "title": "Lesson 3: Formal and Informal Language",
-                        "pageUrl": "../knowledge/vocabulary/level5/lesson-3.html"
+                        "pageUrl": "../knowledge/vocabulary/level5/lesson-3.html",
+                        "lessonId": "Vocabulary_5_3"
                     },
                     {
                         "title": "Lesson 4: Compound Word Construction",
-                        "pageUrl": "../knowledge/vocabulary/level5/lesson-4.html"
+                        "pageUrl": "../knowledge/vocabulary/level5/lesson-4.html",
+                        "lessonId": "Vocabulary_5_4"
                     }
                 ]
             },
@@ -119,19 +139,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Science and Technology",
-                        "pageUrl": "../knowledge/vocabulary/level6/lesson-1.html"
+                        "pageUrl": "../knowledge/vocabulary/level6/lesson-1.html",
+                        "lessonId": "Vocabulary_6_1"
                     },
                     {
                         "title": "Lesson 2: Arts and Literature",
-                        "pageUrl": "../knowledge/vocabulary/level6/lesson-2.html"
+                        "pageUrl": "../knowledge/vocabulary/level6/lesson-2.html",
+                        "lessonId": "Vocabulary_6_2"
                     },
                     {
                         "title": "Lesson 3: Business and Economy",
-                        "pageUrl": "../knowledge/vocabulary/level6/lesson-3.html"
+                        "pageUrl": "../knowledge/vocabulary/level6/lesson-3.html",
+                        "lessonId": "Vocabulary_6_3"
                     },
                     {
                         "title": "Lesson 4: Politics and Society",
-                        "pageUrl": "../knowledge/vocabulary/level6/lesson-4.html"
+                        "pageUrl": "../knowledge/vocabulary/level6/lesson-4.html",
+                        "lessonId": "Vocabulary_6_4"
                     }
                 ]
             }
@@ -147,19 +171,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Sentence Structure",
-                        "pageUrl": "../knowledge/grammar/level1/lesson-1.html"
+                        "pageUrl": "../knowledge/grammar/level1/lesson-1.html",
+                        "lessonId": "Grammar_1_1"
                     },
                     {
                         "title": "Lesson 2: Pronouns and Simple Verbs",
-                        "pageUrl": "../knowledge/grammar/level1/lesson-2.html"
+                        "pageUrl": "../knowledge/grammar/level1/lesson-2.html",
+                        "lessonId": "Grammar_1_2"
                     },
                     {
                         "title": "Lesson 3: Present, Past, and Future Tenses",
-                        "pageUrl": "../knowledge/grammar/level1/lesson-3.html"
+                        "pageUrl": "../knowledge/grammar/level1/lesson-3.html",
+                        "lessonId": "Grammar_1_3"
                     },
                     {
                         "title": "Lesson 4: Yes/No Questions and Answers",
-                        "pageUrl": "../knowledge/grammar/level1/lesson-4.html"
+                        "pageUrl": "../knowledge/grammar/level1/lesson-4.html",
+                        "lessonId": "Grammar_1_4"
                     }
                 ]
             },
@@ -169,19 +197,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Negation",
-                        "pageUrl": "../knowledge/grammar/level2/lesson-1.html"
+                        "pageUrl": "../knowledge/grammar/level2/lesson-1.html",
+                        "lessonId": "Grammar_2_1"
                     },
                     {
                         "title": "Lesson 2: Plurals and Quantity",
-                        "pageUrl": "../knowledge/grammar/level2/lesson-2.html"
+                        "pageUrl": "../knowledge/grammar/level2/lesson-2.html",
+                        "lessonId": "Grammar_2_2"
                     },
                     {
                         "title": "Lesson 3: Descriptive Language",
-                        "pageUrl": "../knowledge/grammar/level2/lesson-3.html"
+                        "pageUrl": "../knowledge/grammar/level2/lesson-3.html",
+                        "lessonId": "Grammar_2_3"
                     },
                     {
                         "title": "Lesson 4: Prepositions and Directions",
-                        "pageUrl": "../knowledge/grammar/level2/lesson-4.html"
+                        "pageUrl": "../knowledge/grammar/level2/lesson-4.html",
+                        "lessonId": "Grammar_2_4"
                     }
                 ]
             },
@@ -191,19 +223,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Possessive Structures",
-                        "pageUrl": "../knowledge/grammar/level3/lesson-1.html"
+                        "pageUrl": "../knowledge/grammar/level3/lesson-1.html",
+                        "lessonId": "Grammar_3_1"
                     },
                     {
                         "title": "Lesson 2: Comparatives and Superlatives",
-                        "pageUrl": "../knowledge/grammar/level3/lesson-2.html"
+                        "pageUrl": "../knowledge/grammar/level3/lesson-2.html",
+                        "lessonId": "Grammar_3_2"
                     },
                     {
                         "title": "Lesson 3: Imperatives and Commands",
-                        "pageUrl": "../knowledge/grammar/level3/lesson-3.html"
+                        "pageUrl": "../knowledge/grammar/level3/lesson-3.html",
+                        "lessonId": "Grammar_3_3"
                     },
                     {
                         "title": "Lesson 4: Question Words",
-                        "pageUrl": "../knowledge/grammar/level3/lesson-4.html"
+                        "pageUrl": "../knowledge/grammar/level3/lesson-4.html",
+                        "lessonId": "Grammar_3_4"
                     }
                 ]
             },
@@ -213,19 +249,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Conjunctions and Complex Sentences",
-                        "pageUrl": "../knowledge/grammar/level4/lesson-1.html"
+                        "pageUrl": "../knowledge/grammar/level4/lesson-1.html",
+                        "lessonId": "Grammar_4_1"
                     },
                     {
                         "title": "Lesson 2: Conditional Sentences",
-                        "pageUrl": "../knowledge/grammar/level4/lesson-2.html"
+                        "pageUrl": "../knowledge/grammar/level4/lesson-2.html",
+                        "lessonId": "Grammar_4_2"
                     },
                     {
                         "title": "Lesson 3: Expressing Opinions and Emotions",
-                        "pageUrl": "../knowledge/grammar/level4/lesson-3.html"
+                        "pageUrl": "../knowledge/grammar/level4/lesson-3.html",
+                        "lessonId": "Grammar_4_3"
                     },
                     {
                         "title": "Lesson 4: Indirect Speech and Reported Questions",
-                        "pageUrl": "../knowledge/grammar/level4/lesson-4.html"
+                        "pageUrl": "../knowledge/grammar/level4/lesson-4.html",
+                        "lessonId": "Grammar_4_4"
                     }
                 ]
             },
@@ -235,19 +275,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Nuances of Politeness",
-                        "pageUrl": "../knowledge/grammar/level5/lesson-1.html"
+                        "pageUrl": "../knowledge/grammar/level5/lesson-1.html",
+                        "lessonId": "Grammar_5_1"
                     },
                     {
                         "title": "Lesson 2: Cultural Expressions and Idioms",
-                        "pageUrl": "../knowledge/grammar/level5/lesson-2.html"
+                        "pageUrl": "../knowledge/grammar/level5/lesson-2.html",
+                        "lessonId": "Grammar_5_2"
                     },
                     {
                         "title": "Lesson 3: Error Correction and Clarification",
-                        "pageUrl": "../knowledge/grammar/level5/lesson-3.html"
+                        "pageUrl": "../knowledge/grammar/level5/lesson-3.html",
+                        "lessonId": "Grammar_5_3"
                     },
                     {
                         "title": "Lesson 4: Style and Register",
-                        "pageUrl": "../knowledge/grammar/level5/lesson-4.html"
+                        "pageUrl": "../knowledge/grammar/level5/lesson-4.html",
+                        "lessonId": "Grammar_5_4"
                     }
                 ]
             },
@@ -257,19 +301,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Debating and Persuasion",
-                        "pageUrl": "../knowledge/grammar/level6/lesson-1.html"
+                        "pageUrl": "../knowledge/grammar/level6/lesson-1.html",
+                        "lessonId": "Grammar_6_1"
                     },
                     {
                         "title": "Lesson 2: Storytelling and Narration",
-                        "pageUrl": "../knowledge/grammar/level6/lesson-2.html"
+                        "pageUrl": "../knowledge/grammar/level6/lesson-2.html",
+                        "lessonId": "Grammar_6_2"
                     },
                     {
                         "title": "Lesson 3: Academic and Formal Writing",
-                        "pageUrl": "../knowledge/grammar/level6/lesson-3.html"
+                        "pageUrl": "../knowledge/grammar/level6/lesson-3.html",
+                        "lessonId": "Grammar_6_3"
                     },
                     {
                         "title": "Lesson 4: Humor and Playfulness in Language",
-                        "pageUrl": "../knowledge/grammar/level6/lesson-4.html"
+                        "pageUrl": "../knowledge/grammar/level6/lesson-4.html",
+                        "lessonId": "Grammar_6_4"
                     }
                 ]
             }
@@ -285,19 +333,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Understanding Basic Greetings and Introductions",
-                        "pageUrl": "../knowledge/comprehension/level1/lesson-1.html"
+                        "pageUrl": "../knowledge/comprehension/level1/lesson-1.html",
+                        "lessonId": "Comprehension_1_1"
                     },
                     {
                         "title": "Lesson 2: Numbers and Time",
-                        "pageUrl": "../knowledge/comprehension/level1/lesson-2.html"
+                        "pageUrl": "../knowledge/comprehension/level1/lesson-2.html",
+                        "lessonId": "Comprehension_1_2"
                     },
                     {
                         "title": "Lesson 3: Common Phrases and Responses",
-                        "pageUrl": "../knowledge/comprehension/level1/lesson-3.html"
+                        "pageUrl": "../knowledge/comprehension/level1/lesson-3.html",
+                        "lessonId": "Comprehension_1_3"
                     },
                     {
                         "title": "Lesson 4: Simple Instructions and Commands",
-                        "pageUrl": "../knowledge/comprehension/level1/lesson-4.html"
+                        "pageUrl": "../knowledge/comprehension/level1/lesson-4.html",
+                        "lessonId": "Comprehension_1_4"
                     }
                 ]
             },
@@ -307,19 +359,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Shopping Conversations",
-                        "pageUrl": "../knowledge/comprehension/level2/lesson-1.html"
+                        "pageUrl": "../knowledge/comprehension/level2/lesson-1.html",
+                        "lessonId": "Comprehension_2_1"
                     },
                     {
                         "title": "Lesson 2: Restaurant and Food",
-                        "pageUrl": "../knowledge/comprehension/level2/lesson-2.html"
+                        "pageUrl": "../knowledge/comprehension/level2/lesson-2.html",
+                        "lessonId": "Comprehension_2_2"
                     },
                     {
                         "title": "Lesson 3: Directions and Transportation",
-                        "pageUrl": "../knowledge/comprehension/level2/lesson-3.html"
+                        "pageUrl": "../knowledge/comprehension/level2/lesson-3.html",
+                        "lessonId": "Comprehension_2_3"
                     },
                     {
                         "title": "Lesson 4: Weather and Seasons",
-                        "pageUrl": "../knowledge/comprehension/level2/lesson-4.html"
+                        "pageUrl": "../knowledge/comprehension/level2/lesson-4.html",
+                        "lessonId": "Comprehension_2_4"
                     }
                 ]
             },
@@ -329,19 +385,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Educational Content",
-                        "pageUrl": "../knowledge/comprehension/level3/lesson-1.html"
+                        "pageUrl": "../knowledge/comprehension/level3/lesson-1.html",
+                        "lessonId": "Comprehension_3_1"
                     },
                     {
                         "title": "Lesson 2: Work and Occupation Dialogues",
-                        "pageUrl": "../knowledge/comprehension/level3/lesson-2.html"
+                        "pageUrl": "../knowledge/comprehension/level3/lesson-2.html",
+                        "lessonId": "Comprehension_3_2"
                     },
                     {
                         "title": "Lesson 3: Health and Wellness",
-                        "pageUrl": "../knowledge/comprehension/level3/lesson-3.html"
+                        "pageUrl": "../knowledge/comprehension/level3/lesson-3.html",
+                        "lessonId": "Comprehension_3_3"
                     },
                     {
                         "title": "Lesson 4: Entertainment and Media",
-                        "pageUrl": "../knowledge/comprehension/level3/lesson-4.html"
+                        "pageUrl": "../knowledge/comprehension/level3/lesson-4.html",
+                        "lessonId": "Comprehension_3_4"
                     }
                 ]
             },
@@ -351,19 +411,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Narratives and Storytelling",
-                        "pageUrl": "../knowledge/comprehension/level4/lesson-1.html"
+                        "pageUrl": "../knowledge/comprehension/level4/lesson-1.html",
+                        "lessonId": "Comprehension_4_1"
                     },
                     {
                         "title": "Lesson 2: Opinions and Arguments",
-                        "pageUrl": "../knowledge/comprehension/level4/lesson-2.html"
+                        "pageUrl": "../knowledge/comprehension/level4/lesson-2.html",
+                        "lessonId": "Comprehension_4_2"
                     },
                     {
                         "title": "Lesson 3: Cultural and Historical Texts",
-                        "pageUrl": "../knowledge/comprehension/level4/lesson-3.html"
+                        "pageUrl": "../knowledge/comprehension/level4/lesson-3.html",
+                        "lessonId": "Comprehension_4_3"
                     },
                     {
                         "title": "Lesson 4: Technical and Scientific Articles",
-                        "pageUrl": "../knowledge/comprehension/level4/lesson-4.html"
+                        "pageUrl": "../knowledge/comprehension/level4/lesson-4.html",
+                        "lessonId": "Comprehension_4_4"
                     }
                 ]
             },
@@ -373,19 +437,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Abstract and Philosophical Texts",
-                        "pageUrl": "../knowledge/comprehension/level5/lesson-1.html"
+                        "pageUrl": "../knowledge/comprehension/level5/lesson-1.html",
+                        "lessonId": "Comprehension_5_1"
                     },
                     {
                         "title": "Lesson 2: Poetry and Literature",
-                        "pageUrl": "../knowledge/comprehension/level5/lesson-2.html"
+                        "pageUrl": "../knowledge/comprehension/level5/lesson-2.html",
+                        "lessonId": "Comprehension_5_2"
                     },
                     {
                         "title": "Lesson 3: News and Current Events",
-                        "pageUrl": "../knowledge/comprehension/level5/lesson-3.html"
+                        "pageUrl": "../knowledge/comprehension/level5/lesson-3.html",
+                        "lessonId": "Comprehension_5_3"
                     },
                     {
                         "title": "Lesson 4: Formal and Academic Papers",
-                        "pageUrl": "../knowledge/comprehension/level5/lesson-4.html"
+                        "pageUrl": "../knowledge/comprehension/level5/lesson-4.html",
+                        "lessonId": "Comprehension_5_4"
                     }
                 ]
             },
@@ -395,19 +463,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Interactive Scenarios and Role Plays",
-                        "pageUrl": "../knowledge/comprehension/level6/lesson-1.html"
+                        "pageUrl": "../knowledge/comprehension/level6/lesson-1.html",
+                        "lessonId": "Comprehension_6_1"
                     },
                     {
                         "title": "Lesson 2: Listening and Audio Comprehension",
-                        "pageUrl": "../knowledge/comprehension/level6/lesson-2.html"
+                        "pageUrl": "../knowledge/comprehension/level6/lesson-2.html",
+                        "lessonId": "Comprehension_6_2"
                     },
                     {
                         "title": "Lesson 3: Visual Comprehension and Interpretation",
-                        "pageUrl": "../knowledge/comprehension/level6/lesson-3.html"
+                        "pageUrl": "../knowledge/comprehension/level6/lesson-3.html",
+                        "lessonId": "Comprehension_6_3"
                     },
                     {
                         "title": "Lesson 4: Comprehension Through Creation",
-                        "pageUrl": "../knowledge/comprehension/level6/lesson-4.html"
+                        "pageUrl": "../knowledge/comprehension/level6/lesson-4.html",
+                        "lessonId": "Comprehension_6_4"
                     }
                 ]
             }
@@ -423,19 +495,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Introduction to Base-12 System",
-                        "pageUrl": "../knowledge/math/level1/lesson-1.html"
+                        "pageUrl": "../knowledge/math/level1/lesson-1.html",
+                        "lessonId": "Math_1_1"
                     },
                     {
                         "title": "Lesson 2: Counting in Base-12",
-                        "pageUrl": "../knowledge/math/level1/lesson-2.html"
+                        "pageUrl": "../knowledge/math/level1/lesson-2.html",
+                        "lessonId": "Math_1_2"
                     },
                     {
                         "title": "Lesson 3: Basic Operations in Base-12",
-                        "pageUrl": "../knowledge/math/level1/lesson-3.html"
+                        "pageUrl": "../knowledge/math/level1/lesson-3.html",
+                        "lessonId": "Math_1_3"
                     },
                     {
                         "title": "Lesson 4: Multiplication and Division in Base-12",
-                        "pageUrl": "../knowledge/math/level1/lesson-4.html"
+                        "pageUrl": "../knowledge/math/level1/lesson-4.html",
+                        "lessonId": "Math_1_4"
                     }
                 ]
             },
@@ -445,19 +521,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Carrying and Borrowing in Base-12",
-                        "pageUrl": "../knowledge/math/level2/lesson-1.html"
+                        "pageUrl": "../knowledge/math/level2/lesson-1.html",
+                        "lessonId": "Math_2_1"
                     },
                     {
                         "title": "Lesson 2: Advanced Multiplication and Division",
-                        "pageUrl": "../knowledge/math/level2/lesson-2.html"
+                        "pageUrl": "../knowledge/math/level2/lesson-2.html",
+                        "lessonId": "Math_2_2"
                     },
                     {
                         "title": "Lesson 3: Fractions in Base-12",
-                        "pageUrl": "../knowledge/math/level2/lesson-3.html"
+                        "pageUrl": "../knowledge/math/level2/lesson-3.html",
+                        "lessonId": "Math_2_3"
                     },
                     {
                         "title": "Lesson 4: Converting Between Base-10 and Base-12",
-                        "pageUrl": "../knowledge/math/level2/lesson-4.html"
+                        "pageUrl": "../knowledge/math/level2/lesson-4.html",
+                        "lessonId": "Math_2_4"
                     }
                 ]
             },
@@ -467,19 +547,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Base-12 Place Values",
-                        "pageUrl": "../knowledge/math/level3/lesson-1.html"
+                        "pageUrl": "../knowledge/math/level3/lesson-1.html",
+                        "lessonId": "Math_3_1"
                     },
                     {
                         "title": "Lesson 2: Using Base-12 in Practical Situations",
-                        "pageUrl": "../knowledge/math/level3/lesson-2.html"
+                        "pageUrl": "../knowledge/math/level3/lesson-2.html",
+                        "lessonId": "Math_3_2"
                     },
                     {
                         "title": "Lesson 3: Decimals in Base-12",
-                        "pageUrl": "../knowledge/math/level3/lesson-3.html"
+                        "pageUrl": "../knowledge/math/level3/lesson-3.html",
+                        "lessonId": "Math_3_3"
                     },
                     {
                         "title": "Lesson 4: Ratios and Proportions in Base-12",
-                        "pageUrl": "../knowledge/math/level3/lesson-4.html"
+                        "pageUrl": "../knowledge/math/level3/lesson-4.html",
+                        "lessonId": "Math_3_4"
                     }
                 ]
             },
@@ -489,19 +573,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Geometric Shapes and Measurements in Base-12",
-                        "pageUrl": "../knowledge/math/level4/lesson-1.html"
+                        "pageUrl": "../knowledge/math/level4/lesson-1.html",
+                        "lessonId": "Math_4_1"
                     },
                     {
                         "title": "Lesson 2: Algebraic Expressions in Base-12",
-                        "pageUrl": "../knowledge/math/level4/lesson-2.html"
+                        "pageUrl": "../knowledge/math/level4/lesson-2.html",
+                        "lessonId": "Math_4_2"
                     },
                     {
                         "title": "Lesson 3: Graphing in Base-12",
-                        "pageUrl": "../knowledge/math/level4/lesson-3.html"
+                        "pageUrl": "../knowledge/math/level4/lesson-3.html",
+                        "lessonId": "Math_4_3"
                     },
                     {
                         "title": "Lesson 4: Statistics and Probability in Base-12",
-                        "pageUrl": "../knowledge/math/level4/lesson-4.html"
+                        "pageUrl": "../knowledge/math/level4/lesson-4.html",
+                        "lessonId": "Math_4_4"
                     }
                 ]
             },
@@ -511,19 +599,23 @@
                 "lessons": [
                     {
                         "title": "Lesson 1: Mathematical Puzzles in Base-12",
-                        "pageUrl": "../knowledge/math/level5/lesson-1.html"
+                        "pageUrl": "../knowledge/math/level5/lesson-1.html",
+                        "lessonId": "Math_5_1"
                     },
                     {
                         "title": "Lesson 2: Exploring Patterns and Sequences in Base-12",
-                        "pageUrl": "../knowledge/math/level5/lesson-2.html"
+                        "pageUrl": "../knowledge/math/level5/lesson-2.html",
+                        "lessonId": "Math_5_2"
                     },
                     {
                         "title": "Lesson 3: Base-12 in Science and Technology",
-                        "pageUrl": "../knowledge/math/level5/lesson-3.html"
+                        "pageUrl": "../knowledge/math/level5/lesson-3.html",
+                        "lessonId": "Math_5_3"
                     },
                     {
                         "title": "Lesson 4: Theoretical Math in Base-12",
-                        "pageUrl": "../knowledge/math/level5/lesson-4.html"
+                        "pageUrl": "../knowledge/math/level5/lesson-4.html",
+                        "lessonId": "Math_5_4"
                     }
                 ]
             }

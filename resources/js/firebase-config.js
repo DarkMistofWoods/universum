@@ -21,14 +21,14 @@ const db = getFirestore(app);
 // Function to fetch user settings from Firestore
 async function fetchUserSettings(userId) {
     try {
-        const userProfileRef = doc(db, 'userProfiles', userId);
-        const userProfileSnapshot = await getDoc(userProfileRef);
+        const userSettingsRef = doc(db, 'users', userId, 'settings', 'userSettings');
+        const userSettingsSnapshot = await getDoc(userSettingsRef);
 
-        if (userProfileSnapshot.exists()) {
-            const userProfile = userProfileSnapshot.data();
-            return userProfile.settings || null;
+        if (userSettingsSnapshot.exists()) {
+            const userSettings = userSettingsSnapshot.data();
+            return userSettings || null;
         } else {
-            console.log('User profile document does not exist');
+            console.log('User settings document does not exist');
             return null;
         }
     } catch (error) {

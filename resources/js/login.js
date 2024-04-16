@@ -307,25 +307,31 @@ async function initializeUserProfile(user) {
 
     const userProfileData = {
         displayName: displayName,
-        email: user.email,
-        settings: {
-            learningPace: 'medium',
-            contentPreferences: [],
-            notificationSettings: 'never',
-            languageInterface: 'english',
-            audioSpeed: 'normal',
-            dailyGoals: '',
-            learningPath: 'guided',
-            privacySettings: 'private',
-            feedbackFrequency: 'weekly'
-        }
+        email: user.email
+    };
+
+    const userSettingsData = {
+        learningPace: 'medium',
+        contentPreferences: [],
+        notificationSettings: 'never',
+        languageInterface: 'english',
+        audioSpeed: 'normal',
+        learningPath: 'guided',
+        privacySettings: 'private',
+        feedbackFrequency: 'weekly'
     };
     
-    await setDoc(doc(db, 'userProfiles', user.uid), userProfileData);
-    console.log('User profile initialized.');
-
-    // Remove the pendingNameSave from localStorage after saving it to the user profile
-    localStorage.removeItem('pendingNameSave');
+    try {
+        await setDoc(doc(db, 'users', user.uid, 'profile', 'profileData'), userProfileData);
+        await setDoc(doc(db, 'users', user.uid, 'settings', 'userSettings'), userSettingsData);
+        console.log('User profile initialized.');
+    
+        // Remove the pendingNameSave from localStorage after saving it to the user profile
+        localStorage.removeItem('pendingNameSave');
+    } catch (error) {
+        console.error('Error initializing user profile:', error);
+        throw error;
+    }
 }
 
 async function handleForgotPassword() {

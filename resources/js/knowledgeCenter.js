@@ -1,17 +1,20 @@
 import { db, auth, fetchUserSettings } from './firebase-config.js';
-import { doc, getDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
+import { collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
 
 // Function to fetch user progress data from Firestore
 async function fetchUserProgress(userId) {
     try {
-        const userProgressRef = doc(db, 'userProgress', userId);
-        const userProgressSnapshot = await getDoc(userProgressRef);
+        const userProgressRef = collection(db, 'users', userId, 'progress');
+        const userProgressSnapshot = await getDocs(userProgressRef);
 
-        if (userProgressSnapshot.exists()) {
-            const progressData = userProgressSnapshot.data().progressData;
+        if (!userProgressSnapshot.empty) {
+            const progressData = {};
+            userProgressSnapshot.forEach(doc => {
+                progressData[doc.id] = doc.data();
+            });
             return progressData;
         } else {
-            console.log('User progress document does not exist');
+            console.log('User progress data does not exist');
             return null;
         }
     } catch (error) {
@@ -21,23 +24,12 @@ async function fetchUserProgress(userId) {
 }
 
 // Function to calculate progress based on user progress data
-function calculateProgress(progressData, moduleId, subModuleId = null, lessonTitle = null) {
-    if (!progressData || !progressData[moduleId]) {
+function calculateProgress(progressData, lessonId) {
+    if (!progressData || !progressData[lessonId]) {
         return 0;
     }
 
-    if (subModuleId && lessonTitle) {
-        return progressData[moduleId].subModules[subModuleId].lessons[lessonTitle].completed ? 100 : 0;
-    } else if (subModuleId) {
-        const subModuleData = progressData[moduleId].subModules[subModuleId];
-        const totalLessons = Object.keys(subModuleData.lessons).length;
-        const completedLessons = Object.values(subModuleData.lessons).filter(lesson => lesson.completed).length;
-        return (completedLessons / totalLessons) * 100;
-    } else {
-        const totalSubModules = Object.keys(progressData[moduleId].subModules).length;
-        const completedSubModules = Object.values(progressData[moduleId].subModules).filter(subModule => subModule.subModuleProgress === 100).length;
-        return (completedSubModules / totalSubModules) * 100;
-    }
+    return progressData[lessonId].completed ? 100 : 0;
 }
 
 // Function to create submodule elements
@@ -58,7 +50,7 @@ function createSubModuleElements(subModules, progressData, moduleId, recommendat
         progressElement.classList.add('progress');
         
         const totalLessons = subModule.lessons.length;
-        const completedLessons = Object.values(progressData?.[moduleId]?.subModules?.[subModule.subModuleId]?.lessons || {}).filter(lesson => lesson.completed).length;
+        const completedLessons = subModule.lessons.filter(lesson => progressData && progressData[lesson.lessonId] && progressData[lesson.lessonId].completed).length;
         const progress = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
         progressElement.style.width = `${progress}%`;
         
@@ -66,8 +58,8 @@ function createSubModuleElements(subModules, progressData, moduleId, recommendat
         
         const quizPercentageElement = document.createElement('div');
         quizPercentageElement.classList.add('quiz-percentage');
-        const completedLessonsForQuiz = Object.values(progressData?.[moduleId]?.subModules?.[subModule.subModuleId]?.lessons || {}).filter(lesson => lesson.completed);
-        const quizScores = completedLessonsForQuiz.map(lesson => lesson.recentQuizScores || []).flat();
+        const completedLessonsForQuiz = subModule.lessons.filter(lesson => progressData && progressData[lesson.lessonId] && progressData[lesson.lessonId].completed);
+        const quizScores = completedLessonsForQuiz.map(lesson => progressData[lesson.lessonId].quizScores || []).flat();
         const averageQuizScore = calculateAverageQuizScore(quizScores);
         quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Avg: ${averageQuizScore}` : 'Incomplete';
         
@@ -82,7 +74,7 @@ function createSubModuleElements(subModules, progressData, moduleId, recommendat
             if (lessonsContainer) {
                 lessonsContainer.remove();
             } else {
-                const lessonsContainer = createLessonElements(subModule.lessons, progressData, moduleId, subModule.subModuleId, recommendationsData, isFirstModule, subModuleIndex === 0);
+                const lessonsContainer = createLessonElements(subModule.lessons, progressData, recommendationsData, isFirstModule, subModuleIndex === 0);
                 subModuleElement.appendChild(lessonsContainer);
             }
         });
@@ -104,7 +96,7 @@ function calculateAverageQuizScore(quizScores) {
 }
 
 // Function to create lesson elements
-function createLessonElements(lessons, progressData, moduleId, subModuleId, recommendationsData, isFirstModule, isFirstSubModule) {
+function createLessonElements(lessons, progressData, recommendationsData, isFirstModule, isFirstSubModule) {
     const lessonsContainer = document.createElement('div');
     lessonsContainer.classList.add('lessons-container');
     
@@ -120,22 +112,22 @@ function createLessonElements(lessons, progressData, moduleId, subModuleId, reco
         
         const progressElement = document.createElement('div');
         progressElement.classList.add('progress');
-        const progress = calculateProgress(progressData, moduleId, subModuleId, lesson.title);
+        const progress = calculateProgress(progressData, lesson.lessonId);
         progressElement.style.width = `${progress}%`;
         
         progressBarElement.appendChild(progressElement);
         
         const quizPercentageElement = document.createElement('div');
         quizPercentageElement.classList.add('quiz-percentage');
-        const lessonData = progressData?.[moduleId]?.subModules?.[subModuleId]?.lessons?.[lesson.title] || {};
-        const latestQuizScore = lessonData.recentQuizScores?.slice(-1)?.[0] || null;
-        const averageQuizScore = calculateAverageQuizScore(lessonData.recentQuizScores || []);
+        const lessonData = progressData?.[lesson.lessonId] || {};
+        const latestQuizScore = lessonData.quizScores?.slice(-1)?.[0] || null;
+        const averageQuizScore = calculateAverageQuizScore(lessonData.quizScores || []);
         quizPercentageElement.textContent = `Latest Quiz: ${latestQuizScore !== null ? `${latestQuizScore}%` : 'Incomplete'} | Average Score: ${averageQuizScore !== 'Incomplete' ? averageQuizScore : 'Incomplete'}`;
         
         const isCompleted = lessonData.completed || false;
-        const isRecommended = recommendationsData?.some(recommendation => recommendation.lessonTitle === lesson.title) || false;
+        const isRecommended = recommendationsData?.some(recommendation => recommendation.lessonId === lesson.lessonId) || false;
         const isFirstLesson = isFirstModule && isFirstSubModule && index === 0;
-        const isPreviousLessonCompleted = index > 0 && (progressData?.[moduleId]?.subModules?.[subModuleId]?.lessons?.[lessons[index - 1].title]?.completed || false);
+        const isPreviousLessonCompleted = index > 0 && (progressData?.[lessons[index - 1].lessonId]?.completed || false);
         
         if (isCompleted || isRecommended || isFirstLesson || isPreviousLessonCompleted) {
             lessonElement.classList.add('unlocked');
@@ -168,7 +160,7 @@ function handleAuthStateChanged(user) {
         const userId = user.uid;
         Promise.all([fetchUserProgress(userId), fetchUserSettings(userId)])
             .then(([progressData, userSettings]) => {
-                const recommendationsData = userSettings?.guidedLearningPath ? progressData?.recommendationsData || [] : [];
+                const recommendationsData = userSettings?.learningPath === 'guided' ? userSettings.recommendationsData || [] : [];
                 
                 fetch('resources/courseContent.json')
                     .then(response => response.json())
@@ -177,18 +169,16 @@ function handleAuthStateChanged(user) {
                             const moduleElement = document.getElementById(`${module.moduleId}`);
                             if (moduleElement) {
                                 const totalLessons = module.subModules.reduce((count, subModule) => count + subModule.lessons.length, 0);
-                                const completedLessons = Object.values(progressData?.[module.moduleId]?.subModules || {})
-                                    .flatMap(subModule => Object.values(subModule.lessons))
-                                    .filter(lesson => lesson.completed)
+                                const completedLessons = module.subModules.flatMap(subModule => subModule.lessons)
+                                    .filter(lesson => progressData && progressData[lesson.lessonId] && progressData[lesson.lessonId].completed)
                                     .length;
                                 const progress = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
                                 moduleElement.querySelector('.progress').style.width = `${progress}%`;
                                 
                                 const quizPercentageElement = moduleElement.querySelector('.quiz-percentage');
-                                const completedLessonsWithScores = Object.values(progressData?.[module.moduleId]?.subModules || {})
-                                    .flatMap(subModule => Object.values(subModule.lessons))
-                                    .filter(lesson => lesson.completed && lesson.recentQuizScores && lesson.recentQuizScores.length > 0);
-                                const quizScores = completedLessonsWithScores.flatMap(lesson => lesson.recentQuizScores);
+                                const completedLessonsWithScores = module.subModules.flatMap(subModule => subModule.lessons)
+                                    .filter(lesson => progressData && progressData[lesson.lessonId] && progressData[lesson.lessonId].completed && progressData[lesson.lessonId].quizScores && progressData[lesson.lessonId].quizScores.length > 0);
+                                const quizScores = completedLessonsWithScores.flatMap(lesson => progressData[lesson.lessonId].quizScores);
                                 const averageQuizScore = calculateAverageQuizScore(quizScores);
                                 quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Average Score: ${averageQuizScore}` : 'Incomplete';
                                 
