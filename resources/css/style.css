@@ -1186,18 +1186,21 @@ fieldset {
 }
 
 .category-section h3 {
-    font-size: 24px;
+    font-size: xx-large;
+    color: var(--color-primary);
     margin-bottom: 10px;
     text-align: center;
 }
 
 .class-section {
+    margin: auto;
     margin-bottom: 20px;
+    width: 100%;
 }
 
 .class-section h4 {
     color: var(--color-secondary);
-    font-size: 20px;
+    font-size: x-large;
     margin-bottom: 10px;
 }
 
@@ -1209,6 +1212,7 @@ fieldset {
 
 .class-section li {
     margin-bottom: 5px;
+    text-align: center;
 }
 
 #lexiconContent strong {
