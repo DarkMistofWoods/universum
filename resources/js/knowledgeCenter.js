@@ -162,7 +162,7 @@ function handleAuthStateChanged(user) {
             .then(([progressData, userSettings]) => {
                 const recommendationsData = userSettings?.learningPath === 'guided' ? userSettings.recommendationsData || [] : [];
                 
-                fetch('resources/courseContent.json')
+                fetch('functions/courseContent.json')
                     .then(response => response.json())
                     .then(courseContent => {
                         courseContent.forEach((module, moduleIndex) => {
