@@ -1193,14 +1193,14 @@ fieldset {
 }
 
 .class-section {
-    margin: auto;
     margin-bottom: 20px;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .class-section h4 {
     color: var(--color-secondary);
-    font-size: x-large;
+    font-size: 20px;
     margin-bottom: 10px;
 }
 

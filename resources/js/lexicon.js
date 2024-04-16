@@ -76,7 +76,7 @@ function setupSearch(data) {
         const searchTerm = searchInput.value.toLowerCase();
         const listItems = document.querySelectorAll('#lexiconContent li');
         const classHeadings = document.querySelectorAll('#lexiconContent h4');
-        const categoryHeadings = document.querySelectorAll('#lexiconContent h3');
+        const categorySections = document.querySelectorAll('#lexiconContent .category-section');
         
         listItems.forEach(item => {
             const term = item.getAttribute('data-term');
@@ -100,14 +100,14 @@ function setupSearch(data) {
             }
         });
         
-        categoryHeadings.forEach(heading => {
-            const classHeadings = heading.parentElement.querySelectorAll('h4');
+        categorySections.forEach(section => {
+            const classHeadings = section.querySelectorAll('h4');
             const visibleClassHeadings = Array.from(classHeadings).filter(heading => heading.style.display !== 'none');
             
             if (visibleClassHeadings.length === 0) {
-                heading.style.display = 'none';
+                section.style.display = 'none';
             } else {
-                heading.style.display = 'block';
+                section.style.display = 'block';
             }
         });
     });
