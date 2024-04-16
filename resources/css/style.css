@@ -1171,15 +1171,16 @@ fieldset {
     width: 100%;
 }
 
-.lexicon-list {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+.lexicon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
 }
 
 .category-section {
-    margin-bottom: 30px;
-    width: 100%;
+    background-color: var(--color-quaternary);
+    padding: 20px;
+    border-radius: 4px;
 }
 
 .category-section h3 {
@@ -1189,8 +1190,6 @@ fieldset {
 
 .class-section {
     margin-bottom: 20px;
-    margin-left: 20px;
-    width: 100%;
 }
 
 .class-section h4 {

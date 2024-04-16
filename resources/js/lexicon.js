@@ -30,8 +30,8 @@ function displayLexicon(data) {
         categories[category][termClass].push({ term, definition });
     }
 
-    const lexiconList = document.createElement('div');
-    lexiconList.classList.add('lexicon-list');
+    const lexiconGrid = document.createElement('div');
+    lexiconGrid.classList.add('lexicon-grid');
 
     // Generate HTML for each category and class
     for (const category in categories) {
@@ -63,10 +63,10 @@ function displayLexicon(data) {
             categorySection.appendChild(classSection);
         }
 
-        lexiconList.appendChild(categorySection);
+        lexiconGrid.appendChild(categorySection);
     }
     
-    lexiconContent.appendChild(lexiconList);
+    lexiconContent.appendChild(lexiconGrid);
 }
 
 function setupSearch(data) {
