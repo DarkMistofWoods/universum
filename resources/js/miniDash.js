@@ -14,8 +14,21 @@ async function handleSignOut() {
     }
 }
 
-// Get the sign-out icon element
-const signOutIcon = document.getElementById('signout-icon');
+// Function to update the visibility of minidash icons based on user authentication state
+function updateMinidashIcons(user) {
+    const minidashIcons = document.querySelectorAll('.minidash-icon');
+    minidashIcons.forEach(icon => {
+        icon.style.display = user ? 'block' : 'none';
+    });
 
-// Add click event listener to the sign-out icon
-signOutIcon.addEventListener('click', handleSignOut);
+    // Get the sign-out icon element
+    const signOutIcon = document.getElementById('signout-icon');
+    
+    // Add click event listener to the sign-out icon
+    signOutIcon.addEventListener('click', handleSignOut);
+}
+
+// Listen for changes in the user's authentication state
+auth.onAuthStateChanged(user => {
+    updateMinidashIcons(user);
+});
