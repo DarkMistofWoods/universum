@@ -4,28 +4,55 @@ import { doc, getDoc, collection, getDocs, addDoc, deleteDoc } from 'https://www
 // Function to fetch user progress data from Firestore
 async function fetchUserProgress(userId) {
     try {
-        const userProgressRef = doc(db, 'users', userId);
-        const userProgressSnapshot = await getDoc(userProgressRef);
+        const userProgressRef = collection(db, 'users', userId, 'progress');
+        const userProgressSnapshot = await getDocs(userProgressRef);
         console.log('User Progress Snapshot:', userProgressSnapshot);
 
-        if (userProgressSnapshot.exists()) {
-            const userData = userProgressSnapshot.data();
-            const progressData = userData.progressData;
-            const achievementsData = userData.achievementsData || [];
-            const recommendationsData = userData.recommendationsData || {};
-            const goalsData = userData.goalsData || [];
+        const progressData = {};
+        const achievementsData = [];
+        const recommendationsData = {};
+        const goalsData = [];
 
-            updateProgressTracker(progressData);
-            updateRecentAchievements(achievementsData);
-            updateRecommendations(recommendationsData);
-            updateLearningGoals(goalsData);
-        } else {
-            console.log('User progress document does not exist');
-            updateProgressTracker(null);
-            updateRecentAchievements(null);
-            updateRecommendations(null);
-            updateLearningGoals(null);
+        if (!userProgressSnapshot.empty) {
+            userProgressSnapshot.forEach((doc) => {
+                const lessonId = doc.id;
+                const lessonData = doc.data();
+                progressData[lessonId] = lessonData;
+            });
         }
+
+        const userAchievementsRef = collection(db, 'users', userId, 'achievements');
+        const userAchievementsSnapshot = await getDocs(userAchievementsRef);
+        if (!userAchievementsSnapshot.empty) {
+            userAchievementsSnapshot.forEach((doc) => {
+                const achievementData = doc.data();
+                achievementsData.push(achievementData);
+            });
+        }
+
+        const userRecommendationsRef = collection(db, 'users', userId, 'recommendations');
+        const userRecommendationsSnapshot = await getDocs(userRecommendationsRef);
+        if (!userRecommendationsSnapshot.empty) {
+            userRecommendationsSnapshot.forEach((doc) => {
+                const recommendationId = doc.id;
+                const recommendationData = doc.data();
+                recommendationsData[recommendationId] = recommendationData;
+            });
+        }
+
+        const userGoalsRef = collection(db, 'users', userId, 'goals');
+        const userGoalsSnapshot = await getDocs(userGoalsRef);
+        if (!userGoalsSnapshot.empty) {
+            userGoalsSnapshot.forEach((doc) => {
+                const goalData = doc.data();
+                goalsData.push(goalData);
+            });
+        }
+
+        updateProgressTracker(progressData);
+        updateRecentAchievements(achievementsData);
+        updateRecommendations(recommendationsData);
+        updateLearningGoals(goalsData);
     } catch (error) {
         console.error('Error fetching user progress:', error);
         updateProgressTracker(null);
@@ -82,28 +109,30 @@ function updateProgressTracker(progressData) {
     progressTrackerContainer.innerHTML = '<h3>Current Progress</h3>';
 
     if (progressData && Object.keys(progressData).length > 0) {
-        for (const [moduleId, moduleData] of Object.entries(progressData)) {
-            const completedLessonsInModule = getCompletedLessonsInModule(moduleData);
-            if (completedLessonsInModule.length > 0) {
-                const moduleElement = createModuleProgressElement(moduleId, moduleData);
-                progressTrackerContainer.appendChild(moduleElement);
-
-                for (const [subModuleId, subModuleData] of Object.entries(moduleData.subModules)) {
-                    const completedLessonsInSubModule = getCompletedLessonsInSubModule(subModuleData);
-                    if (completedLessonsInSubModule.length > 0) {
-                        const subModuleElement = createSubModuleProgressElement(subModuleId, subModuleData);
+        fetch('functions/courseContent.json')
+            .then(response => response.json())
+            .then(courseContent => {
+                courseContent.forEach(module => {
+                    const moduleElement = createModuleProgressElement(module, progressData);
+                    progressTrackerContainer.appendChild(moduleElement);
+    
+                    module.subModules.forEach(subModule => {
+                        const subModuleElement = createSubModuleProgressElement(subModule, progressData);
                         progressTrackerContainer.appendChild(subModuleElement);
-
-                        for (const [lessonTitle, lessonData] of Object.entries(subModuleData.lessons)) {
-                            if (lessonData.completed) {
-                                const lessonElement = createLessonProgressElement(lessonTitle, lessonData);
+    
+                        subModule.lessons.forEach(lesson => {
+                            if (progressData[lesson.lessonId] && progressData[lesson.lessonId].completed) {
+                                const lessonElement = createLessonProgressElement(lesson, progressData[lesson.lessonId]);
                                 progressTrackerContainer.appendChild(lessonElement);
                             }
-                        }
-                    }
-                }
-            }
-        }
+                        });
+                    });
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching course content:', error);
+                progressTrackerContainer.innerHTML = '<p>Error loading progress data.</p>';
+            });
     } else {
         progressTrackerContainer.innerHTML = '<p>No progress data available.</p>';
     }
@@ -129,13 +158,16 @@ function getCompletedLessonsInSubModule(subModuleData) {
 }
 
 function createModuleProgressElement(moduleId, moduleData) {
-    const moduleProgress = moduleData ? calculateModuleProgress(moduleData) : 0;
-    const currentModule = formatModuleId(moduleId);
+    const completedLessons = module.subModules.reduce((count, subModule) => {
+        return count + subModule.lessons.filter(lesson => progressData[lesson.lessonId] && progressData[lesson.lessonId].completed).length;
+    }, 0);
+    const totalLessons = module.subModules.reduce((count, subModule) => count + subModule.lessons.length, 0);
+    const moduleProgress = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
 
     const moduleElement = document.createElement('div');
     moduleElement.classList.add('module');
     const moduleTitleElement = document.createElement('h4');
-    moduleTitleElement.textContent = currentModule;
+    moduleTitleElement.textContent = module.moduleName;
     const moduleProgressElement = document.createElement('div');
     moduleProgressElement.classList.add('progress-bar');
     const moduleProgressIndicatorElement = document.createElement('div');
@@ -155,13 +187,14 @@ function formatModuleId(moduleId) {
 }
 
 function createSubModuleProgressElement(subModuleId, subModuleData) {
-    const submoduleProgress = subModuleData ? calculateSubModuleProgress(subModuleData) : 0;
-    const currentSubmodule = formatSubModuleId(subModuleId);
-    
+    const completedLessons = subModule.lessons.filter(lesson => progressData[lesson.lessonId] && progressData[lesson.lessonId].completed).length;
+    const totalLessons = subModule.lessons.length;
+    const submoduleProgress = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
+
     const submoduleElement = document.createElement('div');
     submoduleElement.classList.add('submodule');
     const submoduleTitleElement = document.createElement('h4');
-    submoduleTitleElement.textContent = currentSubmodule;
+    submoduleTitleElement.textContent = subModule.subModuleName;
     const submoduleProgressElement = document.createElement('div');
     submoduleProgressElement.classList.add('progress-bar');
     const submoduleProgressIndicatorElement = document.createElement('div');
@@ -300,6 +333,8 @@ async function updateLearningGoals(goalsData) {
         }
     } else {
         learningGoalsContainer.innerHTML += '<p>No learning goals available.</p>';
+        const addGoalButton = createAddGoalButton();
+        learningGoalsContainer.appendChild(addGoalButton);
     }
 }
 
