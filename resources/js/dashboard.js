@@ -343,7 +343,7 @@ function createLearningGoalElement(goalId, goal) {
     goalElement.classList.add('learning-goal');
 
     const titleElement = document.createElement('h3');
-    titleElement.textContent = goal.title;
+    titleElement.textContent = goal.description;
 
     const progressTextElement = document.createElement('div');
     progressTextElement.classList.add('progress-text');
