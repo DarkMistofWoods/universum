@@ -6,7 +6,7 @@ async function fetchUserProgress(userId) {
     try {
         const userProgressRef = collection(db, 'users', userId, 'progress');
         const userProgressSnapshot = await getDocs(userProgressRef);
-        console.log('User Progress Snapshot:', userProgressSnapshot);
+        //console.log('User Progress Snapshot:', userProgressSnapshot);
 
         const progressData = {};
         const achievementsData = [];
