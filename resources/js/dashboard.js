@@ -157,7 +157,7 @@ function getCompletedLessonsInSubModule(subModuleData) {
     return [];
 }
 
-function createModuleProgressElement(moduleId, moduleData) {
+function createModuleProgressElement(module, progressData) {
     const completedLessons = module.subModules.reduce((count, subModule) => {
         return count + subModule.lessons.filter(lesson => progressData[lesson.lessonId] && progressData[lesson.lessonId].completed).length;
     }, 0);
@@ -186,7 +186,7 @@ function formatModuleId(moduleId) {
     });
 }
 
-function createSubModuleProgressElement(subModuleId, subModuleData) {
+function createSubModuleProgressElement(subModule, progressData) {
     const completedLessons = subModule.lessons.filter(lesson => progressData[lesson.lessonId] && progressData[lesson.lessonId].completed).length;
     const totalLessons = subModule.lessons.length;
     const submoduleProgress = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
@@ -211,8 +211,8 @@ function formatSubModuleId(subModuleId) {
     return subModuleId.replace(/_/g, ' ');
 }
 
-function createLessonProgressElement(lessonTitle, lessonData) {
-    const currentLesson = lessonTitle;
+function createLessonProgressElement(lessonId, lessonData) {
+    const currentLesson = lessonId;
     const lessonProgress = lessonData && lessonData.completed ? 100 : 0;
 
     const lessonElement = document.createElement('div');
