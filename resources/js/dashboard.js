@@ -112,58 +112,30 @@ function updateProgressTracker(progressData) {
         fetch('functions/courseContent.json')
             .then(response => response.json())
             .then(courseContent => {
-                const completedLessons = [];
-
                 courseContent.forEach(module => {
+                    const moduleElement = createModuleProgressElement(module, progressData);
+                    progressTrackerContainer.appendChild(moduleElement);
+    
                     module.subModules.forEach(subModule => {
+                        const subModuleElement = createSubModuleProgressElement(subModule, progressData);
+                        progressTrackerContainer.appendChild(subModuleElement);
+    
                         subModule.lessons.forEach(lesson => {
                             if (progressData[lesson.lessonId] && progressData[lesson.lessonId].completed) {
-                                completedLessons.push({
-                                    module: module.moduleName,
-                                    subModule: subModule.subModuleName,
-                                    lesson: lesson.lessonTitle
-                                });
+                                const lessonElement = createLessonProgressElement(lesson, progressData[lesson.lessonId]);
+                                progressTrackerContainer.appendChild(lessonElement);
                             }
                         });
                     });
                 });
-
-                if (completedLessons.length > 0) {
-                    completedLessons.forEach(completedLesson => {
-                        const lessonElement = createCompletedLessonElement(completedLesson);
-                        progressTrackerContainer.appendChild(lessonElement);
-                    });
-                } else {
-                    progressTrackerContainer.innerHTML += '<p>No lessons completed.</p>';
-                }
             })
             .catch(error => {
                 console.error('Error fetching course content:', error);
                 progressTrackerContainer.innerHTML = '<p>Error loading progress data.</p>';
             });
     } else {
-        progressTrackerContainer.innerHTML += '<p>No lessons completed.</p>';
+        progressTrackerContainer.innerHTML = '<p>No progress data available.</p>';
     }
-}
-
-function createCompletedLessonElement(completedLesson) {
-    const lessonElement = document.createElement('div');
-    lessonElement.classList.add('completed-lesson');
-
-    const moduleElement = document.createElement('h4');
-    moduleElement.textContent = completedLesson.module;
-
-    const subModuleElement = document.createElement('h5');
-    subModuleElement.textContent = completedLesson.subModule;
-
-    const lessonTitleElement = document.createElement('p');
-    lessonTitleElement.textContent = completedLesson.lesson;
-
-    lessonElement.appendChild(moduleElement);
-    lessonElement.appendChild(subModuleElement);
-    lessonElement.appendChild(lessonTitleElement);
-
-    return lessonElement;
 }
 
 function getCompletedLessonsInModule(moduleData) {
