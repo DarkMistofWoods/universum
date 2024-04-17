@@ -148,20 +148,25 @@ function updateProgressTracker(progressData) {
 
 function getCompletedLessonsInModule(moduleData) {
     const completedLessons = [];
-    for (const subModuleData of Object.values(moduleData.subModules)) {
-        completedLessons.push(...getCompletedLessonsInSubModule(subModuleData));
+    if (moduleData && moduleData.subModules) {
+        for (const subModuleData of Object.values(moduleData.subModules)) {
+            completedLessons.push(...getCompletedLessonsInSubModule(subModuleData));
+        }
     }
     return completedLessons;
 }
 
 function getCompletedLessonsInSubModule(subModuleData) {
-    return Object.entries(subModuleData.lessons)
-        .filter(([, lessonData]) => lessonData.completed)
-        .map(([lessonTitle]) => lessonTitle);
+    if (subModuleData && subModuleData.lessons) {
+        return Object.entries(subModuleData.lessons)
+            .filter(([, lessonData]) => lessonData && lessonData.completed)
+            .map(([lessonTitle]) => lessonTitle);
+    }
+    return [];
 }
 
 function createModuleProgressElement(moduleId, moduleData) {
-    const moduleProgress = calculateModuleProgress(moduleData);
+    const moduleProgress = moduleData ? calculateModuleProgress(moduleData) : 0;
     const currentModule = formatModuleId(moduleId);
 
     const moduleElement = document.createElement('div');
@@ -187,7 +192,7 @@ function formatModuleId(moduleId) {
 }
 
 function createSubModuleProgressElement(subModuleId, subModuleData) {
-    const submoduleProgress = calculateSubModuleProgress(subModuleData);
+    const submoduleProgress = subModuleData ? calculateSubModuleProgress(subModuleData) : 0;
     const currentSubmodule = formatSubModuleId(subModuleId);
     
     const submoduleElement = document.createElement('div');
@@ -212,7 +217,7 @@ function formatSubModuleId(subModuleId) {
 
 function createLessonProgressElement(lessonTitle, lessonData) {
     const currentLesson = lessonTitle;
-    const lessonProgress = lessonData.completed ? 100 : 0;
+    const lessonProgress = lessonData && lessonData.completed ? 100 : 0;
 
     const lessonElement = document.createElement('div');
     lessonElement.classList.add('lesson');
