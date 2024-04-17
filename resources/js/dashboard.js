@@ -338,23 +338,28 @@ async function updateLearningGoals(goalsData) {
     }
 }
 
-function createLearningGoalElement(goalId, goal) {
+function createLearningGoalElement(goal, goalId) {
     const goalElement = document.createElement('div');
     goalElement.classList.add('learning-goal');
 
     const titleElement = document.createElement('h3');
-    titleElement.textContent = goal.description;
+    titleElement.textContent = goal.goalDescription;
 
     const progressTextElement = document.createElement('div');
     progressTextElement.classList.add('progress-text');
-    progressTextElement.textContent = `${goal.progress} / ${goal.target}`;
+    progressTextElement.textContent = `${goal.progress} / ${goal.targetDate}`;
 
     const progressBarElement = document.createElement('div');
     progressBarElement.classList.add('progress-bar');
 
     const progressElement = document.createElement('div');
     progressElement.classList.add('progress');
-    progressElement.style.width = `${(goal.progress / goal.target) * 100}%`;
+    const targetDate = goal.targetDate.toDate();
+    const currentDate = new Date();
+    const timeDiff = targetDate.getTime() - currentDate.getTime();
+    const totalTime = targetDate.getTime() - goal.startDate.toDate().getTime();
+    const progressPercentage = Math.max(0, Math.min(100, 100 - (timeDiff / totalTime) * 100));
+    progressElement.style.width = `${progressPercentage}%`;
 
     progressBarElement.appendChild(progressElement);
 

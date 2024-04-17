@@ -49,7 +49,7 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
         }
 
         const defaultAchievements = [
-            { type: 'Complete 10 lessons', progress: 0, lastUpdated: admin.firestore.FieldValue.serverTimestamp() },
+            { type: 'Log in 3 days in a row', progress: 0, lastUpdated: admin.firestore.FieldValue.serverTimestamp() },
             { type: 'Learn 20 words', progress: 0, lastUpdated: admin.firestore.FieldValue.serverTimestamp() },
             { type: 'Score 100% on three separate quizzes', progress: 0, lastUpdated: admin.firestore.FieldValue.serverTimestamp() }
         ];
