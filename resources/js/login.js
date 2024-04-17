@@ -387,7 +387,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const isSignedIn = await isUserSignedIn();
     if (isSignedIn) {
         // Redirect to the dashboard page if the user is signed in
-        window.location.href = 'dashboard.html';
+        console.log('User is already signed in.');
+        // window.location.href = 'dashboard.html';
         return;
     }
 
