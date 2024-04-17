@@ -375,6 +375,9 @@ function isUserSignedIn() {
             } else {
                 resolve(false);
             }
+        }, error => {
+            console.error("Error checking if user is signed in: ", error);
+            reject(error);
         });
     });
 }
@@ -384,12 +387,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     positionNumbers();
 
     // Check if the user is already signed in
-    const isSignedIn = await isUserSignedIn();
-    if (isSignedIn) {
-        // Redirect to the dashboard page if the user is signed in
-        console.log('User is already signed in.');
-        // window.location.href = 'dashboard.html';
-        return;
+    try {
+        const isSignedIn = await isUserSignedIn();
+        if (isSignedIn) {
+            // Redirect to the dashboard page if the user is signed in
+            window.location.href = 'dashboard.html';
+            return;
+        }
+    } catch (error) {
+        console.error('Error checking user sign-in status:', error);
     }
 
     document.getElementById('loginButton').addEventListener('click', login);
