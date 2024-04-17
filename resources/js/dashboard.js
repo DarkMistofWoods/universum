@@ -347,18 +347,14 @@ function createLearningGoalElement(goal, goalId) {
 
     const progressTextElement = document.createElement('div');
     progressTextElement.classList.add('progress-text');
-    progressTextElement.textContent = `${goal.progress} / ${goal.targetDate}`;
+    progressTextElement.textContent = `${goal.progress} / ${goal.target}`;
 
     const progressBarElement = document.createElement('div');
     progressBarElement.classList.add('progress-bar');
 
     const progressElement = document.createElement('div');
     progressElement.classList.add('progress');
-    const targetDate = goal.targetDate.toDate();
-    const currentDate = new Date();
-    const timeDiff = targetDate.getTime() - currentDate.getTime();
-    const totalTime = targetDate.getTime() - goal.startDate.toDate().getTime();
-    const progressPercentage = Math.max(0, Math.min(100, 100 - (timeDiff / totalTime) * 100));
+    const progressPercentage = Math.min(100, (goal.progress / goal.target) * 100);
     progressElement.style.width = `${progressPercentage}%`;
 
     progressBarElement.appendChild(progressElement);
