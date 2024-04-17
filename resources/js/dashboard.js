@@ -338,7 +338,7 @@ async function updateLearningGoals(goalsData) {
     }
 }
 
-function createLearningGoalElement(goal) {
+function createLearningGoalElement(goalId, goal) {
     const goalElement = document.createElement('div');
     goalElement.classList.add('learning-goal');
 
