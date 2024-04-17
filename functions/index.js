@@ -72,8 +72,9 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
 
         const defaultGoals = [
             {
-                goalDescription: 'Complete 10 lessons',
+                description: 'Complete 10 lessons',
                 targetDate: admin.firestore.Timestamp.fromDate(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)),
+                target: 10,
                 progress: 0
             }
         ];

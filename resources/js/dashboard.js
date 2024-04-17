@@ -343,7 +343,7 @@ function createLearningGoalElement(goal, goalId) {
     goalElement.classList.add('learning-goal');
 
     const titleElement = document.createElement('h3');
-    titleElement.textContent = goal.goalDescription;
+    titleElement.textContent = goal.description;
 
     const progressTextElement = document.createElement('div');
     progressTextElement.classList.add('progress-text');
@@ -392,6 +392,7 @@ function showAddGoalForm() {
     const goalTypeSelect = document.createElement('select');
     goalTypeSelect.innerHTML = `
         <option value="completeLessons">Complete Lessons</option>
+        <option value="quizScore">Complete Submodules</option>
         <option value="learnWords">Learn Words</option>
         <option value="quizScore">Get a Quiz Score Higher Than</option>
     `;
@@ -447,8 +448,9 @@ async function addGoal(goalType, goalAmount) {
 
     if (userGoalsSnapshot.size < 3) {
         const newGoalData = {
-            type: goalType,
-            amount: goalAmount,
+            description: goalType,
+            targetDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+            target: goalAmount,
             progress: 0
         };
 
