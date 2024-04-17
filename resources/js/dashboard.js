@@ -4,63 +4,26 @@ import { doc, getDoc, collection, getDocs, addDoc, deleteDoc } from 'https://www
 // Function to fetch user progress data from Firestore
 async function fetchUserProgress(userId) {
     try {
-        const userProgressRef = collection(db, 'users', userId, 'progress');
-        const userProgressSnapshot = await getDocs(userProgressRef);
+        const userProgressRef = doc(db, 'users', userId);
+        const userProgressSnapshot = await getDoc(userProgressRef);
+        console.log('User Progress Snapshot:', userProgressSnapshot);
 
-        if (!userProgressSnapshot.empty) {
-            const progressData = {};
-            userProgressSnapshot.forEach(doc => {
-                const lessonId = doc.id;
-                const lessonData = doc.data();
-                progressData[lessonId] = lessonData;
-            });
+        if (userProgressSnapshot.exists()) {
+            const userData = userProgressSnapshot.data();
+            const progressData = userData.progressData;
+            const achievementsData = userData.achievementsData || [];
+            const recommendationsData = userData.recommendationsData || {};
+            const goalsData = userData.goalsData || [];
 
             updateProgressTracker(progressData);
-        } else {
-            console.log('User progress data does not exist');
-            updateProgressTracker(null);
-        }
-
-        const userAchievementsRef = collection(db, 'users', userId, 'achievements');
-        const userAchievementsSnapshot = await getDocs(userAchievementsRef);
-
-        if (!userAchievementsSnapshot.empty) {
-            const achievementsData = userAchievementsSnapshot.docs.map(doc => doc.data());
             updateRecentAchievements(achievementsData);
-        } else {
-            console.log('User achievements data does not exist');
-            updateRecentAchievements(null);
-        }
-
-        const userRecommendationsRef = collection(db, 'users', userId, 'recommendations');
-        const userRecommendationsSnapshot = await getDocs(userRecommendationsRef);
-
-        if (!userRecommendationsSnapshot.empty) {
-            const recommendationsData = {};
-            userRecommendationsSnapshot.forEach(doc => {
-                const recommendationId = doc.id;
-                const recommendationData = doc.data();
-                recommendationsData[recommendationId] = recommendationData;
-            });
             updateRecommendations(recommendationsData);
-        } else {
-            console.log('User recommendations data does not exist');
-            updateRecommendations(null);
-        }
-
-        const userGoalsRef = collection(db, 'users', userId, 'goals');
-        const userGoalsSnapshot = await getDocs(userGoalsRef);
-
-        if (!userGoalsSnapshot.empty) {
-            const goalsData = {};
-            userGoalsSnapshot.forEach(doc => {
-                const goalId = doc.id;
-                const goalData = doc.data();
-                goalsData[goalId] = goalData;
-            });
             updateLearningGoals(goalsData);
         } else {
-            console.log('User goals data does not exist');
+            console.log('User progress document does not exist');
+            updateProgressTracker(null);
+            updateRecentAchievements(null);
+            updateRecommendations(null);
             updateLearningGoals(null);
         }
     } catch (error) {
@@ -118,7 +81,7 @@ function updateProgressTracker(progressData) {
     const progressTrackerContainer = document.querySelector('.progress-tracker .content');
     progressTrackerContainer.innerHTML = '<h3>Current Progress</h3>';
 
-    if (progressData) {
+    if (progressData && Object.keys(progressData).length > 0) {
         for (const [moduleId, moduleData] of Object.entries(progressData)) {
             const completedLessonsInModule = getCompletedLessonsInModule(moduleData);
             if (completedLessonsInModule.length > 0) {
@@ -249,29 +212,15 @@ function calculateSubModuleProgress(subModuleData) {
 
 function updateRecentAchievements(achievementsData) {
     const recentAchievementsContainer = document.querySelector('.recent-achievements .content');
+    recentAchievementsContainer.innerHTML = '<h3>Achievements</h3>';
 
-    // Clear the previous content
-    recentAchievementsContainer.innerHTML = '<h3>Recent Achievements</h3>';
-
-    // Check if the achievements data is available
-    if (achievementsData) {
-        // Update the recent achievements widget with the real data
-        for (const achievement of achievementsData) {
+    if (achievementsData && achievementsData.length > 0) {
+        achievementsData.forEach(achievement => {
             const achievementElement = createAchievementElement(achievement);
             recentAchievementsContainer.appendChild(achievementElement);
-        }
+        });
     } else {
-        // Display placeholder data
-        const placeholderAchievements = [
-            { name: 'Achievement 1', progress: 60 },
-            { name: 'Achievement 2', progress: 80 },
-            { name: 'Achievement 3', progress: 40 },
-        ];
-
-        for (const achievement of placeholderAchievements) {
-            const achievementElement = createAchievementElement(achievement);
-            recentAchievementsContainer.appendChild(achievementElement);
-        }
+        recentAchievementsContainer.innerHTML += '<p>No achievements available.</p>';
     }
 }
 
@@ -301,11 +250,11 @@ function updateRecommendations(recommendationsData) {
     const recommendationsContainer = document.querySelector('.recommendations .content');
     recommendationsContainer.innerHTML = '<h3>Adaptive Learning Recommendations</h3>';
 
-    if (recommendationsData) {
-        for (const recommendation of Object.values(recommendationsData)) {
+    if (recommendationsData && Object.keys(recommendationsData).length > 0) {
+        Object.values(recommendationsData).forEach(recommendation => {
             const recommendationElement = createRecommendationElement(recommendation);
             recommendationsContainer.appendChild(recommendationElement);
-        }
+        });
     } else {
         recommendationsContainer.innerHTML = '<p>No recommendations available.</p>';
     }
@@ -337,21 +286,20 @@ async function updateLearningGoals(goalsData) {
     const learningGoalsContainer = document.querySelector('.learning-goals .content');
     learningGoalsContainer.innerHTML = '<h3>Your Learning Goals</h3>';
 
-    if (goalsData) {
+    if (goalsData && goalsData.length > 0) {
         const goalElements = [];
-        for (const [goalId, goal] of Object.entries(goalsData)) {
-            const goalElement = createLearningGoalElement(goalId, goal);
+        goalsData.forEach(goal => {
+            const goalElement = createLearningGoalElement(goal);
             goalElements.push(goalElement);
             learningGoalsContainer.appendChild(goalElement);
-        }
+        });
 
         if (goalElements.length < 3) {
             const addGoalButton = createAddGoalButton();
             learningGoalsContainer.appendChild(addGoalButton);
         }
     } else {
-        const addGoalButton = createAddGoalButton();
-        learningGoalsContainer.appendChild(addGoalButton);
+        learningGoalsContainer.innerHTML += '<p>No learning goals available.</p>';
     }
 }
 
