@@ -396,6 +396,7 @@ function getGoalTitle(goal) {
 function createAddGoalButton() {
     const addGoalButton = document.createElement('button');
     addGoalButton.textContent = 'Add Goal';
+    addGoalButton.classList.add('button-primary');
     addGoalButton.addEventListener('click', showAddGoalForm);
     return addGoalButton;
 }
