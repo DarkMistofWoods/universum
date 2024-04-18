@@ -1,7 +1,7 @@
 // Import the functions needed from the SDKs
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js';
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js';
-import { getFirestore, doc, getDoc, addDoc, updateDoc, collection, deleteDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js';
+import { getFirestore, doc, getDoc, getDocs, addDoc, updateDoc, collection, deleteDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -40,6 +40,7 @@ async function fetchUserSettings(userId) {
 export {
     db,
     auth,
+    onAuthStateChanged,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     fetchUserSettings,
@@ -47,6 +48,8 @@ export {
     addDoc,
     updateDoc,
     doc,
+    getDoc,
+    getDocs,
     deleteDoc,
     serverTimestamp
   };
