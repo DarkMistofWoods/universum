@@ -586,8 +586,17 @@ fieldset {
 
 .widget h3 {
     color: var(--color-primary);
-    text-align: center;
     font-size: medium;
+    padding-left: 5px;
+    text-align: left;
+    width: 60%;
+}
+
+.widget h4 {
+    color: var(--color-primary);
+    font-size: small;
+    font-weight: 300;
+    width: 60%;
 }
 
 .widget .content {

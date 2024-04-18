@@ -106,7 +106,7 @@ auth.onAuthStateChanged(handleAuthStateChanged);
 // Functions to update the dashboard widgets with real or demo data
 function updateProgressTracker(progressData) {
     const progressTrackerContainer = document.querySelector('.progress-tracker .content');
-    progressTrackerContainer.innerHTML = '<h3>Current Progress</h3>';
+    progressTrackerContainer.innerHTML = '<h2>Current Progress</h2>';
 
     if (progressData && Object.keys(progressData).length > 0) {
         const completedLessons = Object.values(progressData).filter(lessonData => lessonData.completed);
@@ -248,7 +248,7 @@ function calculateSubModuleProgress(subModuleData) {
 
 function updateRecentAchievements(achievementsData) {
     const recentAchievementsContainer = document.querySelector('.recent-achievements .content');
-    recentAchievementsContainer.innerHTML = '<h3>Achievements</h3>';
+    recentAchievementsContainer.innerHTML = '<h2>Achievements</h2>';
 
     if (achievementsData && achievementsData.length > 0) {
         achievementsData.forEach(achievement => {
@@ -285,7 +285,7 @@ function createAchievementElement(achievement) {
 
 function updateRecommendations(recommendationsData) {
     const recommendationsContainer = document.querySelector('.recommendations .content');
-    recommendationsContainer.innerHTML = '<h3>Adaptive Learning Recommendations</h3>';
+    recommendationsContainer.innerHTML = '<h2>Adaptive Learning Recommendations</h2>';
 
     if (recommendationsData && Object.keys(recommendationsData).length > 0) {
         Object.values(recommendationsData).forEach(recommendation => {
@@ -321,7 +321,7 @@ function createRecommendationElement(recommendation) {
 
 async function updateLearningGoals(goalsData) {
     const learningGoalsContainer = document.querySelector('.learning-goals .content');
-    learningGoalsContainer.innerHTML = '<h3>Your Learning Goals</h3>';
+    learningGoalsContainer.innerHTML = '<h2>Your Learning Goals</h2>';
 
     if (goalsData && goalsData.length > 0) {
         const goalElements = [];

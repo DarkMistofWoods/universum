@@ -49,7 +49,7 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
         }
 
         const defaultAchievements = [
-            { type: 'login', title: 'Log in to your account for the first time', progress: 1, target: 1, lastUpdated: admin.firestore.FieldValue.serverTimestamp() }
+            { type: 'login', title: 'Login for the first time', progress: 1, target: 1, lastUpdated: admin.firestore.FieldValue.serverTimestamp() }
         ];
 
         for (const achievement of defaultAchievements) {
