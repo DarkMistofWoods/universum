@@ -325,8 +325,10 @@ async function updateLearningGoals(goalsData) {
 
     if (goalsData && goalsData.length > 0) {
         const goalElements = [];
-        goalsData.forEach(goal => {
-            const goalElement = createLearningGoalElement(goal);
+        goalsData.forEach(goalDoc => {
+            const goalId = goalDoc.id; // Get the document ID as the goalId
+            const goalData = goalDoc.data(); // Get the goal data
+            const goalElement = createLearningGoalElement(goalData, goalId);
             goalElements.push(goalElement);
             learningGoalsContainer.appendChild(goalElement);
         });
@@ -469,7 +471,8 @@ async function addGoal(goalType, goalAmount) {
             progress: 0
         };
 
-        await addDoc(userGoalsRef, newGoalData);
+        const newGoalRef = await addDoc(userGoalsRef, newGoalData);
+        const goalId = newGoalRef.id; // Get the document ID as the goalId
         fetchUserProgress(userId);
     } else {
         alert('You have reached the maximum number of goals (3).');
