@@ -707,7 +707,7 @@ fieldset {
 }
 
 .recommendation a {
-    color: var(--color-secondary);
+    color: var(--color-primary);
     background-color: var(--color-tertiary);
     font-size: small;
     text-decoration: none;

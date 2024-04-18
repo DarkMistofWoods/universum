@@ -347,7 +347,7 @@ function createLearningGoalElement(goal, goalId) {
     goalElement.classList.add('learning-goal');
 
     const titleElement = document.createElement('h3');
-    titleElement.textContent = goal.description;
+    titleElement.textContent = getGoalTitle(goal);
 
     const progressTextElement = document.createElement('div');
     progressTextElement.classList.add('progress-text');
@@ -374,6 +374,21 @@ function createLearningGoalElement(goal, goalId) {
     goalElement.appendChild(removeButton);
 
     return goalElement;
+}
+
+function getGoalTitle(goal) {
+    switch (goal.description) {
+        case 'completeLessons':
+            return `Complete ${goal.target} lessons`;
+        case 'quizScore':
+            return `Get a quiz score higher than ${goal.target}`;
+        case 'learnWords':
+            return `Learn ${goal.target} words`;
+        case 'completeSubModules':
+            return `Complete ${goal.target} submodules`;
+        default:
+            return goal.description;
+    }
 }
 
 function createAddGoalButton() {
