@@ -596,6 +596,7 @@ fieldset {
 
 .widget h4 {
     color: var(--color-primary);
+    text-align: left;
     font-size: small;
     font-weight: 300;
     width: 60%;
@@ -643,7 +644,7 @@ fieldset {
 .progress-tracker .module {
     width: 95%;
     margin-bottom: 10px;
-    padding: 10px;
+    padding: 0 10px;
     background-color: var(--color-quaternary);
     border-radius: 10px;
 }

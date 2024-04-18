@@ -169,7 +169,7 @@ function createModuleProgressElement(module, progressData) {
 
     const moduleElement = document.createElement('div');
     moduleElement.classList.add('module');
-    const moduleTitleElement = document.createElement('h4');
+    const moduleTitleElement = document.createElement('h3');
     moduleTitleElement.textContent = module.moduleName;
     const moduleProgressElement = document.createElement('div');
     moduleProgressElement.classList.add('progress-bar');
@@ -196,7 +196,7 @@ function createSubModuleProgressElement(subModule, progressData) {
 
     const submoduleElement = document.createElement('div');
     submoduleElement.classList.add('submodule');
-    const submoduleTitleElement = document.createElement('h4');
+    const submoduleTitleElement = document.createElement('h3');
     submoduleTitleElement.textContent = subModule.subModuleName;
     const submoduleProgressElement = document.createElement('div');
     submoduleProgressElement.classList.add('progress-bar');
@@ -220,7 +220,7 @@ function createLessonProgressElement(lessonId, lessonData) {
 
     const lessonElement = document.createElement('div');
     lessonElement.classList.add('lesson');
-    const lessonTitleElement = document.createElement('h4');
+    const lessonTitleElement = document.createElement('h3');
     lessonTitleElement.textContent = formatLessonId(currentLesson);
     const lessonProgressElement = document.createElement('div');
     lessonProgressElement.classList.add('progress-bar');
