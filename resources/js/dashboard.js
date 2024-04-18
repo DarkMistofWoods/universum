@@ -109,34 +109,40 @@ function updateProgressTracker(progressData) {
     progressTrackerContainer.innerHTML = '<h3>Current Progress</h3>';
 
     if (progressData && Object.keys(progressData).length > 0) {
-        fetch('functions/courseContent.json')
-            .then(response => response.json())
-            .then(courseContent => {
-                courseContent.forEach(module => {
-                    const completedLessonsInModule = getCompletedLessonsInModule(progressData, module);
-                    if (completedLessonsInModule.length > 0) {
-                        const moduleElement = createModuleProgressElement(module, progressData);
-                        progressTrackerContainer.appendChild(moduleElement);
-                
-                        module.subModules.forEach(subModule => {
-                            const completedLessonsInSubModule = getCompletedLessonsInSubModule(progressData, subModule);
-                            if (completedLessonsInSubModule.length > 0) {
-                                const subModuleElement = createSubModuleProgressElement(subModule, progressData);
-                                progressTrackerContainer.appendChild(subModuleElement);
-                
-                                completedLessonsInSubModule.forEach(lesson => {
-                                    const lessonElement = createLessonProgressElement(lesson, progressData[lesson]);
-                                    progressTrackerContainer.appendChild(lessonElement);
-                                });
-                            }
-                        });
-                    }
+        const completedLessons = Object.values(progressData).filter(lessonData => lessonData.completed);
+
+        if (completedLessons.length > 0) {
+            fetch('functions/courseContent.json')
+                .then(response => response.json())
+                .then(courseContent => {
+                    courseContent.forEach(module => {
+                        const completedLessonsInModule = getCompletedLessonsInModule(progressData, module);
+                        if (completedLessonsInModule.length > 0) {
+                            const moduleElement = createModuleProgressElement(module, progressData);
+                            progressTrackerContainer.appendChild(moduleElement);
+
+                            module.subModules.forEach(subModule => {
+                                const completedLessonsInSubModule = getCompletedLessonsInSubModule(progressData, subModule);
+                                if (completedLessonsInSubModule.length > 0) {
+                                    const subModuleElement = createSubModuleProgressElement(subModule, progressData);
+                                    progressTrackerContainer.appendChild(subModuleElement);
+
+                                    completedLessonsInSubModule.forEach(lesson => {
+                                        const lessonElement = createLessonProgressElement(lesson.lessonId, progressData[lesson.lessonId]);
+                                        progressTrackerContainer.appendChild(lessonElement);
+                                    });
+                                }
+                            });
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching course content:', error);
+                    progressTrackerContainer.innerHTML += '<p>Error loading progress data.</p>';
                 });
-            })
-            .catch(error => {
-                console.error('Error fetching course content:', error);
-                progressTrackerContainer.innerHTML += '<p>Error loading progress data.</p>';
-            });
+        } else {
+            progressTrackerContainer.innerHTML += '<p>No progress data available.</p>';
+        }
     } else {
         progressTrackerContainer.innerHTML += '<p>No progress data available.</p>';
     }
