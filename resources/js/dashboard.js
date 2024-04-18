@@ -142,23 +142,16 @@ function updateProgressTracker(progressData) {
     }
 }
 
-function getCompletedLessonsInModule(moduleData) {
+function getCompletedLessonsInModule(progressData, module) {
     const completedLessons = [];
-    if (moduleData && moduleData.subModules) {
-        for (const subModuleData of Object.values(moduleData.subModules)) {
-            completedLessons.push(...getCompletedLessonsInSubModule(subModuleData));
-        }
-    }
+    module.subModules.forEach(subModule => {
+        completedLessons.push(...getCompletedLessonsInSubModule(progressData, subModule));
+    });
     return completedLessons;
 }
 
-function getCompletedLessonsInSubModule(subModuleData) {
-    if (subModuleData && subModuleData.lessons) {
-        return Object.entries(subModuleData.lessons)
-            .filter(([, lessonData]) => lessonData && lessonData.completed)
-            .map(([lessonTitle]) => lessonTitle);
-    }
-    return [];
+function getCompletedLessonsInSubModule(progressData, subModule) {
+    return subModule.lessons.filter(lesson => progressData[lesson.lessonId] && progressData[lesson.lessonId].completed);
 }
 
 function createModuleProgressElement(module, progressData) {
