@@ -1185,10 +1185,6 @@ fieldset {
 
 /* END OF LEXICON */
 /* ACHIEVEMENTS */
-.achievement-container {
-    margin-bottom: 20px;
-}
-
 .achievement-header {
     display: flex;
     justify-content: space-between;
@@ -1217,3 +1213,4 @@ fieldset {
     background-color: #4caf50;
     border-radius: 10px;
 }
+/* END OF ACHIEVEMENTS */

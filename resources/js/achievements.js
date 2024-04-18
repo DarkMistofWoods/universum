@@ -27,7 +27,7 @@ function generateAchievementHTML(achievement, userProgress) {
     const percentage = (progress / target) * 100;
 
     return `
-    <div class="achievement-container">
+    <div class="achievement">
         <div class="achievement-header">
             <h3 class="achievement-title">${achievement.title}</h3>
             <p class="achievement-progress">${progress} / ${target}</p>
@@ -44,8 +44,8 @@ async function displayAchievements(userId) {
     const allAchievements = await fetchAllAchievements();
     const userAchievementsProgress = await fetchUserAchievementsProgress(userId);
 
-    const achievementsContainer = document.querySelector('.container-secondary');
-    let achievementsHTML = 'Your Achievements';
+    const achievementsContainer = document.querySelector('.achievement-container');
+    let achievementsHTML = '<h2>Your Achievements</h2>';
 
     allAchievements.forEach((achievement) => {
         const userProgress = userAchievementsProgress[achievement.id];
