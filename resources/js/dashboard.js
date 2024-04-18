@@ -113,20 +113,24 @@ function updateProgressTracker(progressData) {
             .then(response => response.json())
             .then(courseContent => {
                 courseContent.forEach(module => {
-                    const moduleElement = createModuleProgressElement(module, progressData);
-                    progressTrackerContainer.appendChild(moduleElement);
-    
-                    module.subModules.forEach(subModule => {
-                        const subModuleElement = createSubModuleProgressElement(subModule, progressData);
-                        progressTrackerContainer.appendChild(subModuleElement);
-    
-                        subModule.lessons.forEach(lesson => {
-                            if (progressData[lesson.lessonId] && progressData[lesson.lessonId].completed) {
-                                const lessonElement = createLessonProgressElement(lesson.lessonId, progressData[lesson.lessonId]);
-                                progressTrackerContainer.appendChild(lessonElement);
+                    const completedLessonsInModule = getCompletedLessonsInModule(progressData, module);
+                    if (completedLessonsInModule.length > 0) {
+                        const moduleElement = createModuleProgressElement(module, progressData);
+                        progressTrackerContainer.appendChild(moduleElement);
+                
+                        module.subModules.forEach(subModule => {
+                            const completedLessonsInSubModule = getCompletedLessonsInSubModule(progressData, subModule);
+                            if (completedLessonsInSubModule.length > 0) {
+                                const subModuleElement = createSubModuleProgressElement(subModule, progressData);
+                                progressTrackerContainer.appendChild(subModuleElement);
+                
+                                completedLessonsInSubModule.forEach(lesson => {
+                                    const lessonElement = createLessonProgressElement(lesson, progressData[lesson]);
+                                    progressTrackerContainer.appendChild(lessonElement);
+                                });
                             }
                         });
-                    });
+                    }
                 });
             })
             .catch(error => {
