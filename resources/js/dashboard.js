@@ -1,5 +1,5 @@
-import { db, auth } from './firebase-config.js';
-import { doc, getDoc, collection, getDocs, addDoc, deleteDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
+import { db, auth, collection, addDoc, deleteDoc, serverTimestamp } from './firebase-config.js';
+import { doc, getDoc, getDocs } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
 
 // Function to fetch user progress data from Firestore
 async function fetchUserProgress(userId) {
