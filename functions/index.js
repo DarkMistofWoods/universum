@@ -58,7 +58,7 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
 
         const defaultRecommendations = {
             recommendation1: {
-                lessonId: 'Lesson_1_1',
+                lessonId: 'Vocabulary_1_1',
                 recommendedOn: admin.firestore.FieldValue.serverTimestamp(),
                 reason: 'Start with vocabulary'
             }

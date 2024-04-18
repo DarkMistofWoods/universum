@@ -218,7 +218,7 @@ function createLessonProgressElement(lessonId, lessonData) {
     const lessonElement = document.createElement('div');
     lessonElement.classList.add('lesson');
     const lessonTitleElement = document.createElement('h4');
-    lessonTitleElement.textContent = formatLessonIdq(lessonId);
+    lessonTitleElement.textContent = formatLessonId(currentLesson);
     const lessonProgressElement = document.createElement('div');
     lessonProgressElement.classList.add('progress-bar');
     const lessonProgressIndicatorElement = document.createElement('div');
