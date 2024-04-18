@@ -211,7 +211,7 @@ function createSubModuleProgressElement(subModule, progressData) {
 }
 
 function formatLessonId(lessonId) {
-    return lessonId.replace(/_/g, ' ');
+    return lessonId.replace(/_/g, '-');
 }
 
 function createLessonProgressElement(lessonId, lessonData) {
