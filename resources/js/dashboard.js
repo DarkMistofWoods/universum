@@ -131,10 +131,10 @@ function updateProgressTracker(progressData) {
             })
             .catch(error => {
                 console.error('Error fetching course content:', error);
-                progressTrackerContainer.innerHTML = '<p>Error loading progress data.</p>';
+                progressTrackerContainer.innerHTML += '<p>Error loading progress data.</p>';
             });
     } else {
-        progressTrackerContainer.innerHTML = '<p>No progress data available.</p>';
+        progressTrackerContainer.innerHTML += '<p>No progress data available.</p>';
     }
 }
 
@@ -208,7 +208,7 @@ function createSubModuleProgressElement(subModule, progressData) {
 }
 
 function formatLessonId(lessonId) {
-    return subModuleId.replace(/_/g, ' ');
+    return lessonId.replace(/_/g, ' ');
 }
 
 function createLessonProgressElement(lessonId, lessonData) {
@@ -289,7 +289,7 @@ function updateRecommendations(recommendationsData) {
             recommendationsContainer.appendChild(recommendationElement);
         });
     } else {
-        recommendationsContainer.innerHTML = '<p>No recommendations available.</p>';
+        recommendationsContainer.innerHTML += '<p>No recommendations available.</p>';
     }
 }
 
