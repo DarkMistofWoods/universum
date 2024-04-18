@@ -302,10 +302,10 @@ function createRecommendationElement(recommendation) {
     recommendationElement.classList.add('recommendation');
 
     const titleElement = document.createElement('h3');
-    titleElement.textContent = recommendation.title;
+    titleElement.textContent = formatLessonId(recommendation.lessonId);
 
     const descriptionElement = document.createElement('p');
-    descriptionElement.textContent = recommendation.description;
+    descriptionElement.textContent = recommendation.reason;
 
     const linkElement = document.createElement('a');
     linkElement.href = recommendation.pageUrl;

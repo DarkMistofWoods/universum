@@ -60,6 +60,7 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
             recommendation1: {
                 lessonId: 'Vocabulary_1_1',
                 recommendedOn: admin.firestore.FieldValue.serverTimestamp(),
+                pageUrl: '/knowledge/vocabulary/level1/lesson-1.html',
                 reason: 'Start with vocabulary'
             }
         };
