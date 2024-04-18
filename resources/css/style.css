@@ -850,6 +850,7 @@ fieldset {
 
 @media (max-width: 1024px) {
     .dashboard-layout {
+        width: 100%;
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(3, 1fr);
     }
@@ -867,6 +868,7 @@ fieldset {
 
 @media (max-width: 768px) {
     .dashboard-layout {
+        width: 100%;
         grid-template-columns: 1fr;
         grid-template-rows: auto;
         grid-gap: 10px;
@@ -888,13 +890,12 @@ fieldset {
         grid-row: span 1;
     }
 
-    .network-visualization h3,
     .progress-tracker h3,
     .recommendations h3,
     .learning-goals h3,
     .social-sharing h3,
-    .gamification h3 {
-        font-size: 16px;
+    .achievement h3 {
+        font-size: small;
         margin-bottom: 10px;
     }
 
