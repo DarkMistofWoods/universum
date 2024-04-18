@@ -122,7 +122,7 @@ function updateProgressTracker(progressData) {
     
                         subModule.lessons.forEach(lesson => {
                             if (progressData[lesson.lessonId] && progressData[lesson.lessonId].completed) {
-                                const lessonElement = createLessonProgressElement(lessonId, progressData[lesson.lessonId]);
+                                const lessonElement = createLessonProgressElement(lesson.lessonId, progressData[lesson.lessonId]);
                                 progressTrackerContainer.appendChild(lessonElement);
                             }
                         });
@@ -207,7 +207,7 @@ function createSubModuleProgressElement(subModule, progressData) {
     return submoduleElement;
 }
 
-function formatSubModuleId(subModuleId) {
+function formatLessonId(lessonId) {
     return subModuleId.replace(/_/g, ' ');
 }
 
@@ -218,7 +218,7 @@ function createLessonProgressElement(lessonId, lessonData) {
     const lessonElement = document.createElement('div');
     lessonElement.classList.add('lesson');
     const lessonTitleElement = document.createElement('h4');
-    lessonTitleElement.textContent = currentLesson;
+    lessonTitleElement.textContent = formatLessonIdq(lessonId);
     const lessonProgressElement = document.createElement('div');
     lessonProgressElement.classList.add('progress-bar');
     const lessonProgressIndicatorElement = document.createElement('div');
