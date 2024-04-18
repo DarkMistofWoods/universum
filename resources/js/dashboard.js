@@ -234,7 +234,13 @@ function updateRecentAchievements(achievementsData) {
     recentAchievementsContainer.innerHTML = '<h2>Achievements</h2>';
 
     if (achievementsData && achievementsData.length > 0) {
-        achievementsData.forEach(achievement => {
+        // Sort the achievements based on the lastUpdated timestamp in descending order
+        const sortedAchievements = achievementsData.sort((a, b) => b.lastUpdated.toMillis() - a.lastUpdated.toMillis());
+
+        // Display only the three most recently updated achievements
+        const recentAchievements = sortedAchievements.slice(0, 3);
+
+        recentAchievements.forEach(achievement => {
             const achievementElement = createAchievementElement(achievement);
             recentAchievementsContainer.appendChild(achievementElement);
         });
