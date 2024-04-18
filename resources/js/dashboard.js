@@ -408,7 +408,7 @@ function showAddGoalForm() {
     const goalTypeSelect = document.createElement('select');
     goalTypeSelect.innerHTML = `
         <option value="completeLessons">Complete Lessons</option>
-        <option value="quizScore">Complete Submodules</option>
+        <option value="completeSubModules">Complete Submodules</option>
         <option value="learnWords">Learn Words</option>
         <option value="quizScore">Get a Quiz Score Higher Than</option>
     `;
