@@ -45,6 +45,7 @@ async function fetchUserProgress(userId) {
         if (!userGoalsSnapshot.empty) {
             userGoalsSnapshot.forEach((doc) => {
                 const goalData = doc.data();
+                goalData.id = doc.id;
                 goalsData.push(goalData);
             });
         }
