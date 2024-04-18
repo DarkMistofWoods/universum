@@ -49,9 +49,7 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
         }
 
         const defaultAchievements = [
-            { type: 'Log in 3 days in a row', progress: 0, lastUpdated: admin.firestore.FieldValue.serverTimestamp() },
-            { type: 'Learn 20 words', progress: 0, lastUpdated: admin.firestore.FieldValue.serverTimestamp() },
-            { type: 'Score 100% on three separate quizzes', progress: 0, lastUpdated: admin.firestore.FieldValue.serverTimestamp() }
+            { type: 'login', title: 'Log in to your account for the first time', progress: 1, target: 1, lastUpdated: admin.firestore.FieldValue.serverTimestamp() }
         ];
 
         for (const achievement of defaultAchievements) {
@@ -60,7 +58,7 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
 
         const defaultRecommendations = {
             recommendation1: {
-                lessonId: 'Lesson 1: Common Phrases',
+                lessonId: 'Lesson_1_1',
                 recommendedOn: admin.firestore.FieldValue.serverTimestamp(),
                 reason: 'Start with vocabulary'
             }

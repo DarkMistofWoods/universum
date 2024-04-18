@@ -122,7 +122,7 @@ function updateProgressTracker(progressData) {
     
                         subModule.lessons.forEach(lesson => {
                             if (progressData[lesson.lessonId] && progressData[lesson.lessonId].completed) {
-                                const lessonElement = createLessonProgressElement(lesson, progressData[lesson.lessonId]);
+                                const lessonElement = createLessonProgressElement(lessonId, progressData[lesson.lessonId]);
                                 progressTrackerContainer.appendChild(lessonElement);
                             }
                         });
