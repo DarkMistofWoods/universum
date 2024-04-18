@@ -584,6 +584,12 @@ fieldset {
     padding: 0 0 20px;
 }
 
+.widget h3 {
+    color: var(--color-primary);
+    text-align: center;
+    font-size: medium;
+}
+
 .widget .content {
     flex: 1;
     padding: 20px;
