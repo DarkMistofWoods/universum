@@ -94,6 +94,9 @@ function handleAuthStateChanged(user) {
         const userId = user.uid;
         fetchUserProgress(userId);
         fetchUserProfile(userId); // Fetch user profile data
+
+        const feedbackForm = document.querySelector('.feedback-form');
+        feedbackForm.addEventListener('submit', handleFeedbackSubmit);
     } else {
         console.log('User is not authenticated');
         window.location.href = '/login.html';
@@ -485,4 +488,38 @@ async function removeGoal(goalId) {
     const goalRef = doc(db, 'users', userId, 'goals', goalId);
     await deleteDoc(goalRef);
     fetchUserProgress(userId);
+}
+
+async function handleFeedbackSubmit(event) {
+    event.preventDefault();
+
+    const feedbackForm = document.querySelector('.feedback-form');
+    const ratingInput = feedbackForm.querySelector('input[name="rating"]:checked');
+    const descriptionInput = feedbackForm.querySelector('textarea[name="description"]');
+
+    const rating = ratingInput ? parseInt(ratingInput.value) : 0;
+    const description = descriptionInput.value.trim();
+
+    if (rating === 0 || description === '') {
+        alert('Please provide a rating and description for your feedback.');
+        return;
+    }
+
+    const userId = auth.currentUser.uid;
+    const feedbackRef = collection(db, 'feedback');
+
+    try {
+        await addDoc(feedbackRef, {
+            userId: userId,
+            rating: rating,
+            description: description,
+            feedbackDate: serverTimestamp()
+        });
+
+        alert('Thank you for your feedback!');
+        feedbackForm.reset();
+    } catch (error) {
+        console.error('Error submitting feedback:', error);
+        alert('An error occurred while submitting your feedback. Please try again later.');
+    }
 }
