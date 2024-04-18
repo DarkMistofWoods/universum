@@ -679,7 +679,7 @@ fieldset {
 .progress-tracker .progress {
     height: 100%;
     background-color: var(--color-secondary);
-    border-radius: 5px;
+    border-radius: 10px;
     width: 0;
     margin-left: 0;
 }

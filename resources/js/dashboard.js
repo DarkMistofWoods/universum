@@ -187,12 +187,6 @@ function createModuleProgressElement(module, progressData) {
     return moduleElement;
 }
 
-function formatModuleId(moduleId) {
-    return moduleId.replace(/([A-Z])/, ' $1').replace(/^./, function(str) {
-        return str.toUpperCase();
-    });
-}
-
 function createSubModuleProgressElement(subModule, progressData) {
     const completedLessons = subModule.lessons.filter(lesson => progressData[lesson.lessonId] && progressData[lesson.lessonId].completed).length;
     const totalLessons = subModule.lessons.length;
@@ -236,18 +230,6 @@ function createLessonProgressElement(lessonId, lessonData) {
     lessonElement.appendChild(lessonProgressElement);
 
     return lessonElement;
-}
-
-function calculateModuleProgress(moduleData) {
-    const totalSubModules = Object.keys(moduleData.subModules).length;
-    const completedSubModules = Object.values(moduleData.subModules).filter(subModule => subModule.subModuleProgress === 100).length;
-    return (completedSubModules / totalSubModules) * 100;
-}
-
-function calculateSubModuleProgress(subModuleData) {
-    const totalLessons = Object.keys(subModuleData.lessons).length;
-    const completedLessons = Object.values(subModuleData.lessons).filter(lesson => lesson.completed).length;
-    return (completedLessons / totalLessons) * 100;
 }
 
 function updateRecentAchievements(achievementsData) {
