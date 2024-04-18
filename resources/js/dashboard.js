@@ -94,9 +94,6 @@ function handleAuthStateChanged(user) {
         const userId = user.uid;
         fetchUserProgress(userId);
         fetchUserProfile(userId); // Fetch user profile data
-
-        const feedbackForm = document.querySelector('.feedback-form');
-        feedbackForm.addEventListener('submit', handleFeedbackSubmit);
     } else {
         console.log('User is not authenticated');
         window.location.href = '/login.html';
@@ -472,18 +469,21 @@ async function removeGoal(goalId) {
     fetchUserProgress(userId);
 }
 
-async function handleFeedbackSubmit(event) {
-    event.preventDefault();
+async function handleFeedbackSubmit() {
+    const ratingInputs = document.querySelectorAll('input[name="rating"]');
+    let rating = 0;
+    for (const input of ratingInputs) {
+        if (input.checked) {
+            rating = parseInt(input.value);
+            break;
+        }
+    }
 
-    const feedbackForm = document.querySelector('.feedback-form');
-    const ratingInput = feedbackForm.querySelector('input[name="rating"]:checked');
-    const descriptionInput = feedbackForm.querySelector('textarea[name="description"]');
+    const commentInput = document.getElementById('comment');
+    const comment = commentInput.value.trim();
 
-    const rating = ratingInput ? parseInt(ratingInput.value) : 0;
-    const description = descriptionInput.value.trim();
-
-    if (rating === 0 || description === '') {
-        alert('Please provide a rating and description for your feedback.');
+    if (rating === 0 || comment === '') {
+        alert('Please provide a rating and comment for your feedback.');
         return;
     }
 
@@ -494,14 +494,27 @@ async function handleFeedbackSubmit(event) {
         await addDoc(feedbackRef, {
             userId: userId,
             rating: rating,
-            description: description,
+            description: comment,
             feedbackDate: serverTimestamp()
         });
 
         alert('Thank you for your feedback!');
-        feedbackForm.reset();
+        // Reset the rating and comment inputs
+        for (const input of ratingInputs) {
+            input.checked = false;
+        }
+        commentInput.value = '';
     } catch (error) {
         console.error('Error submitting feedback:', error);
         alert('An error occurred while submitting your feedback. Please try again later.');
     }
 }
+
+function initializeFeedbackWidget() {
+    const submitButton = document.getElementById('submitFeedback');
+    if (submitButton) {
+        submitButton.addEventListener('click', handleFeedbackSubmit);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', initializeFeedbackWidget);
