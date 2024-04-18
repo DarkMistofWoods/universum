@@ -87,6 +87,7 @@ input {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.75);
     /* Add shadow */
 }
+
 /* END OF GLOBAL STYLES */
 
 /* CONTAINERS */
@@ -202,6 +203,7 @@ input {
     height: 100%;
     filter: var(--filter-primary);
 }
+
 /* END OF CONTAINERS */
 
 /* NAVIGATION CIRCLE */
@@ -335,6 +337,7 @@ input {
 .button-tertiary:hover {
     background: var(--color-secondary);
 }
+
 /* END OF BUTTONS */
 
 /* FORMS */
@@ -535,6 +538,7 @@ fieldset {
     margin-top: 10px;
     width: auto;
 }
+
 /* END OF FORMS */
 
 /* DASHBOARD */
@@ -655,12 +659,14 @@ fieldset {
 
 .progress-tracker .submodule {
     width: 90%;
-    margin-left: 5%; /* Indent submodule */
+    margin-left: 5%;
+    /* Indent submodule */
 }
 
 .progress-tracker .lesson {
     width: 85%;
-    margin-left: 10%; /* Indent lesson */
+    margin-left: 10%;
+    /* Indent lesson */
     margin-bottom: 20px;
 }
 
@@ -684,7 +690,7 @@ fieldset {
     margin-left: 0;
 }
 
-.recommendation { 
+.recommendation {
     width: 95%;
     padding: 0 10px;
     margin: 0 10px;
@@ -832,7 +838,7 @@ fieldset {
     margin: 0 5px;
 }
 
-.rating input:checked ~ label {
+.rating input:checked~label {
     background-image: url('../icons/Star-Icon-Filled.svg');
 }
 
@@ -918,6 +924,7 @@ fieldset {
         height: 24px;
     }
 }
+
 /* END OF DASHBOARD */
 /* KNOWLEDGE CENTER */
 .knowledge-container {
@@ -1089,6 +1096,7 @@ fieldset {
     top: 5px;
     right: 5px;
 }
+
 /* END OF KNOWLEDGE CENTER */
 
 /* LEXICON */
@@ -1174,4 +1182,38 @@ fieldset {
 #lexiconContent strong {
     color: var(--color-primary);
 }
+
 /* END OF LEXICON */
+/* ACHIEVEMENTS */
+.achievement-container {
+    margin-bottom: 20px;
+}
+
+.achievement-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.achievement-title {
+    margin: 0;
+}
+
+.achievement-progress {
+    margin: 0;
+}
+
+.achievement-container .progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.achievement-container .progress {
+    height: 100%;
+    background-color: #4caf50;
+    border-radius: 10px;
+}
