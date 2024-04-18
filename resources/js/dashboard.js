@@ -265,14 +265,15 @@ function createAchievementElement(achievement) {
     achievementElement.classList.add('achievement');
 
     const nameElement = document.createElement('h4');
-    nameElement.textContent = achievement.name;
+    nameElement.textContent = achievement.title;
 
     const progressBarElement = document.createElement('div');
     progressBarElement.classList.add('progress-bar');
 
     const progressElement = document.createElement('div');
     progressElement.classList.add('progress');
-    progressElement.style.width = `${achievement.progress}%`;
+    const progressPercentage = Math.min(100, (achievement.progress / achievement.target) * 100);
+    progressElement.style.width = `${progressPercentage}%`;
 
     progressBarElement.appendChild(progressElement);
 
