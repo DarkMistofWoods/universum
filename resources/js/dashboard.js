@@ -264,7 +264,7 @@ function createAchievementElement(achievement) {
     const achievementElement = document.createElement('div');
     achievementElement.classList.add('achievement');
 
-    const nameElement = document.createElement('h4');
+    const nameElement = document.createElement('h3');
     nameElement.textContent = achievement.title;
 
     const progressBarElement = document.createElement('div');
@@ -325,10 +325,9 @@ async function updateLearningGoals(goalsData) {
 
     if (goalsData && goalsData.length > 0) {
         const goalElements = [];
-        goalsData.forEach(goalDoc => {
-            const goalId = goalDoc.id; // Get the document ID as the goalId
-            const goalData = goalDoc.data(); // Get the goal data
-            const goalElement = createLearningGoalElement(goalData, goalId);
+        goalsData.forEach(goal => {
+            const goalId = goal.id; // Assuming the goal object has an 'id' property
+            const goalElement = createLearningGoalElement(goal, goalId);
             goalElements.push(goalElement);
             learningGoalsContainer.appendChild(goalElement);
         });
