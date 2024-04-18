@@ -310,7 +310,7 @@ function createRecommendationElement(recommendation) {
     const linkElement = document.createElement('a');
     linkElement.href = recommendation.pageUrl;
     linkElement.classList.add('recommendation-link');
-    linkElement.textContent = 'Go to Lesson';
+    linkElement.textContent = 'Learn';
 
     recommendationElement.appendChild(titleElement);
     recommendationElement.appendChild(descriptionElement);
