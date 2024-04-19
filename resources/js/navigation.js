@@ -221,6 +221,11 @@ function drawLines(svgContainer, positions) {
             let startPos = positions[startIndex];
             let endPos = positions[endIndex];
 
+            // Skip drawing the line if the start and end indexes match the duplicate line
+            if (startIndex === 0 && endIndex === 6) {
+                continue;
+            }
+
             let line = document.createElementNS("http://www.w3.org/2000/svg", "line");
             line.setAttribute("x1", startPos.x);
             line.setAttribute("y1", startPos.y);
