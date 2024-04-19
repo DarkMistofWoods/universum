@@ -82,7 +82,7 @@ async function fetchUserAchievements(userId) {
         const userAchievementsRef = collection(db, 'users', userId, 'achievements');
         const lastCachedTimestamp = localStorage.getItem('userAchievementsLastCachedTimestamp');
         const userAchievementsQuery = lastCachedTimestamp
-            ? query(userAchievementsRef, where('lastUpdated', '>', new Date(lastCachedTimestamp)))
+            ? query(userAchievementsRef, where('lastUpdated', '>', new Date(parseInt(lastCachedTimestamp))))
             : userAchievementsRef;
         const userAchievementsSnapshot = await getDocs(userAchievementsQuery);
 
@@ -92,7 +92,7 @@ async function fetchUserAchievements(userId) {
                 achievementsData[doc.id] = doc.data();
             });
             localStorage.setItem('userAchievements', JSON.stringify(achievementsData));
-            localStorage.setItem('userAchievementsLastCachedTimestamp', new Date().toISOString());
+            localStorage.setItem('userAchievementsLastCachedTimestamp', new Date().getTime().toString());
             return achievementsData;
         } else {
             const cachedUserAchievements = JSON.parse(localStorage.getItem('userAchievements'));
@@ -110,7 +110,7 @@ async function fetchUserGoals(userId) {
         const userGoalsRef = collection(db, 'users', userId, 'goals');
         const lastCachedTimestamp = localStorage.getItem('userGoalsLastCachedTimestamp');
         const userGoalsQuery = lastCachedTimestamp
-            ? query(userGoalsRef, where('lastUpdated', '>', new Date(lastCachedTimestamp)))
+            ? query(userGoalsRef, where('lastUpdated', '>', new Date(parseInt(lastCachedTimestamp))))
             : userGoalsRef;
         const userGoalsSnapshot = await getDocs(userGoalsQuery);
 
@@ -120,7 +120,7 @@ async function fetchUserGoals(userId) {
                 goalsData[doc.id] = doc.data();
             });
             localStorage.setItem('userGoals', JSON.stringify(goalsData));
-            localStorage.setItem('userGoalsLastCachedTimestamp', new Date().toISOString());
+            localStorage.setItem('userGoalsLastCachedTimestamp', new Date().getTime().toString());
             return goalsData;
         } else {
             const cachedUserGoals = JSON.parse(localStorage.getItem('userGoals'));
@@ -138,7 +138,7 @@ async function fetchUserRecommendations(userId) {
         const userRecommendationsRef = collection(db, 'users', userId, 'recommendations');
         const lastCachedTimestamp = localStorage.getItem('userRecommendationsLastCachedTimestamp');
         const userRecommendationsQuery = lastCachedTimestamp
-            ? query(userRecommendationsRef, where('lastUpdated', '>', new Date(lastCachedTimestamp)))
+            ? query(userRecommendationsRef, where('lastUpdated', '>', new Date(parseInt(lastCachedTimestamp))))
             : userRecommendationsRef;
         const userRecommendationsSnapshot = await getDocs(userRecommendationsQuery);
 
@@ -148,7 +148,7 @@ async function fetchUserRecommendations(userId) {
                 recommendationsData[doc.id] = doc.data();
             });
             localStorage.setItem('userRecommendations', JSON.stringify(recommendationsData));
-            localStorage.setItem('userRecommendationsLastCachedTimestamp', new Date().toISOString());
+            localStorage.setItem('userRecommendationsLastCachedTimestamp', new Date().getTime().toString());
             return recommendationsData;
         } else {
             const cachedUserRecommendations = JSON.parse(localStorage.getItem('userRecommendations'));
@@ -166,7 +166,7 @@ async function fetchUserStatistics(userId) {
         const userStatisticsRef = collection(db, 'users', userId, 'statistics');
         const lastCachedTimestamp = localStorage.getItem('userStatisticsLastCachedTimestamp');
         const userStatisticsQuery = lastCachedTimestamp
-            ? query(userStatisticsRef, where('lastUpdated', '>', new Date(lastCachedTimestamp)))
+            ? query(userStatisticsRef, where('lastUpdated', '>', new Date(parseInt(lastCachedTimestamp))))
             : userStatisticsRef;
         const userStatisticsSnapshot = await getDocs(userStatisticsQuery);
 
@@ -176,7 +176,7 @@ async function fetchUserStatistics(userId) {
                 statisticsData[doc.id] = doc.data();
             });
             localStorage.setItem('userStatistics', JSON.stringify(statisticsData));
-            localStorage.setItem('userStatisticsLastCachedTimestamp', new Date().toISOString());
+            localStorage.setItem('userStatisticsLastCachedTimestamp', new Date().getTime().toString());
             return statisticsData;
         } else {
             const cachedUserStatistics = JSON.parse(localStorage.getItem('userStatistics'));
