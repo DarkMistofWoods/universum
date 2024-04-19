@@ -54,7 +54,7 @@ async function fetchUserProgress(userId) {
         const userProgressRef = collection(db, 'users', userId, 'progress');
         const lastCachedTimestamp = localStorage.getItem('userProgressLastCachedTimestamp');
         const userProgressQuery = lastCachedTimestamp
-            ? query(userProgressRef, where('lastUpdated', '>', new Date(lastCachedTimestamp)))
+            ? query(userProgressRef, where('lastUpdated', '>', new Date(parseInt(lastCachedTimestamp))))
             : userProgressRef;
         const userProgressSnapshot = await getDocs(userProgressQuery);
 
@@ -64,7 +64,7 @@ async function fetchUserProgress(userId) {
                 progressData[doc.id] = doc.data();
             });
             localStorage.setItem('userProgress', JSON.stringify(progressData));
-            localStorage.setItem('userProgressLastCachedTimestamp', new Date().toISOString());
+            localStorage.setItem('userProgressLastCachedTimestamp', new Date().getTime().toString());
             return progressData;
         } else {
             const cachedUserProgress = JSON.parse(localStorage.getItem('userProgress'));
