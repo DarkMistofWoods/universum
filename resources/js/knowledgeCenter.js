@@ -135,7 +135,6 @@ function createLessonElements(lessons, progressData, recommendationsData, isFirs
 async function fetchAndDisplayUserData(userId) {
     Promise.all([fetchUserProgress(userId), fetchUserSettings(userId)])
         .then(([progressData, userSettings]) => {
-            console.log('User progress data:', progressData);
             const recommendationsData = userSettings?.learningPath === 'guided' ? userSettings.recommendationsData || [] : [];
             
             fetch('functions/courseContent.json')
@@ -187,14 +186,10 @@ async function fetchAndDisplayUserData(userId) {
 
 auth.onAuthStateChanged(user => {
     if (user) {
-        const userId = user.uid;
-        console.log('User is authenticated:', userId);
         fetchAndDisplayUserData(user.uid);
-        // Update the data when the page is loaded
-        window.addEventListener('DOMContentLoaded', fetchAndDisplayUserData(userId));
     } else {
         console.log('User is not authenticated');
         // Handle the case when the user is not authenticated
-        // window.location.href = '/login.html';
+        window.location.href = '/login.html';
     }
 });
