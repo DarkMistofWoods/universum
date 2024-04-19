@@ -105,7 +105,7 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
             lastUpdated: currentTimestamp
         };
 
-        await db.collection('users').doc(user.uid).collection('profile').doc('profile').set(defaultProfile);
+        await db.collection('users').doc(user.uid).collection('profile').doc('profileData').set(defaultProfile);
 
         const defaultSettings = {
             audioSpeed: 'normal',
@@ -119,7 +119,7 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
             lastUpdated: currentTimestamp
         };
 
-        await db.collection('users').doc(user.uid).collection('settings').doc('settings').set(defaultSettings);
+        await db.collection('users').doc(user.uid).collection('settings').doc('userSettings').set(defaultSettings);
 
         const defaultStatistics = {
             topicId: '',
