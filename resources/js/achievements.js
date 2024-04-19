@@ -27,13 +27,11 @@ function generateAchievementHTML(achievement, userProgress) {
     const percentage = (progress / target) * 100;
 
     return `
-    <div id="achievementContent">
-        <div class="achievement-section">
-            <h3 class="achievement-title">${achievement.title}</h3>
-            <p class="achievement-progress">${progress} / ${target}</p>
-            <div class="progress-bar">
-                <div class="progress" style="width: ${percentage}%"></div>
-            </div>
+    <div class="achievement-section">
+        <h3 class="achievement-title">${achievement.title}</h3>
+        <p class="achievement-progress">${progress} / ${target}</p>
+        <div class="progress-bar">
+            <div class="progress" style="width: ${percentage}%"></div>
         </div>
     </div>
   `;
