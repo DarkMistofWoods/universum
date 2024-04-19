@@ -44,7 +44,7 @@ async function displayAchievements(userId) {
     const allAchievements = await fetchAllAchievements();
     const userAchievementsProgress = await fetchUserAchievementsProgress(userId);
 
-    const achievementsContainer = document.querySelector('#achievementContent');
+    const achievementsContainer = document.querySelector('achievementContent');
     let achievementsHTML = '<h2>Your Achievements</h2>';
 
     allAchievements.forEach((achievement) => {
