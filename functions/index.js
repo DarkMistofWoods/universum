@@ -32,6 +32,7 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
         console.log('initializeUserProgressOnSignUp triggered for user:', user.uid);
 
         const courseContent = await fetchCourseContent();
+        const currentTimestamp = admin.firestore.FieldValue.serverTimestamp();
 
         for (const module of courseContent) {
             for (const subModule of module.subModules) {
@@ -39,8 +40,9 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
                     const lessonData = {
                         completed: false,
                         quizScores: [],
-                        lastAccessed: admin.firestore.FieldValue.serverTimestamp(),
-                        timeSpent: 0
+                        lastAccessed: currentTimestamp,
+                        timeSpent: 0,
+                        lastUpdated: currentTimestamp
                     };
 
                     await db.collection('users').doc(user.uid).collection('progress').doc(lesson.lessonId).set(lessonData);
@@ -48,19 +50,17 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
             }
         }
 
-        // Read the default achievement data from the 'achievements' collection
         const initialAchievementDoc = await db.collection('achievements').doc('achievement1').get();
 
         if (initialAchievementDoc.exists) {
-            const defaultAchievementData = initialAchievementDoc.data();
+            const initialAchievementData = initialAchievementDoc.data();
 
-            // Create a corresponding achievement in the user's 'achievements' subcollection
-            await db.collection('users').doc(user.uid).collection('achievements').add({
-                type: defaultAchievementData.type,
-                title: defaultAchievementData.title,
+            await db.collection('users').doc(user.uid).collection('achievements').doc('achievement1').set({
+                type: initialAchievementData.type,
+                title: initialAchievementData.title,
                 progress: 1,
-                target: defaultAchievementData.target,
-                lastUpdated: admin.firestore.FieldValue.serverTimestamp()
+                target: initialAchievementData.target,
+                lastUpdated: currentTimestamp
             });
         } else {
             console.warn('Default achievement document not found.');
@@ -69,9 +69,10 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
         const defaultRecommendations = {
             recommendation1: {
                 lessonId: 'Vocabulary_1_1',
-                recommendedOn: admin.firestore.FieldValue.serverTimestamp(),
+                recommendedOn: currentTimestamp,
                 pageUrl: '/knowledge/vocabulary/level1/lesson-1.html',
-                reason: 'Start with vocabulary'
+                reason: 'Start with vocabulary',
+                lastUpdated: currentTimestamp
             }
         };
 
@@ -84,13 +85,50 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
                 description: 'completeLessons',
                 targetDate: admin.firestore.Timestamp.fromDate(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)),
                 target: 10,
-                progress: 0
+                progress: 0,
+                lastUpdated: currentTimestamp
             }
         ];
 
         for (const goal of defaultGoals) {
             await db.collection('users').doc(user.uid).collection('goals').add(goal);
         }
+
+        const defaultProfile = {
+            displayName: user.displayName || '',
+            location: '',
+            email: user.email || '',
+            lastUpdated: currentTimestamp
+        };
+
+        await db.collection('users').doc(user.uid).collection('profile').doc('profile').set(defaultProfile);
+
+        const defaultSettings = {
+            audioSpeed: 'normal',
+            contentPreferences: [],
+            feedbackFrequency: 'weekly',
+            languageInterface: 'en',
+            learningPace: 'standard',
+            learningPath: 'default',
+            notificationSettings: 'on',
+            privacySettings: 'default',
+            lastUpdated: currentTimestamp
+        };
+
+        await db.collection('users').doc(user.uid).collection('settings').doc('settings').set(defaultSettings);
+
+        const defaultStatistics = {
+            topicId: '',
+            strengthScore: 0,
+            quizScore: 0,
+            totalTimeSpent: 0,
+            learningRate: 0,
+            difficultyRating: 0,
+            engagementScore: 0,
+            lastUpdated: currentTimestamp
+        };
+
+        await db.collection('users').doc(user.uid).collection('statistics').doc('overall').set(defaultStatistics);
     } catch (error) {
         console.error('Error initializing user progress:', error);
         throw new functions.https.HttpsError('internal', error.message);
