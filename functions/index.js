@@ -31,6 +31,10 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
     try {
         console.log('initializeUserProgressOnSignUp triggered for user:', user.uid);
 
+        const userDocRef = db.collection('users').doc(user.uid);
+
+        await userDocRef.set({});
+
         const courseContent = await fetchCourseContent();
         const currentTimestamp = admin.firestore.FieldValue.serverTimestamp();
 
