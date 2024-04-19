@@ -132,64 +132,67 @@ function createLessonElements(lessons, progressData, recommendationsData, isFirs
 }
 
 // Function to handle user authentication state changes
-async function fetchAndDisplayUserData() {
-    const user = auth.currentUser;
-    if (user) {
-        const userId = user.uid;
-        Promise.all([fetchUserProgress(userId), fetchUserSettings(userId)])
-            .then(([progressData, userSettings]) => {
-                const recommendationsData = userSettings?.learningPath === 'guided' ? userSettings.recommendationsData || [] : [];
-                
-                fetch('functions/courseContent.json')
-                    .then(response => response.json())
-                    .then(courseContent => {
-                        courseContent.forEach((module, moduleIndex) => {
-                            const moduleElement = document.getElementById(`${module.moduleId}`);
-                            if (moduleElement) {
-                                const totalLessons = module.subModules.reduce((count, subModule) => count + subModule.lessons.length, 0);
-                                const completedLessons = module.subModules.flatMap(subModule => subModule.lessons)
-                                    .filter(lesson => progressData && progressData[lesson.lessonId] && progressData[lesson.lessonId].completed)
-                                    .length;
-                                const progress = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
-                                moduleElement.querySelector('.progress').style.width = `${progress}%`;
-                                
-                                const quizPercentageElement = moduleElement.querySelector('.quiz-percentage');
-                                const completedLessonsWithScores = module.subModules.flatMap(subModule => subModule.lessons)
-                                    .filter(lesson => progressData && progressData[lesson.lessonId] && progressData[lesson.lessonId].completed && progressData[lesson.lessonId].quizScores && progressData[lesson.lessonId].quizScores.length > 0);
-                                const quizScores = completedLessonsWithScores.flatMap(lesson => progressData[lesson.lessonId].quizScores);
-                                const averageQuizScore = calculateAverageQuizScore(quizScores);
-                                quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Average Score: ${averageQuizScore}` : 'Incomplete';
-                                
-                                moduleElement.addEventListener('click', () => {
-                                    moduleElement.classList.toggle('expanded');
-                                    const subModulesContainer = moduleElement.querySelector('.submodules-container');
-                                    if (subModulesContainer) {
-                                        subModulesContainer.remove();
-                                    } else {
-                                        const subModuleElements = createSubModuleElements(module.subModules, progressData, module.moduleId, recommendationsData, moduleIndex === 0);
-                                        const subModulesContainer = document.createElement('div');
-                                        subModulesContainer.classList.add('submodules-container');
-                                        subModulesContainer.append(...subModuleElements);
-                                        moduleElement.appendChild(subModulesContainer);
-                                    }
-                                });
-                            } else {
-                                console.warn(`Module element not found for module ID: ${module.moduleId}`);
-                            }
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Error fetching course content:', error);
+async function fetchAndDisplayUserData(userId) {
+    Promise.all([fetchUserProgress(userId), fetchUserSettings(userId)])
+        .then(([progressData, userSettings]) => {
+            const recommendationsData = userSettings?.learningPath === 'guided' ? userSettings.recommendationsData || [] : [];
+            
+            fetch('functions/courseContent.json')
+                .then(response => response.json())
+                .then(courseContent => {
+                    courseContent.forEach((module, moduleIndex) => {
+                        const moduleElement = document.getElementById(`${module.moduleId}`);
+                        if (moduleElement) {
+                            const totalLessons = module.subModules.reduce((count, subModule) => count + subModule.lessons.length, 0);
+                            const completedLessons = module.subModules.flatMap(subModule => subModule.lessons)
+                                .filter(lesson => progressData && progressData[lesson.lessonId] && progressData[lesson.lessonId].completed)
+                                .length;
+                            const progress = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
+                            moduleElement.querySelector('.progress').style.width = `${progress}%`;
+                            
+                            const quizPercentageElement = moduleElement.querySelector('.quiz-percentage');
+                            const completedLessonsWithScores = module.subModules.flatMap(subModule => subModule.lessons)
+                                .filter(lesson => progressData && progressData[lesson.lessonId] && progressData[lesson.lessonId].completed && progressData[lesson.lessonId].quizScores && progressData[lesson.lessonId].quizScores.length > 0);
+                            const quizScores = completedLessonsWithScores.flatMap(lesson => progressData[lesson.lessonId].quizScores);
+                            const averageQuizScore = calculateAverageQuizScore(quizScores);
+                            quizPercentageElement.textContent = averageQuizScore !== 'Incomplete' ? `Average Score: ${averageQuizScore}` : 'Incomplete';
+                            
+                            moduleElement.addEventListener('click', () => {
+                                moduleElement.classList.toggle('expanded');
+                                const subModulesContainer = moduleElement.querySelector('.submodules-container');
+                                if (subModulesContainer) {
+                                    subModulesContainer.remove();
+                                } else {
+                                    const subModuleElements = createSubModuleElements(module.subModules, progressData, module.moduleId, recommendationsData, moduleIndex === 0);
+                                    const subModulesContainer = document.createElement('div');
+                                    subModulesContainer.classList.add('submodules-container');
+                                    subModulesContainer.append(...subModuleElements);
+                                    moduleElement.appendChild(subModulesContainer);
+                                }
+                            });
+                        } else {
+                            console.warn(`Module element not found for module ID: ${module.moduleId}`);
+                        }
                     });
-            })
-            .catch(error => {
-                console.error('Error fetching user data:', error);
-            });
-    } else {
-        console.log('User is not authenticated');
-        // Handle the case when user is not authenticated
-    }
+                })
+                .catch(error => {
+                    console.error('Error fetching course content:', error);
+                });
+        })
+        .catch(error => {
+            console.error('Error fetching user data:', error);
+        });
 }
 
-// Update the data when the page is loaded
-window.addEventListener('DOMContentLoaded', setTimeout(fetchAndDisplayUserData, 1000)); // Delay the execution to ensure the DOM is loaded
+auth.onAuthStateChanged(user => {
+    if (user) {
+        const userId = user.uid;
+        //fetchAndDisplayUserData(user.uid);
+        // Update the data when the page is loaded
+        window.addEventListener('DOMContentLoaded', fetchAndDisplayUserData(userId));
+    } else {
+        console.log('User is not authenticated');
+        // Handle the case when the user is not authenticated
+        // window.location.href = '/login.html';
+    }
+});
