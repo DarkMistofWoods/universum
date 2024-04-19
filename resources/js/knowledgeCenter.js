@@ -188,9 +188,8 @@ async function fetchAndDisplayUserData() {
     } else {
         console.log('User is not authenticated');
         // Handle the case when user is not authenticated
-        window.location.href = '/login.html';
     }
 }
 
 // Update the data when the page is loaded
-window.addEventListener('DOMContentLoaded', fetchAndDisplayUserData);
+window.addEventListener('DOMContentLoaded', setTimeout(fetchAndDisplayUserData, 1000)); // Delay the execution to ensure the DOM is loaded
