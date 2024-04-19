@@ -310,7 +310,7 @@ function createRecommendationElement(recommendation) {
 
 async function updateLearningGoals(goalsData) {
     const learningGoalsContainer = document.querySelector('.learning-goals .content');
-    learningGoalsContainer.innerHTML = '<h2>Your Learning Goals</h2>';
+    learningGoalsContainer.innerHTML = '<h2>Learning Goals</h2>';
 
     if (goalsData && goalsData.length > 0) {
         const goalElements = [];

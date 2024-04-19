@@ -48,12 +48,22 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
             }
         }
 
-        const defaultAchievements = [
-            { type: 'login', title: 'Login for the first time', progress: 1, target: 1, lastUpdated: admin.firestore.FieldValue.serverTimestamp() }
-        ];
+        // Read the default achievement data from the 'achievements' collection
+        const initialAchievementDoc = await db.collection('achievements').doc('achievement1').get();
 
-        for (const achievement of defaultAchievements) {
-            await db.collection('users').doc(user.uid).collection('achievements').add(achievement);
+        if (initialAchievementDoc.exists) {
+            const defaultAchievementData = initialAchievementDoc.data();
+
+            // Create a corresponding achievement in the user's 'achievements' subcollection
+            await db.collection('users').doc(user.uid).collection('achievements').add({
+                type: defaultAchievementData.type,
+                title: defaultAchievementData.title,
+                progress: 1,
+                target: defaultAchievementData.target,
+                lastUpdated: admin.firestore.FieldValue.serverTimestamp()
+            });
+        } else {
+            console.warn('Default achievement document not found.');
         }
 
         const defaultRecommendations = {
