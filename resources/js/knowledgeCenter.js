@@ -159,6 +159,7 @@ async function fetchAndDisplayUserData(userId) {
                             
                             moduleElement.addEventListener('click', () => {
                                 moduleElement.classList.toggle('expanded');
+                                console.log('Module clicked:', module.moduleId);
                                 const subModulesContainer = moduleElement.querySelector('.submodules-container');
                                 if (subModulesContainer) {
                                     subModulesContainer.remove();
