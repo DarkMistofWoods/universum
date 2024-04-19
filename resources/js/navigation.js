@@ -218,7 +218,7 @@ function drawLines(svgContainer, positions) {
         for (let endIndex = startIndex + 1; endIndex < positions.length; endIndex++) {
             const startPos = positions[startIndex];
             const endPos = positions[endIndex];
-            const lineKey = `${startIndex}-${endIndex}`;
+            const lineKey = `${Math.min(startIndex, endIndex)}-${Math.max(startIndex, endIndex)}`;
 
             if (!drawnLines.has(lineKey)) {
                 const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
