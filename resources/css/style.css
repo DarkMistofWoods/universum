@@ -1194,6 +1194,7 @@ fieldset {
 /* END OF LEXICON */
 /* ACHIEVEMENTS */
 #achievementContent {
+    width: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1202,7 +1203,7 @@ fieldset {
     padding: 30px 36px;
     text-align: center;
     height: fit-content;
-    background: linear-gradient(-200deg, var(--color-background), var(--color-quaternary));
+    background: linear-gradient(-200deg, var(--color-quaternary), var(--color-background));
     border-radius: 50px;
 }
 
@@ -1222,16 +1223,25 @@ fieldset {
 
 .achievement-section {
     display: flex;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
+    text-align: left;
     margin-bottom: 5px;
+    background-color: var(--color-background);
+    padding: 5px 10px;
+    border-radius: 10px;
 }
 
 .achievement-title {
-    margin: 0;
+    color: var(--color-primary);
+    width: 25%;
+    font-size: medium;
+    margin: 10px 0;
 }
 
 .achievement-progress {
+    width: 10%;
     margin: 0;
 }
 /* END OF ACHIEVEMENTS */
