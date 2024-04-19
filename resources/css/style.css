@@ -256,10 +256,21 @@ input {
     font-size: large;
 }
 
+@keyframes fadeInOut {
+    0%, 100% {
+        opacity: 0.2;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
 .nav-line {
     stroke: var(--color-quaternary);
     /* Default faded color */
     stroke-width: 0.25;
+    opacity: 0.2;
+    animation: fadeInOut 6s cubic-bezier(0.65, 0.05, 0.36, 1) infinite;
 }
 
 .nav-line.highlighted {

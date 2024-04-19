@@ -218,7 +218,7 @@ function createPoint(angle, radius, pageName, url, index, svgContainer) {
 function drawLines(svgContainer, positions) {
     positions.forEach((startPos, startIndex) => {
         positions.forEach((endPos, endIndex) => {
-            if(startIndex !== endIndex) {
+            if(startIndex < endIndex) {
                 let line = document.createElementNS("http://www.w3.org/2000/svg", "line");
                 line.setAttribute("x1", startPos.x);
                 line.setAttribute("y1", startPos.y);
