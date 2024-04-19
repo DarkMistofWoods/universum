@@ -95,7 +95,7 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
         }
 
         const defaultProfile = {
-            displayName: user.displayName || '',
+            displayName: user.displayName || 'New User',
             location: '',
             email: user.email || '',
             lastUpdated: currentTimestamp

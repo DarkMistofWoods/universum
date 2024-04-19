@@ -1,27 +1,4 @@
-import { db, auth, fetchUserSettings } from './firebase-config.js';
-import { collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
-
-// Function to fetch user progress data from Firestore
-async function fetchUserProgress(userId) {
-    try {
-        const userProgressRef = collection(db, 'users', userId, 'progress');
-        const userProgressSnapshot = await getDocs(userProgressRef);
-
-        if (!userProgressSnapshot.empty) {
-            const progressData = {};
-            userProgressSnapshot.forEach(doc => {
-                progressData[doc.id] = doc.data();
-            });
-            return progressData;
-        } else {
-            console.log('User progress data does not exist');
-            return null;
-        }
-    } catch (error) {
-        console.error('Error fetching user progress:', error);
-        return null;
-    }
-}
+import { db, auth, collection, getDocs, fetchUserSettings, fetchUserProgress } from './firebase-config.js';
 
 // Function to calculate progress based on user progress data
 function calculateProgress(progressData, lessonId) {
