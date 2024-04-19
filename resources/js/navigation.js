@@ -80,12 +80,8 @@ function createPoint(angle, radius, pageName, url, index, svgContainer) {
         document.querySelector('.center-text').textContent = pageName;
         document.querySelector('.center-text').style.opacity = 1;
         point.setAttribute("r", 5); // Making the point larger on hover
-        // Highlight connected lines
-        document.querySelectorAll('.nav-line').forEach(line => {
-            if (line.getAttribute('data-start-index') == index || line.getAttribute('data-end-index') == index) {
-                line.classList.add('highlighted');
-            }
-        });
+        // Highlight the line between the hovered point and its connected points
+        highlightConnectedLines(index);
     });
 
     hitArea.addEventListener('mouseleave', () => {
@@ -314,6 +310,20 @@ function highlightIntersectingLines() {
 
         if ((x1 === centerX && y1 === centerY) || (x2 === centerX && y2 === centerY)) {
             line.classList.add('highlighted');
+        }
+    });
+}
+
+// Function to highlight the lines connected to a point
+function highlightConnectedLines(index) {
+    document.querySelectorAll('.nav-line').forEach(line => {
+        const startIndex = parseInt(line.getAttribute('data-start-index'));
+        const endIndex = parseInt(line.getAttribute('data-end-index'));
+
+        if (startIndex === index || endIndex === index) {
+            line.classList.add('highlighted');
+        } else {
+            line.classList.remove('highlighted');
         }
     });
 }
