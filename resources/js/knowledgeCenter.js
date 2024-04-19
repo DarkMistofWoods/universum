@@ -187,7 +187,7 @@ async function fetchAndDisplayUserData(userId) {
 auth.onAuthStateChanged(user => {
     if (user) {
         const userId = user.uid;
-        //fetchAndDisplayUserData(user.uid);
+        fetchAndDisplayUserData(user.uid);
         // Update the data when the page is loaded
         window.addEventListener('DOMContentLoaded', fetchAndDisplayUserData(userId));
     } else {
