@@ -132,7 +132,8 @@ function createLessonElements(lessons, progressData, recommendationsData, isFirs
 }
 
 // Function to handle user authentication state changes
-function handleAuthStateChanged(user) {
+async function fetchAndDisplayUserData() {
+    const user = auth.currentUser;
     if (user) {
         const userId = user.uid;
         Promise.all([fetchUserProgress(userId), fetchUserSettings(userId)])
@@ -187,8 +188,9 @@ function handleAuthStateChanged(user) {
     } else {
         console.log('User is not authenticated');
         // Handle the case when user is not authenticated
+        window.location.href = '/login.html';
     }
 }
 
-// Listen for user authentication state changes
-auth.onAuthStateChanged(handleAuthStateChanged);
+// Update the data when the page is loaded
+window.addEventListener('DOMContentLoaded', fetchAndDisplayUserData);
