@@ -216,22 +216,23 @@ function createPoint(angle, radius, pageName, url, index, svgContainer) {
 
 // Function to draw lines between points
 function drawLines(svgContainer, positions) {
-    positions.forEach((startPos, startIndex) => {
-        positions.forEach((endPos, endIndex) => {
-            if(startIndex < endIndex) {
-                let line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-                line.setAttribute("x1", startPos.x);
-                line.setAttribute("y1", startPos.y);
-                line.setAttribute("x2", endPos.x);
-                line.setAttribute("y2", endPos.y);
-                line.setAttribute("class", "nav-line");
-                // Store the indexes of the connected points
-                line.setAttribute("data-start-index", startIndex);
-                line.setAttribute("data-end-index", endIndex);
-                svgContainer.appendChild(line);
-            }
-        });
-    });
+    for (let startIndex = 0; startIndex < positions.length; startIndex++) {
+        for (let endIndex = startIndex + 1; endIndex < positions.length; endIndex++) {
+            let startPos = positions[startIndex];
+            let endPos = positions[endIndex];
+
+            let line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            line.setAttribute("x1", startPos.x);
+            line.setAttribute("y1", startPos.y);
+            line.setAttribute("x2", endPos.x);
+            line.setAttribute("y2", endPos.y);
+            line.setAttribute("class", "nav-line");
+            // Store the indexes of the connected points
+            line.setAttribute("data-start-index", startIndex);
+            line.setAttribute("data-end-index", endIndex);
+            svgContainer.appendChild(line);
+        }
+    }
 }
 
 // Draw lines before points to ensure lines are under points
