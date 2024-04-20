@@ -1,4 +1,4 @@
-import { db, auth, doc, getDoc, getDocs, collection, addDoc, deleteDoc, serverTimestamp, fetchUserProfile, fetchUserProgress } from './firebase-config.js';
+import { db, auth, doc, getDoc, getDocs, collection, addDoc, deleteDoc, serverTimestamp, fetchUserProfile, fetchUserProgress, fetchUserAchievements, fetchUserRecommendations, fetchUserGoals } from './firebase-config.js';
 
 // Function to update the display name element
 function updateDisplayName(displayName) {
@@ -13,15 +13,36 @@ function handleAuthStateChanged(user) {
         fetchUserProgress(userId)
             .then(progressData => {
                 updateProgressTracker(progressData);
-                updateRecentAchievements(progressData.achievements);
-                updateRecommendations(progressData.recommendations);
-                updateLearningGoals(progressData.goals);
             })
             .catch(error => {
                 console.error('Error fetching user progress:', error);
                 updateProgressTracker(null);
+            });
+
+        fetchUserAchievements(userId)
+            .then(achievementsData => {
+                updateRecentAchievements(achievementsData);
+            })
+            .catch(error => {
+                console.error('Error fetching user achievements:', error);
                 updateRecentAchievements(null);
+            });
+        
+        fetchUserRecommendations(userId)
+            .then(recommendationsData => {
+                updateRecommendations(recommendationsData);
+            })
+            .catch(error => {
+                console.error('Error fetching user recommendations:', error);
                 updateRecommendations(null);
+            });
+
+        fetchUserGoals(userId)
+            .then(goalsData => {
+                updateLearningGoals(goalsData);
+            })
+            .catch(error => {
+                console.error('Error fetching user goals:', error);
                 updateLearningGoals(null);
             });
 
