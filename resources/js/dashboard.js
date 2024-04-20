@@ -278,6 +278,9 @@ function createRecommendationElement(recommendation) {
 }
 
 function updateLearningGoals(goalsData) {
+    console.log(goalsData);
+    console.log(Object.keys(goalsData).length);
+
     const learningGoalsContainer = document.querySelector('.learning-goals .content');
     learningGoalsContainer.innerHTML = '<h2>Learning Goals</h2>';
   
