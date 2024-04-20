@@ -13,9 +13,9 @@ function handleAuthStateChanged(user) {
         fetchUserProgress(userId)
             .then(progressData => {
                 updateProgressTracker(progressData);
-                updateRecentAchievements(progressData.achievementsData);
-                updateRecommendations(progressData.recommendationsData);
-                updateLearningGoals(progressData.goalsData);
+                updateRecentAchievements(progressData.achievements);
+                updateRecommendations(progressData.recommendations);
+                updateLearningGoals(progressData.goals);
             })
             .catch(error => {
                 console.error('Error fetching user progress:', error);
@@ -26,8 +26,8 @@ function handleAuthStateChanged(user) {
             });
 
         fetchUserProfile(userId)
-            .then(userProfileData => {
-                updateDisplayName(userProfileData.displayName);
+            .then(profileData => {
+                updateDisplayName(profileData.displayName);
             })
             .catch(error => {
                 console.error('Error fetching user profile:', error);
