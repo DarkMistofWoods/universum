@@ -108,11 +108,7 @@ async function fetchUserAchievements(userId) {
 async function fetchUserGoals(userId) {
     try {
         const userGoalsRef = collection(db, 'users', userId, 'goals');
-        const lastCachedTimestamp = localStorage.getItem('userGoalsLastCachedTimestamp');
-        const userGoalsQuery = lastCachedTimestamp
-            ? query(userGoalsRef, where('lastUpdated', '>', new Date(parseInt(lastCachedTimestamp))))
-            : userGoalsRef;
-        const userGoalsSnapshot = await getDocs(userGoalsQuery);
+        const userGoalsSnapshot = await getDocs(userGoalsRef);
 
         if (!userGoalsSnapshot.empty) {
             const goalsData = {};
@@ -120,11 +116,10 @@ async function fetchUserGoals(userId) {
                 goalsData[doc.id] = doc.data();
             });
             localStorage.setItem('userGoals', JSON.stringify(goalsData));
-            localStorage.setItem('userGoalsLastCachedTimestamp', new Date().getTime().toString());
             return goalsData;
         } else {
-            const cachedUserGoals = JSON.parse(localStorage.getItem('userGoals'));
-            return cachedUserGoals || null;
+            localStorage.removeItem('userGoals');
+            return null;
         }
     } catch (error) {
         console.error('Error fetching user goals:', error);

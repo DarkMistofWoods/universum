@@ -278,29 +278,26 @@ function createRecommendationElement(recommendation) {
 }
 
 function updateLearningGoals(goalsData) {
-    console.log(goalsData);
-    console.log(Object.keys(goalsData).length);
-
     const learningGoalsContainer = document.querySelector('.learning-goals .content');
     learningGoalsContainer.innerHTML = '<h2>Learning Goals</h2>';
-  
+
     if (goalsData && Object.keys(goalsData).length > 0) {
-      const goalElements = Object.entries(goalsData).map(([goalId, goal]) => {
-        return createLearningGoalElement(goal, goalId);
-      });
-      
-      goalElements.forEach(goalElement => {
-        learningGoalsContainer.appendChild(goalElement);
-      });
-  
-      if (goalElements.length < 3) {
+        const goalElements = Object.entries(goalsData).map(([goalId, goal]) => {
+            return createLearningGoalElement(goal, goalId);
+        });
+
+        goalElements.forEach(goalElement => {
+            learningGoalsContainer.appendChild(goalElement);
+        });
+
+        if (goalElements.length < 3) {
+            const addGoalButton = createAddGoalButton();
+            learningGoalsContainer.appendChild(addGoalButton);
+        }
+    } else {
+        learningGoalsContainer.innerHTML += '<p>No learning goals available.</p>';
         const addGoalButton = createAddGoalButton();
         learningGoalsContainer.appendChild(addGoalButton);
-      }
-    } else {
-      learningGoalsContainer.innerHTML += '<p>No learning goals available.</p>';
-      const addGoalButton = createAddGoalButton();
-      learningGoalsContainer.appendChild(addGoalButton);
     }
 }
 
