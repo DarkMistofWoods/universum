@@ -325,7 +325,7 @@ function createLearningGoalElement(goal, goalId) {
     const removeButton = document.createElement('button');
     removeButton.classList.add('button-primary');
     removeButton.textContent = 'Remove';
-    removeButton.addEventListener('click', () => removeGoal(goalId));
+    removeButton.addEventListener('click', () => processRemoveGoal(goalId));
   
     goalElement.appendChild(titleElement);
     goalElement.appendChild(progressTextElement);
