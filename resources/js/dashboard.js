@@ -420,9 +420,7 @@ async function processAddGoal(goalType, goalAmount) {
     const userId = auth.currentUser.uid;
     try {
       await addGoal(userId, goalType, goalAmount);
-      fetchUserGoals(userId).then(goalsData => {
-        updateLearningGoals(goalsData);
-      });
+      updateLearningGoals(await fetchUserGoals(userId));
     } catch (error) {
       console.error('Error adding goal:', error);
       if (error.message === 'You have reached the maximum number of goals (3).') {
@@ -437,9 +435,7 @@ async function processRemoveGoal(goalId) {
   const userId = auth.currentUser.uid;
   try {
     await removeGoal(userId, goalId);
-    fetchUserGoals(userId).then(goalsData => {
-      updateLearningGoals(goalsData);
-    });
+    updateLearningGoals(await fetchUserGoals(userId));
   } catch (error) {
     console.error('Error removing goal:', error);
     alert('An error occurred while removing the goal. Please try again later.');

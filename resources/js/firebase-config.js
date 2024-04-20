@@ -105,7 +105,14 @@ async function fetchUserAchievements(userId) {
 }
 
 // Function to fetch user goals from Firestore
-async function fetchUserGoals(userId) {
+async function fetchUserGoals(userId, forceRefresh = false) {
+    const cachedUserGoals = JSON.parse(localStorage.getItem('userGoals'));
+    const lastCachedTimestamp = localStorage.getItem('userGoalsLastCachedTimestamp');
+
+    if (!forceRefresh && cachedUserGoals && lastCachedTimestamp) {
+        return cachedUserGoals;
+    }
+
     try {
         const userGoalsRef = collection(db, 'users', userId, 'goals');
         const userGoalsSnapshot = await getDocs(userGoalsRef);
@@ -116,9 +123,11 @@ async function fetchUserGoals(userId) {
                 goalsData[doc.id] = doc.data();
             });
             localStorage.setItem('userGoals', JSON.stringify(goalsData));
+            localStorage.setItem('userGoalsLastCachedTimestamp', new Date().getTime().toString());
             return goalsData;
         } else {
             localStorage.removeItem('userGoals');
+            localStorage.removeItem('userGoalsLastCachedTimestamp');
             return null;
         }
     } catch (error) {
@@ -227,7 +236,7 @@ async function addGoal(userId, goalType, goalAmount) {
         };
 
         await addDoc(userGoalsRef, newGoalData);
-        localStorage.setItem('userGoalsLastCachedTimestamp', new Date().getTime().toString());
+        fetchUserGoals(userId, true);
     } else {
         throw new Error('You have reached the maximum number of goals (3).');
     }
@@ -236,7 +245,7 @@ async function addGoal(userId, goalType, goalAmount) {
 async function removeGoal(userId, goalId) {
     const goalRef = doc(db, 'users', userId, 'goals', goalId);
     await deleteDoc(goalRef);
-    localStorage.setItem('userGoalsLastCachedTimestamp', new Date().getTime().toString());
+    fetchUserGoals(userId, true);
 }
 
 export {
