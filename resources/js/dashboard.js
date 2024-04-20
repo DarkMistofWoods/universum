@@ -433,7 +433,7 @@ async function processAddGoal(goalType, goalAmount) {
     }
 }
 
-async function removeGoal(goalId) {
+async function processRemoveGoal(goalId) {
   const userId = auth.currentUser.uid;
   try {
     await removeGoal(userId, goalId);
