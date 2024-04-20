@@ -304,34 +304,34 @@ function updateLearningGoals(goalsData) {
 function createLearningGoalElement(goal, goalId) {
     const goalElement = document.createElement('div');
     goalElement.classList.add('learning-goal');
-
+  
     const titleElement = document.createElement('h3');
     titleElement.textContent = getGoalTitle(goal);
-
+  
     const progressTextElement = document.createElement('div');
     progressTextElement.classList.add('progress-text');
     progressTextElement.textContent = `${goal.progress} / ${goal.target}`;
-
+  
     const progressBarElement = document.createElement('div');
     progressBarElement.classList.add('progress-bar');
-
+  
     const progressElement = document.createElement('div');
     progressElement.classList.add('progress');
     const progressPercentage = Math.min(100, (goal.progress / goal.target) * 100);
     progressElement.style.width = `${progressPercentage}%`;
-
+  
     progressBarElement.appendChild(progressElement);
-
+  
     const removeButton = document.createElement('button');
     removeButton.classList.add('button-primary');
     removeButton.textContent = 'Remove';
-    removeButton.addEventListener('click', () => processRemoveGoal(goalId));
-
+    removeButton.addEventListener('click', () => removeGoal(goalId));
+  
     goalElement.appendChild(titleElement);
     goalElement.appendChild(progressTextElement);
     goalElement.appendChild(progressBarElement);
     goalElement.appendChild(removeButton);
-
+  
     return goalElement;
 }
 
