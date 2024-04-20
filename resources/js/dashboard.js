@@ -1,4 +1,21 @@
-import { db, auth, doc, getDoc, getDocs, collection, addDoc, deleteDoc, serverTimestamp, fetchUserProfile, fetchUserProgress, fetchUserAchievements, fetchUserRecommendations, fetchUserGoals, addGoal, removeGoal } from './firebase-config.js';
+import {
+    db,
+    auth,
+    doc,
+    getDoc,
+    getDocs,
+    collection,
+    addDoc,
+    deleteDoc,
+    serverTimestamp,
+    fetchUserProfile,
+    fetchUserProgress,
+    fetchUserAchievements,
+    fetchUserRecommendations,
+    fetchUserGoals,
+    addGoal,
+    removeGoal
+} from './firebase-config.js';
 
 // Function to update the display name element
 function updateDisplayName(displayName) {
@@ -407,22 +424,26 @@ async function processAddGoal(goalType, goalAmount) {
     const userId = auth.currentUser.uid;
     try {
       await addGoal(userId, goalType, goalAmount);
-      fetchUserGoals(userId);
+      fetchUserGoals(userId).then(goalsData => {
+        updateLearningGoals(goalsData);
+      });
     } catch (error) {
       console.error('Error adding goal:', error);
       alert('An error occurred while adding the goal. Please try again later.');
     }
 }
 
-async function processRemoveGoal(goalId) {
-    const userId = auth.currentUser.uid;
-    try {
-      await removeGoal(userId, goalId);
-      fetchUserGoals(userId);
-    } catch (error) {
-      console.error('Error removing goal:', error);
-      alert('An error occurred while removing the goal. Please try again later.');
-    }
+async function removeGoal(goalId) {
+  const userId = auth.currentUser.uid;
+  try {
+    await removeGoal(userId, goalId);
+    fetchUserGoals(userId).then(goalsData => {
+      updateLearningGoals(goalsData);
+    });
+  } catch (error) {
+    console.error('Error removing goal:', error);
+    alert('An error occurred while removing the goal. Please try again later.');
+  }
 }
 
 async function handleFeedbackSubmit() {
