@@ -1,4 +1,4 @@
-import { db, auth, doc, getDoc, getDocs, collection, addDoc, deleteDoc, serverTimestamp, fetchUserProfile, fetchUserProgress, fetchUserAchievements, fetchUserRecommendations, fetchUserGoals } from './firebase-config.js';
+import { db, auth, doc, getDoc, getDocs, collection, addDoc, deleteDoc, serverTimestamp, fetchUserProfile, fetchUserProgress, fetchUserAchievements, fetchUserRecommendations, fetchUserGoals, addGoal, removeGoal } from './firebase-config.js';
 
 // Function to update the display name element
 function updateDisplayName(displayName) {
@@ -312,7 +312,7 @@ function createLearningGoalElement(goal, goalId) {
     const removeButton = document.createElement('button');
     removeButton.classList.add('button-primary');
     removeButton.textContent = 'Remove';
-    removeButton.addEventListener('click', () => removeGoal(goalId));
+    removeButton.addEventListener('click', () => processRemoveGoal(goalId));
 
     goalElement.appendChild(titleElement);
     goalElement.appendChild(progressTextElement);
@@ -381,7 +381,7 @@ function showAddGoalForm() {
     addButton.addEventListener('click', () => {
         const goalType = goalTypeSelect.value;
         const goalAmount = parseInt(goalAmountSelect.value);
-        addGoal(goalType, goalAmount);
+        processAddGoal(goalType, goalAmount);
         addGoalForm.remove();
     });
 
@@ -403,32 +403,26 @@ function showAddGoalForm() {
     learningGoalsContainer.appendChild(addGoalForm);
 }
 
-async function addGoal(goalType, goalAmount) {
+async function processAddGoal(goalType, goalAmount) {
     const userId = auth.currentUser.uid;
-    const userGoalsRef = collection(db, 'users', userId, 'goals');
-    const userGoalsSnapshot = await getDocs(userGoalsRef);
-
-    if (userGoalsSnapshot.size < 3) {
-        const newGoalData = {
-            description: goalType,
-            targetDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-            target: goalAmount,
-            progress: 0
-        };
-
-        const newGoalRef = await addDoc(userGoalsRef, newGoalData);
-        const goalId = newGoalRef.id; // Get the document ID as the goalId
-        fetchUserProgress(userId);
-    } else {
-        alert('You have reached the maximum number of goals (3).');
+    try {
+      await addGoal(userId, goalType, goalAmount);
+      fetchUserGoals(userId);
+    } catch (error) {
+      console.error('Error adding goal:', error);
+      alert('An error occurred while adding the goal. Please try again later.');
     }
 }
 
-async function removeGoal(goalId) {
+async function processRemoveGoal(goalId) {
     const userId = auth.currentUser.uid;
-    const goalRef = doc(db, 'users', userId, 'goals', goalId);
-    await deleteDoc(goalRef);
-    fetchUserProgress(userId);
+    try {
+      await removeGoal(userId, goalId);
+      fetchUserGoals(userId);
+    } catch (error) {
+      console.error('Error removing goal:', error);
+      alert('An error occurred while removing the goal. Please try again later.');
+    }
 }
 
 async function handleFeedbackSubmit() {

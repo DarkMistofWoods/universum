@@ -651,6 +651,11 @@ fieldset {
     padding: 20px;
 }
 
+.progress-tracker .content {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
 .achievement,
 .progress-tracker .lesson,
 .progress-tracker .submodule,
@@ -663,6 +668,7 @@ fieldset {
 }
 
 .progress-tracker .module {
+    transform: translateY(-10px);
     width: 95%;
 }
 

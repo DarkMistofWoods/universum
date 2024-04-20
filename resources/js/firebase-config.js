@@ -218,6 +218,30 @@ async function fetchUserProfile(userId) {
     }
 }
 
+async function addGoal(userId, goalType, goalAmount) {
+  const userGoalsRef = collection(db, 'users', userId, 'goals');
+  const userGoalsSnapshot = await getDocs(userGoalsRef);
+
+  if (userGoalsSnapshot.size < 3) {
+    const newGoalData = {
+      description: goalType,
+      targetDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+      target: goalAmount,
+      progress: 0,
+      lastUpdated: serverTimestamp()
+    };
+
+    await addDoc(userGoalsRef, newGoalData);
+  } else {
+    throw new Error('You have reached the maximum number of goals (3).');
+  }
+}
+
+async function removeGoal(userId, goalId) {
+  const goalRef = doc(db, 'users', userId, 'goals', goalId);
+  await deleteDoc(goalRef);
+}
+
 export {
     db,
     auth,
@@ -231,6 +255,8 @@ export {
     fetchUserRecommendations,
     fetchUserStatistics,
     fetchUserProfile,
+    addGoal,
+    removeGoal,
     collection,
     addDoc,
     updateDoc,
