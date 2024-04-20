@@ -206,6 +206,7 @@ function updateRecentAchievements(achievementsData) {
     recentAchievementsContainer.innerHTML = '<h2>Achievements</h2>';
   
     if (achievementsData && Object.keys(achievementsData).length > 1) {
+        console.log(Object.keys(achievementsData).length);
       const sortedAchievements = Object.values(achievementsData).sort((a, b) => b.lastUpdated.toMillis() - a.lastUpdated.toMillis());
       const recentAchievements = sortedAchievements.slice(0, 3);
   
