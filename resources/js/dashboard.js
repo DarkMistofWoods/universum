@@ -193,6 +193,7 @@ function updateRecentAchievements(achievementsData) {
     recentAchievementsContainer.innerHTML = '<h2>Achievements</h2>';
 
     if (achievementsData && achievementsData.length > 0) {
+        console.log(achievementsData);
         // Sort the achievements based on the lastUpdated timestamp in descending order
         const sortedAchievements = achievementsData.sort((a, b) => b.lastUpdated.toMillis() - a.lastUpdated.toMillis());
 
@@ -272,6 +273,8 @@ async function updateLearningGoals(goalsData) {
     learningGoalsContainer.innerHTML = '<h2>Learning Goals</h2>';
 
     if (goalsData && goalsData.length > 0) {
+        console.log(goalsData);
+
         const goalElements = [];
         goalsData.forEach(goal => {
             const goalId = goal.id; // Assuming the goal object has an 'id' property
