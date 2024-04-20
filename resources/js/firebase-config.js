@@ -124,7 +124,6 @@ async function fetchUserAchievements(userId) {
                 const achievementsData = {};
                 userAchievementsSnapshot.forEach(doc => {
                     achievementsData[doc.id] = doc.data();
-                    achievementsData[doc.id].lastUpdated = achievementsData[doc.id].lastUpdated.toMillis();
                 });
                 const updatedUserAchievements = { ...cachedUserAchievements, ...achievementsData };
                 updatedUserAchievements.lastUpdated = new Date().getTime();
@@ -140,7 +139,6 @@ async function fetchUserAchievements(userId) {
                 const achievementsData = {};
                 userAchievementsSnapshot.forEach(doc => {
                     achievementsData[doc.id] = doc.data();
-                    achievementsData[doc.id].lastUpdated = achievementsData[doc.id].lastUpdated.toMillis();
                 });
                 achievementsData.lastUpdated = new Date().getTime();
                 localStorage.setItem('userAchievements', JSON.stringify(achievementsData));
