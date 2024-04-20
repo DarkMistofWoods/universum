@@ -213,7 +213,7 @@ function updateRecentAchievements(achievementsData) {
         const achievementElement = createAchievementElement(achievement);
         recentAchievementsContainer.appendChild(achievementElement);
       });
-    } else if (achievementsData && Object.keys(achievementsData).length > 0) {
+    } else if (achievementsData && Object.keys(achievementsData).length === 1) {
         const achievementElement = createAchievementElement(Object.values(achievementsData)[0]);
         recentAchievementsContainer.appendChild(achievementElement);
     } else {
