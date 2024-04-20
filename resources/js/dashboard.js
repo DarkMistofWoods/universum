@@ -1,85 +1,4 @@
-import { db, auth, doc, getDoc, getDocs, collection, addDoc, deleteDoc, serverTimestamp } from './firebase-config.js';
-
-// Function to fetch user progress data from Firestore
-async function fetchUserProgress(userId) {
-    try {
-        const userProgressRef = collection(db, 'users', userId, 'progress');
-        const userProgressSnapshot = await getDocs(userProgressRef);
-        //console.log('User Progress Snapshot:', userProgressSnapshot);
-
-        const progressData = {};
-        const achievementsData = [];
-        const recommendationsData = {};
-        const goalsData = [];
-
-        if (!userProgressSnapshot.empty) {
-            userProgressSnapshot.forEach((doc) => {
-                const lessonId = doc.id;
-                const lessonData = doc.data();
-                progressData[lessonId] = lessonData;
-            });
-        }
-
-        const userAchievementsRef = collection(db, 'users', userId, 'achievements');
-        const userAchievementsSnapshot = await getDocs(userAchievementsRef);
-        if (!userAchievementsSnapshot.empty) {
-            userAchievementsSnapshot.forEach((doc) => {
-                const achievementData = doc.data();
-                achievementsData.push(achievementData);
-            });
-        }
-
-        const userRecommendationsRef = collection(db, 'users', userId, 'recommendations');
-        const userRecommendationsSnapshot = await getDocs(userRecommendationsRef);
-        if (!userRecommendationsSnapshot.empty) {
-            userRecommendationsSnapshot.forEach((doc) => {
-                const recommendationId = doc.id;
-                const recommendationData = doc.data();
-                recommendationsData[recommendationId] = recommendationData;
-            });
-        }
-
-        const userGoalsRef = collection(db, 'users', userId, 'goals');
-        const userGoalsSnapshot = await getDocs(userGoalsRef);
-        if (!userGoalsSnapshot.empty) {
-            userGoalsSnapshot.forEach((doc) => {
-                const goalData = doc.data();
-                goalData.id = doc.id;
-                goalsData.push(goalData);
-            });
-        }
-
-        updateProgressTracker(progressData);
-        updateRecentAchievements(achievementsData);
-        updateRecommendations(recommendationsData);
-        updateLearningGoals(goalsData);
-    } catch (error) {
-        console.error('Error fetching user progress:', error);
-        updateProgressTracker(null);
-        updateRecentAchievements(null);
-        updateRecommendations(null);
-        updateLearningGoals(null);
-    }
-}
-
-// Function to fetch user profile data from Firestore
-async function fetchUserProfile(userId) {
-    try {
-        const userProfileRef = doc(db, 'users', userId, 'profile', 'profileData');
-        const userProfileSnapshot = await getDoc(userProfileRef);
-
-        if (userProfileSnapshot.exists()) {
-            const userProfileData = userProfileSnapshot.data();
-            updateDisplayName(userProfileData.displayName);
-        } else {
-            console.log('User profile document does not exist');
-            updateDisplayName('New User');
-        }
-    } catch (error) {
-        console.error('Error fetching user profile:', error);
-        updateDisplayName('New User');
-    }
-}
+import { db, auth, doc, getDoc, getDocs, collection, addDoc, deleteDoc, serverTimestamp, fetchUserProfile, fetchUserProgress } from './firebase-config.js';
 
 // Function to update the display name element
 function updateDisplayName(displayName) {
@@ -91,12 +10,32 @@ function updateDisplayName(displayName) {
 function handleAuthStateChanged(user) {
     if (user) {
         const userId = user.uid;
-        fetchUserProgress(userId);
-        fetchUserProfile(userId); // Fetch user profile data
+        fetchUserProgress(userId)
+            .then(progressData => {
+                updateProgressTracker(progressData);
+                updateRecentAchievements(progressData.achievementsData);
+                updateRecommendations(progressData.recommendationsData);
+                updateLearningGoals(progressData.goalsData);
+            })
+            .catch(error => {
+                console.error('Error fetching user progress:', error);
+                updateProgressTracker(null);
+                updateRecentAchievements(null);
+                updateRecommendations(null);
+                updateLearningGoals(null);
+            });
+
+        fetchUserProfile(userId)
+            .then(userProfileData => {
+                updateDisplayName(userProfileData.displayName);
+            })
+            .catch(error => {
+                console.error('Error fetching user profile:', error);
+                updateDisplayName('New User');
+            });
     } else {
         console.log('User is not authenticated');
         window.location.href = '/login.html';
-        // Handle the case when user is not authenticated
     }
 }
 
