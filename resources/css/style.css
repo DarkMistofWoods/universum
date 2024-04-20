@@ -785,6 +785,27 @@ fieldset {
     white-space: nowrap;
 }
 
+.add-goal-form {
+    display: block;
+    width: 80%;
+    padding: 15px 50px;
+    background-color: var(--color-quaternary);
+    border-radius: 15px;
+}
+
+.add-goal-form select {
+    margin: 5px;
+}
+
+.add-goal-form label {
+    color: var(--color-secondary);
+    margin: 5px;
+}
+
+.add-goal-form button {
+    width: 25%;
+}
+
 .social-sharing .content {
     display: flex;
     flex-direction: column;
