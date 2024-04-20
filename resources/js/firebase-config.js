@@ -24,7 +24,7 @@ async function fetchUserSettings(userId) {
         const userSettingsRef = doc(db, 'users', userId, 'settings', 'userSettings');
         const cachedUserSettings = JSON.parse(localStorage.getItem('userSettings'));
         
-        if (cachedUserSettings) {
+        if (cachedUserSettings && cachedUserSettings.lastUpdated) {
             const lastCachedTimestamp = cachedUserSettings.lastUpdated;
             const userSettingsSnapshot = await getDoc(userSettingsRef);
 
@@ -67,7 +67,7 @@ async function fetchUserProgress(userId) {
         const userProgressRef = collection(db, 'users', userId, 'progress');
         const cachedUserProgress = JSON.parse(localStorage.getItem('userProgress'));
 
-        if (cachedUserProgress) {
+        if (cachedUserProgress && cachedUserProgress.lastUpdated) {
             const lastCachedTimestamp = cachedUserProgress.lastUpdated;
             const userProgressQuery = query(userProgressRef, where('lastUpdated', '>', new Date(lastCachedTimestamp)));
             const userProgressSnapshot = await getDocs(userProgressQuery);
@@ -76,6 +76,7 @@ async function fetchUserProgress(userId) {
                 const progressData = {};
                 userProgressSnapshot.forEach(doc => {
                     progressData[doc.id] = doc.data();
+                    progressData[doc.id].lastUpdated = progressData[doc.id].lastUpdated.toMillis();
                 });
                 const updatedUserProgress = { ...cachedUserProgress, ...progressData };
                 updatedUserProgress.lastUpdated = new Date().getTime();
@@ -91,6 +92,7 @@ async function fetchUserProgress(userId) {
                 const progressData = {};
                 userProgressSnapshot.forEach(doc => {
                     progressData[doc.id] = doc.data();
+                    progressData[doc.id].lastUpdated = progressData[doc.id].lastUpdated.toMillis();
                 });
                 progressData.lastUpdated = new Date().getTime();
                 localStorage.setItem('userProgress', JSON.stringify(progressData));
@@ -248,6 +250,7 @@ async function fetchUserProfile(userId) {
     }
 }
 
+// Functions to modify user data in Firestore
 async function addGoal(userId, goalType, goalAmount) {
     const userGoalsRef = collection(db, 'users', userId, 'goals');
     const userGoalsSnapshot = await getDocs(userGoalsRef);
