@@ -191,21 +191,17 @@ function createLessonProgressElement(lessonId, lessonData) {
 function updateRecentAchievements(achievementsData) {
     const recentAchievementsContainer = document.querySelector('.recent-achievements .content');
     recentAchievementsContainer.innerHTML = '<h2>Achievements</h2>';
-
-    if (achievementsData && achievementsData.length > 0) {
-        console.log(achievementsData);
-        // Sort the achievements based on the lastUpdated timestamp in descending order
-        const sortedAchievements = achievementsData.sort((a, b) => b.lastUpdated.toMillis() - a.lastUpdated.toMillis());
-
-        // Display only the three most recently updated achievements
-        const recentAchievements = sortedAchievements.slice(0, 3);
-
-        recentAchievements.forEach(achievement => {
-            const achievementElement = createAchievementElement(achievement);
-            recentAchievementsContainer.appendChild(achievementElement);
-        });
+  
+    if (achievementsData && Object.keys(achievementsData).length > 0) {
+      const sortedAchievements = Object.values(achievementsData).sort((a, b) => b.lastUpdated.toMillis() - a.lastUpdated.toMillis());
+      const recentAchievements = sortedAchievements.slice(0, 3);
+  
+      recentAchievements.forEach(achievement => {
+        const achievementElement = createAchievementElement(achievement);
+        recentAchievementsContainer.appendChild(achievementElement);
+      });
     } else {
-        recentAchievementsContainer.innerHTML += '<p>No achievements available.</p>';
+      recentAchievementsContainer.innerHTML += '<p>No achievements available.</p>';
     }
 }
 
@@ -268,29 +264,27 @@ function createRecommendationElement(recommendation) {
     return recommendationElement;
 }
 
-async function updateLearningGoals(goalsData) {
+function updateLearningGoals(goalsData) {
     const learningGoalsContainer = document.querySelector('.learning-goals .content');
     learningGoalsContainer.innerHTML = '<h2>Learning Goals</h2>';
-
-    if (goalsData && goalsData.length > 0) {
-        console.log(goalsData);
-
-        const goalElements = [];
-        goalsData.forEach(goal => {
-            const goalId = goal.id; // Assuming the goal object has an 'id' property
-            const goalElement = createLearningGoalElement(goal, goalId);
-            goalElements.push(goalElement);
-            learningGoalsContainer.appendChild(goalElement);
-        });
-
-        if (goalElements.length < 3) {
-            const addGoalButton = createAddGoalButton();
-            learningGoalsContainer.appendChild(addGoalButton);
-        }
-    } else {
-        learningGoalsContainer.innerHTML += '<p>No learning goals available.</p>';
+  
+    if (goalsData && Object.keys(goalsData).length > 0) {
+      const goalElements = Object.entries(goalsData).map(([goalId, goal]) => {
+        return createLearningGoalElement(goal, goalId);
+      });
+      
+      goalElements.forEach(goalElement => {
+        learningGoalsContainer.appendChild(goalElement);
+      });
+  
+      if (goalElements.length < 3) {
         const addGoalButton = createAddGoalButton();
         learningGoalsContainer.appendChild(addGoalButton);
+      }
+    } else {
+      learningGoalsContainer.innerHTML += '<p>No learning goals available.</p>';
+      const addGoalButton = createAddGoalButton();
+      learningGoalsContainer.appendChild(addGoalButton);
     }
 }
 
