@@ -1,12 +1,8 @@
 import {
     db,
     auth,
-    doc,
-    getDoc,
-    getDocs,
     collection,
     addDoc,
-    deleteDoc,
     serverTimestamp,
     fetchUserProfile,
     fetchUserProgress,
@@ -429,7 +425,11 @@ async function processAddGoal(goalType, goalAmount) {
       });
     } catch (error) {
       console.error('Error adding goal:', error);
-      alert('An error occurred while adding the goal. Please try again later.');
+      if (error.message === 'You have reached the maximum number of goals (3).') {
+        alert('You have reached the maximum number of goals (3). Please remove a goal before adding a new one.');
+      } else {
+        alert('An error occurred while adding the goal. Please try again later.');
+      }
     }
 }
 
