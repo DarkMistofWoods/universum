@@ -204,6 +204,19 @@ input {
     filter: var(--filter-primary);
 }
 
+.info-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 36px;
+    padding: 30px 36px;
+    flex-direction: column;
+    text-align: center;
+    height: fit-content;
+    background: linear-gradient(-200deg, var(--color-background), var(--color-quaternary));
+    border-radius: 50px;
+    box-shadow: 3px 3px 5px #00000047;
+}
 /* END OF CONTAINERS */
 
 /* NAVIGATION CIRCLE */

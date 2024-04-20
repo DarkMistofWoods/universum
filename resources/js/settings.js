@@ -1,16 +1,16 @@
-import { db, auth } from './firebase-config.js';
+import { db, auth, fetchUserSettings } from './firebase-config.js';
 import { doc, getDoc, setDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
 
 // Default settings
 const defaultSettings = {
-    learningPace: 'medium',
-    contentPreferences: [],
-    notificationSettings: 'never',
-    languageInterface: 'english',
     audioSpeed: 'normal',
-    learningPath: 'guided',
-    privacySettings: 'private',
-    feedbackFrequency: 'weekly'
+    contentPreferences: [],
+    feedbackFrequency: 'weekly',
+    languageInterface: 'english',
+    learningPace: 'medium',
+    learningPath: 'default',
+    notificationSettings: 'weekly',
+    privacySettings: 'default',
 };
 
 async function saveSettings(userId, settings) {

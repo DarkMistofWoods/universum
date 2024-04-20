@@ -22,25 +22,38 @@ const db = getFirestore(app);
 async function fetchUserSettings(userId) {
     try {
         const userSettingsRef = doc(db, 'users', userId, 'settings', 'userSettings');
-        const lastCachedTimestamp = localStorage.getItem('userSettingsLastCachedTimestamp');
-        const userSettingsSnapshotMetadata = await getDoc(userSettingsRef, { source: 'cache' });
+        const cachedUserSettings = JSON.parse(localStorage.getItem('userSettings'));
+        
+        if (cachedUserSettings) {
+            const lastCachedTimestamp = cachedUserSettings.lastUpdated;
+            const userSettingsSnapshot = await getDoc(userSettingsRef);
 
-        if (userSettingsSnapshotMetadata.exists()) {
-            const lastUpdatedTimestamp = userSettingsSnapshotMetadata.get('lastUpdated').toMillis();
+            if (userSettingsSnapshot.exists()) {
+                const serverUserSettings = userSettingsSnapshot.data();
+                const lastUpdatedTimestamp = serverUserSettings.lastUpdated.toMillis();
 
-            if (!lastCachedTimestamp || lastUpdatedTimestamp > parseInt(lastCachedTimestamp)) {
-                const userSettingsSnapshot = await getDoc(userSettingsRef);
-                const userSettings = userSettingsSnapshot.data();
-                localStorage.setItem('userSettings', JSON.stringify(userSettings));
-                localStorage.setItem('userSettingsLastCachedTimestamp', lastUpdatedTimestamp.toString());
-                return userSettings;
+                if (lastUpdatedTimestamp > lastCachedTimestamp) {
+                    localStorage.setItem('userSettings', JSON.stringify(serverUserSettings));
+                    return serverUserSettings;
+                } else {
+                    return cachedUserSettings;
+                }
             } else {
-                const cachedUserSettings = JSON.parse(localStorage.getItem('userSettings'));
-                return cachedUserSettings;
+                console.log('User settings document does not exist');
+                localStorage.removeItem('userSettings');
+                return null;
             }
         } else {
-            console.log('User settings document does not exist');
-            return null;
+            const userSettingsSnapshot = await getDoc(userSettingsRef);
+
+            if (userSettingsSnapshot.exists()) {
+                const userSettings = userSettingsSnapshot.data();
+                localStorage.setItem('userSettings', JSON.stringify(userSettings));
+                return userSettings;
+            } else {
+                console.log('User settings document does not exist');
+                return null;
+            }
         }
     } catch (error) {
         console.error('Error fetching user settings:', error);
@@ -52,23 +65,39 @@ async function fetchUserSettings(userId) {
 async function fetchUserProgress(userId) {
     try {
         const userProgressRef = collection(db, 'users', userId, 'progress');
-        const lastCachedTimestamp = localStorage.getItem('userProgressLastCachedTimestamp');
-        const userProgressQuery = lastCachedTimestamp
-            ? query(userProgressRef, where('lastUpdated', '>', new Date(parseInt(lastCachedTimestamp))))
-            : userProgressRef;
-        const userProgressSnapshot = await getDocs(userProgressQuery);
+        const cachedUserProgress = JSON.parse(localStorage.getItem('userProgress'));
 
-        if (!userProgressSnapshot.empty) {
-            const progressData = {};
-            userProgressSnapshot.forEach(doc => {
-                progressData[doc.id] = doc.data();
-            });
-            localStorage.setItem('userProgress', JSON.stringify(progressData));
-            localStorage.setItem('userProgressLastCachedTimestamp', new Date().getTime().toString());
-            return progressData;
+        if (cachedUserProgress) {
+            const lastCachedTimestamp = cachedUserProgress.lastUpdated;
+            const userProgressQuery = query(userProgressRef, where('lastUpdated', '>', new Date(lastCachedTimestamp)));
+            const userProgressSnapshot = await getDocs(userProgressQuery);
+
+            if (!userProgressSnapshot.empty) {
+                const progressData = {};
+                userProgressSnapshot.forEach(doc => {
+                    progressData[doc.id] = doc.data();
+                });
+                const updatedUserProgress = { ...cachedUserProgress, ...progressData };
+                updatedUserProgress.lastUpdated = new Date().getTime();
+                localStorage.setItem('userProgress', JSON.stringify(updatedUserProgress));
+                return updatedUserProgress;
+            } else {
+                return cachedUserProgress;
+            }
         } else {
-            const cachedUserProgress = JSON.parse(localStorage.getItem('userProgress'));
-            return cachedUserProgress || null;
+            const userProgressSnapshot = await getDocs(userProgressRef);
+
+            if (!userProgressSnapshot.empty) {
+                const progressData = {};
+                userProgressSnapshot.forEach(doc => {
+                    progressData[doc.id] = doc.data();
+                });
+                progressData.lastUpdated = new Date().getTime();
+                localStorage.setItem('userProgress', JSON.stringify(progressData));
+                return progressData;
+            } else {
+                return null;
+            }
         }
     } catch (error) {
         console.error('Error fetching user progress:', error);
@@ -107,9 +136,8 @@ async function fetchUserAchievements(userId) {
 // Function to fetch user goals from Firestore
 async function fetchUserGoals(userId, forceRefresh = false) {
     const cachedUserGoals = JSON.parse(localStorage.getItem('userGoals'));
-    const lastCachedTimestamp = localStorage.getItem('userGoalsLastCachedTimestamp');
 
-    if (!forceRefresh && cachedUserGoals && lastCachedTimestamp) {
+    if (!forceRefresh && cachedUserGoals) {
         return cachedUserGoals;
     }
 
@@ -123,11 +151,9 @@ async function fetchUserGoals(userId, forceRefresh = false) {
                 goalsData[doc.id] = doc.data();
             });
             localStorage.setItem('userGoals', JSON.stringify(goalsData));
-            localStorage.setItem('userGoalsLastCachedTimestamp', new Date().getTime().toString());
             return goalsData;
         } else {
             localStorage.removeItem('userGoals');
-            localStorage.removeItem('userGoalsLastCachedTimestamp');
             return null;
         }
     } catch (error) {

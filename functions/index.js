@@ -111,10 +111,10 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
             audioSpeed: 'normal',
             contentPreferences: [],
             feedbackFrequency: 'weekly',
-            languageInterface: 'en',
-            learningPace: 'standard',
+            languageInterface: 'english',
+            learningPace: 'medium',
             learningPath: 'default',
-            notificationSettings: 'on',
+            notificationSettings: 'weekly',
             privacySettings: 'default',
             lastUpdated: currentTimestamp
         };
