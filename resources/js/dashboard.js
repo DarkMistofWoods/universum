@@ -205,8 +205,7 @@ function updateRecentAchievements(achievementsData) {
     const recentAchievementsContainer = document.querySelector('.recent-achievements .content');
     recentAchievementsContainer.innerHTML = '<h2>Achievements</h2>';
   
-    if (achievementsData && Object.keys(achievementsData).length > 1) {
-        console.log(Object.keys(achievementsData).length);
+    if (achievementsData && (Object.keys(achievementsData).length - 1) > 1) {
       const sortedAchievements = Object.values(achievementsData).sort((a, b) => b.lastUpdated.toMillis() - a.lastUpdated.toMillis());
       const recentAchievements = sortedAchievements.slice(0, 3);
   
@@ -214,7 +213,7 @@ function updateRecentAchievements(achievementsData) {
         const achievementElement = createAchievementElement(achievement);
         recentAchievementsContainer.appendChild(achievementElement);
       });
-    } else if (achievementsData && Object.keys(achievementsData).length === 1) {
+    } else if (achievementsData && (Object.keys(achievementsData).length - 1) === 1) {
         const achievementElement = createAchievementElement(Object.values(achievementsData)[0]);
         recentAchievementsContainer.appendChild(achievementElement);
     } else {
