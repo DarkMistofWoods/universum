@@ -23,7 +23,7 @@ async function fetchUserSettings(userId) {
     try {
         const userSettingsRef = doc(db, 'users', userId, 'settings', 'userSettings');
         const cachedUserSettings = JSON.parse(localStorage.getItem('userSettings'));
-        
+
         if (cachedUserSettings && cachedUserSettings.lastUpdated) {
             const lastCachedTimestamp = cachedUserSettings.lastUpdated;
             const userSettingsSnapshot = await getDoc(userSettingsRef);
@@ -33,6 +33,7 @@ async function fetchUserSettings(userId) {
                 const lastUpdatedTimestamp = serverUserSettings.lastUpdated.toMillis();
 
                 if (lastUpdatedTimestamp > lastCachedTimestamp) {
+                    serverUserSettings.lastUpdated = lastUpdatedTimestamp;
                     localStorage.setItem('userSettings', JSON.stringify(serverUserSettings));
                     return serverUserSettings;
                 } else {
@@ -48,6 +49,7 @@ async function fetchUserSettings(userId) {
 
             if (userSettingsSnapshot.exists()) {
                 const userSettings = userSettingsSnapshot.data();
+                userSettings.lastUpdated = userSettings.lastUpdated.toMillis();
                 localStorage.setItem('userSettings', JSON.stringify(userSettings));
                 return userSettings;
             } else {
@@ -111,23 +113,41 @@ async function fetchUserProgress(userId) {
 async function fetchUserAchievements(userId) {
     try {
         const userAchievementsRef = collection(db, 'users', userId, 'achievements');
-        const lastCachedTimestamp = localStorage.getItem('userAchievementsLastCachedTimestamp');
-        const userAchievementsQuery = lastCachedTimestamp
-            ? query(userAchievementsRef, where('lastUpdated', '>', new Date(parseInt(lastCachedTimestamp))))
-            : userAchievementsRef;
-        const userAchievementsSnapshot = await getDocs(userAchievementsQuery);
+        const cachedUserAchievements = JSON.parse(localStorage.getItem('userAchievements'));
 
-        if (!userAchievementsSnapshot.empty) {
-            const achievementsData = {};
-            userAchievementsSnapshot.forEach(doc => {
-                achievementsData[doc.id] = doc.data();
-            });
-            localStorage.setItem('userAchievements', JSON.stringify(achievementsData));
-            localStorage.setItem('userAchievementsLastCachedTimestamp', new Date().getTime().toString());
-            return achievementsData;
+        if (cachedUserAchievements && cachedUserAchievements.lastUpdated) {
+            const lastCachedTimestamp = cachedUserAchievements.lastUpdated;
+            const userAchievementsQuery = query(userAchievementsRef, where('lastUpdated', '>', new Date(lastCachedTimestamp)));
+            const userAchievementsSnapshot = await getDocs(userAchievementsQuery);
+
+            if (!userAchievementsSnapshot.empty) {
+                const achievementsData = {};
+                userAchievementsSnapshot.forEach(doc => {
+                    achievementsData[doc.id] = doc.data();
+                    achievementsData[doc.id].lastUpdated = achievementsData[doc.id].lastUpdated.toMillis();
+                });
+                const updatedUserAchievements = { ...cachedUserAchievements, ...achievementsData };
+                updatedUserAchievements.lastUpdated = new Date().getTime();
+                localStorage.setItem('userAchievements', JSON.stringify(updatedUserAchievements));
+                return updatedUserAchievements;
+            } else {
+                return cachedUserAchievements;
+            }
         } else {
-            const cachedUserAchievements = JSON.parse(localStorage.getItem('userAchievements'));
-            return cachedUserAchievements || null;
+            const userAchievementsSnapshot = await getDocs(userAchievementsRef);
+
+            if (!userAchievementsSnapshot.empty) {
+                const achievementsData = {};
+                userAchievementsSnapshot.forEach(doc => {
+                    achievementsData[doc.id] = doc.data();
+                    achievementsData[doc.id].lastUpdated = achievementsData[doc.id].lastUpdated.toMillis();
+                });
+                achievementsData.lastUpdated = new Date().getTime();
+                localStorage.setItem('userAchievements', JSON.stringify(achievementsData));
+                return achievementsData;
+            } else {
+                return null;
+            }
         }
     } catch (error) {
         console.error('Error fetching user achievements:', error);
