@@ -14,7 +14,18 @@ function updateMinidashIcons(user) {
     signOutIcon.addEventListener('click', handleLogout);
 }
 
-// Listen for changes in the user's authentication state
-auth.onAuthStateChanged(user => {
-    updateMinidashIcons(user);
-});
+// Function to check the authentication state
+function checkAuthState() {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in
+            updateMinidashIcons(user);
+        } else {
+            // User is signed out
+            console.log('User is signed out. No icons to display.');
+        }
+    });
+}
+
+// Call the main function when the page loads
+window.addEventListener('DOMContentLoaded', checkAuthState);

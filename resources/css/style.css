@@ -1149,7 +1149,7 @@ fieldset {
 .recommended-icon {
     position: absolute;
     top: 5px;
-    left: 5px;
+    right: 5px;
 }
 /* END OF KNOWLEDGE CENTER */
 
