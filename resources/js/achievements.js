@@ -1,4 +1,4 @@
-import { db, auth, onAuthStateChanged, doc, getDoc, getDocs, collection } from './firebase-config.js';
+import { db, auth, onAuthStateChanged, doc, getDoc, getDocs, collection, fetchUserAchievements } from './firebase-config.js';
 
 // Function to fetch all possible achievements
 async function fetchAllAchievements() {
