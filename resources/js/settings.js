@@ -1,73 +1,33 @@
-import { db, auth, fetchUserSettings } from './firebase-config.js';
-import { doc, getDoc, setDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
+import { db, auth, fetchUserSettings, saveSettings, saveProfile } from './firebase-config.js';
 
-// Default settings
+// Default settings (remove this if not needed anymore)
 const defaultSettings = {
     audioSpeed: 'normal',
     contentPreferences: ['vocabulary', 'grammar', 'cultural', 'pronunciation'],
     feedbackFrequency: 'weekly',
     languageInterface: 'english',
     learningPace: 'medium',
-    learningPath: 'default',
+    learningPath: 'guided',
     notificationSettings: 'weekly',
-    privacySettings: 'default',
+    privacySettings: 'private',
 };
-
-async function saveSettings(userId, settings) {
-    try {
-        const userSettingsRef = doc(db, 'users', userId, 'settings', 'userSettings');
-        await setDoc(userSettingsRef, settings, { merge: true });
-        // console.log('Settings saved successfully.');
-        document.querySelector('.settings-info').textContent = 'Settings saved successfully.';
-    } catch (error) {
-        console.error('Error saving settings:', error);
-        document.querySelector('.settings-info').textContent = 'Error saving settings. Please try again.';
-    }
-}
-
-async function loadSettings(userId) {
-    try {
-        const userSettingsRef = doc(db, 'users', userId, 'settings', 'userSettings');
-        const docSnapshot = await getDoc(userSettingsRef);
-        if (docSnapshot.exists()) {
-            return docSnapshot.data() || defaultSettings;
-        } else {
-            return defaultSettings;
-        }
-    } catch (error) {
-        console.error('Error loading settings:', error);
-        return defaultSettings;
-    }
-}
-
-async function updateEmail(userId, newEmail) {
-    try {
-        const user = auth.currentUser;
-        await user.verifyBeforeUpdateEmail(newEmail);
-        const userProfileRef = doc(db, 'users', userId, 'profile', 'profileData');
-        await updateDoc(userProfileRef, { email: newEmail });
-        console.log('Email verification sent successfully.');
-        document.getElementById('email-info').textContent = 'Email verification sent. Please check your inbox.';
-    } catch (error) {
-        console.error('Error updating email:', error);
-        document.getElementById('email-info').textContent = 'Error updating email. Please try again.';
-    }
-}
 
 auth.onAuthStateChanged(async (user) => {
     if (user) {
-        const settings = await loadSettings(user.uid);
+        const settings = await fetchUserSettings(user.uid);
 
-        document.querySelector('[name="learning-pace"]').value = settings.learningPace;
-        document.querySelectorAll('[name="content-pref"]').forEach(checkbox => {
-            checkbox.checked = settings.contentPreferences.includes(checkbox.value);
-        });
-        document.querySelector('[name="notifications"]').value = settings.notificationSettings;
-        document.querySelector('[name="language-interface"]').value = settings.languageInterface;
-        document.querySelector(`[name="audio-speed"][value="${settings.audioSpeed}"]`).checked = true;
-        document.querySelector(`[name="learning-path"][value="${settings.learningPath}"]`).checked = true;
-        document.querySelector('[name="privacy"]').value = settings.privacySettings;
-        document.querySelector('[name="feedback"]').value = settings.feedbackFrequency;
+        if (settings) {
+            document.querySelector('[name="learning-pace"]').value = settings.learningPace;
+            document.querySelectorAll('[name="content-pref"]').forEach(checkbox => {
+                checkbox.checked = settings.contentPreferences.includes(checkbox.value);
+            });
+            document.querySelector('[name="notifications"]').value = settings.notificationSettings;
+            document.querySelector('[name="language-interface"]').value = settings.languageInterface;
+            document.querySelector(`[name="audio-speed"][value="${settings.audioSpeed}"]`).checked = true;
+            document.querySelector(`[name="learning-path"][value="${settings.learningPath}"]`).checked = true;
+            document.querySelector('[name="privacy"]').value = settings.privacySettings;
+            document.querySelector('[name="feedback"]').value = settings.feedbackFrequency;
+        }
 
         document.getElementById('saveSettingsButton').addEventListener('click', async (e) => {
             e.preventDefault();
@@ -85,7 +45,8 @@ auth.onAuthStateChanged(async (user) => {
                 feedbackFrequency: document.querySelector('[name="feedback"]').value
             };
         
-            await saveSettings(userId, settings);
+            const statusMessage = await saveSettings(userId, settings);
+            document.querySelector('.settings-info').textContent = statusMessage;
         });
         
         document.querySelector('#update-email-form').addEventListener('submit', async (e) => {
@@ -94,7 +55,9 @@ auth.onAuthStateChanged(async (user) => {
             const userId = auth.currentUser.uid;
             const newEmail = document.querySelector('#new-email').value;
         
-            await updateEmail(userId, newEmail);
+            const profileData = { email: newEmail };
+            const statusMessage = await saveProfile(userId, profileData);
+            document.getElementById('email-info').textContent = statusMessage;
         });
     } else {
         // Handle the case when the user is not authenticated

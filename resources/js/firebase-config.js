@@ -140,26 +140,55 @@ async function fetchUserAchievements(userId) {
 
 // Function to fetch user goals from Firestore
 async function fetchUserGoals(userId, forceRefresh = false) {
-    const cachedUserGoals = JSON.parse(localStorage.getItem('userGoals'));
-
-    if (!forceRefresh && cachedUserGoals) {
-        return cachedUserGoals;
-    }
-
     try {
         const userGoalsRef = collection(db, 'users', userId, 'goals');
-        const userGoalsSnapshot = await getDocs(userGoalsRef);
+        const cachedUserGoals = JSON.parse(localStorage.getItem('userGoals'));
 
-        if (!userGoalsSnapshot.empty) {
-            const goalsData = {};
-            userGoalsSnapshot.forEach(doc => {
-                goalsData[doc.id] = doc.data();
-            });
-            localStorage.setItem('userGoals', JSON.stringify(goalsData));
-            return goalsData;
+        if (!forceRefresh && cachedUserGoals) {
+            const userGoalsSnapshot = await getDocs(userGoalsRef);
+
+            if (!userGoalsSnapshot.empty) {
+                let shouldUpdate = false;
+                const goalsData = {};
+
+                userGoalsSnapshot.forEach(doc => {
+                    const serverGoal = doc.data();
+                    const serverLastUpdated = serverGoal.lastUpdated.toMillis();
+                    const cachedGoal = cachedUserGoals[doc.id];
+
+                    if (!cachedGoal || serverLastUpdated > cachedGoal.lastUpdated) {
+                        goalsData[doc.id] = serverGoal;
+                        goalsData[doc.id].lastUpdated = serverLastUpdated;
+                        shouldUpdate = true;
+                    } else {
+                        goalsData[doc.id] = cachedGoal;
+                    }
+                });
+
+                if (shouldUpdate) {
+                    localStorage.setItem('userGoals', JSON.stringify(goalsData));
+                }
+
+                return goalsData;
+            } else {
+                localStorage.removeItem('userGoals');
+                return null;
+            }
         } else {
-            localStorage.removeItem('userGoals');
-            return null;
+            const userGoalsSnapshot = await getDocs(userGoalsRef);
+
+            if (!userGoalsSnapshot.empty) {
+                const goalsData = {};
+                userGoalsSnapshot.forEach(doc => {
+                    goalsData[doc.id] = doc.data();
+                    goalsData[doc.id].lastUpdated = goalsData[doc.id].lastUpdated.toMillis();
+                });
+                localStorage.setItem('userGoals', JSON.stringify(goalsData));
+                return goalsData;
+            } else {
+                localStorage.removeItem('userGoals');
+                return null;
+            }
         }
     } catch (error) {
         console.error('Error fetching user goals:', error);
@@ -268,7 +297,7 @@ async function addGoal(userId, goalType, goalAmount) {
         };
 
         await addDoc(userGoalsRef, newGoalData);
-        fetchUserGoals(userId, true);
+        // fetchUserGoals(userId, true);
     } else {
         throw new Error('You have reached the maximum number of goals (3).');
     }
@@ -277,7 +306,49 @@ async function addGoal(userId, goalType, goalAmount) {
 async function removeGoal(userId, goalId) {
     const goalRef = doc(db, 'users', userId, 'goals', goalId);
     await deleteDoc(goalRef);
-    fetchUserGoals(userId, true);
+    // fetchUserGoals(userId, true);
+}
+
+async function saveSettings(userId, settings) {
+    try {
+        const userSettingsRef = doc(db, 'users', userId, 'settings', 'userSettings');
+        const currentSettings = (await getDoc(userSettingsRef)).data() || {};
+        const updatedSettings = { ...currentSettings, ...settings, lastUpdated: serverTimestamp() };
+
+        await updateDoc(userSettingsRef, updatedSettings);
+
+        const localSettings = JSON.parse(localStorage.getItem('userSettings')) || {};
+        const updatedLocalSettings = { ...localSettings, ...settings, lastUpdated: new Date().getTime() };
+        localStorage.setItem('userSettings', JSON.stringify(updatedLocalSettings));
+
+        return 'Settings saved successfully.';
+    } catch (error) {
+        console.error('Error saving settings:', error);
+        return 'Error saving settings. Please try again.';
+    }
+}
+
+async function saveProfile(userId, profileData) {
+    try {
+        const userProfileRef = doc(db, 'users', userId, 'profile', 'profileData');
+        const currentProfile = (await getDoc(userProfileRef)).data() || {};
+        const updatedProfile = { ...currentProfile, ...profileData, lastUpdated: serverTimestamp() };
+
+        await updateDoc(userProfileRef, updatedProfile);
+
+        if (profileData.email && profileData.email !== currentProfile.email) {
+            await auth.currentUser.verifyBeforeUpdateEmail(profileData.email);
+        }
+
+        const localProfile = JSON.parse(localStorage.getItem('profileData')) || {};
+        const updatedLocalProfile = { ...localProfile, ...profileData, lastUpdated: new Date().getTime() };
+        localStorage.setItem('profileData', JSON.stringify(updatedLocalProfile));
+
+        return 'Profile updated successfully.';
+    } catch (error) {
+        console.error('Error updating profile:', error);
+        return 'Error updating profile. Please try again.';
+    }
 }
 
 export {
@@ -295,6 +366,8 @@ export {
     fetchUserProfile,
     addGoal,
     removeGoal,
+    saveSettings,
+    saveProfile,
     collection,
     addDoc,
     updateDoc,

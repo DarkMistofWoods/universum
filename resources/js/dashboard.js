@@ -40,7 +40,7 @@ function handleAuthStateChanged(user) {
                 console.error('Error fetching user achievements:', error);
                 updateRecentAchievements(null);
             });
-        
+
         fetchUserRecommendations(userId)
             .then(recommendationsData => {
                 updateRecommendations(recommendationsData);
@@ -204,20 +204,20 @@ function createLessonProgressElement(lessonId, lessonData) {
 function updateRecentAchievements(achievementsData) {
     const recentAchievementsContainer = document.querySelector('.recent-achievements .content');
     recentAchievementsContainer.innerHTML = '<h2>Achievements</h2>';
-  
+
     if (achievementsData && (Object.keys(achievementsData).length - 1) > 1) {
-      const sortedAchievements = Object.values(achievementsData).sort((a, b) => b.lastUpdated.toMillis() - a.lastUpdated.toMillis());
-      const recentAchievements = sortedAchievements.slice(0, 3);
-  
-      recentAchievements.forEach(achievement => {
-        const achievementElement = createAchievementElement(achievement);
-        recentAchievementsContainer.appendChild(achievementElement);
-      });
+        const sortedAchievements = Object.values(achievementsData).sort((a, b) => b.lastUpdated.toMillis() - a.lastUpdated.toMillis());
+        const recentAchievements = sortedAchievements.slice(0, 3);
+
+        recentAchievements.forEach(achievement => {
+            const achievementElement = createAchievementElement(achievement);
+            recentAchievementsContainer.appendChild(achievementElement);
+        });
     } else if (achievementsData && (Object.keys(achievementsData).length - 1) === 1) {
         const achievementElement = createAchievementElement(Object.values(achievementsData)[0]);
         recentAchievementsContainer.appendChild(achievementElement);
     } else {
-      recentAchievementsContainer.innerHTML += '<p>No achievements available.</p>';
+        recentAchievementsContainer.innerHTML += '<p>No achievements available.</p>';
     }
 }
 
@@ -307,34 +307,34 @@ function updateLearningGoals(goalsData) {
 function createLearningGoalElement(goal, goalId) {
     const goalElement = document.createElement('div');
     goalElement.classList.add('learning-goal');
-  
+
     const titleElement = document.createElement('h3');
     titleElement.textContent = getGoalTitle(goal);
-  
+
     const progressTextElement = document.createElement('div');
     progressTextElement.classList.add('progress-text');
     progressTextElement.textContent = `${goal.progress} / ${goal.target}`;
-  
+
     const progressBarElement = document.createElement('div');
     progressBarElement.classList.add('progress-bar');
-  
+
     const progressElement = document.createElement('div');
     progressElement.classList.add('progress');
     const progressPercentage = Math.min(100, (goal.progress / goal.target) * 100);
     progressElement.style.width = `${progressPercentage}%`;
-  
+
     progressBarElement.appendChild(progressElement);
-  
+
     const removeButton = document.createElement('button');
     removeButton.classList.add('button-primary');
     removeButton.textContent = 'Remove';
     removeButton.addEventListener('click', () => processRemoveGoal(goalId));
-  
+
     goalElement.appendChild(titleElement);
     goalElement.appendChild(progressTextElement);
     goalElement.appendChild(progressBarElement);
     goalElement.appendChild(removeButton);
-  
+
     return goalElement;
 }
 
@@ -422,29 +422,29 @@ function showAddGoalForm() {
 async function processAddGoal(goalType, goalAmount) {
     const userId = auth.currentUser.uid;
     try {
-      await addGoal(userId, goalType, goalAmount);
-      const updatedGoals = await fetchUserGoals(userId, true);
-      updateLearningGoals(updatedGoals);
+        await addGoal(userId, goalType, goalAmount);
+        const updatedGoals = await fetchUserGoals(userId, true);
+        updateLearningGoals(updatedGoals);
     } catch (error) {
-      console.error('Error adding goal:', error);
-      if (error.message === 'You have reached the maximum number of goals (3).') {
-        alert('You have reached the maximum number of goals (3). Please remove a goal before adding a new one.');
-      } else {
-        alert('An error occurred while adding the goal. Please try again later.');
-      }
+        console.error('Error adding goal:', error);
+        if (error.message === 'You have reached the maximum number of goals (3).') {
+            alert('You have reached the maximum number of goals (3). Please remove a goal before adding a new one.');
+        } else {
+            alert('An error occurred while adding the goal. Please try again later.');
+        }
     }
 }
 
 async function processRemoveGoal(goalId) {
-  const userId = auth.currentUser.uid;
-  try {
-    await removeGoal(userId, goalId);
-    const updatedGoals = await fetchUserGoals(userId, true);
-    updateLearningGoals(updatedGoals);
-  } catch (error) {
-    console.error('Error removing goal:', error);
-    alert('An error occurred while removing the goal. Please try again later.');
-  }
+    const userId = auth.currentUser.uid;
+    try {
+        await removeGoal(userId, goalId);
+        const updatedGoals = await fetchUserGoals(userId, true);
+        updateLearningGoals(updatedGoals);
+    } catch (error) {
+        console.error('Error removing goal:', error);
+        alert('An error occurred while removing the goal. Please try again later.');
+    }
 }
 
 async function handleFeedbackSubmit() {
