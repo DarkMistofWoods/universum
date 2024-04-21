@@ -1,5 +1,4 @@
-import { db, auth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from './firebase-config.js';
-import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
+import { auth, saveSettings, saveProfile, handleLogin, handleSignup } from './firebase-config.js';
 
 // Display numbers in a circle, drawing lines between every one
 let selectedPoints = []; // Store the sequence of selected points
@@ -242,11 +241,12 @@ async function login() {
     }
 
     try {
-        await signInWithEmailAndPassword(auth, email, password);
-        window.location.href = 'dashboard.html';
+        const statusMessage = await handleLogin(email, password);
+        loginErrorMessage.textContent = statusMessage;
+        window.location.href = '/dashboard.html';
     } catch (error) {
         console.error("Login error: ", error);
-        loginErrorMessage.textContent = "An error occurred during login. Please try again.";
+        loginErrorMessage.textContent = statusMessage ? statusMessage : "An error occurred during login. Please try again.";
     }
 }
 
@@ -267,8 +267,7 @@ async function createAccount() {
     }
 
     try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
+        const user = await handleSignup(email, password);
         await initializeUserProfile(user);
 
         window.location.href = 'dashboard.html';
@@ -322,8 +321,8 @@ async function initializeUserProfile(user) {
     };
     
     try {
-        await setDoc(doc(db, 'users', user.uid, 'profile', 'profileData'), userProfileData);
-        await setDoc(doc(db, 'users', user.uid, 'settings', 'userSettings'), userSettingsData);
+        saveProfile(user.uid, userProfileData);
+        saveSettings(user.uid, userSettingsData);
         console.log('User profile initialized.');
     
         // Remove the pendingNameSave from localStorage after saving it to the user profile

@@ -19,7 +19,13 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 async function handleLogin(email, password) {
-
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        return 'Logged in successfully. Redirecting...';
+    } catch (error) {
+        console.error('Error signing in:', error);
+        return error;
+    }
 }
 
 async function handleLogout() {
@@ -35,7 +41,13 @@ async function handleLogout() {
 
 // Function to create a new user account
 async function handleSignup(email, password) {
-
+    try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        return userCredential.user;
+    } catch (error) {
+        console.error('Error creating account:', error);
+        return error;
+    }
 }
 
 // Function to fetch user settings from Firestore
