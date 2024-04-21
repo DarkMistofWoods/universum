@@ -1,4 +1,4 @@
-import { auth, fetchUserSettings, saveSettings, saveProfile } from './firebase-config.js';
+import { auth, onAuthStateChanged, fetchUserSettings, saveSettings, saveProfile } from './firebase-config.js';
 
 async function displaySettings(userId) {
     const userSettings = await fetchUserSettings(userId);

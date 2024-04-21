@@ -4,6 +4,7 @@ import {
     collection,
     addDoc,
     serverTimestamp,
+    onAuthStateChanged,
     fetchUserProfile,
     fetchUserProgress,
     fetchUserAchievements,
@@ -18,63 +19,6 @@ function updateDisplayName(displayName) {
     const displayNameElement = document.querySelector('.display-name');
     displayNameElement.textContent = displayName;
 }
-
-// Function to handle user authentication state changes
-function handleAuthStateChanged(user) {
-    if (user) {
-        const userId = user.uid;
-        fetchUserProgress(userId)
-            .then(progressData => {
-                updateProgressTracker(progressData);
-            })
-            .catch(error => {
-                console.error('Error fetching user progress:', error);
-                updateProgressTracker(null);
-            });
-
-        fetchUserAchievements(userId)
-            .then(achievementsData => {
-                updateRecentAchievements(achievementsData);
-            })
-            .catch(error => {
-                console.error('Error fetching user achievements:', error);
-                updateRecentAchievements(null);
-            });
-
-        fetchUserRecommendations(userId)
-            .then(recommendationsData => {
-                updateRecommendations(recommendationsData);
-            })
-            .catch(error => {
-                console.error('Error fetching user recommendations:', error);
-                updateRecommendations(null);
-            });
-
-        fetchUserGoals(userId)
-            .then(goalsData => {
-                updateLearningGoals(goalsData);
-            })
-            .catch(error => {
-                console.error('Error fetching user goals:', error);
-                updateLearningGoals(null);
-            });
-
-        fetchUserProfile(userId)
-            .then(profileData => {
-                updateDisplayName(profileData.displayName);
-            })
-            .catch(error => {
-                console.error('Error fetching user profile:', error);
-                updateDisplayName('New User');
-            });
-    } else {
-        console.log('User is not authenticated');
-        window.location.href = '/login.html';
-    }
-}
-
-// Listen for user authentication state changes
-auth.onAuthStateChanged(handleAuthStateChanged);
 
 // Functions to update the dashboard widgets with real or demo data
 function updateProgressTracker(progressData) {
@@ -494,5 +438,69 @@ function initializeFeedbackWidget() {
         submitButton.addEventListener('click', handleFeedbackSubmit);
     }
 }
+
+// Function to check the authentication state
+function checkAuthState() {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in
+            const userId = user.uid;
+            fetchUserProgress(userId)
+                .then(progressData => {
+                    updateProgressTracker(progressData);
+                })
+                .catch(error => {
+                    console.error('Error fetching user progress:', error);
+                    updateProgressTracker(null);
+                });
+    
+            fetchUserAchievements(userId)
+                .then(achievementsData => {
+                    updateRecentAchievements(achievementsData);
+                })
+                .catch(error => {
+                    console.error('Error fetching user achievements:', error);
+                    updateRecentAchievements(null);
+                });
+    
+            fetchUserRecommendations(userId)
+                .then(recommendationsData => {
+                    updateRecommendations(recommendationsData);
+                })
+                .catch(error => {
+                    console.error('Error fetching user recommendations:', error);
+                    updateRecommendations(null);
+                });
+    
+            fetchUserGoals(userId)
+                .then(goalsData => {
+                    updateLearningGoals(goalsData);
+                })
+                .catch(error => {
+                    console.error('Error fetching user goals:', error);
+                    updateLearningGoals(null);
+                });
+    
+            fetchUserProfile(userId)
+                .then(profileData => {
+                    updateDisplayName(profileData.displayName);
+                })
+                .catch(error => {
+                    console.error('Error fetching user profile:', error);
+                    updateDisplayName('New User');
+                });
+            initializeFeedbackWidget();
+
+        } else {
+            // User is signed out
+            console.log('User is signed out');
+            // Redirect to login page or show login prompt
+            window.location.href = '/login.html';
+        }
+    });
+}
+
+// Call the main function when the page loads
+window.addEventListener('DOMContentLoaded', checkAuthState);
 
 document.addEventListener('DOMContentLoaded', initializeFeedbackWidget);
