@@ -351,6 +351,17 @@ async function saveProfile(userId, profileData) {
     }
 }
 
+async function saveFeedback(feedbackData) {
+    try {
+        const feedbackRef = collection(db, 'feedback');
+        await addDoc(feedbackRef, feedbackData);
+        return 'success';
+    } catch (error) {
+        console.error('Error submitting feedback:', error);
+        return error;
+    }
+}
+
 export {
     db,
     auth,
@@ -368,6 +379,7 @@ export {
     removeGoal,
     saveSettings,
     saveProfile,
+    saveFeedback,
     collection,
     addDoc,
     updateDoc,

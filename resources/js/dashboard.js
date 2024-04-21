@@ -1,8 +1,5 @@
 import {
-    db,
     auth,
-    collection,
-    addDoc,
     serverTimestamp,
     onAuthStateChanged,
     fetchUserProfile,
@@ -11,7 +8,8 @@ import {
     fetchUserRecommendations,
     fetchUserGoals,
     addGoal,
-    removeGoal
+    removeGoal,
+    saveFeedback
 } from './firebase-config.js';
 
 // Function to update the display name element
@@ -20,7 +18,7 @@ function updateDisplayName(displayName) {
     displayNameElement.textContent = displayName;
 }
 
-// Functions to update the dashboard widgets with real or demo data
+// Functions to update the dashboard widgets
 function updateProgressTracker(progressData) {
     const progressTrackerContainer = document.querySelector('.progress-tracker .content');
     progressTrackerContainer.innerHTML = '<h2>Current Progress</h2>';
@@ -410,32 +408,23 @@ async function handleFeedbackSubmit() {
     }
 
     const userId = auth.currentUser.uid;
-    const feedbackRef = collection(db, 'feedback');
+    const newFeedback = {
+        userId: userId,
+        rating: rating,
+        description: comment,
+        feedbackDate: serverTimestamp()
+    };
+    const feedbackStatus = await saveFeedback(newFeedback);
 
-    try {
-        await addDoc(feedbackRef, {
-            userId: userId,
-            rating: rating,
-            description: comment,
-            feedbackDate: serverTimestamp()
-        });
-
+    if (feedbackStatus === 'success') {
         alert('Thank you for your feedback!');
         // Reset the rating and comment inputs
         for (const input of ratingInputs) {
             input.checked = false;
         }
         commentInput.value = '';
-    } catch (error) {
-        console.error('Error submitting feedback:', error);
-        alert('An error occurred while submitting your feedback. Please try again later.');
-    }
-}
-
-function initializeFeedbackWidget() {
-    const submitButton = document.getElementById('submitFeedback');
-    if (submitButton) {
-        submitButton.addEventListener('click', handleFeedbackSubmit);
+    } else {
+        alert(feedbackStatus);
     }
 }
 
@@ -489,8 +478,11 @@ function checkAuthState() {
                     console.error('Error fetching user profile:', error);
                     updateDisplayName('New User');
                 });
-                
-            initializeFeedbackWidget();
+
+            const submitButton = document.getElementById('submitFeedback');
+            if (submitButton) {
+                submitButton.addEventListener('click', handleFeedbackSubmit);
+            }
         } else {
             // User is signed out
             console.log('User is signed out');
