@@ -113,9 +113,9 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
             feedbackFrequency: 'weekly',
             languageInterface: 'english',
             learningPace: 'medium',
-            learningPath: 'default',
+            learningPath: 'guided',
             notificationSettings: 'weekly',
-            privacySettings: 'default',
+            privacySettings: 'private',
             lastUpdated: currentTimestamp
         };
 

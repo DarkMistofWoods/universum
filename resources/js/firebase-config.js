@@ -227,24 +227,24 @@ async function fetchUserStatistics(userId) {
 async function fetchUserProfile(userId) {
     try {
         const userProfileRef = doc(db, 'users', userId, 'profile', 'profileData');
-        const lastCachedTimestamp = localStorage.getItem('userProfileLastCachedTimestamp');
-        const userProfileSnapshotMetadata = await getDoc(userProfileRef, { source: 'cache' });
+        const cachedUserProfile = JSON.parse(localStorage.getItem('profileData'));
 
-        if (userProfileSnapshotMetadata.exists()) {
-            const lastUpdatedTimestamp = userProfileSnapshotMetadata.get('lastUpdated').toMillis();
+        const userProfileSnapshot = await getDoc(userProfileRef);
 
-            if (!lastCachedTimestamp || lastUpdatedTimestamp > parseInt(lastCachedTimestamp)) {
-                const userProfileSnapshot = await getDoc(userProfileRef);
-                const userProfile = userProfileSnapshot.data();
-                localStorage.setItem('userProfile', JSON.stringify(userProfile));
-                localStorage.setItem('userProfileLastCachedTimestamp', lastUpdatedTimestamp.toString());
-                return userProfile;
+        if (userProfileSnapshot.exists()) {
+            const serverUserProfile = userProfileSnapshot.data();
+            const serverLastUpdated = serverUserProfile.lastUpdated.toMillis();
+
+            if (!cachedUserProfile || serverLastUpdated > cachedUserProfile.lastUpdated) {
+                serverUserProfile.lastUpdated = serverLastUpdated;
+                localStorage.setItem('profileData', JSON.stringify(serverUserProfile));
+                return serverUserProfile;
             } else {
-                const cachedUserProfile = JSON.parse(localStorage.getItem('userProfile'));
                 return cachedUserProfile;
             }
         } else {
-            console.log('User profileData document does not exist');
+            console.log('User profile document does not exist');
+            localStorage.removeItem('profileData');
             return null;
         }
     } catch (error) {
