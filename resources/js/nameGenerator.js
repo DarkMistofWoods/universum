@@ -1,5 +1,4 @@
-import { auth, db } from './firebase-config.js';
-import { doc, setDoc } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
+import { auth, saveProfile } from './firebase-config.js';
 
 document.addEventListener('DOMContentLoaded', function () {
     const generateButton = document.getElementById('generateName');
@@ -139,12 +138,12 @@ document.addEventListener('DOMContentLoaded', function () {
     saveToProfileButton.addEventListener('click', function () {
         const user = auth.currentUser;
         const generatedName = document.getElementById('nameOutput').value;
-
+    
         if (!generatedName) {
             alert('Please generate a name first.');
             return;
         }
-
+    
         if (user) {
             // User is signed in, proceed to save the generated name
             saveGeneratedName(user, generatedName);
@@ -157,21 +156,17 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Function to save the generated name to the user's profile
-    function saveGeneratedName(user, generatedName) {
-        // Create a reference to the user's profile document in the 'profile' subcollection
-        const userProfileRef = doc(db, 'users', user.uid, 'profile', 'profileData');
-    
-        // Set the displayName in the user's profile document
-        setDoc(userProfileRef, { displayName: generatedName }, { merge: true })
-            .then(() => {
-                alert('Name saved to your profile successfully!');
-                // Clear any pending name save after successful save
-                localStorage.removeItem('pendingNameSave');
-            })
-            .catch(error => {
-                console.error("Error saving name to profile: ", error);
-                alert('There was a problem saving your name. Please try again.');
-            });
+    async function saveGeneratedName(user, generatedName) {
+        try {
+            const profileData = { displayName: generatedName };
+            const statusMessage = await saveProfile(user.uid, profileData);
+            alert(statusMessage);
+            // Clear any pending name save after successful save
+            localStorage.removeItem('pendingNameSave');
+        } catch (error) {
+            console.error("Error saving name to profile: ", error);
+            alert('There was a problem saving your name. Please try again.');
+        }
     }
 
     // Function to populate dropdown options based on termMappings
