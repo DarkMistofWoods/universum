@@ -1,4 +1,4 @@
-import { db, auth, collection, getDocs, fetchUserSettings, fetchUserProgress } from './firebase-config.js';
+import { auth, onAuthStateChanged, fetchUserSettings, fetchUserProgress } from './firebase-config.js';
 
 // Function to calculate progress based on user progress data
 function calculateProgress(progressData, lessonId) {
@@ -184,12 +184,21 @@ async function fetchAndDisplayUserData(userId) {
         });
 }
 
-auth.onAuthStateChanged(user => {
-    if (user) {
-        fetchAndDisplayUserData(user.uid);
-    } else {
-        console.log('User is not authenticated');
-        // Handle the case when the user is not authenticated
-        window.location.href = '/login.html';
-    }
-});
+// Function to check the authentication state
+function checkAuthState() {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in
+            const userId = user.uid;
+            fetchAndDisplayUserData(userId);
+        } else {
+            // User is signed out
+            console.log('User is signed out');
+            // Redirect to login page or show login prompt
+            window.location.href = '/login.html';
+        }
+    });
+}
+
+// Call the main function when the page loads
+window.addEventListener('DOMContentLoaded', checkAuthState);
