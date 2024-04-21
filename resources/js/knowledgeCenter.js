@@ -102,6 +102,8 @@ function createLessonElements(lessons, progressData, recommendationsData, isFirs
         quizPercentageElement.textContent = `Latest Quiz: ${latestQuizScore !== null ? `${latestQuizScore}%` : 'Incomplete'} | Average Score: ${averageQuizScore !== 'Incomplete' ? averageQuizScore : 'Incomplete'}`;
         
         const isCompleted = lessonData.completed || false;
+        console.log(recommendation.lessonId);
+        console.log(lesson.lessonId);
         const isRecommended = recommendationsData?.some(recommendation => recommendation.lessonId === lesson.lessonId) || false;
         const isFirstLesson = isFirstModule && isFirstSubModule && index === 0;
         const isPreviousLessonCompleted = index > 0 && (progressData?.[lessons[index - 1].lessonId]?.completed || false);
