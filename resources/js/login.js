@@ -268,6 +268,10 @@ async function createAccount() {
 
     try {
         const user = await handleSignup(email, password);
+        if (!user) {
+            loginErrorMessage.textContent = "Account already exists with this email address. Please log in instead.";
+            return;
+        }
         await initializeUserProfile(user);
 
         window.location.href = '/dashboard.html';
