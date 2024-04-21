@@ -57,7 +57,6 @@ async function updateEmail(userId, newEmail) {
 auth.onAuthStateChanged(async (user) => {
     if (user) {
         const settings = await loadSettings(user.uid);
-        console.log(document.querySelector(`[name="learning-path"][value="${settings.learningPath}"]`).checked);
 
         document.querySelector('[name="learning-pace"]').value = settings.learningPace;
         document.querySelectorAll('[name="content-pref"]').forEach(checkbox => {
