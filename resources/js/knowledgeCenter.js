@@ -1,4 +1,4 @@
-import { auth, onAuthStateChanged, fetchUserSettings, fetchUserProgress } from './firebase-config.js';
+import { auth, onAuthStateChanged, fetchUserSettings, fetchUserProgress, fetchUserRecommendations } from './firebase-config.js';
 
 // Function to calculate progress based on user progress data
 function calculateProgress(progressData, lessonId) {
@@ -142,9 +142,8 @@ function createLessonElements(lessons, progressData, recommendationsData, isFirs
 
 // Function to handle user authentication state changes
 async function fetchAndDisplayUserData(userId) {
-    Promise.all([fetchUserProgress(userId), fetchUserSettings(userId)])
-        .then(([progressData, userSettings]) => {
-            const recommendationsData = userSettings?.learningPath === 'guided' ? userSettings.recommendationsData || [] : [];
+    Promise.all([fetchUserProgress(userId), fetchUserSettings(userId), fetchUserRecommendations(userId)])
+        .then(([progressData, userSettings, recommendationsData]) => {
             const isSelfDirected = userSettings?.learningPath === 'self-directed';
             
             fetch('functions/courseContent.json')
