@@ -207,20 +207,17 @@ async function fetchUserRecommendations(userId) {
         const userRecommendationsSnapshot = await getDocs(userRecommendationsQuery);
 
         if (!userRecommendationsSnapshot.empty) {
-            const recommendationsData = {};
-            userRecommendationsSnapshot.forEach(doc => {
-                recommendationsData[doc.id] = doc.data();
-            });
+            const recommendationsData = userRecommendationsSnapshot.docs.map(doc => doc.data());
             localStorage.setItem('userRecommendations', JSON.stringify(recommendationsData));
             localStorage.setItem('userRecommendationsLastCachedTimestamp', new Date().getTime().toString());
             return recommendationsData;
         } else {
             const cachedUserRecommendations = JSON.parse(localStorage.getItem('userRecommendations'));
-            return cachedUserRecommendations || null;
+            return cachedUserRecommendations || [];
         }
     } catch (error) {
         console.error('Error fetching user recommendations:', error);
-        return null;
+        return [];
     }
 }
 
