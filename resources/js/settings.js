@@ -4,7 +4,7 @@ import { doc, getDoc, setDoc, updateDoc } from 'https://www.gstatic.com/firebase
 // Default settings
 const defaultSettings = {
     audioSpeed: 'normal',
-    contentPreferences: [],
+    contentPreferences: ['vocabulary', 'grammar', 'cultural', 'pronunciation'],
     feedbackFrequency: 'weekly',
     languageInterface: 'english',
     learningPace: 'medium',

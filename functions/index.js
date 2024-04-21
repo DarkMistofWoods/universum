@@ -109,7 +109,7 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
 
         const defaultSettings = {
             audioSpeed: 'normal',
-            contentPreferences: [],
+            contentPreferences: ['vocabulary', 'grammar', 'cultural', 'pronunciation'],
             feedbackFrequency: 'weekly',
             languageInterface: 'english',
             learningPace: 'medium',
