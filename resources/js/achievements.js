@@ -39,16 +39,30 @@ function generateAchievementHTML(achievement, userProgress) {
 
 // Main function to display achievements on the page
 async function displayAchievements(userId) {
-    const allAchievements = await fetchAllAchievements();
-    const userAchievementsProgress = await fetchUserAchievementsProgress(userId);
+    const userAchievements = await fetchUserAchievements(userId);
 
     const achievementsContainer = document.getElementById('achievementContent');
     let achievementsHTML = '<h2>Your Achievements</h2>';
 
-    allAchievements.forEach((achievement) => {
-        const userProgress = userAchievementsProgress[achievement.id];
-        achievementsHTML += generateAchievementHTML(achievement, userProgress);
-    });
+    if (userAchievements) {
+        Object.entries(userAchievements).forEach(([achievementId, achievement]) => {
+            const progress = achievement.progress || 0;
+            const target = achievement.target;
+            const percentage = (progress / target) * 100;
+
+            achievementsHTML += `
+                <div class="achievement-section">
+                    <h3 class="achievement-title">${achievement.title}</h3>
+                    <p class="achievement-progress">${progress} / ${target}</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: ${percentage}%"></div>
+                    </div>
+                </div>
+            `;
+        });
+    } else {
+        achievementsHTML += '<p>No achievements found.</p>';
+    }
 
     achievementsContainer.innerHTML = achievementsHTML;
 }
