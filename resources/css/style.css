@@ -1146,6 +1146,12 @@ fieldset {
     right: 5px;
 }
 
+.recommended-icon {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
 /* END OF KNOWLEDGE CENTER */
 
 /* LEXICON */
