@@ -24,38 +24,23 @@ async function fetchUserSettings(userId) {
         const userSettingsRef = doc(db, 'users', userId, 'settings', 'userSettings');
         const cachedUserSettings = JSON.parse(localStorage.getItem('userSettings'));
 
-        if (cachedUserSettings && cachedUserSettings.lastUpdated) {
-            const lastCachedTimestamp = cachedUserSettings.lastUpdated;
-            const userSettingsSnapshot = await getDoc(userSettingsRef);
+        const userSettingsSnapshot = await getDoc(userSettingsRef);
 
-            if (userSettingsSnapshot.exists()) {
-                const serverUserSettings = userSettingsSnapshot.data();
-                const lastUpdatedTimestamp = serverUserSettings.lastUpdated.toMillis();
+        if (userSettingsSnapshot.exists()) {
+            const serverUserSettings = userSettingsSnapshot.data();
+            const serverLastUpdated = serverUserSettings.lastUpdated.toMillis();
 
-                if (lastUpdatedTimestamp > lastCachedTimestamp) {
-                    serverUserSettings.lastUpdated = lastUpdatedTimestamp;
-                    localStorage.setItem('userSettings', JSON.stringify(serverUserSettings));
-                    return serverUserSettings;
-                } else {
-                    return cachedUserSettings;
-                }
+            if (!cachedUserSettings || serverLastUpdated > cachedUserSettings.lastUpdated) {
+                serverUserSettings.lastUpdated = serverLastUpdated;
+                localStorage.setItem('userSettings', JSON.stringify(serverUserSettings));
+                return serverUserSettings;
             } else {
-                console.log('User settings document does not exist');
-                localStorage.removeItem('userSettings');
-                return null;
+                return cachedUserSettings;
             }
         } else {
-            const userSettingsSnapshot = await getDoc(userSettingsRef);
-
-            if (userSettingsSnapshot.exists()) {
-                const userSettings = userSettingsSnapshot.data();
-                userSettings.lastUpdated = userSettings.lastUpdated.toMillis();
-                localStorage.setItem('userSettings', JSON.stringify(userSettings));
-                return userSettings;
-            } else {
-                console.log('User settings document does not exist');
-                return null;
-            }
+            console.log('User settings document does not exist');
+            localStorage.removeItem('userSettings');
+            return null;
         }
     } catch (error) {
         console.error('Error fetching user settings:', error);
