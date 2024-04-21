@@ -270,7 +270,7 @@ async function createAccount() {
         const user = await handleSignup(email, password);
         await initializeUserProfile(user);
 
-        window.location.href = 'dashboard.html';
+        window.location.href = '/dashboard.html';
     } catch (error) {
         console.error("Signup error: ", error);
         loginErrorMessage.textContent = "An error occurred during account creation. Please try again.";
