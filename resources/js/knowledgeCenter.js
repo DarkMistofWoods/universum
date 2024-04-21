@@ -10,7 +10,7 @@ function calculateProgress(progressData, lessonId) {
 }
 
 // Function to create submodule elements
-function createSubModuleElements(subModules, progressData, moduleId, recommendationsData, isFirstModule) {
+function createSubModuleElements(subModules, progressData, moduleId, recommendationsData, isFirstModule, isSelfDirected) {
     const subModuleElements = subModules.map((subModule, subModuleIndex) => {
         const subModuleElement = document.createElement('div');
         subModuleElement.classList.add('knowledge-card', 'submodule');
@@ -51,7 +51,7 @@ function createSubModuleElements(subModules, progressData, moduleId, recommendat
             if (lessonsContainer) {
                 lessonsContainer.remove();
             } else {
-                const lessonsContainer = createLessonElements(subModule.lessons, progressData, recommendationsData, isFirstModule, subModuleIndex === 0);
+                const lessonsContainer = createLessonElements(subModule.lessons, progressData, recommendationsData, isFirstModule, subModuleIndex === 0, isSelfDirected);
                 subModuleElement.appendChild(lessonsContainer);
             }
         });
@@ -73,7 +73,7 @@ function calculateAverageQuizScore(quizScores) {
 }
 
 // Function to create lesson elements
-function createLessonElements(lessons, progressData, recommendationsData, isFirstModule, isFirstSubModule) {
+function createLessonElements(lessons, progressData, recommendationsData, isFirstModule, isFirstSubModule, isSelfDirected) {
     const lessonsContainer = document.createElement('div');
     lessonsContainer.classList.add('lessons-container');
     
@@ -106,7 +106,7 @@ function createLessonElements(lessons, progressData, recommendationsData, isFirs
         const isFirstLesson = isFirstModule && isFirstSubModule && index === 0;
         const isPreviousLessonCompleted = index > 0 && (progressData?.[lessons[index - 1].lessonId]?.completed || false);
         
-        if (isCompleted || isRecommended || isFirstLesson || isPreviousLessonCompleted) {
+        if (isSelfDirected || isCompleted || isRecommended || isFirstLesson || isPreviousLessonCompleted) {
             lessonElement.classList.add('unlocked');
             lessonElement.addEventListener('click', () => {
                 window.location.href = lesson.pageUrl;
@@ -117,6 +117,13 @@ function createLessonElements(lessons, progressData, recommendationsData, isFirs
             lockIcon.classList.add('lock-icon');
             lockIcon.textContent = '🔒';
             titleElement.appendChild(lockIcon);
+        }
+        
+        if (isRecommended) {
+            const recommendedIcon = document.createElement('span');
+            recommendedIcon.classList.add('recommended-icon');
+            recommendedIcon.textContent = '⭐';
+            titleElement.appendChild(recommendedIcon);
         }
         
         lessonElement.appendChild(titleElement);
@@ -136,6 +143,7 @@ async function fetchAndDisplayUserData(userId) {
     Promise.all([fetchUserProgress(userId), fetchUserSettings(userId)])
         .then(([progressData, userSettings]) => {
             const recommendationsData = userSettings?.learningPath === 'guided' ? userSettings.recommendationsData || [] : [];
+            const isSelfDirected = userSettings?.learningPath === 'self-directed';
             
             fetch('functions/courseContent.json')
                 .then(response => response.json())
@@ -163,7 +171,7 @@ async function fetchAndDisplayUserData(userId) {
                                 if (subModulesContainer) {
                                     subModulesContainer.remove();
                                 } else {
-                                    const subModuleElements = createSubModuleElements(module.subModules, progressData, module.moduleId, recommendationsData, moduleIndex === 0);
+                                    const subModuleElements = createSubModuleElements(module.subModules, progressData, module.moduleId, recommendationsData, moduleIndex === 0, isSelfDirected);
                                     const subModulesContainer = document.createElement('div');
                                     subModulesContainer.classList.add('submodules-container');
                                     subModulesContainer.append(...subModuleElements);
