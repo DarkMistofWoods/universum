@@ -414,6 +414,8 @@ async function handleFeedbackSubmit() {
         description: comment,
         feedbackDate: serverTimestamp()
     };
+
+    // Save the feedback to the database
     const feedbackStatus = await saveFeedback(newFeedback);
 
     if (feedbackStatus === 'success') {
