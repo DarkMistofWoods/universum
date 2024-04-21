@@ -1,4 +1,4 @@
-import { auth, handleLogout } from './firebase-config.js';
+import { auth, onAuthStateChanged, handleLogout } from './firebase-config.js';
 
 // Function to update the visibility of minidash icons based on user authentication state
 function updateMinidashIcons(user) {
