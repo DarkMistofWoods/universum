@@ -1,6 +1,6 @@
 // Import the functions needed from the SDKs
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js';
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-auth.js';
 import { getFirestore, doc, getDoc, getDocs, addDoc, updateDoc, collection, deleteDoc, serverTimestamp, query, where } from 'https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore.js';
 
 // Your web app's Firebase configuration
@@ -17,6 +17,26 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+
+async function handleLogin(email, password) {
+
+}
+
+async function handleLogout() {
+    try {
+        await auth.signOut();
+        localStorage.clear();
+        window.location.href = '/login.html';
+    } catch (error) {
+        console.error('Error signing out:', error);
+        window.location.href = '/login.html';
+    }
+}
+
+// Function to create a new user account
+async function handleSignup(email, password) {
+
+}
 
 // Function to fetch user settings from Firestore
 async function fetchUserSettings(userId) {
@@ -207,17 +227,20 @@ async function fetchUserRecommendations(userId) {
         const userRecommendationsSnapshot = await getDocs(userRecommendationsQuery);
 
         if (!userRecommendationsSnapshot.empty) {
-            const recommendationsData = userRecommendationsSnapshot.docs.map(doc => doc.data());
+            const recommendationsData = {};
+            userRecommendationsSnapshot.forEach(doc => {
+                recommendationsData[doc.id] = doc.data();
+            });
             localStorage.setItem('userRecommendations', JSON.stringify(recommendationsData));
             localStorage.setItem('userRecommendationsLastCachedTimestamp', new Date().getTime().toString());
             return recommendationsData;
         } else {
             const cachedUserRecommendations = JSON.parse(localStorage.getItem('userRecommendations'));
-            return cachedUserRecommendations || [];
+            return cachedUserRecommendations || null;
         }
     } catch (error) {
         console.error('Error fetching user recommendations:', error);
-        return [];
+        return null;
     }
 }
 
@@ -365,6 +388,9 @@ export {
     onAuthStateChanged,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    handleLogin,
+    handleLogout,
+    handleSignup,
     fetchUserSettings,
     fetchUserProgress,
     fetchUserAchievements,

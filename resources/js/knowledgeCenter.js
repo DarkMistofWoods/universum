@@ -104,7 +104,7 @@ function createLessonElements(lessons, progressData, recommendationsData, isFirs
         const isCompleted = lessonData.completed || false;
         console.log(recommendationsData);
         console.log(lesson.lessonId);
-        const isRecommended = recommendationsData?.some(recommendation => recommendation.lessonId === lesson.lessonId) || false;
+        const isRecommended = recommendationsData && recommendationsData[lesson.lessonId] !== undefined;
         const isFirstLesson = isFirstModule && isFirstSubModule && index === 0;
         const isPreviousLessonCompleted = index > 0 && (progressData?.[lessons[index - 1].lessonId]?.completed || false);
         
