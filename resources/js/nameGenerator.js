@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Please generate a name first.');
             return;
         }
-    
+
         if (user) {
             // User is signed in, proceed to save the generated name
             saveGeneratedName(user, generatedName);
