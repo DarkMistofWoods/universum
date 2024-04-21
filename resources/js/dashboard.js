@@ -489,8 +489,8 @@ function checkAuthState() {
                     console.error('Error fetching user profile:', error);
                     updateDisplayName('New User');
                 });
+                
             initializeFeedbackWidget();
-
         } else {
             // User is signed out
             console.log('User is signed out');
@@ -502,5 +502,3 @@ function checkAuthState() {
 
 // Call the main function when the page loads
 window.addEventListener('DOMContentLoaded', checkAuthState);
-
-document.addEventListener('DOMContentLoaded', initializeFeedbackWidget);
