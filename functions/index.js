@@ -37,7 +37,17 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
 
         const courseContent = await fetchCourseContent();
         const currentTimestamp = admin.firestore.FieldValue.serverTimestamp();
+        const lessonData = { // initial lesson data
+            completed: false,
+            quizScores: [],
+            timeSpent: 0,
+            lastUpdated: currentTimestamp
+        };
 
+        // set progress for vocabulary lesson 1 only, others will be set when user completes them
+        await db.collection('users').doc(user.uid).collection('progress').doc('Vocabulary_1_1').set(lessonData);
+
+        /*
         for (const module of courseContent) {
             for (const subModule of module.subModules) {
                 for (const lesson of subModule.lessons) {
@@ -53,6 +63,7 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
                 }
             }
         }
+        */
 
         const initialAchievementDoc = await db.collection('achievements').doc('achievement1').get();
 
