@@ -130,39 +130,35 @@ async function fetchUserProgress(userId) {
 async function fetchUserAchievements(userId) {
     try {
         const userAchievementsRef = collection(db, 'users', userId, 'achievements');
-        const cachedUserAchievements = JSON.parse(localStorage.getItem('userAchievements'));
+        const cachedUserAchievements = JSON.parse(localStorage.getItem('userAchievements')) || {};
 
-        if (cachedUserAchievements && cachedUserAchievements.lastUpdated) {
-            const lastCachedTimestamp = cachedUserAchievements.lastUpdated;
-            const userAchievementsQuery = query(userAchievementsRef, where('lastUpdated', '>', new Date(lastCachedTimestamp)));
-            const userAchievementsSnapshot = await getDocs(userAchievementsQuery);
+        const userAchievementsSnapshot = await getDocs(userAchievementsRef);
 
-            if (!userAchievementsSnapshot.empty) {
-                const achievementsData = {};
-                userAchievementsSnapshot.forEach(doc => {
-                    achievementsData[doc.id] = doc.data();
-                });
-                const updatedUserAchievements = { ...cachedUserAchievements, ...achievementsData };
-                updatedUserAchievements.lastUpdated = new Date().getTime();
-                localStorage.setItem('userAchievements', JSON.stringify(updatedUserAchievements));
-                return updatedUserAchievements;
-            } else {
-                return cachedUserAchievements;
-            }
-        } else {
-            const userAchievementsSnapshot = await getDocs(userAchievementsRef);
+        if (!userAchievementsSnapshot.empty) {
+            let shouldUpdate = false;
+            const achievementsData = {};
 
-            if (!userAchievementsSnapshot.empty) {
-                const achievementsData = {};
-                userAchievementsSnapshot.forEach(doc => {
-                    achievementsData[doc.id] = doc.data();
-                });
-                achievementsData.lastUpdated = new Date().getTime();
+            userAchievementsSnapshot.forEach(doc => {
+                const serverAchievement = doc.data();
+                const serverLastUpdated = serverAchievement.lastUpdated.toMillis();
+                const cachedAchievement = cachedUserAchievements[doc.id];
+
+                if (!cachedAchievement || serverLastUpdated > cachedAchievement.lastUpdated) {
+                    achievementsData[doc.id] = serverAchievement;
+                    achievementsData[doc.id].lastUpdated = serverLastUpdated;
+                    shouldUpdate = true;
+                } else {
+                    achievementsData[doc.id] = cachedAchievement;
+                }
+            });
+
+            if (shouldUpdate) {
                 localStorage.setItem('userAchievements', JSON.stringify(achievementsData));
-                return achievementsData;
-            } else {
-                return null;
             }
+
+            return achievementsData;
+        } else {
+            return cachedUserAchievements;
         }
     } catch (error) {
         console.error('Error fetching user achievements:', error);
