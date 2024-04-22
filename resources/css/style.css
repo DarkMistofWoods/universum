@@ -735,6 +735,10 @@ fieldset {
     justify-content: flex-start;
 }
 
+.recommendation h3 {
+    margin-top: 15px;
+}
+
 .recommendation p {
     color: var(--color-secondary);
     font-size: small;
@@ -1286,6 +1290,7 @@ fieldset {
     color: var(--color-primary);
     width: 25%;
     font-size: medium;
+    font-weight: 300;
     margin: 10px 0;
 }
 

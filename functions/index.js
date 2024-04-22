@@ -35,7 +35,7 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
 
         await userDocRef.set({});
 
-        const courseContent = await fetchCourseContent();
+        // const courseContent = await fetchCourseContent();
         const currentTimestamp = admin.firestore.FieldValue.serverTimestamp();
         const lessonData = { // initial lesson data
             completed: false,
