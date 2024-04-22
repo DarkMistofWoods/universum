@@ -27,7 +27,7 @@ function generateCircle() {
     const circleContainer = document.querySelector('.circle-logo-container');
     circleContainer.addEventListener('click', () => {
         circleContainer.classList.add('circle-logo-glow'); // Apply glow effect
-        window.location.href = '/index.html'; // URL to navigate to
+        window.location.href = 'index.html'; // URL to navigate to
     });
 
     // When adding glow on hover or click, make sure transitions are considered
