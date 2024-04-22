@@ -1,20 +1,20 @@
 /* Dark Theme */
 :root {
-    --color-primary: #F2E3D5;
-    --color-secondary: #3CA6A6;
-    --color-tertiary: #026773;
-    --color-quaternary: #024959;
-    --color-background: #012E40;
-    --filter-primary: invert(0%) sepia(5%) saturate(422%) hue-rotate(354deg) brightness(86%) contrast(90%);
+    --color-primary: #F2E2C4;
+    --color-secondary: #F2CA99;
+    --color-tertiary: #A67A46;
+    --color-quaternary: #3B3C40;
+    --color-background: #0D0D0D;
+    --filter-primary:  invert(50%) sepia(72%) saturate(328%) hue-rotate(352deg) brightness(86%) contrast(85%);
 }
 
 /* Light theme */
 [data-theme='theme-light'] {
     --color-primary: #0D0D0D;
-    --color-secondary: #262626;
-    --color-tertiary: #737373;
-    --color-quaternary: #BFBFBF;
-    --color-background: #F2F2F2;
+    --color-secondary: #3B3C40;
+    --color-tertiary: #A67A46;
+    --color-quaternary: #F2CA99;
+    --color-background: #F2E2C4;
     --filter-primary: invert(0%) sepia(0%) saturate(0%) hue-rotate(0) brightness(50%) contrast(100%);
 }
 
