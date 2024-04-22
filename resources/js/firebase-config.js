@@ -21,10 +21,10 @@ const db = getFirestore(app);
 async function handleLogin(email, password) {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        return 'Logged in successfully. Redirecting...';
+        return userCredential.user;
     } catch (error) {
-        console.error('Error signing in:', error);
-        return error;
+        console.error('Login error:', error);
+        throw error;
     }
 }
 
@@ -39,14 +39,14 @@ async function handleLogout() {
     }
 }
 
-// Function to create a new user account
+// Function to handle user signup
 async function handleSignup(email, password) {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         return userCredential.user;
     } catch (error) {
-        console.error('Error creating account:', error);
-        return error;
+        console.error('Signup error:', error);
+        throw error;
     }
 }
 

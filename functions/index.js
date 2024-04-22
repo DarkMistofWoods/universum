@@ -151,3 +151,16 @@ async function fetchCourseContent() {
         throw new functions.https.HttpsError('internal', 'Failed to fetch course content.');
     }
 }
+
+async function fetchLexiconData() {
+    try {
+        const lexiconDataPath = path.join(__dirname, './lexiconData.json');
+        console.log('Fetching lexicon data from:', lexiconDataPath);
+        const lexiconDataJson = await fs.promises.readFile(lexiconDataPath, 'utf-8');
+        console.log('Course lexicon JSON:', lexiconDataJson);
+        return JSON.parse(lexiconDataJson);
+    } catch (error) {
+        console.error('Error fetching lexicon data:', error);
+        throw new functions.https.HttpsError('internal', 'Failed to fetch lexicon data.');
+    }
+}

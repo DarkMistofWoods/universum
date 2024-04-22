@@ -241,12 +241,15 @@ async function login() {
     }
 
     try {
-        const statusMessage = await handleLogin(email, password);
-        loginErrorMessage.textContent = statusMessage;
-        window.location.href = '/dashboard.html';
+        await handleLogin(email, password);
+        window.location.href = 'dashboard.html';
     } catch (error) {
         console.error("Login error: ", error);
-        loginErrorMessage.textContent = statusMessage ? statusMessage : "An error occurred during login. Please try again.";
+        if (error.code === 'auth/user-not-found') {
+            loginErrorMessage.textContent = "No account found with the provided email. Please check your email or create a new account.";
+        } else {
+            loginErrorMessage.textContent = "An error occurred during login. Please try again.";
+        }
     }
 }
 
@@ -268,16 +271,16 @@ async function createAccount() {
 
     try {
         const user = await handleSignup(email, password);
-        if (!user) {
-            loginErrorMessage.textContent = "Account already exists with this email address. Please log in instead.";
-            return;
-        }
         await initializeUserProfile(user);
 
-        window.location.href = '/dashboard.html';
+        window.location.href = 'dashboard.html';
     } catch (error) {
         console.error("Signup error: ", error);
-        loginErrorMessage.textContent = "An error occurred during account creation. Please try again.";
+        if (error.code === 'auth/email-already-in-use') {
+            loginErrorMessage.textContent = "An account with the provided email already exists. Please log in or use a different email.";
+        } else {
+            loginErrorMessage.textContent = "An error occurred during account creation. Please try again.";
+        }
     }
 }
 
