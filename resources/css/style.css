@@ -504,8 +504,7 @@ svg#linesContainer {
 }
 
 .settings-form legend {
-    color: var(--color-background);
-    padding: 0 10px;
+    color: var(--color-quaternary);
     background-color: var(--color-secondary);
     border-radius: 10px;
     padding: 1px 16px;
@@ -551,7 +550,7 @@ svg#linesContainer {
 
 fieldset {
     border-radius: 15px;
-    background: var(--color-tertiary);
+    background: transparent;
     border: 2px solid var(--color-secondary);
     margin-bottom: 5px;
     padding: 20px;
