@@ -102,8 +102,9 @@ async function fetchUserProgress(userId) {
             });
 
             if (Object.keys(updatedLessons).length > 0) {
-                localStorage.setItem('userProgress', JSON.stringify({ ...cachedUserProgress, ...updatedLessons }));
-                return { ...cachedUserProgress, ...updatedLessons };
+                const updatedUserProgress = { ...cachedUserProgress, ...updatedLessons };
+                localStorage.setItem('userProgress', JSON.stringify(updatedUserProgress));
+                return updatedUserProgress;
             }
 
             return cachedUserProgress;
