@@ -232,23 +232,35 @@ async function fetchUserGoals(userId, forceRefresh = false) {
 async function fetchUserRecommendations(userId) {
     try {
         const userRecommendationsRef = collection(db, 'users', userId, 'recommendations');
-        const lastCachedTimestamp = localStorage.getItem('userRecommendationsLastCachedTimestamp');
-        const userRecommendationsQuery = lastCachedTimestamp
-            ? query(userRecommendationsRef, where('lastUpdated', '>', new Date(parseInt(lastCachedTimestamp))))
-            : userRecommendationsRef;
-        const userRecommendationsSnapshot = await getDocs(userRecommendationsQuery);
+        const cachedUserRecommendations = JSON.parse(localStorage.getItem('userRecommendations')) || {};
+
+        const userRecommendationsSnapshot = await getDocs(userRecommendationsRef);
 
         if (!userRecommendationsSnapshot.empty) {
+            let shouldUpdate = false;
             const recommendationsData = {};
+
             userRecommendationsSnapshot.forEach(doc => {
-                recommendationsData[doc.id] = doc.data();
+                const serverRecommendation = doc.data();
+                const serverLastUpdated = serverRecommendation.lastUpdated.toMillis();
+                const cachedRecommendation = cachedUserRecommendations[doc.id];
+
+                if (!cachedRecommendation || serverLastUpdated > cachedRecommendation.lastUpdated) {
+                    recommendationsData[doc.id] = serverRecommendation;
+                    recommendationsData[doc.id].lastUpdated = serverLastUpdated;
+                    shouldUpdate = true;
+                } else {
+                    recommendationsData[doc.id] = cachedRecommendation;
+                }
             });
-            localStorage.setItem('userRecommendations', JSON.stringify(recommendationsData));
-            localStorage.setItem('userRecommendationsLastCachedTimestamp', new Date().getTime().toString());
+
+            if (shouldUpdate) {
+                localStorage.setItem('userRecommendations', JSON.stringify(recommendationsData));
+            }
+
             return recommendationsData;
         } else {
-            const cachedUserRecommendations = JSON.parse(localStorage.getItem('userRecommendations'));
-            return cachedUserRecommendations || null;
+            return cachedUserRecommendations;
         }
     } catch (error) {
         console.error('Error fetching user recommendations:', error);
