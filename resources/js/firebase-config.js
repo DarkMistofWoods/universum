@@ -84,41 +84,31 @@ async function fetchUserSettings(userId) {
 async function fetchUserProgress(userId) {
     try {
         const userProgressRef = collection(db, 'users', userId, 'progress');
-        const cachedUserProgress = JSON.parse(localStorage.getItem('userProgress'));
+        const cachedUserProgress = JSON.parse(localStorage.getItem('userProgress')) || {};
 
-        if (cachedUserProgress && cachedUserProgress.lastUpdated) {
-            const lastCachedTimestamp = cachedUserProgress.lastUpdated;
-            const userProgressQuery = query(userProgressRef, where('lastUpdated', '>', new Date(lastCachedTimestamp)));
-            const userProgressSnapshot = await getDocs(userProgressQuery);
+        const userProgressSnapshot = await getDocs(userProgressRef);
 
-            if (!userProgressSnapshot.empty) {
-                const progressData = {};
-                userProgressSnapshot.forEach(doc => {
-                    progressData[doc.id] = doc.data();
-                    progressData[doc.id].lastUpdated = progressData[doc.id].lastUpdated.toMillis();
-                });
-                const updatedUserProgress = { ...cachedUserProgress, ...progressData };
-                updatedUserProgress.lastUpdated = new Date().getTime();
-                localStorage.setItem('userProgress', JSON.stringify(updatedUserProgress));
-                return updatedUserProgress;
-            } else {
-                return cachedUserProgress;
+        if (!userProgressSnapshot.empty) {
+            let updatedLessons = {};
+
+            userProgressSnapshot.forEach(doc => {
+                const serverLesson = doc.data();
+                const serverLastUpdated = serverLesson.lastUpdated.toMillis();
+                const cachedLesson = cachedUserProgress[doc.id];
+
+                if (!cachedLesson || serverLastUpdated > cachedLesson.lastUpdated) {
+                    updatedLessons[doc.id] = { ...serverLesson, lastUpdated: serverLastUpdated };
+                }
+            });
+
+            if (Object.keys(updatedLessons).length > 0) {
+                localStorage.setItem('userProgress', JSON.stringify({ ...cachedUserProgress, ...updatedLessons }));
+                return { ...cachedUserProgress, ...updatedLessons };
             }
+
+            return cachedUserProgress;
         } else {
-            const userProgressSnapshot = await getDocs(userProgressRef);
-
-            if (!userProgressSnapshot.empty) {
-                const progressData = {};
-                userProgressSnapshot.forEach(doc => {
-                    progressData[doc.id] = doc.data();
-                    progressData[doc.id].lastUpdated = progressData[doc.id].lastUpdated.toMillis();
-                });
-                progressData.lastUpdated = new Date().getTime();
-                localStorage.setItem('userProgress', JSON.stringify(progressData));
-                return progressData;
-            } else {
-                return null;
-            }
+            return cachedUserProgress;
         }
     } catch (error) {
         console.error('Error fetching user progress:', error);
