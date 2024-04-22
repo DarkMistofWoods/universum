@@ -476,6 +476,8 @@ function checkAuthState() {
                 .then(profileData => {
                     if (profileData.displayName) {
                         updateDisplayName(profileData.displayName);
+                    } else {
+                        updateDisplayName('New User');
                     }
                 })
                 .catch(error => {
