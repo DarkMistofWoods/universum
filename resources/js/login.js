@@ -247,8 +247,10 @@ async function login() {
         console.error("Login error: ", error);
         if (error.code === 'auth/user-not-found') {
             loginErrorMessage.textContent = "No account found with the provided email. Please check your email or create a new account.";
+            setTimeout(() => loginErrorMessage.textContent = '', 3000);
         } else {
             loginErrorMessage.textContent = "An error occurred during login. Please try again.";
+            setTimeout(() => loginErrorMessage.textContent = '', 3000);
         }
     }
 }
@@ -278,8 +280,10 @@ async function createAccount() {
         console.error("Signup error: ", error);
         if (error.code === 'auth/email-already-in-use') {
             loginErrorMessage.textContent = "An account with the provided email already exists. Please log in or use a different email.";
+            setTimeout(() => loginErrorMessage.textContent = '', 3000);
         } else {
             loginErrorMessage.textContent = "An error occurred during account creation. Please try again.";
+            setTimeout(() => loginErrorMessage.textContent = '', 3000);
         }
     }
 }
