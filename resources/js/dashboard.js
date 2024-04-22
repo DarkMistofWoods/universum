@@ -474,7 +474,9 @@ function checkAuthState() {
     
             fetchUserProfile(userId)
                 .then(profileData => {
-                    updateDisplayName(profileData.displayName);
+                    if (profileData.displayName) {
+                        updateDisplayName(profileData.displayName);
+                    }
                 })
                 .catch(error => {
                     console.error('Error fetching user profile:', error);

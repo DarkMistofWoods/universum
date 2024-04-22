@@ -57,6 +57,27 @@ input {
     border-radius: 10px;
 }
 
+select {
+    border: 2px solid var(--color-primary);
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+    background-color: var(--color-quaternary);
+    color: var(--color-secondary);
+}
+
+textarea {
+    width: 90%;
+    height: 100px;
+    padding: 10px;
+    margin-bottom: 20px;
+    resize: none;
+    background-color: var(--color-quaternary);
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    border-radius: 5px;
+}
+
 #themeSelector {
     cursor: pointer;
     position: fixed;
@@ -495,14 +516,6 @@ svg#linesContainer {
     margin: 0 0 10px;
 }
 
-select {
-    border-radius: 5px;
-    padding: 5px;
-    background-color: var(--color-quaternary);
-    color: var(--color-secondary);
-    border: 1px solid var(--color-secondary);
-}
-
 #update-email-form {
     margin-top: 20px;
     margin-bottom: 10px;
@@ -598,7 +611,7 @@ fieldset {
 }
 
 .widget {
-    background-color: var(--color-tertiary);
+    background-color: var(--color-quaternary);
     border-radius: 15px;
     overflow: hidden;
     display: flex;
@@ -679,7 +692,7 @@ fieldset {
     width: 95%;
     margin-bottom: 10px;
     padding: 0 10px;
-    background-color: var(--color-quaternary);
+    background-color: var(--color-tertiary);
     border-radius: 10px;
 }
 
@@ -705,7 +718,7 @@ fieldset {
     width: 60%;
     height: 15px;
     justify-content: flex-start;
-    background-color: var(--color-tertiary);
+    background-color: var(--color-quaternary);
     border-radius: 10px;
     margin-top: 0;
     overflow: hidden;
@@ -725,7 +738,7 @@ fieldset {
     padding: 0 10px;
     margin: 0 10px;
     margin-bottom: 20px;
-    background-color: var(--color-quaternary);
+    background-color: var(--color-tertiary);
     border-radius: 10px;
 }
 
@@ -748,7 +761,7 @@ fieldset {
 }
 
 .recommendation a {
-    color: var(--color-tertiary);
+    color: var(--color-quaternary);
     font-size: medium;
     text-decoration: underline;
     padding: 5px 15px;
@@ -756,8 +769,8 @@ fieldset {
 }
 
 .recommendation a:hover {
-    background-color: var(--color-tertiary);
-    color: var(--color-quaternary);
+    background-color: var(--color-quaternary);
+    color: var(--color-tertiary);
 }
 
 .learning-goals .content {
@@ -773,14 +786,14 @@ fieldset {
     align-items: center;
     width: 95%;
     padding: 5px 10px;
-    background-color: var(--color-quaternary);
+    background-color: var(--color-tertiary);
     border-radius: 10px;
 }
 
 .learning-goal .progress-bar {
     width: 60%;
     height: 10px;
-    background-color: var(--color-tertiary);
+    background-color: var(--color-quaternary);
     border-radius: 5px;
     margin: 10px;
     overflow: hidden;
@@ -894,18 +907,6 @@ fieldset {
 
 .rating input:checked~label {
     background-image: url('../icons/Star-Icon-Filled.svg');
-}
-
-#comment {
-    width: 90%;
-    height: 100px;
-    padding: 10px;
-    margin-bottom: 20px;
-    resize: none;
-    background-color: var(--color-quaternary);
-    color: var(--color-primary);
-    border: none;
-    border-radius: 5px;
 }
 
 @media (max-width: 1024px) {
