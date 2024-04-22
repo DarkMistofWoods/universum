@@ -211,11 +211,14 @@ input {
     margin: 36px;
     padding: 30px 36px;
     flex-direction: column;
-    text-align: center;
+    text-align: left;
     height: fit-content;
-    background: linear-gradient(-200deg, var(--color-background), var(--color-quaternary));
+    background-color: var(--color-background);
     border-radius: 50px;
-    box-shadow: 3px 3px 5px #00000047;
+}
+
+.info-section h3 {
+    width: 100%;
 }
 /* END OF CONTAINERS */
 
@@ -681,7 +684,6 @@ fieldset {
 }
 
 .progress-tracker .module {
-    transform: translateY(-10px);
     width: 95%;
 }
 
@@ -737,21 +739,20 @@ fieldset {
     color: var(--color-secondary);
     font-size: small;
     text-align: left;
-    margin: 10px 20px 4px;
+    margin: 10px 20px 6px;
     width: 100%;
 }
 
 .recommendation a {
-    color: var(--color-primary);
-    background-color: var(--color-tertiary);
-    font-size: small;
-    text-decoration: none;
+    color: var(--color-tertiary);
+    font-size: medium;
+    text-decoration: underline;
     padding: 5px 15px;
     border-radius: 10px;
 }
 
 .recommendation a:hover {
-    background-color: var(--color-secondary);
+    background-color: var(--color-tertiary);
     color: var(--color-quaternary);
 }
 
@@ -1222,7 +1223,8 @@ fieldset {
     list-style-type: none;
     padding-left: 20px;
     margin-bottom: 0;
-    min-width: 30%;
+    width: 90%;
+    max-width: 700px;
 }
 
 .class-section li {
