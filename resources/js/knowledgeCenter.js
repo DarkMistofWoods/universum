@@ -119,7 +119,7 @@ function createLessonElements(lessons, progressData, recommendationsData, isFirs
             titleElement.appendChild(lockIcon);
         }
         
-        if (isRecommended) {
+        if (isRecommended && !isSelfDirected) {
             const recommendedIcon = document.createElement('span');
             recommendedIcon.classList.add('recommended-icon');
             recommendedIcon.textContent = '⭐';
