@@ -1292,3 +1292,49 @@ fieldset {
     margin: 0;
 }
 /* END OF ACHIEVEMENTS */
+/* LOGO CIRCLE */
+.centering-container {
+    justify-content: center;
+    align-items: start;
+    width: 100vw; /* This ensures it spans the full viewport width */
+    position: relative; /* Position it on top of other content or adjust as necessary */
+    top: 0;
+    left: 0;
+    margin-top: 45px;
+}
+
+.circle-logo-container {
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+@keyframes glow {
+    to {
+        stroke-opacity: 0.5;
+        stroke: var(--color-tertiary); /* Color of the glow */
+    }
+}
+
+line, .circle-logo-container {
+    transition: stroke-opacity 0.5s ease-out, stroke 0.5s ease-out, filter 0.5s ease-out;
+}
+
+.line-glow {
+    stroke-opacity: 0;
+    animation: glow 1s forwards;
+}
+
+.circle-logo-container:hover line {
+    animation: glowLine 2s infinite; /* Adjust timing as needed */
+}
+
+@keyframes glowLine {
+    0% { stroke: var(--color-secondary); }
+    100% { stroke: var(--color-tertiary); } /* Adjust glow color */
+}
+
+.circle-logo-glow {
+    filter: drop-shadow(0 0 8px var(--color-background)); /* Adjust the color and size of the glow */
+}
+/* END OF LOGO CIRCLE */
