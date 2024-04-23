@@ -13,18 +13,13 @@ const navigationPoints = [
     { pageName: "Dashboard", url: "./dashboard.html" },
     { pageName: "Current Progress", url: "./current-progress.html" },
     { pageName: "Community Progress", url: "./community-progress.html" }
-    // 12 total pages
 ];
 
-// Define the number of points and the radius of the navigation circle
 const numberOfPoints = 12;
-const radius = 45; // Adjust based on your SVG viewBox size
-
-// Center position of the circle within the SVG
+const radius = 45;
 const centerX = 50;
 const centerY = 50;
 
-// Function to calculate point positions
 function calculatePosition(angle, radius) {
     return {
         x: centerX + Math.cos(angle) * radius,
@@ -32,17 +27,13 @@ function calculatePosition(angle, radius) {
     };
 }
 
-// Generate and place points on the circle
 const svgContainer = document.querySelector('.nav-circle');
-// Store calculated positions
 let positions = [];
-// Generate positions for all points first
-for(let i = 0; i < numberOfPoints + 1; i++) {
-    let angle = (i / numberOfPoints) * (2 * Math.PI); // Angle in radians
+for(let i = 0; i < numberOfPoints; i++) {
+    let angle = (i / numberOfPoints) * (2 * Math.PI);
     positions.push(calculatePosition(angle, radius));
 }
 
-// Function to check if user is signed in
 function isUserSignedIn() {
     return new Promise((resolve, reject) => {
         auth.onAuthStateChanged(user => {
@@ -55,7 +46,6 @@ function isUserSignedIn() {
     });
 }
 
-// Function to create a point with event listeners
 function createPoint(angle, radius, pageName, url, index, svgContainer) {
     let position = positions[index];
     let point = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -64,41 +54,36 @@ function createPoint(angle, radius, pageName, url, index, svgContainer) {
     point.setAttribute("cy", position.y);
     point.setAttribute("r", 3.5);
     point.setAttribute("data-page-name", pageName);
-    point.setAttribute("data-url", url); // Store the URL in data attribute
-    point.setAttribute("data-index", index); // Store the index of the point
-    let isTappedOnce = false; // State to track if the point was tapped once
+    point.setAttribute("data-url", url);
+    point.setAttribute("data-index", index);
 
-    // Create an invisible, larger hit area for the point
     let hitArea = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     hitArea.setAttribute("cx", position.x);
     hitArea.setAttribute("cy", position.y);
-    hitArea.setAttribute("r", 9); // Larger radius for easier interaction
+    hitArea.setAttribute("r", 9);
     hitArea.setAttribute("class", "nav-point-hit-area");
-    hitArea.setAttribute("fill", "transparent"); // Make it invisible
+    hitArea.setAttribute("fill", "transparent");
+
+    let isTappedOnce = false;
 
     hitArea.addEventListener('mouseenter', () => {
         document.querySelector('.center-text').textContent = pageName;
         document.querySelector('.center-text').style.opacity = 1;
-        point.setAttribute("r", 5); // Making the point larger on hover
-        // Highlight the line between the hovered point and its connected points
-        highlightConnectedLines(index);
+        point.setAttribute("r", 5);
+        highlightConnectedLines(index, 'highlight-lines');
     });
 
     hitArea.addEventListener('mouseleave', () => {
-        // Only revert hover effects if on desktop or if not tapped
         if (!isTappedOnce) {
             document.querySelector('.center-text').style.opacity = 0;
-            point.setAttribute("r", 3.5); // Revert point size
-            // Revert lines to default state
-            document.querySelectorAll('.nav-line.highlighted').forEach(line => {
-                line.classList.remove('highlighted');
-            });
+            point.setAttribute("r", 3.5);
+            highlightConnectedLines(index, 'highlight-lines', false);
         }
     });
 
     hitArea.addEventListener('click', async (e) => {
-        if ('ontouchstart' in window || navigator.maxTouchPoints) { // Check for touch capability
-            e.preventDefault(); // Prevent default to allow for the tap logic
+        if ('ontouchstart' in window || navigator.maxTouchPoints) {
+            e.preventDefault();
             if (isTappedOnce) {
                 const isSignedIn = await isUserSignedIn();
                 if (isSignedIn || !['Settings', 'Achievements', 'Challenges', 'Community', 'Knowledge Center', 'Dashboard', 'Current Progress', 'Community Progress'].includes(pageName)) {
@@ -107,94 +92,18 @@ function createPoint(angle, radius, pageName, url, index, svgContainer) {
                     window.location.href = 'login.html';
                 }
             } else {
-                // First tap
                 document.querySelector('.center-text').textContent = pageName;
                 document.querySelector('.center-text').style.opacity = 1;
-                point.setAttribute("r", 5); // Making the point larger on tap
-                // Highlight connected lines
-                document.querySelectorAll('.nav-line').forEach(line => {
-                    if (line.getAttribute('data-start-index') == index || line.getAttribute('data-end-index') == index) {
-                        line.classList.add('highlighted');
-                    }
-                });
+                highlightConnectedLines(index, 'highlight-lines');
                 isTappedOnce = true;
                 setTimeout(() => {
                     isTappedOnce = false;
                     if ('ontouchstart' in window || navigator.maxTouchPoints) {
                         document.querySelector('.center-text').style.opacity = 0;
-                        point.setAttribute("r", 3.5); // Revert point size
-                        // Revert lines to default state
-                        document.querySelectorAll('.nav-line.highlighted').forEach(line => {
-                            line.classList.remove('highlighted');
-                        });
+                        point.setAttribute("r", 3.5);
+                        highlightConnectedLines(index, 'highlight-lines', false);
                     }
-                }, 2500); // Adjust timeout as needed
-            }
-        } else {
-            const isSignedIn = await isUserSignedIn();
-            if (isSignedIn || !['Settings', 'Achievements', 'Challenges', 'Community', 'Knowledge Center', 'Dashboard', 'Current Progress', 'Community Progress'].includes(pageName)) {
-                window.location.href = url;
-            } else {
-                window.location.href = 'login.html';
-            }
-        }
-    });
-
-    // Desktop hover effects
-    point.addEventListener('mouseenter', () => {
-        document.querySelector('.center-text').textContent = pageName;
-        document.querySelector('.center-text').style.opacity = 1;
-        // Highlight connected lines
-        document.querySelectorAll('.nav-line').forEach(line => {
-            if (line.getAttribute('data-start-index') == index || line.getAttribute('data-end-index') == index) {
-                line.classList.add('highlighted');
-            }
-        });
-    });
-    
-    point.addEventListener('mouseleave', () => {
-        // Only revert hover effects if on desktop or if not tapped
-        if (!isTappedOnce) {
-            document.querySelector('.center-text').style.opacity = 0;
-            // Revert lines to default state
-            document.querySelectorAll('.nav-line.highlighted').forEach(line => {
-                line.classList.remove('highlighted');
-            });
-        }
-    });
-
-    // Handling click/tap
-    point.addEventListener('click', async (e) => {
-        if ('ontouchstart' in window || navigator.maxTouchPoints) { // Check for touch capability
-            e.preventDefault(); // Prevent default to allow for the tap logic
-            if (isTappedOnce) {
-                const isSignedIn = await isUserSignedIn();
-                if (isSignedIn || !['Settings', 'Achievements', 'Challenges', 'Community', 'Knowledge Center', 'Dashboard', 'Current Progress', 'Community Progress'].includes(pageName)) {
-                    window.location.href = url;
-                } else {
-                    window.location.href = 'login.html';
-                }
-            } else {
-                // First tap
-                document.querySelector('.center-text').textContent = pageName;
-                document.querySelector('.center-text').style.opacity = 1;
-                // Highlight connected lines
-                document.querySelectorAll('.nav-line').forEach(line => {
-                    if (line.getAttribute('data-start-index') == index || line.getAttribute('data-end-index') == index) {
-                        line.classList.add('highlighted');
-                    }
-                });
-                isTappedOnce = true;
-                setTimeout(() => {
-                    isTappedOnce = false;
-                    if ('ontouchstart' in window || navigator.maxTouchPoints) {
-                        document.querySelector('.center-text').style.opacity = 0;
-                        // Revert lines to default state
-                        document.querySelectorAll('.nav-line.highlighted').forEach(line => {
-                            line.classList.remove('highlighted');
-                        });
-                    }
-                }, 2500); // Adjust timeout as needed
+                }, 3000);
             }
         } else {
             const isSignedIn = await isUserSignedIn();
@@ -210,8 +119,7 @@ function createPoint(angle, radius, pageName, url, index, svgContainer) {
     return hitArea;
 }
 
-// Function to draw lines between points
-function drawLines(svgContainer, positions) {
+function drawLines(svgContainer, positions, className) {
     const drawnLines = new Set();
 
     for (let startIndex = 0; startIndex < positions.length; startIndex++) {
@@ -226,7 +134,7 @@ function drawLines(svgContainer, positions) {
                 line.setAttribute("y1", startPos.y);
                 line.setAttribute("x2", endPos.x);
                 line.setAttribute("y2", endPos.y);
-                line.setAttribute("class", "nav-line");
+                line.setAttribute("class", `nav-line ${className}`);
                 line.setAttribute("data-start-index", startIndex);
                 line.setAttribute("data-end-index", endIndex);
                 svgContainer.appendChild(line);
@@ -236,13 +144,13 @@ function drawLines(svgContainer, positions) {
     }
 }
 
-// Draw lines before points to ensure lines are under points
-drawLines(svgContainer, positions);
+drawLines(svgContainer, positions, 'background-lines');
+drawLines(svgContainer, positions, 'highlight-lines');
 
 navigationPoints.forEach((navPoint, index) => {
-    if (index < positions.length) { // This check is good practice
-        let position = positions[index]; // Safely access 'positions'
-        if (position) { // Additional safety check
+    if (index < positions.length) {
+        let position = positions[index];
+        if (position) {
             let hitArea = createPoint(position.angle, radius, navPoint.pageName, navPoint.url, index, svgContainer);
             svgContainer.appendChild(hitArea);
         } else {
@@ -253,27 +161,21 @@ navigationPoints.forEach((navPoint, index) => {
     }
 });
 
-// Add event listener for click on the center of the navigation circle
 const circleContainer = document.querySelector('.circle-container');
 const navCircle = document.querySelector('.nav-circle');
 
 circleContainer.addEventListener('click', (e) => {
-    // Get the bounding rectangle of the navigation circle
     const navCircleRect = navCircle.getBoundingClientRect();
-
-    // Check if the click occurred within the center area (adjust the radius as needed)
-    const centerRadius = 90; // Adjust this value to control the size of the center area
+    const centerRadius = 90;
     const clickX = e.clientX - navCircleRect.left;
     const clickY = e.clientY - navCircleRect.top;
     const distance = Math.sqrt(Math.pow(clickX - navCircleRect.width / 2, 2) + Math.pow(clickY - navCircleRect.height / 2, 2));
 
     if (distance <= centerRadius) {
-        // Navigate to the home page
         window.location.href = './index.html';
     }
 });
 
-// Add event listener for hover on the center of the navigation circle
 const centerText = document.querySelector('.center-text');
 
 navCircle.addEventListener('mouseenter', (e) => {
@@ -286,7 +188,7 @@ navCircle.addEventListener('mouseenter', (e) => {
     if (distance <= centerRadius) {
         navCircle.style.cursor = 'pointer';
         centerText.classList.add('center-area-hover');
-        highlightIntersectingLines();
+        highlightAllLines();
     } else {
         navCircle.style.cursor = 'default';
         centerText.classList.remove('center-area-hover');
@@ -300,36 +202,30 @@ navCircle.addEventListener('mouseleave', () => {
     resetLineHighlights();
 });
 
-function highlightIntersectingLines() {
-    const lines = document.querySelectorAll('.nav-line');
+function highlightAllLines() {
+    const lines = document.querySelectorAll('.highlight-lines');
     lines.forEach(line => {
-        const x1 = parseFloat(line.getAttribute('x1'));
-        const y1 = parseFloat(line.getAttribute('y1'));
-        const x2 = parseFloat(line.getAttribute('x2'));
-        const y2 = parseFloat(line.getAttribute('y2'));
-
-        if ((x1 === centerX && y1 === centerY) || (x2 === centerX && y2 === centerY)) {
-            line.classList.add('highlighted');
-        }
+        line.classList.add('highlighted');
     });
 }
 
-// Function to highlight the lines connected to a point
-function highlightConnectedLines(index) {
-    document.querySelectorAll('.nav-line').forEach(line => {
+function highlightConnectedLines(index, className, highlight = true) {
+    document.querySelectorAll(`.${className}`).forEach(line => {
         const startIndex = parseInt(line.getAttribute('data-start-index'));
         const endIndex = parseInt(line.getAttribute('data-end-index'));
 
         if (startIndex === index || endIndex === index) {
-            line.classList.add('highlighted');
-        } else {
-            line.classList.remove('highlighted');
+            if (highlight) {
+                line.classList.add('highlighted');
+            } else {
+                line.classList.remove('highlighted');
+            }
         }
     });
 }
 
 function resetLineHighlights() {
-    const lines = document.querySelectorAll('.nav-line');
+    const lines = document.querySelectorAll('.highlight-lines');
     lines.forEach(line => {
         line.classList.remove('highlighted');
     });
