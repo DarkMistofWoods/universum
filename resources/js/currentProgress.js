@@ -133,7 +133,7 @@ async function createVisualization(courseContent, userProgress) {
 }
 
 async function loadCourseContent() {
-    const response = await fetch('./courseContent.json');
+    const response = await fetch('/resources/courseContent.json');
     return await response.json();
 }
 
