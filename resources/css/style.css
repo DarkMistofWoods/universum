@@ -161,7 +161,7 @@ textarea {
 
 .container-secondary h2 {
     color: var(--color-primary);
-    text-shadow: 3px 3px 5px #00000047;
+    text-shadow: 2px 2px 3px #00000047;
 }
 
 .container-secondary p {
@@ -404,7 +404,7 @@ textarea {
 
 .form-container h2 {
     color: var(--color-primary);
-    text-shadow: 3px 3px 5px #00000047;
+    text-shadow: 2px 2px 3px #00000047;
 }
 
 .form-container h4 {
@@ -599,7 +599,7 @@ fieldset {
     font-size: x-large;
     margin: 10px 0;
     text-align: center;
-    text-shadow: 2px 2px 5px #00000047;
+    text-shadow: 2px 2px 2px #00000047;
 }
 
 .user-profile .display-name {
