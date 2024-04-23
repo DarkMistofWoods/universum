@@ -81,10 +81,13 @@ function createPoint(angle, radius, pageName, url, index, svgContainer) {
         }
     });
 
+    let tapTimeout;
+
     hitArea.addEventListener('click', async (e) => {
         if ('ontouchstart' in window || navigator.maxTouchPoints) {
             e.preventDefault();
             if (isTappedOnce) {
+                clearTimeout(tapTimeout);
                 const isSignedIn = await isUserSignedIn();
                 if (isSignedIn || !['Settings', 'Achievements', 'Challenges', 'Community', 'Knowledge Center', 'Dashboard', 'Current Progress', 'Community Progress'].includes(pageName)) {
                     window.location.href = url;
@@ -96,13 +99,11 @@ function createPoint(angle, radius, pageName, url, index, svgContainer) {
                 document.querySelector('.center-text').style.opacity = 1;
                 highlightConnectedLines(index, 'highlight-lines');
                 isTappedOnce = true;
-                setTimeout(() => {
+                tapTimeout = setTimeout(() => {
                     isTappedOnce = false;
-                    if ('ontouchstart' in window || navigator.maxTouchPoints) {
-                        document.querySelector('.center-text').style.opacity = 0;
-                        point.setAttribute("r", 3.5);
-                        highlightConnectedLines(index, 'highlight-lines', false);
-                    }
+                    document.querySelector('.center-text').style.opacity = 0;
+                    point.setAttribute("r", 3.5);
+                    highlightConnectedLines(index, 'highlight-lines', false);
                 }, 3000);
             }
         } else {

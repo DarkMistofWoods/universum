@@ -259,33 +259,19 @@ textarea {
 
 .nav-circle {
     width: 300px;
-    /* Adjust based on your design */
     height: 300px;
     margin: auto;
     cursor: pointer;
-    /* Additional styles for the SVG circle */
 }
 
 .nav-point {
-    cursor: pointer;
     fill: var(--color-tertiary);
-    /* Default point color */
-}
-
-.nav-point:hover,
-.nav-point:focus {
-    fill: var(--color-secondary);
-    /* Color when hovered */
-    r: 4.5;
-    /* Slightly larger radius on hover */
-    /* Implement glow effect for lines here */
 }
 
 .center-text {
     pointer-events: none;
     cursor: default;
     color: var(--color-primary);
-    color: var(--color-secondary);
     background: radial-gradient(circle, var(--color-quaternary) 20%, rgba(0,0,0,0) 65%);
     border-radius: 25px;
     padding: 70px 65px;
@@ -294,30 +280,35 @@ textarea {
     left: 50%;
     transform: translate(-50%, -50%);
     opacity: 0;
-    /* Hidden by default */
     font-size: large;
+    transition: opacity 1.5s ease;
 }
 
 @keyframes fadeInOut {
     0%, 100% {
-        opacity: 0.2;
+        opacity: 0.05;
     }
     50% {
-        opacity: 1;
+        opacity: 0.4;
     }
 }
 
-.nav-line {
-    stroke: var(--color-quaternary);
-    /* Default faded color */
+.background-lines {
     stroke-width: 0.25;
-    opacity: 0.2;
+    stroke: var(--color-tertiary);
+    opacity: 0;
     animation: fadeInOut 6s cubic-bezier(0.65, 0.05, 0.36, 1) infinite;
 }
 
-.nav-line.highlighted {
-    stroke: var(--color-secondary);
+.highlight-lines {
     stroke-width: 0.75;
+    stroke: var(--color-tertiary);
+    opacity: 0;
+    transition: opacity 0.75s ease;
+}
+
+.highlight-lines.highlighted {
+    opacity: 1;
 }
 
 .nav-point-hit-area {
@@ -327,8 +318,8 @@ textarea {
 
 .center-text.center-area-hover {
     cursor: pointer;
+    opacity: 1;
 }
-
 /* END OF NAVIGATION CIRCLE */
 
 /* BUTTONS */
