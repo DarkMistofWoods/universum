@@ -1257,6 +1257,7 @@ fieldset {
     padding: 30px 36px;
     text-align: center;
     height: fit-content;
+    min-height: 300px;
     background: linear-gradient(-200deg, var(--color-quaternary), var(--color-background));
     border-radius: 50px;
 }
