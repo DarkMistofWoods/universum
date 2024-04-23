@@ -34,16 +34,16 @@ function generateCircle() {
     circleContainer.addEventListener('mouseover', () => {
         document.querySelectorAll('#lineCircleContainer line').forEach(line => {
             line.style.strokeOpacity = "1"; // Apply glow effect smoothly
-            line.style.stroke = "#95BFB8"; // Change to glow color smoothly
+            line.style.stroke = "#F2CA99"; // Change to glow color smoothly
         });
-        circleContainer.style.filter = "drop-shadow(0 0 8px #95BFB8)"; // Apply glow effect smoothly
+        circleContainer.style.filter = "drop-shadow(0 0 8px #F2CA99)"; // Apply glow effect smoothly
     });
 
     circleContainer.addEventListener('mouseleave', () => {
         // Initiate fade for all lines
         document.querySelectorAll('#lineCircleContainer line').forEach(line => {
             line.style.strokeOpacity = "1"; // Assuming the non-glow state has stroke-opacity at 0
-            line.style.stroke = "#5F736F"; // Change back to original stroke color
+            line.style.stroke = "#A67A46"; // Change back to original stroke color
         });
         circleContainer.style.filter = "none"; // Remove any filter applied for the glow
     });
@@ -55,7 +55,7 @@ function drawLine(svgContainer, point1, point2) {
     line.setAttribute("y1", point1.y);
     line.setAttribute("x2", point2.x);
     line.setAttribute("y2", point2.y);
-    line.setAttribute("stroke", "#5F736F"); // Set line color
+    line.setAttribute("stroke", "#A67A46"); // Set line color
 
     // Set line thickness here
     line.setAttribute("stroke-width", "0.5"); // Makes the line thinner
