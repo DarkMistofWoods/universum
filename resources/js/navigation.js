@@ -83,6 +83,13 @@ function createPoint(angle, radius, pageName, url, index, svgContainer) {
 
     let tapTimeout;
 
+    function resetPoint() {
+        isTappedOnce = false;
+        document.querySelector('.center-text').style.opacity = 0;
+        point.setAttribute("r", 3.5);
+        highlightConnectedLines(index, 'highlight-lines', false);
+    }
+
     hitArea.addEventListener('click', async (e) => {
         if ('ontouchstart' in window || navigator.maxTouchPoints) {
             e.preventDefault();
@@ -95,15 +102,15 @@ function createPoint(angle, radius, pageName, url, index, svgContainer) {
                     window.location.href = 'login.html';
                 }
             } else {
+                resetPoint();
+                document.querySelectorAll('.nav-point').forEach(point => point.setAttribute("r", 3.5));
+                document.querySelectorAll('.highlight-lines').forEach(line => line.classList.remove('highlighted'));
                 document.querySelector('.center-text').textContent = pageName;
                 document.querySelector('.center-text').style.opacity = 1;
                 highlightConnectedLines(index, 'highlight-lines');
                 isTappedOnce = true;
                 tapTimeout = setTimeout(() => {
-                    isTappedOnce = false;
-                    document.querySelector('.center-text').style.opacity = 0;
-                    point.setAttribute("r", 3.5);
-                    highlightConnectedLines(index, 'highlight-lines', false);
+                    resetPoint();
                 }, 3000);
             }
         } else {
