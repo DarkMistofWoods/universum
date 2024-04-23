@@ -241,6 +241,12 @@ textarea {
 .info-section h3 {
     width: 100%;
 }
+
+.container-tertiary {
+    display: flex;
+    margin: 36px;
+    padding: 30px 36px;
+}
 /* END OF CONTAINERS */
 
 /* NAVIGATION CIRCLE */
@@ -279,11 +285,10 @@ textarea {
     pointer-events: none;
     cursor: default;
     color: var(--color-primary);
-    background: var(--color-quaternary);
-    border: 2px solid var(--color-secondary);
-    box-shadow: 3px 3px 5px #00000047;
+    color: var(--color-secondary);
+    background: radial-gradient(circle, var(--color-quaternary) 20%, rgba(0,0,0,0) 65%);
     border-radius: 25px;
-    padding: 10px 10px;
+    padding: 70px 65px;
     position: absolute;
     top: 57%;
     left: 50%;
