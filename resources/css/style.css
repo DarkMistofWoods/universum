@@ -693,6 +693,7 @@ fieldset {
     padding: 0 10px;
     background-color: var(--color-tertiary);
     border-radius: 10px;
+    box-shadow: 2px 2px 3px #00000047;
 }
 
 .progress-tracker .module {
@@ -739,6 +740,7 @@ fieldset {
     margin-bottom: 20px;
     background-color: var(--color-tertiary);
     border-radius: 10px;
+    box-shadow: 2px 2px 3px #00000047;
 }
 
 .recommendations .content {
@@ -787,6 +789,7 @@ fieldset {
     padding: 5px 10px;
     background-color: var(--color-tertiary);
     border-radius: 10px;
+    box-shadow: 2px 2px 3px #00000047;
 }
 
 .learning-goal .progress-bar {
@@ -1004,7 +1007,7 @@ fieldset {
     height: fit-content;
     padding: 20px;
     background-color: var(--color-quaternary);
-    border: 2px solid var(--color-secondary);
+    border: 2px solid var(--color-tertiary);
     border-radius: 15px;
     box-shadow: 3px 3px 5px #00000047;
     margin: 10px;
@@ -1284,6 +1287,7 @@ fieldset {
     background-color: var(--color-background);
     padding: 5px 10px;
     border-radius: 10px;
+    box-shadow: 3px 3px 3px #00000047;
 }
 
 .achievement-title {
