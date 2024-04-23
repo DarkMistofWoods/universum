@@ -21,7 +21,11 @@ function checkAuthState() {
             // User is signed in
             updateMinidashIcons(user);
         } else {
-            // User is signed out
+            // User is signed out, remove icons
+            const minidashIcons = document.querySelectorAll('.minidash-icon');
+            minidashIcons.forEach(icon => {
+                icon.style.display = 'none';
+            });
             console.log('User is signed out. No icons to display.');
         }
     });
