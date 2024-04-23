@@ -500,6 +500,7 @@ svg#linesContainer {
 
 .settings-form {
     width: 75%;
+    min-width: 350px;
     margin: 20px 10px;
 }
 
@@ -512,6 +513,7 @@ svg#linesContainer {
 
 .settings-form label {
     color: var(--color-secondary);
+    font-size: small;
     margin: 0 0 10px;
 }
 
