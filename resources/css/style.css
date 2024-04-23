@@ -1286,7 +1286,7 @@ fieldset {
     align-items: center;
     text-align: left;
     margin-bottom: 15px;
-    background-color: var(--color-background);
+    background-color: var(--color-quaternary);
     padding: 5px 10px;
     border-radius: 10px;
     box-shadow: 3px 3px 3px #00000047;
