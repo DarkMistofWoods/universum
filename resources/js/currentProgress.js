@@ -51,8 +51,8 @@ function createVisualization(courseContent, userProgress) {
                 .attr("fill", `hsl(${subModuleIndex * (360 / subModuleCount)}, 50%, ${50 + subModule.progress * 50}%)`);
 
             subModule.lessons.forEach((lesson, lessonIndex) => {
-                const lessonRadius = moduleRadius + (lessonIndex + 1) * (20 / (subModule.lessons.length + 1));
                 const lessonAngle = startAngle + (lessonIndex + 0.5) * (subModuleAngle / (subModule.lessons.length + 1));
+                const lessonRadius = moduleRadius;
 
                 const lessonGroup = svg.append("g")
                     .attr("class", "lesson")
