@@ -12,6 +12,11 @@ function createVisualization(courseContent, userProgress) {
     const height = window.innerHeight * 0.9;
     const radius = Math.min(width, height) / 2;
 
+    // Predefined color variables
+    const submoduleArcColor = "#A67A46";
+    const completedLessonColor = "#A67A46";
+    const incompleteLessonColor = "#3B3C40";
+
     d3.select("#progressVisualization").remove();
 
     const svg = d3.select(".container-tertiary")
@@ -57,7 +62,7 @@ function createVisualization(courseContent, userProgress) {
 
             subModuleGroup.append("path")
                 .attr("d", subModuleArc)
-                .attr("fill", `hsl(${subModuleIndex * (360 / subModuleCount)}, 50%, ${50 + subModule.progress * 50}%)`);
+                .attr("fill", submoduleArcColor);
 
             subModule.lessons.forEach((lesson, lessonIndex) => {
                 const lessonAngle = startAngle + (lessonIndex + 0.5) * (subModuleAngle / (subModule.lessons.length + 1));
@@ -74,10 +79,10 @@ function createVisualization(courseContent, userProgress) {
                     });
 
                 lessonGroup.append("circle")
-                    .attr("cx", lessonRadius * Math.cos(lessonAngle))
-                    .attr("cy", lessonRadius * Math.sin(lessonAngle))
+                    .attr("cx", lessonRadius * Math.cos(lessonAngle - moduleAngle / 2))
+                    .attr("cy", lessonRadius * Math.sin(lessonAngle - moduleAngle / 2))
                     .attr("r", 5)
-                    .attr("fill", lesson.progress === 1 ? "green" : "red");
+                    .attr("fill", lesson.progress === 1 ? completedLessonColor : incompleteLessonColor);
             });
         });
     });
