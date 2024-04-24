@@ -1377,4 +1377,20 @@ line, .circle-logo-container {
     font-size: 12px;
     fill: #666;
 }
+
+.lesson circle {
+    stroke: #fff;
+    stroke-width: 1px;
+    cursor: pointer;
+}
+
+.lesson circle:hover {
+    stroke-width: 2px;
+}
+
+.lesson title {
+    font-size: 12px;
+    fill: #333;
+    text-anchor: middle;
+}
 /* END OF CURRENT PROGRESS */
