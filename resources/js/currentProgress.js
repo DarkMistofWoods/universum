@@ -13,9 +13,9 @@ function createVisualization(courseContent, userProgress) {
     const radius = Math.min(width, height) / 2;
 
     // Predefined color variables
-    const submoduleArcColor = "#f0f0f0";
-    const completedLessonColor = "#4caf50";
-    const incompleteLessonColor = "#f44336";
+    const submoduleArcColor = "#F2CA99";
+    const completedLessonColor = "#A67A46";
+    const incompleteLessonColor = "#3B3C40";
 
     d3.select("#progressVisualization").remove();
 
