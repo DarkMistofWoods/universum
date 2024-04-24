@@ -994,7 +994,7 @@ fieldset {
     padding: 30px 36px;
     text-align: center;
     height: fit-content;
-    background: linear-gradient(-200deg, var(--color-quaternary), var(--color-tertiary));
+    background-color: var(--color-quaternary);
     border-radius: 50px;
 }
 
@@ -1350,3 +1350,26 @@ line, .circle-logo-container {
     filter: drop-shadow(0 0 8px var(--color-background)); /* Adjust the color and size of the glow */
 }
 /* END OF LOGO CIRCLE */
+/* CURRENT PROGRESS */
+.module-label {
+    fill: white;
+    font-size: 14px;
+}
+
+.lesson-star {
+    opacity: 0.2;
+}
+
+.lesson-star.completed {
+    opacity: 1;
+}
+
+.lesson-label {
+    fill: white;
+    font-size: 12px;
+}
+
+.constellation-path {
+    stroke-width: 1;
+}
+/* END OF CURRENT PROGRESS */
