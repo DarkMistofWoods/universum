@@ -35,7 +35,6 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
 
         await userDocRef.set({});
 
-        // const courseContent = await fetchCourseContent();
         const currentTimestamp = admin.firestore.FieldValue.serverTimestamp();
         const lessonData = { // initial lesson data
             completed: false,
@@ -46,24 +45,6 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
 
         // set progress for vocabulary lesson 1 only, others will be set when user completes them
         await db.collection('users').doc(user.uid).collection('progress').doc('Vocabulary_1_1').set(lessonData);
-
-        /*
-        for (const module of courseContent) {
-            for (const subModule of module.subModules) {
-                for (const lesson of subModule.lessons) {
-                    const lessonData = {
-                        completed: false,
-                        quizScores: [],
-                        lastAccessed: currentTimestamp,
-                        timeSpent: 0,
-                        lastUpdated: currentTimestamp
-                    };
-
-                    await db.collection('users').doc(user.uid).collection('progress').doc(lesson.lessonId).set(lessonData);
-                }
-            }
-        }
-        */
 
         const initialAchievementDoc = await db.collection('achievements').doc('achievement1').get();
 
