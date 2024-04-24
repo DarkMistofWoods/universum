@@ -95,58 +95,59 @@ async function createVisualization(courseContent, userProgress) {
     simulation.force('link')
         .links(links);
 
-    // Add bounding box constraint
-    const padding = nodeRadius * 2; // Adjust the padding as needed
-    simulation.force('boundingBox', () => {
-        nodes.forEach(node => {
-            if (node.x < padding) {
-                node.x = padding;
-            } else if (node.x > width - padding) {
-                node.x = width - padding;
-            }
-            if (node.y < padding) {
-                node.y = padding;
-            } else if (node.y > height - padding) {
-                node.y = height - padding;
-            }
+        // Add bounding box constraint
+        const padding = nodeRadius * 2; // Adjust the padding as needed
+        simulation.force('boundingBox', () => {
+            nodes.forEach(node => {
+                if (node.x < padding) {
+                    node.x = padding;
+                } else if (node.x > width - padding) {
+                    node.x = width - padding;
+                }
+                if (node.y < padding) {
+                    node.y = padding;
+                } else if (node.y > height - padding) {
+                    node.y = height - padding;
+                }
+            });
         });
-    });
-
-    function ticked() {
-        link
-            .attr('x1', d => d.source.x)
-            .attr('y1', d => d.source.y)
-            .attr('x2', d => d.target.x)
-            .attr('y2', d => d.target.y);
-
-        node
-            .attr('cx', d => d.x)
-            .attr('cy', d => d.y);
-    }
-
-    function drag(simulation) {
-        function dragstarted(event) {
-            if (!event.active) simulation.alphaTarget(0.3).restart();
-            event.subject.fx = event.subject.x;
-            event.subject.fy = event.subject.y;
+    
+        function ticked() {
+            link
+                .attr('x1', d => d.source.x)
+                .attr('y1', d => d.source.y)
+                .attr('x2', d => d.target.x)
+                .attr('y2', d => d.target.y);
+    
+            node
+                .attr('cx', d => d.x)
+                .attr('cy', d => d.y);
         }
-
-        function dragged(event) {
-            event.subject.fx = event.x;
-            event.subject.fy = event.y;
+    
+        function drag(simulation) {
+            function dragstarted(event) {
+                if (!event.active) simulation.alphaTarget(0.3).restart();
+                event.subject.fx = event.subject.x;
+                event.subject.fy = event.subject.y;
+            }
+    
+            function dragged(event) {
+                event.subject.fx = event.x;
+                event.subject.fy = event.y;
+                simulation.restart(); // Restart the simulation when a node is dragged
+            }
+    
+            function dragended(event) {
+                if (!event.active) simulation.alphaTarget(0);
+                event.subject.fx = null;
+                event.subject.fy = null;
+            }
+    
+            return d3.drag()
+                .on('start', dragstarted)
+                .on('drag', dragged)
+                .on('end', dragended);
         }
-
-        function dragended(event) {
-            if (!event.active) simulation.alphaTarget(0);
-            event.subject.fx = null;
-            event.subject.fy = null;
-        }
-
-        return d3.drag()
-            .on('start', dragstarted)
-            .on('drag', dragged)
-            .on('end', dragended);
-    }
 }
 
 async function loadCourseContent() {
