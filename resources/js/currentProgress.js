@@ -8,21 +8,30 @@ async function initializeVisualization(user) {
 
 function createVisualization(courseContent, userProgress) {
     const progressData = calculateProgress(courseContent, userProgress);
-    const width = 800;
-    const height = 800;
+    const width = window.innerWidth * 0.9;
+    const height = window.innerHeight * 0.9;
     const radius = Math.min(width, height) / 2;
 
-    const svg = d3.select("#progressVisualization")
+    d3.select("#progressVisualization").remove();
+
+    const svg = d3.select(".container-tertiary")
+        .append("svg")
+        .attr("id", "progressVisualization")
         .attr("width", width)
         .attr("height", height)
+        .attr("viewBox", `0 0 ${width} ${height}`)
         .append("g")
         .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
     const moduleCount = progressData.length;
     const moduleAngle = (2 * Math.PI) / moduleCount;
 
+    const moduleRadiusScale = d3.scaleLinear()
+        .domain([0, moduleCount - 1])
+        .range([radius * 0.2, radius * 0.8]);
+
     progressData.forEach((module, moduleIndex) => {
-        const moduleRadius = (moduleIndex + 1) * (radius / (moduleCount + 1));
+        const moduleRadius = moduleRadiusScale(moduleIndex);
         const subModuleCount = module.subModules.length;
         const subModuleAngle = moduleAngle / subModuleCount;
 

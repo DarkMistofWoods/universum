@@ -246,7 +246,6 @@ textarea {
     display: flex;
     margin: 36px;
     padding: 30px 36px;
-    border: 1px solid var(--color-tertiary);
     border-radius: 15px;
 }
 /* END OF CONTAINERS */
