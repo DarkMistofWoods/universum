@@ -1351,25 +1351,5 @@ line, .circle-logo-container {
 }
 /* END OF LOGO CIRCLE */
 /* CURRENT PROGRESS */
-.module-label {
-    fill: white;
-    font-size: 14px;
-}
 
-.lesson-star {
-    opacity: 0.2;
-}
-
-.lesson-star.completed {
-    opacity: 1;
-}
-
-.lesson-label {
-    fill: white;
-    font-size: 12px;
-}
-
-.constellation-path {
-    stroke-width: 1;
-}
 /* END OF CURRENT PROGRESS */
