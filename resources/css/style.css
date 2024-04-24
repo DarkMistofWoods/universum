@@ -1351,5 +1351,30 @@ line, .circle-logo-container {
 }
 /* END OF LOGO CIRCLE */
 /* CURRENT PROGRESS */
+#progress-visualization {
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
 
+.module path {
+    stroke: #fff;
+    stroke-width: 2px;
+}
+
+.module text {
+    font-size: 14px;
+    font-weight: bold;
+    fill: #333;
+}
+
+.submodule path {
+    stroke: #fff;
+    stroke-width: 1px;
+}
+
+.submodule text {
+    font-size: 12px;
+    fill: #666;
+}
 /* END OF CURRENT PROGRESS */
