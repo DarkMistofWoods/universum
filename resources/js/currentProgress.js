@@ -57,7 +57,7 @@ async function createVisualization(courseContent, userProgress) {
         });
 
     lessonGroups.append('image')
-        .attr('xlink:href', './resources/icons/Universum-Star-Icon.svg')
+        .attr('xlink:href', './resources/icons/Universum-Sun-Icon.svg')
         .attr('width', 20)
         .attr('height', 20)
         .attr('x', -10)
