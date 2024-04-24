@@ -14,17 +14,22 @@ function createVisualization(courseContent, userProgress) {
 
     const svg = d3.select("#progress-visualization")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height)
+        .append("g")
+        .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
     const moduleCount = progressData.length;
     const angleStep = (Math.PI * 2) / moduleCount;
 
+    const moduleArcs = d3.pie()
+        .value(d => d.progress)
+        (progressData);
+
     const moduleGroups = svg.selectAll(".module")
-        .data(progressData)
+        .data(moduleArcs)
         .enter()
         .append("g")
         .attr("class", "module")
-        .attr("transform", (d, i) => `rotate(${(i * 360) / moduleCount})`)
         .attr("opacity", 0)
         .transition()
         .duration(1000)
@@ -35,24 +40,17 @@ function createVisualization(courseContent, userProgress) {
         .attr("d", d3.arc()
             .innerRadius(radius * 0.4)
             .outerRadius(radius * 0.8)
-            .startAngle(0)
-            .endAngle(angleStep)
         )
-        .attr("fill", d => d3.interpolateViridis(d.progress));
+        .attr("fill", d => d3.interpolateViridis(d.data.progress));
 
     moduleGroups.append("text")
-        .attr("transform", (d, i) => {
-            const angle = (i * angleStep) + (angleStep / 2);
-            const x = Math.cos(angle) * (radius * 0.9);
-            const y = Math.sin(angle) * (radius * 0.9);
-            return `translate(${x}, ${y})`;
-        })
+        .attr("transform", d => `translate(${d3.arc().centroid(d)})`)
         .attr("text-anchor", "middle")
         .attr("alignment-baseline", "middle")
-        .text(d => d.moduleName);
+        .text(d => d.data.moduleName);
 
     const subModuleGroups = moduleGroups.selectAll(".submodule")
-        .data(d => d.subModules)
+        .data(d => d.data.subModules)
         .enter()
         .append("g")
         .attr("class", "submodule");
