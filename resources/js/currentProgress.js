@@ -13,39 +13,46 @@ async function createVisualization(courseContent, userProgress) {
 }
 
 function calculateProgress(courseContent, userProgress) {
-    const progressData = {
-        modules: {},
-        subModules: {},
-        lessons: userProgress,
-    };
+    const progressData = courseContent.map((module) => ({
+        ...module,
+        progress: 0,
+        quizScore: 0,
+        subModules: module.subModules.map((subModule) => ({
+            ...subModule,
+            progress: 0,
+            quizScore: 0,
+            lessons: subModule.lessons.map((lesson) => {
+                const lessonProgress = userProgress[lesson.lessonId]?.completed ? 1 : 0;
+                const lessonQuizScores = userProgress[lesson.lessonId]?.quizScores || [];
+                const lessonQuizScore = lessonQuizScores.length > 0 ? lessonQuizScores.reduce((sum, score) => sum + score, 0) / lessonQuizScores.length : 0;
 
-    courseContent.forEach((module) => {
-        const moduleId = module.moduleId;
+                return {
+                    ...lesson,
+                    progress: lessonProgress,
+                    quizScore: lessonQuizScore,
+                };
+            }),
+        })),
+    }));
+
+    progressData.forEach((module) => {
         let moduleProgress = 0;
         let moduleQuizScore = 0;
 
         module.subModules.forEach((subModule) => {
-            const subModuleId = subModule.subModuleId;
             let subModuleProgress = 0;
             let subModuleQuizScore = 0;
 
             subModule.lessons.forEach((lesson) => {
-                const lessonId = lesson.lessonId;
-                const lessonProgress = userProgress[lessonId]?.completed ? 1 : 0;
-                const lessonQuizScore = userProgress[lessonId]?.quizScores?.reduce((sum, score) => sum + score, 0) || 0;
-                const lessonQuizCount = userProgress[lessonId]?.quizScores?.length || 0;
-
-                subModuleProgress += lessonProgress;
-                subModuleQuizScore += lessonQuizCount > 0 ? lessonQuizScore / lessonQuizCount : 0;
+                subModuleProgress += lesson.progress;
+                subModuleQuizScore += lesson.quizScore;
             });
 
             subModuleProgress /= subModule.lessons.length;
             subModuleQuizScore /= subModule.lessons.length;
 
-            progressData.subModules[subModuleId] = {
-                progress: subModuleProgress,
-                quizScore: subModuleQuizScore,
-            };
+            subModule.progress = subModuleProgress;
+            subModule.quizScore = subModuleQuizScore;
 
             moduleProgress += subModuleProgress;
             moduleQuizScore += subModuleQuizScore;
@@ -54,13 +61,42 @@ function calculateProgress(courseContent, userProgress) {
         moduleProgress /= module.subModules.length;
         moduleQuizScore /= module.subModules.length;
 
-        progressData.modules[moduleId] = {
-            progress: moduleProgress,
-            quizScore: moduleQuizScore,
-        };
+        module.progress = moduleProgress;
+        module.quizScore = moduleQuizScore;
     });
 
     return progressData;
+    /* the progressData object will look like this:
+
+    [
+        {
+            moduleName: 'Module 1',
+            moduleId: 'moduleId1',
+            progress: 0.75,
+            quizScore: 0.85,
+            subModules: [
+                {
+                    subModuleName: 'Submodule 1',
+                    subModuleId: 'subModuleId1',
+                    progress: 0.8,
+                    quizScore: 0.9,
+                    lessons: [
+                        {
+                            title: 'Lesson 1',
+                            lessonId: 'lessonId1',
+                            progress: 1,
+                            quizScore: 0.95,
+                        },
+                        // ...
+                    ],
+                },
+                // ...
+            ],
+        },
+        // ...
+    ]
+    
+    */
 }
 
 async function loadCourseContent() {
