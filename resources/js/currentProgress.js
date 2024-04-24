@@ -6,10 +6,106 @@ async function initializeVisualization(user) {
     createVisualization(courseContent, userProgress);
 }
 
-async function createVisualization(courseContent, userProgress) {
-    const progress = calculateProgress(courseContent, userProgress);
-    console.log(progress);
-    // Create the visualization using the progress data
+function createVisualization(courseContent, userProgress) {
+    const progressData = calculateProgress(courseContent, userProgress);
+    const width = 800;
+    const height = 800;
+    const radius = Math.min(width, height) / 2;
+
+    const svg = d3.select("#progress-visualization")
+        .attr("width", width)
+        .attr("height", height);
+
+    const moduleCount = progressData.length;
+    const angleStep = (Math.PI * 2) / moduleCount;
+
+    const moduleGroups = svg.selectAll(".module")
+        .data(progressData)
+        .enter()
+        .append("g")
+        .attr("class", "module")
+        .attr("transform", (d, i) => `rotate(${(i * 360) / moduleCount})`)
+        .attr("opacity", 0)
+        .transition()
+        .duration(1000)
+        .delay((d, i) => i * 200)
+        .attr("opacity", 1);
+
+    moduleGroups.append("path")
+        .attr("d", d3.arc()
+            .innerRadius(radius * 0.4)
+            .outerRadius(radius * 0.8)
+            .startAngle(0)
+            .endAngle(angleStep)
+        )
+        .attr("fill", d => d3.interpolateViridis(d.progress));
+
+    moduleGroups.append("text")
+        .attr("transform", (d, i) => {
+            const angle = (i * angleStep) + (angleStep / 2);
+            const x = Math.cos(angle) * (radius * 0.9);
+            const y = Math.sin(angle) * (radius * 0.9);
+            return `translate(${x}, ${y})`;
+        })
+        .attr("text-anchor", "middle")
+        .attr("alignment-baseline", "middle")
+        .text(d => d.moduleName);
+
+    const subModuleGroups = moduleGroups.selectAll(".submodule")
+        .data(d => d.subModules)
+        .enter()
+        .append("g")
+        .attr("class", "submodule");
+
+    subModuleGroups.append("path")
+        .attr("d", (d, i, nodes) => {
+            const subModuleCount = nodes.length;
+            const subAngleStep = angleStep / subModuleCount;
+            return d3.arc()
+                .innerRadius(radius * 0.2)
+                .outerRadius(radius * 0.4)
+                .startAngle(i * subAngleStep)
+                .endAngle((i + 1) * subAngleStep)();
+        })
+        .attr("fill", d => d3.interpolateViridis(d.progress));
+
+    subModuleGroups.append("text")
+        .attr("transform", (d, i, nodes) => {
+            const subModuleCount = nodes.length;
+            const subAngleStep = angleStep / subModuleCount;
+            const angle = (i * subAngleStep) + (subAngleStep / 2);
+            const x = Math.cos(angle) * (radius * 0.3);
+            const y = Math.sin(angle) * (radius * 0.3);
+            return `translate(${x}, ${y}) rotate(${angle * 180 / Math.PI - 90})`;
+        })
+        .attr("text-anchor", "middle")
+        .attr("alignment-baseline", "middle")
+        .text(d => d.subModuleName);
+
+    const lessonGroups = subModuleGroups.selectAll(".lesson")
+        .data(d => d.lessons)
+        .enter()
+        .append("g")
+        .attr("class", "lesson");
+
+    lessonGroups.append("circle")
+        .attr("cx", (d, i, nodes) => {
+            const lessonCount = nodes.length;
+            const lessonAngleStep = angleStep / lessonCount;
+            const angle = (i * lessonAngleStep) + (lessonAngleStep / 2);
+            return Math.cos(angle) * (radius * 0.2);
+        })
+        .attr("cy", (d, i, nodes) => {
+            const lessonCount = nodes.length;
+            const lessonAngleStep = angleStep / lessonCount;
+            const angle = (i * lessonAngleStep) + (lessonAngleStep / 2);
+            return Math.sin(angle) * (radius * 0.2);
+        })
+        .attr("r", 5)
+        .attr("fill", d => d.progress === 1 ? "green" : "red");
+
+    lessonGroups.append("title")
+        .text(d => `${d.title} (${d.progress === 1 ? 'Completed' : 'Incomplete'})`);
 }
 
 function calculateProgress(courseContent, userProgress) {
@@ -95,7 +191,7 @@ function calculateProgress(courseContent, userProgress) {
         },
         // ...
     ]
-    
+
     */
 }
 
