@@ -13,9 +13,9 @@ function createVisualization(courseContent, userProgress) {
     const radius = Math.min(width, height) / 2;
 
     // Predefined color variables
-    const submoduleArcColor = "#A67A46";
-    const completedLessonColor = "#A67A46";
-    const incompleteLessonColor = "#3B3C40";
+    const submoduleArcColor = "#f0f0f0";
+    const completedLessonColor = "#4caf50";
+    const incompleteLessonColor = "#f44336";
 
     d3.select("#progressVisualization").remove();
 
@@ -28,25 +28,35 @@ function createVisualization(courseContent, userProgress) {
         .append("g")
         .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
-    const moduleCount = progressData.length;
+    const filteredProgressData = progressData.filter(module =>
+        module.subModules.some(subModule =>
+            subModule.lessons.some(lesson => lesson.progress === 1)
+        )
+    );
+
+    const moduleCount = filteredProgressData.length;
     const moduleAngle = (2 * Math.PI) / moduleCount;
 
     const moduleRadiusScale = d3.scaleLinear()
         .domain([0, moduleCount - 1])
         .range([radius * 0.2, radius * 0.8]);
 
-    progressData.forEach((module, moduleIndex) => {
+    filteredProgressData.forEach((module, moduleIndex) => {
         const moduleRadius = moduleRadiusScale(moduleIndex);
-        const subModuleCount = module.subModules.length;
+        const filteredSubModules = module.subModules.filter(subModule =>
+            subModule.lessons.some(lesson => lesson.progress === 1)
+        );
+        const subModuleCount = filteredSubModules.length;
         const subModuleAngle = moduleAngle / subModuleCount;
 
-        module.subModules.forEach((subModule, subModuleIndex) => {
+        filteredSubModules.forEach((subModule, subModuleIndex) => {
             const startAngle = moduleIndex * moduleAngle + subModuleIndex * subModuleAngle;
             const endAngle = startAngle + subModuleAngle;
 
             const subModuleArc = d3.arc()
                 .innerRadius(moduleRadius - 20)
                 .outerRadius(moduleRadius)
+                .cornerRadius(5)
                 .startAngle(startAngle)
                 .endAngle(endAngle);
 
@@ -66,7 +76,7 @@ function createVisualization(courseContent, userProgress) {
 
             subModule.lessons.forEach((lesson, lessonIndex) => {
                 const lessonAngle = startAngle + (lessonIndex + 0.5) * (subModuleAngle / (subModule.lessons.length + 1));
-                const lessonRadius = moduleRadius;
+                const lessonRadius = moduleRadius + 10;
 
                 const lessonGroup = svg.append("g")
                     .attr("class", "lesson")
@@ -86,6 +96,29 @@ function createVisualization(courseContent, userProgress) {
             });
         });
     });
+
+    // Show the first lesson of the first submodule of the first module if no progress
+    if (filteredProgressData.length === 0) {
+        const firstModule = progressData[0];
+        const firstSubModule = firstModule.subModules[0];
+        const firstLesson = firstSubModule.lessons[0];
+
+        const lessonGroup = svg.append("g")
+            .attr("class", "lesson")
+            .on("mouseover", function () {
+                d3.select(this).append("title")
+                    .text(`${firstLesson.title}\nProgress: ${(firstLesson.progress * 100).toFixed(2)}%\nQuiz Score: ${(firstLesson.quizScore * 100).toFixed(2)}%`);
+            })
+            .on("mouseout", function () {
+                d3.select(this).select("title").remove();
+            });
+
+        lessonGroup.append("circle")
+            .attr("cx", 0)
+            .attr("cy", -radius * 0.2)
+            .attr("r", 5)
+            .attr("fill", incompleteLessonColor);
+    }
 }
 
 function calculateProgress(courseContent, userProgress) {
