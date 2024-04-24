@@ -9,145 +9,112 @@ async function initializeVisualization(user) {
 async function createVisualization(courseContent, userProgress) {
     const width = 800;
     const height = 600;
-    const nodeRadius = 20;
-    const linkDistance = 100;
+    const starRadius = 5;
+    const starSpacing = 50;
+    const pathColor = '#ccc';
+    const completedColor = '#fff';
+    const incompleteColor = '#888';
 
     const svg = d3.select('.container-tertiary')
         .append('svg')
         .attr('width', width)
         .attr('height', height);
 
-    const simulation = d3.forceSimulation()
-        .force('link', d3.forceLink().id(d => d.id).distance(linkDistance))
-        .force('charge', d3.forceManyBody())
-        .force('center', d3.forceCenter(width / 2, height / 2));
+    const modules = courseContent.map(module => ({
+        ...module,
+        subModules: module.subModules.map(subModule => ({
+            ...subModule,
+            lessons: subModule.lessons.map(lesson => ({
+                ...lesson,
+                completed: userProgress[lesson.lessonId]?.completed || false,
+            })),
+        })),
+    }));
 
-    const nodes = [];
-    const links = [];
+    const stars = modules.reduce((acc, module) => [
+        ...acc,
+        ...module.subModules.reduce((acc, subModule) => [
+            ...acc,
+            ...subModule.lessons.map(lesson => ({
+                ...lesson,
+                module: module.moduleName,
+                subModule: subModule.subModuleName,
+            })),
+        ], []),
+    ], []);
 
-    courseContent.forEach(module => {
-        const moduleNode = {
-            id: module.moduleId,
-            name: module.moduleName,
-            type: 'module',
-            progress: 0,
-            proficiency: 0
-        };
-        nodes.push(moduleNode);
-
-        module.subModules.forEach(subModule => {
-            const subModuleNode = {
-                id: subModule.subModuleId,
-                name: subModule.subModuleName,
-                type: 'subModule',
-                progress: 0,
-                proficiency: 0
-            };
-            nodes.push(subModuleNode);
-            links.push({ source: moduleNode.id, target: subModuleNode.id });
-
-            subModule.lessons.forEach(lesson => {
-                const lessonNode = {
-                    id: lesson.lessonId,
-                    name: lesson.title,
-                    type: 'lesson',
-                    progress: userProgress[lesson.lessonId]?.completed || false,
-                    proficiency: userProgress[lesson.lessonId]?.quizScores?.reduce((a, b) => a + b, 0) / (userProgress[lesson.lessonId]?.quizScores?.length || 1)
-                };
-                nodes.push(lessonNode);
-                links.push({ source: subModuleNode.id, target: lessonNode.id });
-            });
-        });
-    });
+    const simulation = d3.forceSimulation(stars)
+        .force('charge', d3.forceManyBody().strength(-50))
+        .force('center', d3.forceCenter(width / 2, height / 2))
+        .force('collision', d3.forceCollide().radius(starSpacing))
+        .on('tick', ticked);
 
     const link = svg.append('g')
-        .attr('class', 'links')
+        .attr('stroke', pathColor)
+        .attr('stroke-width', 1.5)
         .selectAll('line')
-        .data(links)
-        .enter()
-        .append('line')
-        .attr('stroke', '#999')
-        .attr('stroke-opacity', 0.6);
+        .data(stars.slice(1))
+        .join('line')
+        .attr('stroke', d => d.completed ? completedColor : pathColor);
 
     const node = svg.append('g')
-        .attr('class', 'nodes')
         .selectAll('circle')
-        .data(nodes)
-        .enter()
-        .append('circle')
-        .attr('r', nodeRadius)
-        .attr('fill', d => {
-            if (d.type === 'module') return '#3f51b5';
-            if (d.type === 'subModule') return '#2196f3';
-            if (d.type === 'lesson') {
-                if (d.progress) return '#4caf50';
-                return '#f44336';
-            }
+        .data(stars)
+        .join('circle')
+        .attr('r', starRadius)
+        .attr('fill', d => d.completed ? completedColor : incompleteColor)
+        .on('mouseover', (event, d) => {
+            d3.select('.center-text')
+                .text(`${d.title} (${d.module} - ${d.subModule})`)
+                .style('fill', d.completed ? completedColor : incompleteColor);
+        })
+        .on('mouseout', () => {
+            d3.select('.center-text')
+                .text('Current Progress')
+                .style('fill', 'currentColor');
         })
         .call(drag(simulation));
 
-    node.append('title')
-        .text(d => `${d.name}\nProgress: ${d.progress ? 'Completed' : 'Not Started'}\nProficiency: ${Math.round(d.proficiency * 100)}%`);
+    function ticked() {
+        link
+            .attr('x1', d => d.source.x)
+            .attr('y1', d => d.source.y)
+            .attr('x2', d => d.target.x)
+            .attr('y2', d => d.target.y);
 
-    simulation.nodes(nodes)
-    .on('tick', ticked);
+        node
+            .attr('cx', d => d.x)
+            .attr('cy', d => d.y);
+    }
 
-    simulation.force('link')
-        .links(links);
-
-        // Add bounding box constraint
-        const padding = nodeRadius * 2; // Adjust the padding as needed
-        simulation.force('boundingBox', () => {
-            nodes.forEach(node => {
-                if (node.x < padding) {
-                    node.x = padding;
-                } else if (node.x > width - padding) {
-                    node.x = width - padding;
-                }
-                if (node.y < padding) {
-                    node.y = padding;
-                } else if (node.y > height - padding) {
-                    node.y = height - padding;
-                }
-            });
-        });
-    
-        function ticked() {
-            link
-                .attr('x1', d => d.source.x)
-                .attr('y1', d => d.source.y)
-                .attr('x2', d => d.target.x)
-                .attr('y2', d => d.target.y);
-    
-            node
-                .attr('cx', d => d.x)
-                .attr('cy', d => d.y);
+    function drag(simulation) {
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
         }
-    
-        function drag(simulation) {
-            function dragstarted(event) {
-                if (!event.active) simulation.alphaTarget(0.3).restart();
-                event.subject.fx = event.subject.x;
-                event.subject.fy = event.subject.y;
-            }
-    
-            function dragged(event) {
-                event.subject.fx = event.x;
-                event.subject.fy = event.y;
-                simulation.restart(); // Restart the simulation when a node is dragged
-            }
-    
-            function dragended(event) {
-                if (!event.active) simulation.alphaTarget(0);
-                event.subject.fx = null;
-                event.subject.fy = null;
-            }
-    
-            return d3.drag()
-                .on('start', dragstarted)
-                .on('drag', dragged)
-                .on('end', dragended);
+
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
         }
+
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+
+        return d3.drag()
+            .on('start', dragstarted)
+            .on('drag', dragged)
+            .on('end', dragended);
+    }
+}
+
+async function loadCourseContent() {
+    const response = await fetch('functions/courseContent.json');
+    return await response.json();
 }
 
 async function loadCourseContent() {
