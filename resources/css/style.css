@@ -274,9 +274,9 @@ textarea {
     pointer-events: none;
     cursor: default;
     color: var(--color-primary);
-    background: radial-gradient(circle, var(--color-quaternary) 20%, rgba(0,0,0,0) 65%);
+    background: radial-gradient(circle, var(--color-quaternary) 20%, rgba(0,0,0,0) 50%);
     border-radius: 25px;
-    padding: 70px 65px;
+    padding: 70px 60px;
     position: absolute;
     top: 57%;
     left: 50%;
