@@ -8,74 +8,70 @@ async function initializeVisualization(user) {
 
 function createVisualization(courseContent, userProgress) {
     const progressData = calculateProgress(courseContent, userProgress);
-    const svgContainer = d3.select('.container-tertiary');
-    const width = svgContainer.node().getBoundingClientRect().width;
-    const height = svgContainer.node().getBoundingClientRect().height;
-    const svg = svgContainer.append('svg')
-        .attr('width', width)
-        .attr('height', height);
+    const width = 800;
+    const height = 800;
+    const radius = Math.min(width, height) / 2;
 
-    // Define scales and positions for circles and segments
-    const angleScale = d3.scaleLinear()
-        .domain([0, progressData.length])
-        .range([0, 2 * Math.PI]);
+    const svg = d3.select("#progressVisualization")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
-    const radiusScale = d3.scaleLinear()
-        .domain([0, d3.max(progressData, d => d.subModules.length)])
-        .range([50, Math.min(width, height) / 2 - 50]);
+    const moduleCount = progressData.length;
+    const moduleAngle = (2 * Math.PI) / moduleCount;
 
-    const colors = d3.scaleOrdinal(d3.schemeCategory10);
+    progressData.forEach((module, moduleIndex) => {
+        const moduleRadius = (moduleIndex + 1) * (radius / (moduleCount + 1));
+        const subModuleCount = module.subModules.length;
+        const subModuleAngle = moduleAngle / subModuleCount;
 
-    // Draw circles for modules
-    const moduleCircles = svg.selectAll('.module-circle')
-        .data(progressData)
-        .enter()
-        .append('circle')
-        .attr('class', 'module-circle')
-        .attr('cx', width / 2)
-        .attr('cy', height / 2)
-        .attr('r', (d, i) => radiusScale(i))
-        .attr('fill', 'none')
-        .attr('stroke', (d, i) => colors(i))
-        .attr('stroke-width', 2);
+        module.subModules.forEach((subModule, subModuleIndex) => {
+            const startAngle = moduleIndex * moduleAngle + subModuleIndex * subModuleAngle;
+            const endAngle = startAngle + subModuleAngle;
 
-    // Draw points for submodules
-    const subModulePoints = svg.selectAll('.submodule-point')
-        .data(progressData.flatMap((d, i) => d.subModules.map(subModule => ({ ...subModule, moduleIndex: i }))))
-        .enter()
-        .append('circle')
-        .attr('class', 'submodule-point')
-        .attr('cx', d => width / 2 + radiusScale(d.moduleIndex) * Math.cos(angleScale(d.moduleIndex) + angleScale(1) * d.subModuleIndex / progressData[d.moduleIndex].subModules.length - angleScale(1) / 2))
-        .attr('cy', d => height / 2 + radiusScale(d.moduleIndex) * Math.sin(angleScale(d.moduleIndex) + angleScale(1) * d.subModuleIndex / progressData[d.moduleIndex].subModules.length - angleScale(1) / 2))
-        .attr('r', 5)
-        .attr('fill', d => colors(d.moduleIndex));
+            const subModuleArc = d3.arc()
+                .innerRadius(moduleRadius - 20)
+                .outerRadius(moduleRadius)
+                .startAngle(startAngle)
+                .endAngle(endAngle);
 
-    // Draw lines connecting submodules
-    const subModuleLines = svg.selectAll('.submodule-line')
-        .data(progressData.flatMap(d => d.subModules.slice(0, -1).map((_, i) => ({ moduleIndex: progressData.indexOf(d), subModuleIndex: i }))))
-        .enter()
-        .append('line')
-        .attr('class', 'submodule-line')
-        .attr('x1', d => width / 2 + radiusScale(d.moduleIndex) * Math.cos(angleScale(d.moduleIndex) + angleScale(1) * d.subModuleIndex / progressData[d.moduleIndex].subModules.length - angleScale(1) / 2))
-        .attr('y1', d => height / 2 + radiusScale(d.moduleIndex) * Math.sin(angleScale(d.moduleIndex) + angleScale(1) * d.subModuleIndex / progressData[d.moduleIndex].subModules.length - angleScale(1) / 2))
-        .attr('x2', d => width / 2 + radiusScale(d.moduleIndex) * Math.cos(angleScale(d.moduleIndex) + angleScale(1) * (d.subModuleIndex + 1) / progressData[d.moduleIndex].subModules.length - angleScale(1) / 2))
-        .attr('y2', d => height / 2 + radiusScale(d.moduleIndex) * Math.sin(angleScale(d.moduleIndex) + angleScale(1) * (d.subModuleIndex + 1) / progressData[d.moduleIndex].subModules.length - angleScale(1) / 2))
-        .attr('stroke', d => colors(d.moduleIndex))
-        .attr('stroke-width', 1);
+            const subModuleGroup = svg.append("g")
+                .attr("class", "submodule")
+                .on("mouseover", function () {
+                    d3.select(this).append("title")
+                        .text(`${subModule.subModuleName}\nProgress: ${(subModule.progress * 100).toFixed(2)}%\nQuiz Score: ${(subModule.quizScore * 100).toFixed(2)}%`);
+                })
+                .on("mouseout", function () {
+                    d3.select(this).select("title").remove();
+                });
 
-    // Add interactivity and show lesson details on hover/click
-    subModulePoints
-        .on('mouseover', function (event, d) {
-            d3.select(this).attr('r', 8);
-            // Show lesson details in a tooltip or overlay
-        })
-        .on('mouseout', function (event, d) {
-            d3.select(this).attr('r', 5);
-            // Hide lesson details
-        })
-        .on('click', function (event, d) {
-            // Show more detailed information about the lesson and its completion status
+            subModuleGroup.append("path")
+                .attr("d", subModuleArc)
+                .attr("fill", `hsl(${subModuleIndex * (360 / subModuleCount)}, 50%, ${50 + subModule.progress * 50}%)`);
+
+            subModule.lessons.forEach((lesson, lessonIndex) => {
+                const lessonRadius = moduleRadius + (lessonIndex + 1) * (20 / (subModule.lessons.length + 1));
+                const lessonAngle = startAngle + (lessonIndex + 0.5) * (subModuleAngle / (subModule.lessons.length + 1));
+
+                const lessonGroup = svg.append("g")
+                    .attr("class", "lesson")
+                    .on("mouseover", function () {
+                        d3.select(this).append("title")
+                            .text(`${lesson.title}\nProgress: ${(lesson.progress * 100).toFixed(2)}%\nQuiz Score: ${(lesson.quizScore * 100).toFixed(2)}%`);
+                    })
+                    .on("mouseout", function () {
+                        d3.select(this).select("title").remove();
+                    });
+
+                lessonGroup.append("circle")
+                    .attr("cx", lessonRadius * Math.cos(lessonAngle))
+                    .attr("cy", lessonRadius * Math.sin(lessonAngle))
+                    .attr("r", 5)
+                    .attr("fill", lesson.progress === 1 ? "green" : "red");
+            });
         });
+    });
 }
 
 function calculateProgress(courseContent, userProgress) {
