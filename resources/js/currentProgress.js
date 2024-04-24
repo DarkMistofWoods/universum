@@ -90,10 +90,27 @@ async function createVisualization(courseContent, userProgress) {
         .text(d => `${d.name}\nProgress: ${d.progress ? 'Completed' : 'Not Started'}\nProficiency: ${Math.round(d.proficiency * 100)}%`);
 
     simulation.nodes(nodes)
-        .on('tick', ticked);
+    .on('tick', ticked);
 
     simulation.force('link')
         .links(links);
+
+    // Add bounding box constraint
+    const padding = nodeRadius * 2; // Adjust the padding as needed
+    simulation.force('boundingBox', () => {
+        nodes.forEach(node => {
+            if (node.x < padding) {
+                node.x = padding;
+            } else if (node.x > width - padding) {
+                node.x = width - padding;
+            }
+            if (node.y < padding) {
+                node.y = padding;
+            } else if (node.y > height - padding) {
+                node.y = height - padding;
+            }
+        });
+    });
 
     function ticked() {
         link
