@@ -117,11 +117,6 @@ async function loadCourseContent() {
     return await response.json();
 }
 
-async function loadCourseContent() {
-    const response = await fetch('functions/courseContent.json');
-    return await response.json();
-}
-
 // Function to check the authentication state
 function checkAuthState() {
     onAuthStateChanged(auth, (user) => {
