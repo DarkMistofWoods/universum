@@ -39,7 +39,7 @@ function createVisualization(courseContent, userProgress) {
 
     const moduleRadiusScale = d3.scaleLinear()
         .domain([0, moduleCount - 1])
-        .range([radius * 0.3, radius * 0.7]);
+        .range([radius * 0.4, radius * 0.6]);
 
     filteredProgressData.forEach((module, moduleIndex) => {
         const moduleRadius = moduleRadiusScale(moduleIndex);
@@ -64,7 +64,7 @@ function createVisualization(courseContent, userProgress) {
                 .attr("class", "submodule")
                 .on("mouseover", function () {
                     d3.select(this).append("title")
-                        .text(`${subModule.subModuleName}\nProgress: ${(subModule.progress * 100).toFixed(2)}%\nQuiz Score: ${(subModule.quizScore).toFixed(2)}%`);
+                        .text(`${subModule.subModuleName}\nProgress: ${(subModule.progress * 100).toFixed(2)}%\nQuiz Score: ${(subModule.quizScore * 100).toFixed(2)}%`);
                 })
                 .on("mouseout", function () {
                     d3.select(this).select("title").remove();
@@ -85,15 +85,15 @@ function createVisualization(courseContent, userProgress) {
                     .attr("class", "lesson")
                     .on("mouseover", function () {
                         d3.select(this).append("title")
-                            .text(`${lesson.title}\nProgress: ${(lesson.progress * 100).toFixed(2)}%\nQuiz Score: ${(lesson.quizScore).toFixed(2)}%`);
+                            .text(`${lesson.title}\nProgress: ${(lesson.progress * 100).toFixed(2)}%\nQuiz Score: ${(lesson.quizScore * 100).toFixed(2)}%`);
                     })
                     .on("mouseout", function () {
                         d3.select(this).select("title").remove();
                     });
 
                 lessonGroup.append("circle")
-                    .attr("cx", lessonRadius * Math.cos(lessonAngle + moduleAngle))
-                    .attr("cy", lessonRadius * Math.sin(lessonAngle + moduleAngle))
+                    .attr("cx", lessonRadius * Math.cos(lessonAngle - moduleAngle * 2))
+                    .attr("cy", lessonRadius * Math.sin(lessonAngle - moduleAngle * 2))
                     .attr("r", 8)
                     .attr("fill", lesson.progress === 1 ? completedLessonColor : incompleteLessonColor);
             });
@@ -110,7 +110,7 @@ function createVisualization(courseContent, userProgress) {
             .attr("class", "lesson")
             .on("mouseover", function () {
                 d3.select(this).append("title")
-                    .text(`${firstLesson.title}\nProgress: ${(firstLesson.progress * 100).toFixed(2)}%\nQuiz Score: ${(firstLesson.quizScore).toFixed(2)}%`);
+                    .text(`${firstLesson.title}\nProgress: ${(firstLesson.progress * 100).toFixed(2)}%\nQuiz Score: ${(firstLesson.quizScore * 100).toFixed(2)}%`);
             })
             .on("mouseout", function () {
                 d3.select(this).select("title").remove();
