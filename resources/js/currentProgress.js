@@ -101,8 +101,8 @@ function createVisualization(courseContent, userProgress) {
                     .attr("stroke-width", 2);
 
                 lessonGroup.append("circle")
-                    .attr("cx", lessonRadius * Math.cos(lessonAngle - moduleAngle / 2 - 180))
-                    .attr("cy", lessonRadius * Math.sin(lessonAngle - moduleAngle / 2 - 180))
+                    .attr("cx", lessonRadius * Math.cos(lessonAngle - moduleAngle / 2))
+                    .attr("cy", lessonRadius * Math.sin(lessonAngle - moduleAngle / 2))
                     .attr("r", 8)
                     .attr("fill", lesson.progress === 1 ? completedLessonColor : incompleteLessonColor);
             });
