@@ -1375,4 +1375,9 @@ line, .circle-logo-container {
     pointer-events: none;
     display: none;
 }
+
+line {
+    pointer-events: none;
+    cursor: default;
+}
 /* END OF CURRENT PROGRESS */
