@@ -39,7 +39,7 @@ function createVisualization(courseContent, userProgress) {
 
     const moduleRadiusScale = d3.scaleLinear()
         .domain([0, moduleCount - 1])
-        .range([radius * 0.4, radius * 0.6]);
+        .range([radius * 0.3, radius * 0.7]);
 
     filteredProgressData.forEach((module, moduleIndex) => {
         const moduleRadius = moduleRadiusScale(moduleIndex);
