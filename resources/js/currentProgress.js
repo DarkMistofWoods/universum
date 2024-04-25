@@ -102,25 +102,26 @@ function createVisualization(courseContent, userProgress) {
                     .attr("r", 8)
                     .attr("fill", lesson.progress === 1 ? completedLessonColor : incompleteLessonColor)
                     .on("mouseover", function (event) {
+                        const lessonHoverRadius = lessonRadius + 10;
                         d3.select(this)
-                            .attr("cx", (lessonRadius + 10) * Math.cos(lessonAngle))
-                            .attr("cy", (lessonRadius + 10) * Math.sin(lessonAngle));
-
+                            .attr("cx", lessonHoverRadius * Math.cos(lessonAngle))
+                            .attr("cy", lessonHoverRadius * Math.sin(lessonAngle));
+                
                         lessonGroup.select("line")
-                            .attr("x1", (moduleRadius + 10) * Math.cos(lessonAngle))
-                            .attr("y1", (moduleRadius + 10) * Math.sin(lessonAngle));
-
+                            .attr("x2", lessonHoverRadius * Math.cos(lessonAngle))
+                            .attr("y2", lessonHoverRadius * Math.sin(lessonAngle));
+                
                         showTooltip(event, `${lesson.title}<br>Progress: ${(lesson.progress * 100).toFixed(2)}%<br>Quiz Score: ${(lesson.quizScore).toFixed(2)}%`);
                     })
                     .on("mouseout", function () {
                         d3.select(this)
                             .attr("cx", lessonRadius * Math.cos(lessonAngle))
                             .attr("cy", lessonRadius * Math.sin(lessonAngle));
-
+                
                         lessonGroup.select("line")
-                            .attr("x1", moduleRadius * Math.cos(lessonAngle))
-                            .attr("y1", moduleRadius * Math.sin(lessonAngle));
-
+                            .attr("x2", lessonRadius * Math.cos(lessonAngle))
+                            .attr("y2", lessonRadius * Math.sin(lessonAngle));
+                
                         hideTooltip();
                     })
                     .on("click", function (event) {
@@ -142,14 +143,23 @@ function createVisualization(courseContent, userProgress) {
                 .attr("fill", submoduleArcColor)
                 .attr("fill-opacity", subModuleOpacity)
                 .on("mouseover", function (event) {
+                    const subModuleOuterRadius = moduleRadius + 10;
+                    const subModuleInnerRadius = moduleRadius - 30;
+                    const subModuleArcHover = d3.arc()
+                        .innerRadius(subModuleInnerRadius)
+                        .outerRadius(subModuleOuterRadius)
+                        .cornerRadius(15)
+                        .startAngle(startAngle)
+                        .endAngle(endAngle);
+
                     d3.select(this)
-                        .attr("transform", `translate(${10 * Math.cos(startAngle + subModuleAngle / 2)}, ${10 * Math.sin(startAngle + subModuleAngle / 2)})`);
+                        .attr("d", subModuleArcHover);
 
                     showTooltip(event, `${subModule.subModuleName}<br>Progress: ${(subModule.progress * 100).toFixed(2)}%<br>Overall Score: ${(subModule.quizScore).toFixed(2)}%`);
                 })
                 .on("mouseout", function () {
                     d3.select(this)
-                        .attr("transform", null);
+                        .attr("d", subModuleArc);
 
                     hideTooltip();
                 })
