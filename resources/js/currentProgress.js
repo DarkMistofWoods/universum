@@ -132,8 +132,8 @@ function createVisualization(courseContent, userProgress) {
                     .attr("class", "lesson-node");
 
                 lessonGroup.append("line")
-                    .attr("x1", moduleRadius * Math.cos(lessonAngle))
-                    .attr("y1", moduleRadius * Math.sin(lessonAngle))
+                    .attr("x1", 0)
+                    .attr("y1", 0)
                     .attr("x2", (lessonRadius + 10) * Math.cos(lessonAngle))
                     .attr("y2", (lessonRadius + 10) * Math.sin(lessonAngle))
                     .attr("stroke", lesson.progress === 1 ? completedLessonColor : incompleteLessonColor)
