@@ -41,6 +41,12 @@ function createVisualization(courseContent, userProgress) {
         .domain([0, moduleCount - 1])
         .range([radius * 0.3, radius * 0.7]);
 
+    svg.append("circle")
+        .attr("cx", 0)
+        .attr("cy", 0)
+        .attr("r", 5)
+        .attr("fill", "#A67A46");
+
     filteredProgressData.forEach((module, moduleIndex) => {
         const moduleRadius = moduleRadiusScale(moduleIndex);
         const filteredSubModules = module.subModules.filter(subModule =>
@@ -59,27 +65,6 @@ function createVisualization(courseContent, userProgress) {
                 .cornerRadius(15)
                 .startAngle(startAngle)
                 .endAngle(endAngle);
-
-            const subModuleGroup = svg.append("g")
-                .attr("class", "submodule-node");
-
-            const subModuleOpacity = subModule.lessons.every(lesson => lesson.progress === 1) ? 1 : 0.3;
-
-            subModuleGroup.append("path")
-                .attr("d", subModuleArc)
-                .attr("fill", submoduleArcColor)
-                .attr("fill-opacity", subModuleOpacity);
-
-            subModuleGroup.on("mouseover", function (event) {
-                const tooltip = d3.select("#tooltip");
-                tooltip.html(`${subModule.subModuleName}<br>Progress: ${(subModule.progress * 100).toFixed(2)}%<br>Overall Score: ${(subModule.quizScore).toFixed(2)}%`)
-                    .style("left", (event.pageX + 10) + "px")
-                    .style("top", (event.pageY - 10) + "px")
-                    .style("display", "block");
-            })
-            .on("mouseout", function () {
-                d3.select("#tooltip").style("display", "none");
-            });
 
             subModule.lessons.forEach((lesson, lessonIndex) => {
                 const lessonAngle = startAngle + (lessonIndex + 0.5) * (subModuleAngle / subModule.lessons.length) - Math.PI / 2;
@@ -113,6 +98,27 @@ function createVisualization(courseContent, userProgress) {
                 .on("mouseout", function () {
                     d3.select("#tooltip").style("display", "none");
                 });
+            });
+
+            const subModuleGroup = svg.append("g")
+                .attr("class", "submodule-node");
+
+            const subModuleOpacity = subModule.lessons.every(lesson => lesson.progress === 1) ? 1 : 0.3;
+
+            subModuleGroup.append("path")
+                .attr("d", subModuleArc)
+                .attr("fill", submoduleArcColor)
+                .attr("fill-opacity", subModuleOpacity);
+
+            subModuleGroup.on("mouseover", function (event) {
+                const tooltip = d3.select("#tooltip");
+                tooltip.html(`${subModule.subModuleName}<br>Progress: ${(subModule.progress * 100).toFixed(2)}%<br>Overall Score: ${(subModule.quizScore).toFixed(2)}%`)
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 10) + "px")
+                    .style("display", "block");
+            })
+            .on("mouseout", function () {
+                d3.select("#tooltip").style("display", "none");
             });
         });
     });
