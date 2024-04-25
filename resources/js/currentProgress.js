@@ -41,12 +41,6 @@ function createVisualization(courseContent, userProgress) {
         .domain([0, moduleCount - 1])
         .range([radius * 0.3, radius * 0.7]);
 
-    svg.append("circle")
-        .attr("cx", 0)
-        .attr("cy", 0)
-        .attr("r", 5)
-        .attr("fill", "#A67A46");
-
     filteredProgressData.forEach((module, moduleIndex) => {
         const moduleRadius = moduleRadiusScale(moduleIndex);
         const filteredSubModules = module.subModules.filter(subModule =>
@@ -153,6 +147,12 @@ function createVisualization(courseContent, userProgress) {
             .attr("r", 8)
             .attr("fill", incompleteLessonColor);
     }
+
+    svg.append("circle")
+        .attr("cx", 0)
+        .attr("cy", 0)
+        .attr("r", 5)
+        .attr("fill", "#A67A46");
 }
 
 function calculateProgress(courseContent, userProgress) {
