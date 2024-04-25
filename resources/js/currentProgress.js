@@ -64,7 +64,7 @@ function createVisualization(courseContent, userProgress) {
                 .attr("class", "submodule")
                 .on("mouseover", function () {
                     d3.select(this).append("title")
-                        .text(`${subModule.subModuleName}\nProgress: ${(subModule.progress * 100).toFixed(2)}%\nQuiz Score: ${(subModule.quizScore * 100).toFixed(2)}%`);
+                        .text(`${subModule.subModuleName}\nProgress: ${(subModule.progress * 100).toFixed(2)}%\nQuiz Score: ${(subModule.quizScore).toFixed(2)}%`);
                 })
                 .on("mouseout", function () {
                     d3.select(this).select("title").remove();
@@ -85,7 +85,7 @@ function createVisualization(courseContent, userProgress) {
                     .attr("class", "lesson")
                     .on("mouseover", function () {
                         d3.select(this).append("title")
-                            .text(`${lesson.title}\nProgress: ${(lesson.progress * 100).toFixed(2)}%\nQuiz Score: ${(lesson.quizScore * 100).toFixed(2)}%`);
+                            .text(`${lesson.title}\nProgress: ${(lesson.progress * 100).toFixed(2)}%\nQuiz Score: ${(lesson.quizScore).toFixed(2)}%`);
                     })
                     .on("mouseout", function () {
                         d3.select(this).select("title").remove();
@@ -110,7 +110,7 @@ function createVisualization(courseContent, userProgress) {
             .attr("class", "lesson")
             .on("mouseover", function () {
                 d3.select(this).append("title")
-                    .text(`${firstLesson.title}\nProgress: ${(firstLesson.progress * 100).toFixed(2)}%\nQuiz Score: ${(firstLesson.quizScore * 100).toFixed(2)}%`);
+                    .text(`${firstLesson.title}\nProgress: ${(firstLesson.progress * 100).toFixed(2)}%\nQuiz Score: ${(firstLesson.quizScore).toFixed(2)}%`);
             })
             .on("mouseout", function () {
                 d3.select(this).select("title").remove();
