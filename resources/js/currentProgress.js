@@ -80,7 +80,7 @@ function createVisualization(courseContent, userProgress) {
                     .attr("y2", 0)
                     .attr("stroke", lesson.progress === 1 ? completedLessonColor : incompleteLessonColor)
                     .attr("stroke-opacity", lesson.progress === 1 ? lesson.quizScore : 1)
-                    .attr("stroke-width", 2);
+                    .attr("stroke-width", 1);
 
                 lessonGroup.append("circle")
                     .attr("cx", lessonRadius * Math.cos(lessonAngle))
@@ -145,7 +145,7 @@ function createVisualization(courseContent, userProgress) {
             .attr("x2", 0)
             .attr("y2", -radius * 0.2)
             .attr("stroke", incompleteLessonColor)
-            .attr("stroke-width", 2);
+            .attr("stroke-width", 1);
 
         lessonGroup.append("circle")
             .attr("cx", 0)
