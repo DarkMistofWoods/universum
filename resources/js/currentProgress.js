@@ -13,7 +13,7 @@ function createVisualization(courseContent, userProgress) {
     const radius = Math.min(width, height) / 2;
 
     // Predefined color variables
-    const submoduleArcColor = "#F2CA99";
+    const submoduleArcColor = "#A67A46";
     const completedLessonColor = "#A67A46";
     const incompleteLessonColor = "#3B3C40";
 
@@ -56,7 +56,7 @@ function createVisualization(courseContent, userProgress) {
             const subModuleArc = d3.arc()
                 .innerRadius(moduleRadius - 20)
                 .outerRadius(moduleRadius)
-                .cornerRadius(5)
+                .cornerRadius(15)
                 .startAngle(startAngle)
                 .endAngle(endAngle);
 
@@ -70,13 +70,16 @@ function createVisualization(courseContent, userProgress) {
                     d3.select(this).select("title").remove();
                 });
 
+            const subModuleOpacity = subModule.lessons.every(lesson => lesson.progress === 1) ? 1 : 0.3;
+
             subModuleGroup.append("path")
                 .attr("d", subModuleArc)
-                .attr("fill", submoduleArcColor);
+                .attr("fill", submoduleArcColor)
+                .attr("fill-opacity", subModuleOpacity);
 
             subModule.lessons.forEach((lesson, lessonIndex) => {
                 const lessonAngle = startAngle + (lessonIndex + 0.5) * (subModuleAngle / (subModule.lessons.length + 1));
-                const lessonRadius = moduleRadius + 10;
+                const lessonRadius = moduleRadius + 15;
 
                 const lessonGroup = svg.append("g")
                     .attr("class", "lesson")
@@ -91,7 +94,7 @@ function createVisualization(courseContent, userProgress) {
                 lessonGroup.append("circle")
                     .attr("cx", lessonRadius * Math.cos(lessonAngle - moduleAngle / 2))
                     .attr("cy", lessonRadius * Math.sin(lessonAngle - moduleAngle / 2))
-                    .attr("r", 5)
+                    .attr("r", 8)
                     .attr("fill", lesson.progress === 1 ? completedLessonColor : incompleteLessonColor);
             });
         });
@@ -116,7 +119,7 @@ function createVisualization(courseContent, userProgress) {
         lessonGroup.append("circle")
             .attr("cx", 0)
             .attr("cy", -radius * 0.2)
-            .attr("r", 5)
+            .attr("r", 8)
             .attr("fill", incompleteLessonColor);
     }
 }
