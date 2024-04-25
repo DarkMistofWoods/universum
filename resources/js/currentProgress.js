@@ -92,8 +92,8 @@ function createVisualization(courseContent, userProgress) {
                     });
 
                 lessonGroup.append("circle")
-                    .attr("cx", lessonRadius * Math.cos(lessonAngle - moduleAngle / 2 - 30))
-                    .attr("cy", lessonRadius * Math.sin(lessonAngle - moduleAngle / 2 - 30))
+                    .attr("cx", lessonRadius * Math.cos(lessonAngle - moduleAngle / 2 - 15))
+                    .attr("cy", lessonRadius * Math.sin(lessonAngle - moduleAngle / 2 - 15))
                     .attr("r", 8)
                     .attr("fill", lesson.progress === 1 ? completedLessonColor : incompleteLessonColor);
             });
