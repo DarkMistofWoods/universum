@@ -91,6 +91,15 @@ function createVisualization(courseContent, userProgress) {
                         d3.select(this).select("title").remove();
                     });
 
+                lessonGroup.append("line")
+                    .attr("x1", 0)
+                    .attr("y1", 0)
+                    .attr("x2", lessonRadius * Math.cos(lessonAngle))
+                    .attr("y2", lessonRadius * Math.sin(lessonAngle))
+                    .attr("stroke", lesson.progress === 1 ? completedLessonColor : incompleteLessonColor)
+                    .attr("stroke-opacity", lesson.progress === 1 ? lesson.quizScore : 1)
+                    .attr("stroke-width", 2);
+
                 lessonGroup.append("circle")
                     .attr("cx", lessonRadius * Math.cos(lessonAngle - moduleAngle / 2 - 180))
                     .attr("cy", lessonRadius * Math.sin(lessonAngle - moduleAngle / 2 - 180))
@@ -115,6 +124,14 @@ function createVisualization(courseContent, userProgress) {
             .on("mouseout", function () {
                 d3.select(this).select("title").remove();
             });
+
+        lessonGroup.append("line")
+            .attr("x1", 0)
+            .attr("y1", 0)
+            .attr("x2", 0)
+            .attr("y2", -radius * 0.2)
+            .attr("stroke", incompleteLessonColor)
+            .attr("stroke-width", 2);
 
         lessonGroup.append("circle")
             .attr("cx", 0)
