@@ -82,7 +82,7 @@ function createVisualization(courseContent, userProgress) {
             });
 
             subModule.lessons.forEach((lesson, lessonIndex) => {
-                const lessonAngle = startAngle + (lessonIndex + 0.5) * (subModuleAngle / (subModule.lessons.length));
+                const lessonAngle = startAngle + (lessonIndex + 0.5) * (subModuleAngle / subModule.lessons.length) - Math.PI / 2;
                 const lessonRadius = moduleRadius + 15;
 
                 const lessonGroup = svg.append("g")
