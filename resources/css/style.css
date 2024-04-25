@@ -1366,8 +1366,10 @@ line, .circle-logo-container {
 
 .tooltip {
     position: absolute;
-    background-color: #fff;
-    border: 1px solid #ccc;
+    color: var(--color-secondary);
+    background-color: var(--color-quaternary);
+    border: 2px solid var(--color-tertiary);
+    border-radius: 15px;
     padding: 10px;
     font-size: 14px;
     pointer-events: none;

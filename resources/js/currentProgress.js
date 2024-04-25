@@ -89,10 +89,10 @@ function createVisualization(courseContent, userProgress) {
                     .attr("class", "lesson-node");
 
                 lessonGroup.append("line")
-                    .attr("x1", moduleRadius * Math.cos(lessonAngle))
-                    .attr("y1", moduleRadius * Math.sin(lessonAngle))
-                    .attr("x2", lessonRadius * Math.cos(lessonAngle))
-                    .attr("y2", lessonRadius * Math.sin(lessonAngle))
+                    .attr("x1", lessonRadius * Math.cos(lessonAngle))
+                    .attr("y1", lessonRadius * Math.sin(lessonAngle))
+                    .attr("x2", 0)
+                    .attr("y2", 0)
                     .attr("stroke", lesson.progress === 1 ? completedLessonColor : incompleteLessonColor)
                     .attr("stroke-opacity", lesson.progress === 1 ? lesson.quizScore : 1)
                     .attr("stroke-width", 2);
@@ -102,6 +102,7 @@ function createVisualization(courseContent, userProgress) {
                     .attr("cy", lessonRadius * Math.sin(lessonAngle))
                     .attr("r", 8)
                     .attr("fill", lesson.progress === 1 ? completedLessonColor : incompleteLessonColor);
+
 
                 lessonGroup.on("mouseover", function (event) {
                     const tooltip = d3.select("#tooltip");
@@ -179,14 +180,18 @@ function calculateProgress(courseContent, userProgress) {
         module.subModules.forEach((subModule) => {
             let subModuleProgress = 0;
             let subModuleQuizScore = 0;
+            let completedLessonsCount = 0;
 
             subModule.lessons.forEach((lesson) => {
                 subModuleProgress += lesson.progress;
-                subModuleQuizScore += lesson.quizScore;
+                if (lesson.progress === 1) {
+                    subModuleQuizScore += lesson.quizScore;
+                    completedLessonsCount++;
+                }
             });
 
             subModuleProgress /= subModule.lessons.length;
-            subModuleQuizScore /= subModule.lessons.length;
+            subModuleQuizScore = completedLessonsCount > 0 ? subModuleQuizScore / completedLessonsCount : 0;
 
             subModule.progress = subModuleProgress;
             subModule.quizScore = subModuleQuizScore;
