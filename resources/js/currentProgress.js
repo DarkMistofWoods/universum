@@ -34,6 +34,26 @@ function createVisualization(courseContent, userProgress) {
         )
     );
 
+    let activeTooltip = null;
+
+    function showTooltip(event, content) {
+        const tooltip = d3.select("#tooltip");
+        tooltip.html(content)
+            .style("left", (event.pageX + 12) + "px")
+            .style("top", (event.pageY - 12) + "px")
+            .style("display", "block");
+        activeTooltip = tooltip;
+    }
+
+    function hideTooltip() {
+        if (activeTooltip) {
+            activeTooltip.style("display", "none");
+            activeTooltip = null;
+        }
+    }
+
+    svg.on("click", hideTooltip);
+
     const moduleCount = filteredProgressData.length;
     const moduleAngle = (2 * Math.PI) / moduleCount;
 
@@ -80,18 +100,36 @@ function createVisualization(courseContent, userProgress) {
                     .attr("cx", lessonRadius * Math.cos(lessonAngle))
                     .attr("cy", lessonRadius * Math.sin(lessonAngle))
                     .attr("r", 8)
-                    .attr("fill", lesson.progress === 1 ? completedLessonColor : incompleteLessonColor);
+                    .attr("fill", lesson.progress === 1 ? completedLessonColor : incompleteLessonColor)
+                    .on("mouseover", function (event) {
+                        d3.select(this)
+                            .attr("cx", (lessonRadius + 10) * Math.cos(lessonAngle))
+                            .attr("cy", (lessonRadius + 10) * Math.sin(lessonAngle));
 
-                lessonGroup.on("mouseover", function (event) {
-                    const tooltip = d3.select("#tooltip");
-                    tooltip.html(`${lesson.title}<br>Progress: ${(lesson.progress * 100).toFixed(2)}%<br>Quiz Score: ${(lesson.quizScore).toFixed(2)}%`)
-                        .style("left", (event.pageX + 10) + "px")
-                        .style("top", (event.pageY - 10) + "px")
-                        .style("display", "block");
-                })
-                .on("mouseout", function () {
-                    d3.select("#tooltip").style("display", "none");
-                });
+                        lessonGroup.select("line")
+                            .attr("x1", (moduleRadius + 10) * Math.cos(lessonAngle))
+                            .attr("y1", (moduleRadius + 10) * Math.sin(lessonAngle));
+
+                        showTooltip(event, `${lesson.title}<br>Progress: ${(lesson.progress * 100).toFixed(2)}%<br>Quiz Score: ${(lesson.quizScore).toFixed(2)}%`);
+                    })
+                    .on("mouseout", function () {
+                        d3.select(this)
+                            .attr("cx", lessonRadius * Math.cos(lessonAngle))
+                            .attr("cy", lessonRadius * Math.sin(lessonAngle));
+
+                        lessonGroup.select("line")
+                            .attr("x1", moduleRadius * Math.cos(lessonAngle))
+                            .attr("y1", moduleRadius * Math.sin(lessonAngle));
+
+                        hideTooltip();
+                    })
+                    .on("click", function (event) {
+                        event.stopPropagation();
+                        if (activeTooltip) {
+                            activeTooltip.style("display", "none");
+                        }
+                        showTooltip(event, `${lesson.title}<br>Progress: ${(lesson.progress * 100).toFixed(2)}%<br>Quiz Score: ${(lesson.quizScore).toFixed(2)}%`);
+                    });
             });
 
             const subModuleGroup = svg.append("g")
@@ -102,18 +140,26 @@ function createVisualization(courseContent, userProgress) {
             subModuleGroup.append("path")
                 .attr("d", subModuleArc)
                 .attr("fill", submoduleArcColor)
-                .attr("fill-opacity", subModuleOpacity);
+                .attr("fill-opacity", subModuleOpacity)
+                .on("mouseover", function (event) {
+                    d3.select(this)
+                        .attr("transform", `translate(${10 * Math.cos(startAngle + subModuleAngle / 2)}, ${10 * Math.sin(startAngle + subModuleAngle / 2)})`);
 
-            subModuleGroup.on("mouseover", function (event) {
-                const tooltip = d3.select("#tooltip");
-                tooltip.html(`${subModule.subModuleName}<br>Progress: ${(subModule.progress * 100).toFixed(2)}%<br>Overall Score: ${(subModule.quizScore).toFixed(2)}%`)
-                    .style("left", (event.pageX + 10) + "px")
-                    .style("top", (event.pageY - 10) + "px")
-                    .style("display", "block");
-            })
-            .on("mouseout", function () {
-                d3.select("#tooltip").style("display", "none");
-            });
+                    showTooltip(event, `${subModule.subModuleName}<br>Progress: ${(subModule.progress * 100).toFixed(2)}%<br>Overall Score: ${(subModule.quizScore).toFixed(2)}%`);
+                })
+                .on("mouseout", function () {
+                    d3.select(this)
+                        .attr("transform", null);
+
+                    hideTooltip();
+                })
+                .on("click", function (event) {
+                    event.stopPropagation();
+                    if (activeTooltip) {
+                        activeTooltip.style("display", "none");
+                    }
+                    showTooltip(event, `${subModule.subModuleName}<br>Progress: ${(subModule.progress * 100).toFixed(2)}%<br>Overall Score: ${(subModule.quizScore).toFixed(2)}%`);
+                });
         });
     });
 
