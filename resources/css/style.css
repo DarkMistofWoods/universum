@@ -1363,4 +1363,14 @@ line, .circle-logo-container {
 .lesson-node {
     cursor: pointer;
 }
+
+.tooltip {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    font-size: 14px;
+    pointer-events: none;
+    display: none;
+}
 /* END OF CURRENT PROGRESS */

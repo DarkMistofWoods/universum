@@ -60,15 +60,16 @@ function createVisualization(courseContent, userProgress) {
                 .startAngle(startAngle)
                 .endAngle(endAngle);
 
-            const subModuleGroup = svg.append("g")
-                .attr("class", "submodule-node")
-                .on("mouseover", function () {
-                    d3.select(this).append("title")
-                        .text(`${subModule.subModuleName}\nProgress: ${(subModule.progress * 100).toFixed(2)}%\nOverall Score: ${(subModule.quizScore).toFixed(2)}%`);
-                })
-                .on("mouseout", function () {
-                    d3.select(this).select("title").remove();
-                });
+            subModuleGroup.on("mouseover", function (event) {
+                const tooltip = d3.select("#tooltip");
+                tooltip.html(`${subModule.subModuleName}<br>Progress: ${(subModule.progress * 100).toFixed(2)}%<br>Overall Score: ${(subModule.quizScore).toFixed(2)}%`)
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 10) + "px")
+                    .style("display", "block");
+            })
+            .on("mouseout", function () {
+                d3.select("#tooltip").style("display", "none");
+            });
 
             const subModuleOpacity = subModule.lessons.every(lesson => lesson.progress === 1) ? 1 : 0.3;
 
@@ -81,19 +82,20 @@ function createVisualization(courseContent, userProgress) {
                 const lessonAngle = startAngle + (lessonIndex + 0.5) * (subModuleAngle / (subModule.lessons.length + 1));
                 const lessonRadius = moduleRadius + 15;
 
-                const lessonGroup = svg.append("g")
-                    .attr("class", "lesson-node")
-                    .on("mouseover", function () {
-                        d3.select(this).append("title")
-                            .text(`${lesson.title}\nProgress: ${(lesson.progress * 100).toFixed(2)}%\nQuiz Score: ${(lesson.quizScore).toFixed(2)}%`);
-                    })
-                    .on("mouseout", function () {
-                        d3.select(this).select("title").remove();
-                    });
+                lessonGroup.on("mouseover", function (event) {
+                    const tooltip = d3.select("#tooltip");
+                    tooltip.html(`${lesson.title}<br>Progress: ${(lesson.progress * 100).toFixed(2)}%<br>Quiz Score: ${(lesson.quizScore).toFixed(2)}%`)
+                        .style("left", (event.pageX + 10) + "px")
+                        .style("top", (event.pageY - 10) + "px")
+                        .style("display", "block");
+                })
+                .on("mouseout", function () {
+                    d3.select("#tooltip").style("display", "none");
+                });
 
                 lessonGroup.append("line")
-                    .attr("x1", 0)
-                    .attr("y1", 0)
+                    .attr("x1", moduleRadius * Math.cos(lessonAngle))
+                    .attr("y1", moduleRadius * Math.sin(lessonAngle))
                     .attr("x2", lessonRadius * Math.cos(lessonAngle))
                     .attr("y2", lessonRadius * Math.sin(lessonAngle))
                     .attr("stroke", lesson.progress === 1 ? completedLessonColor : incompleteLessonColor)
@@ -101,8 +103,8 @@ function createVisualization(courseContent, userProgress) {
                     .attr("stroke-width", 2);
 
                 lessonGroup.append("circle")
-                    .attr("cx", lessonRadius * Math.cos(lessonAngle - moduleAngle / 2))
-                    .attr("cy", lessonRadius * Math.sin(lessonAngle - moduleAngle / 2))
+                    .attr("cx", lessonRadius * Math.cos(lessonAngle))
+                    .attr("cy", lessonRadius * Math.sin(lessonAngle))
                     .attr("r", 8)
                     .attr("fill", lesson.progress === 1 ? completedLessonColor : incompleteLessonColor);
             });
