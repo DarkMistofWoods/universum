@@ -82,7 +82,7 @@ function createVisualization(courseContent, userProgress) {
             });
 
             subModule.lessons.forEach((lesson, lessonIndex) => {
-                const lessonAngle = startAngle + (lessonIndex + 0.5) * (subModuleAngle / (subModule.lessons.length + 1));
+                const lessonAngle = startAngle + (lessonIndex + 0.5) * (subModuleAngle / (subModule.lessons.length));
                 const lessonRadius = moduleRadius + 15;
 
                 const lessonGroup = svg.append("g")
@@ -102,7 +102,6 @@ function createVisualization(courseContent, userProgress) {
                     .attr("cy", lessonRadius * Math.sin(lessonAngle))
                     .attr("r", 8)
                     .attr("fill", lesson.progress === 1 ? completedLessonColor : incompleteLessonColor);
-
 
                 lessonGroup.on("mouseover", function (event) {
                     const tooltip = d3.select("#tooltip");
