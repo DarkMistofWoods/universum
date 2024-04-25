@@ -97,7 +97,7 @@ function createVisualization(courseContent, userProgress) {
                 .attr("stroke-width", 20)
                 .on("mouseover", function (event) {
                     const subModuleOuterRadius = moduleRadius + 5;
-                    const subModuleInnerRadius = moduleRadius - 5;
+                    const subModuleInnerRadius = moduleRadius - 10;
                     const subModuleArcHover = d3.arc()
                         .innerRadius(subModuleInnerRadius)
                         .outerRadius(subModuleOuterRadius)
