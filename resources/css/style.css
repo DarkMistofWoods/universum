@@ -1356,13 +1356,11 @@ line, .circle-logo-container {
     border-radius: 50%;
 }
 
-/* rename these
-.submodule {
+.submodule-node {
     cursor: pointer;
 }
 
-.lesson {
+.lesson-node {
     cursor: pointer;
 }
-*/
 /* END OF CURRENT PROGRESS */
