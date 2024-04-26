@@ -63,7 +63,7 @@ function createVisualization(courseContent, userProgress) {
         tooltip.html(content)
             .style("left", (event.pageX + 10) + "px")
             .style("top", (event.pageY - 10) + "px")
-            .style("display", "block")
+            .style("display", "flex")
             .style("text-align", "left");
         activeTooltip = tooltip;
     }
