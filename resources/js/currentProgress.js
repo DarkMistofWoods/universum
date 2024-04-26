@@ -90,7 +90,7 @@ function createVisualization(courseContent, userProgress) {
         svg.selectAll(".submodule-node, .lesson-node")
             .transition()
             .duration(duration)
-            .attr("transform", "scale(0.1)")
+            .attr("transform", "scale(0.01)")
             .style("opacity", 0)
             .remove();
     
@@ -248,6 +248,12 @@ function createVisualization(courseContent, userProgress) {
                     .attr("fill", incompleteLessonColor);
             }
 
+            svg.append("circle")
+                .attr("cx", 0)
+                .attr("cy", 0)
+                .attr("r", 5)
+                .attr("fill", completedLessonColor);
+
             // Expand the new elements outward
             svg.selectAll(".submodule-node, .lesson-node")
                 .style("opacity", 0)
@@ -280,12 +286,6 @@ function createVisualization(courseContent, userProgress) {
 
     // Initial visualization
     updateVisualization(0);
-
-    svg.append("circle")
-        .attr("cx", 0)
-        .attr("cy", 0)
-        .attr("r", 5)
-        .attr("fill", completedLessonColor);
 }
 
 function calculateProgress(courseContent, userProgress) {
