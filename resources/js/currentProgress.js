@@ -62,15 +62,15 @@ function createVisualization(courseContent, userProgress) {
     // Update the visualization based on the zoom level
     function updateVisualization(zoomLevel) { 
         svg.selectAll("*").remove(); // Clear the visualization
+
+        const filteredModules = filteredProgressData.slice(0, filteredProgressData.length - zoomLevel);
  
-        const moduleCount = filteredProgressData.length;
+        const moduleCount = filteredModules.length;
         const moduleAngle = (2 * Math.PI) / moduleCount;
 
         const moduleRadiusScale = d3.scaleLinear()
             .domain([0, moduleCount - 1])
             .range([radius * 0.3, radius * 0.7]);
-
-        const filteredModules = filteredProgressData.slice(0, filteredProgressData.length - zoomLevel);
 
         filteredModules.forEach((module, moduleIndex) => {
             const moduleRadius = moduleRadiusScale(moduleIndex);
