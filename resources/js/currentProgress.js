@@ -36,11 +36,16 @@ function createVisualization(courseContent, userProgress) {
 
     let activeTooltip = null;
 
-    function showTooltip(event, content) {
+    function showTooltip(event, content, isIncomplete = false) {
         const tooltip = d3.select("#tooltip");
-        tooltip.html(content)
-            .style("left", (event.pageX + 12) + "px")
-            .style("top", (event.pageY - 12) + "px")
+        tooltip.html(`
+            <div style="text-align: center;">
+                ${content}
+                ${isIncomplete ? '<div style="font-weight: bold;">Incomplete</div>' : ''}
+            </div>
+        `)
+            .style("left", (event.pageX + 10) + "px")
+            .style("top", (event.pageY - 10) + "px")
             .style("display", "block");
         activeTooltip = tooltip;
     }

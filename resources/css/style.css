@@ -1380,4 +1380,9 @@ line {
     pointer-events: none;
     cursor: default;
 }
+
+#zoomSlider {
+    width: 80%;
+    margin: 20px auto;
+}
 /* END OF CURRENT PROGRESS */
