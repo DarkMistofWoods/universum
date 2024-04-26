@@ -246,22 +246,22 @@ function createVisualization(courseContent, userProgress) {
                     .attr("cy", -radius * 0.2)
                     .attr("r", 8)
                     .attr("fill", incompleteLessonColor);
-
-                // Expand the new elements outward
-                svg.selectAll(".submodule-node, .lesson-node")
-                    .style("opacity", 0)
-                    .attr("transform", "scale(0.1)")
-                    .transition()
-                    .duration(duration)
-                    .attr("transform", "scale(1)")
-                    .style("opacity", 1);
-        
-                // Expand the center circle
-                svg.select("circle")
-                    .transition()
-                    .duration(duration)
-                    .attr("r", 5);
             }
+
+            // Expand the new elements outward
+            svg.selectAll(".submodule-node, .lesson-node")
+                .style("opacity", 0)
+                .attr("transform", "scale(0.1)")
+                .transition()
+                .duration(duration)
+                .attr("transform", "scale(1)")
+                .style("opacity", 1);
+    
+            // Expand the center circle
+            svg.select("circle")
+                .transition()
+                .duration(duration)
+                .attr("r", 5);
         }, duration);
     }
 
