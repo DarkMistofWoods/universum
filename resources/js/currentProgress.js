@@ -97,11 +97,11 @@ function createVisualization(courseContent, userProgress) {
         // Expand the center circle
         svg.select("circle")
             .transition()
-            .duration(duration)
+            .duration(duration / 4)
             .attr("r", 15);
 
         setTimeout(() => {
-            svg.selectAll("*").remove(); // Clear the visualization
+            svg.selectAll("line, .lesson-node, .submodule-node").remove(); // Clear the visualization
     
             filteredModules.forEach((module, moduleIndex) => {
                 const moduleRadius = moduleRadiusScale(moduleIndex);
@@ -248,12 +248,6 @@ function createVisualization(courseContent, userProgress) {
                     .attr("fill", incompleteLessonColor);
             }
 
-            svg.append("circle")
-                .attr("cx", 0)
-                .attr("cy", 0)
-                .attr("r", 5)
-                .attr("fill", completedLessonColor);
-
             // Expand the new elements outward
             svg.selectAll(".submodule-node, .lesson-node")
                 .style("opacity", 0)
@@ -270,6 +264,12 @@ function createVisualization(courseContent, userProgress) {
                 .attr("r", 5);
         }, duration);
     }
+
+    svg.append("circle")
+        .attr("cx", 0)
+        .attr("cy", 0)
+        .attr("r", 5)
+        .attr("fill", completedLessonColor);
 
     // Create the zoom slider
     const zoomSlider = d3.select("#zoomSlider")
