@@ -244,7 +244,7 @@ function createVisualization(courseContent, userProgress) {
                 lessonGroup.append("circle")
                     .attr("cx", 0)
                     .attr("cy", -radius * 0.2)
-                    .attr("r", 8)
+                    .attr("r", 10)
                     .attr("fill", incompleteLessonColor);
             }
 
