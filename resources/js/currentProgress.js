@@ -42,7 +42,7 @@ function createVisualization(courseContent, userProgress) {
     
         if (type === 'lesson') {
             content = `
-                <div style="text-align: center;">
+                <div style="text-align: left;">
                     <div>${data.title}</div>
                     ${data.progress === 0 ? '<div style="font-weight: bold;">Incomplete</div>' : `
                         <div>Progress: ${(data.progress * 100).toFixed(2)}%</div>
@@ -52,7 +52,7 @@ function createVisualization(courseContent, userProgress) {
             `;
         } else if (type === 'submodule') {
             content = `
-                <div style="text-align: center;">
+                <div style="text-align: left;">
                     <div>${data.subModuleName}</div>
                     <div>Progress: ${(data.progress * 100).toFixed(2)}%</div>
                     <div>Overall Score: ${(data.quizScore).toFixed(2)}%</div>
@@ -63,7 +63,8 @@ function createVisualization(courseContent, userProgress) {
         tooltip.html(content)
             .style("left", (event.pageX + 10) + "px")
             .style("top", (event.pageY - 10) + "px")
-            .style("display", "block");
+            .style("display", "block")
+            .style("text-align", "left");
         activeTooltip = tooltip;
     }
 
