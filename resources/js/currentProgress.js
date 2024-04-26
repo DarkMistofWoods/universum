@@ -70,7 +70,9 @@ function createVisualization(courseContent, userProgress) {
             .domain([0, moduleCount - 1])
             .range([radius * 0.3, radius * 0.7]);
 
-        filteredProgressData.forEach((module, moduleIndex) => {
+        const filteredModules = filteredProgressData.slice(0, filteredProgressData.length - zoomLevel);
+
+        filteredModules.forEach((module, moduleIndex) => {
             const moduleRadius = moduleRadiusScale(moduleIndex);
             const filteredSubModules = module.subModules.filter(subModule =>
                 subModule.lessons.some(lesson => lesson.progress === 1)
@@ -215,13 +217,26 @@ function createVisualization(courseContent, userProgress) {
                 .attr("r", 8)
                 .attr("fill", incompleteLessonColor);
         }
+
+        svg.append("circle")
+            .attr("cx", 0)
+            .attr("cy", 0)
+            .attr("r", 5)
+            .attr("fill", "#A67A46");
     }
 
-    svg.append("circle")
-        .attr("cx", 0)
-        .attr("cy", 0)
-        .attr("r", 5)
-        .attr("fill", "#A67A46");
+    // Create the zoom slider
+    const zoomSlider = d3.select("#zoomSlider")
+        .append("input")
+        .attr("type", "range")
+        .attr("min", 0)
+        .attr("max", filteredProgressData.length - 1)
+        .attr("step", 1)
+        .attr("value", 0)
+        .on("input", function () {
+            const zoomLevel = +this.value;
+            updateVisualization(zoomLevel);
+        });
 
     // Initial visualization
     updateVisualization(0);
