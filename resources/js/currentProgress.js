@@ -36,14 +36,31 @@ function createVisualization(courseContent, userProgress) {
 
     let activeTooltip = null;
 
-    function showTooltip(event, content, isIncomplete = false) {
+    function showTooltip(event, data, type) {
         const tooltip = d3.select("#tooltip");
-        tooltip.html(`
-            <div style="text-align: center;">
-                ${content}
-                ${isIncomplete ? '<div style="font-weight: bold;">Incomplete</div>' : ''}
-            </div>
-        `)
+        let content = '';
+    
+        if (type === 'lesson') {
+            content = `
+                <div style="text-align: center;">
+                    ${data.title}
+                    ${data.progress === 0 ? '<div style="font-weight: bold;">Incomplete</div>' : `
+                        <div>Progress: ${(data.progress * 100).toFixed(2)}%</div>
+                        <div>Quiz Score: ${(data.quizScore).toFixed(2)}%</div>
+                    `}
+                </div>
+            `;
+        } else if (type === 'submodule') {
+            content = `
+                <div style="text-align: center;">
+                    ${data.subModuleName}
+                    <div>Progress: ${(data.progress * 100).toFixed(2)}%</div>
+                    <div>Overall Score: ${(data.quizScore).toFixed(2)}%</div>
+                </div>
+            `;
+        }
+    
+        tooltip.html(content)
             .style("left", (event.pageX + 10) + "px")
             .style("top", (event.pageY - 10) + "px")
             .style("display", "block");
@@ -119,7 +136,7 @@ function createVisualization(courseContent, userProgress) {
                         d3.select(this.parentNode).select("path:not([stroke])") // Select the non-hit-area path
                             .attr("d", subModuleArcHover);
 
-                        showTooltip(event, `${subModule.subModuleName}<br>Progress: ${(subModule.progress * 100).toFixed(2)}%<br>Overall Score: ${(subModule.quizScore).toFixed(2)}%`);
+                        showTooltip(event, subModule, 'submodule');
                     })
                     .on("mouseout", function () {
                         d3.select(this.parentNode).select("path:not([stroke])") // Select the non-hit-area path
@@ -132,7 +149,7 @@ function createVisualization(courseContent, userProgress) {
                         if (activeTooltip) {
                             activeTooltip.style("display", "none");
                         }
-                        showTooltip(event, `${subModule.subModuleName}<br>Progress: ${(subModule.progress * 100).toFixed(2)}%<br>Overall Score: ${(subModule.quizScore).toFixed(2)}%`);
+                        showTooltip(event, subModule, 'submodule');
                     });
 
                 subModule.lessons.forEach((lesson, lessonIndex) => {
@@ -167,7 +184,7 @@ function createVisualization(courseContent, userProgress) {
                             d3.select(this.parentNode).select("circle:not([fill='transparent'])") // Select the non-hit-area circle
                                 .attr("cx", lessonHoverRadius * Math.cos(lessonAngle))
                                 .attr("cy", lessonHoverRadius * Math.sin(lessonAngle));
-                            showTooltip(event, `${lesson.title}<br>Progress: ${(lesson.progress * 100).toFixed(2)}%<br>Quiz Score: ${(lesson.quizScore).toFixed(2)}%`);
+                            showTooltip(event, lesson, 'lesson');
                         })
                         .on("mouseout", function () {
                             d3.select(this.parentNode).select("circle:not([fill='transparent'])") // Select the non-hit-area circle
@@ -181,7 +198,7 @@ function createVisualization(courseContent, userProgress) {
                             if (activeTooltip) {
                                 activeTooltip.style("display", "none");
                             }
-                            showTooltip(event, `${lesson.title}<br>Progress: ${(lesson.progress * 100).toFixed(2)}%<br>Quiz Score: ${(lesson.quizScore).toFixed(2)}%`);
+                            showTooltip(event, lesson, 'lesson');
                         });
                 });
             });
@@ -222,7 +239,7 @@ function createVisualization(courseContent, userProgress) {
             .attr("cx", 0)
             .attr("cy", 0)
             .attr("r", 5)
-            .attr("fill", "#A67A46");
+            .attr("fill", completedLessonColor);
     }
 
     // Create the zoom slider
