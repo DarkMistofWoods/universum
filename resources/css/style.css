@@ -1391,6 +1391,7 @@ line {
     appearance: none;
     outline: none;
     opacity: 0.7;
+    background-color: var(--color-background);
     transition: opacity 0.2s;
     height: 15px;
     border-radius: 15px;
