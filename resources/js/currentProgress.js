@@ -77,6 +77,15 @@ function createVisualization(courseContent, userProgress) {
     function updateVisualization(zoomLevel) { 
         const duration = 1000; // Animation duration in milliseconds
     
+        const filteredModules = filteredProgressData.slice(0, filteredProgressData.length - zoomLevel);
+ 
+        const moduleCount = filteredModules.length;
+        const moduleAngle = (2 * Math.PI) / moduleCount;
+
+        const moduleRadiusScale = d3.scaleLinear()
+            .domain([0, moduleCount - 1])
+            .range([radius * 0.3, radius * 0.7]);
+    
         // Shrink the existing elements towards the center
         svg.selectAll(".submodule-node, .lesson-node")
             .transition()
@@ -93,15 +102,6 @@ function createVisualization(courseContent, userProgress) {
 
         setTimeout(() => {
             svg.selectAll("*").remove(); // Clear the visualization
-    
-            const filteredModules = filteredProgressData.slice(0, filteredProgressData.length - zoomLevel);
-     
-            const moduleCount = filteredModules.length;
-            const moduleAngle = (2 * Math.PI) / moduleCount;
-    
-            const moduleRadiusScale = d3.scaleLinear()
-                .domain([0, moduleCount - 1])
-                .range([radius * 0.3, radius * 0.7]);
     
             filteredModules.forEach((module, moduleIndex) => {
                 const moduleRadius = moduleRadiusScale(moduleIndex);
