@@ -1385,4 +1385,53 @@ line {
     width: 80%;
     margin: 20px auto;
 }
+
+#zoomSlider input[type="range"] {
+    width: 100%;
+    appearance: none;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    height: 15px;
+    border-radius: 15px;
+}
+
+#zoomSlider input[type="range"]:hover {
+    opacity: 1;
+}
+
+#zoomSlider input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 5px;
+    cursor: pointer;
+    background: var(--color-quaternary);
+    border-radius: 5px;
+}
+
+#zoomSlider input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 5px;
+    cursor: pointer;
+    background: var(--color-quaternary);
+    border-radius: 5px;
+}
+
+#zoomSlider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--color-secondary);
+    cursor: pointer;
+    border-radius: 50%;
+    margin-top: -7.5px;
+}
+
+#zoomSlider input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: var(--color-secondary);
+    cursor: pointer;
+    border-radius: 50%;
+}
 /* END OF CURRENT PROGRESS */

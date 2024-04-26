@@ -43,7 +43,7 @@ function createVisualization(courseContent, userProgress) {
         if (type === 'lesson') {
             content = `
                 <div style="text-align: center;">
-                    ${data.title}
+                    <div>${data.title}</div>
                     ${data.progress === 0 ? '<div style="font-weight: bold;">Incomplete</div>' : `
                         <div>Progress: ${(data.progress * 100).toFixed(2)}%</div>
                         <div>Quiz Score: ${(data.quizScore).toFixed(2)}%</div>
@@ -53,7 +53,7 @@ function createVisualization(courseContent, userProgress) {
         } else if (type === 'submodule') {
             content = `
                 <div style="text-align: center;">
-                    ${data.subModuleName}
+                    <div>${data.subModuleName}</div>
                     <div>Progress: ${(data.progress * 100).toFixed(2)}%</div>
                     <div>Overall Score: ${(data.quizScore).toFixed(2)}%</div>
                 </div>
@@ -212,12 +212,11 @@ function createVisualization(courseContent, userProgress) {
     
             const lessonGroup = svg.append("g")
                 .attr("class", "lesson-node")
-                .on("mouseover", function () {
-                    d3.select(this).append("title")
-                        .text(`${firstLesson.title}\nProgress: ${(firstLesson.progress * 100).toFixed(2)}%\nQuiz Score: ${(firstLesson.quizScore).toFixed(2)}%`);
+                .on("mouseover", function (event) {
+                    showTooltip(event, firstLesson, 'lesson');
                 })
                 .on("mouseout", function () {
-                    d3.select(this).select("title").remove();
+                    hideTooltip();
                 });
     
             lessonGroup.append("line")
