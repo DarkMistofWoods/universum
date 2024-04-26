@@ -85,11 +85,11 @@ function createVisualization(courseContent, userProgress) {
             .style("opacity", 0)
             .remove();
     
-        // Shrink the center circle
+        // Expand the center circle
         svg.select("circle")
             .transition()
             .duration(duration)
-            .attr("r", 10);
+            .attr("r", 15);
 
         setTimeout(() => {
             svg.selectAll("*").remove(); // Clear the visualization
@@ -257,7 +257,7 @@ function createVisualization(courseContent, userProgress) {
                 .attr("transform", "scale(1)")
                 .style("opacity", 1);
     
-            // Expand the center circle
+            // Shrink the center circle
             svg.select("circle")
                 .transition()
                 .duration(duration)
