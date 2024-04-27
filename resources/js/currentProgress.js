@@ -90,7 +90,11 @@ function createVisualization(courseContent, userProgress) {
         svg.selectAll(".submodule-node, .lesson-node")
             .transition()
             .duration(duration)
-            .attr("transform", "scale(0.001)")
+            .ease(d3.easeCircleInOut)
+            .attr("transform", "scale(0.005)")
+            .style("opacity", 1)
+            .transition()
+            .duration(200)
             .style("opacity", 0)
             .remove();
 
@@ -99,7 +103,8 @@ function createVisualization(courseContent, userProgress) {
         centerCircle
             .transition()
             .duration(duration)
-            .attr("r", 20);
+            .ease(d3.easeCircleInOut)
+            .attr("r", 15);
 
         setTimeout(() => {
             svg.selectAll("line, .lesson-node, .submodule-node").remove(); // Clear the visualization
@@ -261,12 +266,13 @@ function createVisualization(courseContent, userProgress) {
             // Expand the new elements outward
             svg.selectAll(".submodule-node, .lesson-node")
                 .style("opacity", 0)
-                .attr("transform", "scale(0.001)")
+                .attr("transform", "scale(0.005)")
                 .transition()
                 .duration(duration)
+                .ease(d3.easeCircleInOut)
                 .attr("transform", "scale(1)")
                 .style("opacity", 1);
-        }, duration);
+        }, duration + 200);
     }
 
     // Create the center circle initially
