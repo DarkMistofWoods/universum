@@ -1428,7 +1428,7 @@ line {
     background: var(--color-secondary);
     cursor: pointer;
     border-radius: 50%;
-    margin-top: -7.5px;
+    margin-top: -6.5px;
 }
 
 #zoomSlider input[type="range"]::-moz-range-thumb {
