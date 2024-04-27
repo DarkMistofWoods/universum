@@ -249,6 +249,9 @@ function createVisualization(courseContent, userProgress) {
                     .attr("fill", incompleteLessonColor);
             }
 
+            // Bring the center circle to the front
+            centerCircle.raise();
+
             // Expand the center circle
             centerCircle
                 .transition()
