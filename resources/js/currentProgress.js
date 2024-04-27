@@ -90,7 +90,7 @@ function createVisualization(courseContent, userProgress) {
         svg.selectAll(".submodule-node, .lesson-node")
             .transition()
             .duration(duration)
-            .ease(d3.easePoly.exponent(1.45))
+            .ease(d3.easeCubicIn)
             .attr("transform", "scale(0.005)")
             .style("opacity", 1)
             .transition()
@@ -103,7 +103,7 @@ function createVisualization(courseContent, userProgress) {
         centerCircle
             .transition()
             .duration(duration)
-            .ease(d3.easePoly.exponent(1.45))
+            .ease(d3.easeCubicIn)
             .attr("r", 20);
 
         setTimeout(() => {
@@ -269,7 +269,7 @@ function createVisualization(courseContent, userProgress) {
                 .attr("transform", "scale(0.005)")
                 .transition()
                 .duration(duration)
-                .ease(d3.easePoly.exponent(1.45))
+                .ease(d3.easeCubicOut)
                 .attr("transform", "scale(1)")
                 .style("opacity", 1);
         }, duration + 200);
