@@ -1383,6 +1383,7 @@ line {
 
 #zoomSlider {
     width: 80%;
+    max-width: 350px;
     margin: 20px auto;
 }
 

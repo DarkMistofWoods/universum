@@ -251,14 +251,18 @@ function createVisualization(courseContent, userProgress) {
             // Expand the new elements outward
             svg.selectAll(".submodule-node, .lesson-node")
                 .style("opacity", 0)
-                .attr("transform", "scale(0.1)")
+                .attr("transform", "scale(0.01)")
                 .transition()
                 .duration(duration)
                 .attr("transform", "scale(1)")
                 .style("opacity", 1);
-    
-            // Shrink the center circle
-            svg.select("circle")
+
+            // Add the center circle above the other elements
+            svg.append("circle")
+                .attr("cx", 0)
+                .attr("cy", 0)
+                .attr("r", 1)
+                .attr("fill", "white")
                 .transition()
                 .duration(duration)
                 .attr("r", 5);
