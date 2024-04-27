@@ -93,12 +93,13 @@ function createVisualization(courseContent, userProgress) {
             .attr("transform", "scale(0.001)")
             .style("opacity", 0)
             .remove();
-    
-        // Expand the center circle
-        svg.select("circle")
+
+        // Shrink the center circle
+        const centerCircle = svg.select(".center-circle");
+        centerCircle
             .transition()
-            .duration(duration / 4)
-            .attr("r", 15);
+            .duration(duration)
+            .attr("r", 20);
 
         setTimeout(() => {
             svg.selectAll("line, .lesson-node, .submodule-node").remove(); // Clear the visualization
@@ -248,6 +249,12 @@ function createVisualization(courseContent, userProgress) {
                     .attr("fill", incompleteLessonColor);
             }
 
+            // Expand the center circle
+            centerCircle
+                .transition()
+                .duration(duration)
+                .attr("r", 10);
+
             // Expand the new elements outward
             svg.selectAll(".submodule-node, .lesson-node")
                 .style("opacity", 0)
@@ -256,18 +263,16 @@ function createVisualization(courseContent, userProgress) {
                 .duration(duration)
                 .attr("transform", "scale(1)")
                 .style("opacity", 1);
-
-            // Add the center circle above the other elements
-            svg.append("circle")
-                .attr("cx", 0)
-                .attr("cy", 0)
-                .attr("r", 1)
-                .attr("fill", completedLessonColor)
-                .transition()
-                .duration(duration)
-                .attr("r", 5);
         }, duration);
     }
+
+    // Create the center circle initially
+    svg.append("circle")
+        .attr("class", "center-circle")
+        .attr("cx", 0)
+        .attr("cy", 0)
+        .attr("r", 10)
+        .attr("fill", completedLessonColor);
 
     // Create the zoom slider
     const zoomSlider = d3.select("#zoomSlider")
