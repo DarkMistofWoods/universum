@@ -104,7 +104,7 @@ function createVisualization(courseContent, userProgress) {
             .transition()
             .duration(duration)
             .ease(d3.easeCircleInOut)
-            .attr("r", 15);
+            .attr("r", 25);
 
         setTimeout(() => {
             svg.selectAll("line, .lesson-node, .submodule-node").remove(); // Clear the visualization
