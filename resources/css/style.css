@@ -1443,3 +1443,18 @@ line {
     border-radius: 50%;
 }
 /* END OF CURRENT PROGRESS */
+/* CHALLENGES */
+.challenge-container {
+    margin-bottom: 40px;
+}
+
+.challenge-container h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.challenge-container p {
+    margin-bottom: 20px;
+}
+
+/* END OF CHALLENGES */

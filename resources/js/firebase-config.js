@@ -393,6 +393,69 @@ async function saveFeedback(feedbackData) {
     }
 }
 
+// Function to fetch challenges from Firestore, implement local saving/updating
+async function fetchChallenges() {
+    try {
+        const challengesRef = collection(db, 'challenges');
+        const challengesSnapshot = await getDocs(challengesRef);
+
+        if (!challengesSnapshot.empty) {
+            const challengesData = {};
+            challengesSnapshot.forEach(doc => {
+                challengesData[doc.id] = doc.data();
+            });
+            return challengesData;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error('Error fetching challenges:', error);
+        return null;
+    }
+}
+
+// Function to submit a challenge answer
+async function submitChallengeAnswer(challengeId, userId, answer) {
+    try {
+        const answerRef = collection(db, 'challenges', challengeId, 'answers');
+        await addDoc(answerRef, {
+            userId: userId,
+            answer: answer,
+            votes: 0,
+            timestamp: serverTimestamp()
+        });
+    } catch (error) {
+        console.error('Error submitting challenge answer:', error);
+        throw error;
+    }
+}
+
+// Function to vote for a challenge answer
+async function voteChallengeAnswer(challengeId, answerId, userId) {
+    try {
+        const answerRef = doc(db, 'challenges', challengeId, 'answers', answerId);
+        const answerDoc = await getDoc(answerRef);
+
+        if (answerDoc.exists()) {
+            const voteRef = collection(answerRef, 'votes');
+            const userVoteQuery = query(voteRef, where('userId', '==', userId));
+            const userVoteSnapshot = await getDocs(userVoteQuery);
+
+            if (userVoteSnapshot.empty) {
+                await addDoc(voteRef, { userId: userId });
+                await updateDoc(answerRef, { votes: answerDoc.data().votes + 1 });
+            } else {
+                console.log('User has already voted for this answer');
+            }
+        } else {
+            console.log('Answer document does not exist');
+        }
+    } catch (error) {
+        console.error('Error voting for challenge answer:', error);
+        throw error;
+    }
+}
+
 export {
     db,
     auth,
@@ -414,6 +477,9 @@ export {
     saveSettings,
     saveProfile,
     saveFeedback,
+    fetchChallenges,
+    submitChallengeAnswer,
+    voteChallengeAnswer,
     collection,
     addDoc,
     updateDoc,
