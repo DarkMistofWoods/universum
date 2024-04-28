@@ -251,6 +251,10 @@ textarea {
     justify-content: center;
     text-align: center;
 }
+
+.container-tertiary h1 {
+    margin: auto 0 0;
+}
 /* END OF CONTAINERS */
 
 /* NAVIGATION CIRCLE */
