@@ -737,6 +737,13 @@ fieldset {
     margin-left: 0;
 }
 
+.progress-tracker .progress-text {
+    font-size: small;
+    color: var(--color-secondary);
+    margin: 0 5px;
+    white-space: nowrap;
+}
+
 .recommendation {
     width: 95%;
     padding: 0 10px;

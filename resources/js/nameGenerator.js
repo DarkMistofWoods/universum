@@ -43,9 +43,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const attr1 = document.getElementById('attribute1').value;
         const attr2 = document.getElementById('attribute2').value;
         const attr3 = document.getElementById('attribute3').value;
-
+    
         if (!attr1 || !attr2 || !attr3) {
-            console.log("Please select options from all dropdowns.");
+            showAlert("Please select options from all dropdowns.");
             return;
         }
 
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const generatedName = document.getElementById('nameOutput').value;
     
         if (!generatedName) {
-            alert('Please generate a name first.');
+            showAlert('Please generate a name first.');
             return;
         }
 
@@ -160,12 +160,12 @@ document.addEventListener('DOMContentLoaded', function () {
         try {
             const profileData = { displayName: generatedName };
             const statusMessage = await saveProfile(user.uid, profileData);
-            alert(statusMessage);
+            showAlert(statusMessage);
             // Clear any pending name save after successful save
             localStorage.removeItem('pendingNameSave');
         } catch (error) {
             console.error("Error saving name to profile: ", error);
-            alert('There was a problem saving your name. Please try again.');
+            showAlert('There was a problem saving your name. Please try again.');
         }
     }
 
@@ -203,6 +203,18 @@ document.addEventListener('DOMContentLoaded', function () {
             option.textContent = value;
             numberDropdown.appendChild(option);
         }
+    }
+
+    // Function to display an alert message
+    function showAlert(message) {
+        let alertMessage = document.getElementById('alertMessage');
+        if (!alertMessage) {
+            alertMessage = document.createElement('span');
+            alertMessage.id = 'alertMessage';
+            const container = document.getElementById('nameGeneratorContainer');
+            container.appendChild(alertMessage);
+        }
+        alertMessage.textContent = message;
     }
 
     // Call the function to populate dropdown options
