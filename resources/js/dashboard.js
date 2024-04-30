@@ -377,31 +377,65 @@ async function handleFeedbackSubmit() {
     const comment = commentInput.value.trim();
 
     if (rating === 0 || comment === '') {
-        alert('Please provide a rating and comment for your feedback.');
+        displayFeedbackMessage('Please provide a rating and comment for your feedback.', 'error');
+        return;
+    }
+
+    if (comment.length > 300) {
+        displayFeedbackMessage('Comment cannot exceed 300 characters.', 'error');
         return;
     }
 
     const userId = auth.currentUser.uid;
+    const pageSubmitted = window.location.pathname;
+
+    // Check if the user is eligible to submit feedback
+    const isEligible = await checkFeedbackEligibility(userId, pageSubmitted);
+
+    if (!isEligible) {
+        displayFeedbackMessage('You can only submit feedback once per page in a 30-minute period.', 'error');
+        return;
+    }
+
     const newFeedback = {
         userId: userId,
         rating: rating,
         description: comment,
-        feedbackDate: serverTimestamp()
+        feedbackDate: serverTimestamp(),
+        pageSubmitted: pageSubmitted
     };
 
     // Save the feedback to the database
     const feedbackStatus = await saveFeedback(newFeedback);
 
     if (feedbackStatus === 'success') {
-        alert('Thank you for your feedback!');
+        displayFeedbackMessage('Thank you for your feedback!', 'success');
         // Reset the rating and comment inputs
         for (const input of ratingInputs) {
             input.checked = false;
         }
         commentInput.value = '';
     } else {
-        alert(feedbackStatus);
+        displayFeedbackMessage(feedbackStatus, 'error');
     }
+}
+
+async function checkFeedbackEligibility(userId, pageSubmitted) {
+    const thirtyMinutesAgo = new Date(Date.now() - 30 * 60 * 1000);
+    const feedbackSnapshot = await db.collection('feedback')
+        .where('userId', '==', userId)
+        .where('pageSubmitted', '==', pageSubmitted)
+        .where('feedbackDate', '>', thirtyMinutesAgo)
+        .limit(1)
+        .get();
+
+    return feedbackSnapshot.empty;
+}
+
+function displayFeedbackMessage(message, type) {
+    const feedbackMessageElement = document.getElementById('feedbackMessage');
+    feedbackMessageElement.textContent = message;
+    feedbackMessageElement.className = type;
 }
 
 // Function to check the authentication state

@@ -1005,7 +1005,6 @@ fieldset {
     padding: 30px 36px;
     text-align: center;
     height: fit-content;
-    background-color: var(--color-quaternary);
     border-radius: 50px;
 }
 
