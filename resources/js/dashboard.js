@@ -298,12 +298,17 @@ function getGoalTitle(goal) {
 function createAddGoalButton() {
     const addGoalButton = document.createElement('button');
     addGoalButton.textContent = 'Add Goal';
-    addGoalButton.classList.add('button-primary');
+    addGoalButton.classList.add('button-primary', 'add-goal-button');
     addGoalButton.addEventListener('click', showAddGoalForm);
     return addGoalButton;
 }
 
 function showAddGoalForm() {
+    const addGoalButton = document.querySelector('.add-goal-button');
+    if (addGoalButton) {
+        addGoalButton.style.display = 'none';
+    }
+
     const addGoalForm = document.createElement('div');
     addGoalForm.classList.add('add-goal-form');
 
@@ -359,8 +364,9 @@ function showAddGoalForm() {
     cancelButton.textContent = 'Cancel';
     cancelButton.addEventListener('click', () => {
         addGoalForm.remove();
-        const addGoalButton = createAddGoalButton();
-        learningGoalsContainer.appendChild(addGoalButton);
+        if (addGoalButton) {
+            addGoalButton.style.display = 'inline-block';
+        }
     });
 
     addGoalForm.appendChild(goalTypeLabel);
@@ -369,11 +375,6 @@ function showAddGoalForm() {
     addGoalForm.appendChild(goalAmountSelect);
     addGoalForm.appendChild(addButton);
     addGoalForm.appendChild(cancelButton);
-
-    const addGoalButton = document.querySelector('.learning-goals .content .button-primary');
-    if (addGoalButton) {
-        addGoalButton.remove();
-    }
 
     const learningGoalsContainer = document.querySelector('.learning-goals .content');
     learningGoalsContainer.appendChild(addGoalForm);
@@ -385,6 +386,16 @@ async function processAddGoal(goalType, goalAmount) {
         await addGoal(userId, goalType, goalAmount);
         const updatedGoals = await fetchUserGoals(userId, true);
         updateLearningGoals(updatedGoals);
+
+        const addGoalForm = document.querySelector('.add-goal-form');
+        if (addGoalForm) {
+            addGoalForm.remove();
+        }
+
+        const addGoalButton = document.querySelector('.add-goal-button');
+        if (addGoalButton && updatedGoals && Object.keys(updatedGoals).length < 3) {
+            addGoalButton.style.display = 'inline-block';
+        }
     } catch (error) {
         console.error('Error adding goal:', error);
         if (error.message === 'You have reached the maximum number of goals (3).') {
