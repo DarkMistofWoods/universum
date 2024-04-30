@@ -316,22 +316,33 @@ function showAddGoalForm() {
         <option value="learnWords">Learn Words</option>
         <option value="quizScore">Get a Quiz Score Higher Than</option>
     `;
+    goalTypeSelect.addEventListener('change', updateGoalAmountOptions);
 
     const goalAmountLabel = document.createElement('label');
     goalAmountLabel.textContent = 'Amount:';
     const goalAmountSelect = document.createElement('select');
-    goalAmountSelect.innerHTML = `
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-        <option value="20">20</option>
-        <option value="25">25</option>
-        <option value="30">30</option>
-        <option value="35">35</option>
-        <option value="40">40</option>
-        <option value="45">45</option>
-        <option value="50">50</option>
-    `;
+    updateGoalAmountOptions();
+
+    function updateGoalAmountOptions() {
+        const selectedGoalType = goalTypeSelect.value;
+        let options = '';
+
+        if (selectedGoalType === 'quizScore') {
+            for (let i = 70; i <= 100; i += 5) {
+                options += `<option value="${i}">${i}</option>`;
+            }
+        } else if (selectedGoalType === 'completeSubModules') {
+            for (let i = 1; i <= 20; i++) {
+                options += `<option value="${i}">${i}</option>`;
+            }
+        } else {
+            for (let i = 5; i <= 50; i += 5) {
+                options += `<option value="${i}">${i}</option>`;
+            }
+        }
+
+        goalAmountSelect.innerHTML = options;
+    }
 
     const addButton = document.createElement('button');
     addButton.classList.add('button-secondary');
