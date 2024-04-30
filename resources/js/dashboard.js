@@ -359,6 +359,8 @@ function showAddGoalForm() {
     cancelButton.textContent = 'Cancel';
     cancelButton.addEventListener('click', () => {
         addGoalForm.remove();
+        const addGoalButton = createAddGoalButton();
+        learningGoalsContainer.appendChild(addGoalButton);
     });
 
     addGoalForm.appendChild(goalTypeLabel);
@@ -367,6 +369,11 @@ function showAddGoalForm() {
     addGoalForm.appendChild(goalAmountSelect);
     addGoalForm.appendChild(addButton);
     addGoalForm.appendChild(cancelButton);
+
+    const addGoalButton = document.querySelector('.learning-goals .content .button-primary');
+    if (addGoalButton) {
+        addGoalButton.remove();
+    }
 
     const learningGoalsContainer = document.querySelector('.learning-goals .content');
     learningGoalsContainer.appendChild(addGoalForm);
