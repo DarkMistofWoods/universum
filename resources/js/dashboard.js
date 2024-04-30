@@ -24,43 +24,52 @@ function updateProgressTracker(progressData) {
     progressTrackerContainer.innerHTML = '<h2>Current Progress</h2>';
 
     if (progressData && Object.keys(progressData).length > 0) {
-        const completedLessons = Object.values(progressData).filter(lessonData => lessonData.completed);
-
-        if (completedLessons.length > 0) {
-            fetch('functions/courseContent.json')
-                .then(response => response.json())
-                .then(courseContent => {
-                    courseContent.forEach(module => {
-                        const completedLessonsInModule = getCompletedLessonsInModule(progressData, module);
-                        if (completedLessonsInModule.length > 0) {
-                            const moduleElement = createModuleProgressElement(module, progressData);
-                            progressTrackerContainer.appendChild(moduleElement);
-
-                            module.subModules.forEach(subModule => {
-                                const completedLessonsInSubModule = getCompletedLessonsInSubModule(progressData, subModule);
-                                if (completedLessonsInSubModule.length > 0) {
-                                    const subModuleElement = createSubModuleProgressElement(subModule, progressData);
-                                    progressTrackerContainer.appendChild(subModuleElement);
-
-                                    completedLessonsInSubModule.forEach(lesson => {
-                                        const lessonElement = createLessonProgressElement(lesson.lessonId, progressData[lesson.lessonId]);
-                                        progressTrackerContainer.appendChild(lessonElement);
-                                    });
-                                }
-                            });
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching course content:', error);
-                    progressTrackerContainer.innerHTML += '<p>Error loading progress data.</p>';
+        fetch('functions/courseContent.json')
+            .then(response => response.json())
+            .then(courseContent => {
+                courseContent.forEach(module => {
+                    const completedLessons = getCompletedLessonsInModule(progressData, module);
+                    const totalLessons = getTotalLessonsInModule(module);
+                    if (completedLessons.length > 0) {
+                        const moduleElement = createModuleProgressElement(module, completedLessons.length, totalLessons);
+                        progressTrackerContainer.appendChild(moduleElement);
+                    }
                 });
-        } else {
-            progressTrackerContainer.innerHTML += '<p>No progress data available.</p>';
-        }
+            })
+            .catch(error => {
+                console.error('Error fetching course content:', error);
+                progressTrackerContainer.innerHTML += '<p>Error loading progress data.</p>';
+            });
     } else {
         progressTrackerContainer.innerHTML += '<p>No progress data available.</p>';
     }
+}
+
+function getTotalLessonsInModule(module) {
+    return module.subModules.reduce((count, subModule) => count + subModule.lessons.length, 0);
+}
+
+function createModuleProgressElement(module, completedLessons, totalLessons) {
+    const moduleProgress = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
+
+    const moduleElement = document.createElement('div');
+    moduleElement.classList.add('module');
+    const moduleTitleElement = document.createElement('h3');
+    moduleTitleElement.textContent = module.moduleName;
+    const moduleProgressTextElement = document.createElement('span');
+    moduleProgressTextElement.classList.add('progress-text');
+    moduleProgressTextElement.textContent = `${completedLessons} / ${totalLessons}`;
+    const moduleProgressElement = document.createElement('div');
+    moduleProgressElement.classList.add('progress-bar');
+    const moduleProgressIndicatorElement = document.createElement('div');
+    moduleProgressIndicatorElement.classList.add('progress');
+    moduleProgressIndicatorElement.style.width = `${moduleProgress}%`;
+    moduleProgressElement.appendChild(moduleProgressIndicatorElement);
+    moduleElement.appendChild(moduleTitleElement);
+    moduleElement.appendChild(moduleProgressTextElement);
+    moduleElement.appendChild(moduleProgressElement);
+
+    return moduleElement;
 }
 
 function getCompletedLessonsInModule(progressData, module) {
@@ -75,72 +84,8 @@ function getCompletedLessonsInSubModule(progressData, subModule) {
     return subModule.lessons.filter(lesson => progressData[lesson.lessonId] && progressData[lesson.lessonId].completed);
 }
 
-function createModuleProgressElement(module, progressData) {
-    const completedLessons = module.subModules.reduce((count, subModule) => {
-        return count + subModule.lessons.filter(lesson => progressData[lesson.lessonId] && progressData[lesson.lessonId].completed).length;
-    }, 0);
-    const totalLessons = module.subModules.reduce((count, subModule) => count + subModule.lessons.length, 0);
-    const moduleProgress = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
-
-    const moduleElement = document.createElement('div');
-    moduleElement.classList.add('module');
-    const moduleTitleElement = document.createElement('h3');
-    moduleTitleElement.textContent = module.moduleName;
-    const moduleProgressElement = document.createElement('div');
-    moduleProgressElement.classList.add('progress-bar');
-    const moduleProgressIndicatorElement = document.createElement('div');
-    moduleProgressIndicatorElement.classList.add('progress');
-    moduleProgressIndicatorElement.style.width = `${moduleProgress}%`;
-    moduleProgressElement.appendChild(moduleProgressIndicatorElement);
-    moduleElement.appendChild(moduleTitleElement);
-    moduleElement.appendChild(moduleProgressElement);
-
-    return moduleElement;
-}
-
-function createSubModuleProgressElement(subModule, progressData) {
-    const completedLessons = subModule.lessons.filter(lesson => progressData[lesson.lessonId] && progressData[lesson.lessonId].completed).length;
-    const totalLessons = subModule.lessons.length;
-    const submoduleProgress = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
-
-    const submoduleElement = document.createElement('div');
-    submoduleElement.classList.add('submodule');
-    const submoduleTitleElement = document.createElement('h3');
-    submoduleTitleElement.textContent = subModule.subModuleName;
-    const submoduleProgressElement = document.createElement('div');
-    submoduleProgressElement.classList.add('progress-bar');
-    const submoduleProgressIndicatorElement = document.createElement('div');
-    submoduleProgressIndicatorElement.classList.add('progress');
-    submoduleProgressIndicatorElement.style.width = `${submoduleProgress}%`;
-    submoduleProgressElement.appendChild(submoduleProgressIndicatorElement);
-    submoduleElement.appendChild(submoduleTitleElement);
-    submoduleElement.appendChild(submoduleProgressElement);
-
-    return submoduleElement;
-}
-
 function formatLessonId(lessonId) {
     return lessonId.replace(/_/g, '-');
-}
-
-function createLessonProgressElement(lessonId, lessonData) {
-    const currentLesson = lessonId;
-    const lessonProgress = lessonData && lessonData.completed ? 100 : 0;
-
-    const lessonElement = document.createElement('div');
-    lessonElement.classList.add('lesson');
-    const lessonTitleElement = document.createElement('h3');
-    lessonTitleElement.textContent = formatLessonId(currentLesson);
-    const lessonProgressElement = document.createElement('div');
-    lessonProgressElement.classList.add('progress-bar');
-    const lessonProgressIndicatorElement = document.createElement('div');
-    lessonProgressIndicatorElement.classList.add('progress');
-    lessonProgressIndicatorElement.style.width = `${lessonProgress}%`;
-    lessonProgressElement.appendChild(lessonProgressIndicatorElement);
-    lessonElement.appendChild(lessonTitleElement);
-    lessonElement.appendChild(lessonProgressElement);
-
-    return lessonElement;
 }
 
 function updateRecentAchievements(achievementsData) {
