@@ -166,6 +166,7 @@ textarea {
 
 .container-secondary p {
     color: var(--color-secondary);
+    max-width: 900px;
     padding-bottom: 5px;
     margin: 0 20px;
 }
