@@ -36,14 +36,13 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
         await userDocRef.set({});
 
         const currentTimestamp = admin.firestore.FieldValue.serverTimestamp();
-        const lessonData = { // initial lesson data
+        const lessonData = {
             completed: false,
             quizScores: [],
             timeSpent: 0,
             lastUpdated: currentTimestamp
         };
 
-        // set progress for vocabulary lesson 1 only, others will be set when user completes them
         await db.collection('users').doc(user.uid).collection('progress').doc('Vocabulary_1_1').set(lessonData);
 
         const initialAchievementDoc = await db.collection('achievements').doc('achievement1').get();
@@ -114,17 +113,15 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
         await db.collection('users').doc(user.uid).collection('settings').doc('userSettings').set(defaultSettings);
 
         const defaultStatistics = {
-            topicId: '',
             strengthScore: 0,
             quizScore: 0,
             totalTimeSpent: 0,
             learningRate: 0,
             difficultyRating: 0,
-            engagementScore: 0,
-            lastUpdated: currentTimestamp
+            engagementScore: 0
         };
 
-        await db.collection('users').doc(user.uid).collection('statistics').doc('overall').set(defaultStatistics);
+        await db.collection('users').doc(user.uid).collection('progress').doc('Vocabulary_1_1').collection('statistics').doc('overall').set(defaultStatistics);
     } catch (error) {
         console.error('Error initializing user progress:', error);
         throw new functions.https.HttpsError('internal', error.message);
