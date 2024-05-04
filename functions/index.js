@@ -229,13 +229,19 @@ exports.updateRecommendations = functions.firestore
                 };
 
                 // Make predictions using the model
-                const [recommendations] = await model.predict(inputData);
+                const [recommendedLessonId] = await model.predict(inputData);
+
+                // Map the recommended lesson ID to the corresponding page URL
+                const pageUrl = getPageUrlFromLessonId(recommendedLessonId);
+                
+                // Generate a simple reason based on predefined rules or heuristics
+                const reason = generateReasonForRecommendation(recommendedLessonId, statisticsData);
 
                 // Process the generated recommendations
                 const recommendationsToAdd = recommendations.map((recommendation) => ({
                     lessonId: recommendation.lessonId,
-                    pageUrl: recommendation.pageUrl,
-                    reason: recommendation.reason
+                    pageUrl: pageUrl,
+                    reason: reason
                 }));
 
                 // Update the user's recommendations subcollection
@@ -264,6 +270,23 @@ exports.updateRecommendations = functions.firestore
             }
         }
     });
+
+// Function to map lesson ID to page URL
+function getPageUrlFromLessonId(lessonId) {
+  // Define a mapping object that maps lesson IDs to their corresponding page URLs
+  const lessonIdToPageUrlMap = {
+    'lesson1': '/lessons/lesson1',
+    'lesson2': '/lessons/lesson2',
+    'lesson3': '/lessons/lesson3',
+    // Add more mappings as needed
+  };
+
+  return lessonIdToPageUrlMap[lessonId] || '/lessons/default';
+}
+
+function generateReasonForRecommendation(lessonId, statisticsData) {
+
+}
 
 async function fetchCourseContent() {
     try {
