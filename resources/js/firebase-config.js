@@ -255,34 +255,6 @@ async function fetchUserRecommendations(userId) {
     }
 }
 
-// Function to fetch user statistics from Firestore
-async function fetchUserStatistics(userId) {
-    try {
-        const userStatisticsRef = collection(db, 'users', userId, 'statistics');
-        const lastCachedTimestamp = localStorage.getItem('userStatisticsLastCachedTimestamp');
-        const userStatisticsQuery = lastCachedTimestamp
-            ? query(userStatisticsRef, where('lastUpdated', '>', new Date(parseInt(lastCachedTimestamp))))
-            : userStatisticsRef;
-        const userStatisticsSnapshot = await getDocs(userStatisticsQuery);
-
-        if (!userStatisticsSnapshot.empty) {
-            const statisticsData = {};
-            userStatisticsSnapshot.forEach(doc => {
-                statisticsData[doc.id] = doc.data();
-            });
-            localStorage.setItem('userStatistics', JSON.stringify(statisticsData));
-            localStorage.setItem('userStatisticsLastCachedTimestamp', new Date().getTime().toString());
-            return statisticsData;
-        } else {
-            const cachedUserStatistics = JSON.parse(localStorage.getItem('userStatistics'));
-            return cachedUserStatistics || null;
-        }
-    } catch (error) {
-        console.error('Error fetching user statistics:', error);
-        return null;
-    }
-}
-
 // Function to fetch user goals from Firestore
 async function fetchUserProfile(userId) {
     try {
@@ -470,7 +442,6 @@ export {
     fetchUserAchievements,
     fetchUserGoals,
     fetchUserRecommendations,
-    fetchUserStatistics,
     fetchUserProfile,
     addGoal,
     removeGoal,

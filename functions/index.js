@@ -40,10 +40,13 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
         const lessonData = {
             completed: false,
             quizScores: [],
+            stengthScore: 0,
+            engagementScore: 0,
+            totalTimeSpent: 0,
             lastUpdated: currentTimestamp
         };
 
-        await db.collection('users').doc(user.uid).collection('progress').doc('Vocabulary_1_1').set(lessonData);
+        await db.collection('users').doc(user.uid).collection('progress').doc('Vocabulary_1_1').set(lessonData); // the first lesson
 
         const initialAchievementDoc = await db.collection('achievements').doc('achievement1').get();
 
@@ -62,15 +65,12 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
         }
 
         const defaultRecommendations = {
-            /*
-            recommendation1: {
+            recommendationDefault: {
                 lessonId: 'Vocabulary_1_1',
-                recommendedOn: currentTimestamp,
                 pageUrl: '/knowledge/vocabulary/level1/lesson-1.html',
-                reason: 'Start with vocabulary',
+                reason: 'Start by learning the Universum vocabulary',
                 lastUpdated: currentTimestamp
             }
-            */
         };
 
         for (const [recommendationId, recommendationData] of Object.entries(defaultRecommendations)) {
@@ -115,15 +115,11 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
         await db.collection('users').doc(user.uid).collection('settings').doc('userSettings').set(defaultSettings);
 
         const defaultStatistics = {
-            strengthScore: 0,
-            quizScore: 0,
-            totalTimeSpent: 0,
-            learningRate: 0,
-            difficultyRating: 0,
-            engagementScore: 0
+            frequentlyMissedTopics: [],
+            lastUpdated: currentTimestamp
         };
 
-        await db.collection('users').doc(user.uid).collection('progress').doc('Vocabulary_1_1').collection('statistics').doc('overall').set(defaultStatistics);
+        await db.collection('users').doc(user.uid).collection('statistics').doc('overall').set(defaultStatistics);
     } catch (error) {
         console.error('Error initializing user progress:', error);
         throw new functions.https.HttpsError('internal', error.message);
@@ -171,7 +167,7 @@ exports.compileGlobalStats = functions.pubsub.schedule('0 0 * * *').onRun(async 
                     const totalCompleted = lessonStatsDoc.data().totalCompleted || 0;
 
                     const updatedQuizScore = (averageQuizScore * totalCompleted + lessonData.quizScores.reduce((a, b) => a + b, 0) / lessonData.quizScores.length) / (totalCompleted + 1);
-                    const updatedTimeSpent = (averageTimeSpent * totalCompleted + lessonData.timeSpent) / (totalCompleted + 1);
+                    const updatedTimeSpent = (averageTimeSpent * totalCompleted + lessonData.totalTimeSpent) / (totalCompleted + 1);
 
                     transaction.set(lessonStatsRef, {
                         averageQuizScore: updatedQuizScore,
@@ -196,6 +192,7 @@ exports.compileGlobalStats = functions.pubsub.schedule('0 0 * * *').onRun(async 
     }
 });
 
+// adjust this to match the updated database hierarchy
 exports.updateRecommendations = functions.firestore
     .document('users/{userId}/progress/{lessonId}')
     .onUpdate(async (change, context) => {
