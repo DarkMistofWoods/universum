@@ -428,6 +428,42 @@ async function voteChallengeAnswer(challengeId, answerId, userId) {
     }
 }
 
+async function completeLesson(lessonId, userId, lessonData) {
+    try {
+        const lessonRef = doc(db, 'users', userId, 'progress', lessonId);
+        await updateDoc(lessonRef, {
+            strengthScore: lessonData.strengthScore,
+            quizScores: lessonData.quizScores,
+            totalTimeSpent: lessonData.totalTimeSpent,
+            engagementScore: lessonData.engagementScore,
+            completed: true,
+            lastUpdated: serverTimestamp()
+        });
+
+        const statisticsRef = doc(db, 'users', userId, 'statistics', 'overall');
+        const statisticsSnapshot = await getDoc(statisticsRef);
+
+        if (statisticsSnapshot.exists()) {
+            const statisticsData = statisticsSnapshot.data();
+            const frequentlyMissedTopics = [...(statisticsData.frequentlyMissedTopics || []), ...lessonData.frequentlyMissedTopics];
+            await updateDoc(statisticsRef, {
+                frequentlyMissedTopics,
+                lastUpdated: serverTimestamp()
+            });
+        } else {
+            await setDoc(statisticsRef, {
+                frequentlyMissedTopics: lessonData.frequentlyMissedTopics,
+                lastUpdated: serverTimestamp()
+            });
+        }
+
+        console.log('Lesson completed successfully');
+    } catch (error) {
+        console.error('Error completing lesson:', error);
+        throw error;
+    }
+}
+
 export {
     db,
     auth,
@@ -451,6 +487,7 @@ export {
     fetchChallenges,
     submitChallengeAnswer,
     voteChallengeAnswer,
+    completeLesson,
     collection,
     addDoc,
     updateDoc,
