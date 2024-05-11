@@ -37,6 +37,7 @@ exports.initializeUserProgressOnSignUp = functions.auth.user().onCreate(async (u
         await userDocRef.set({});
 
         const currentTimestamp = admin.firestore.FieldValue.serverTimestamp();
+        
         const lessonData = {
             completed: false,
             quizScores: [],
@@ -270,15 +271,8 @@ exports.updateRecommendations = functions.firestore
 
 // Function to map lesson ID to page URL
 function getPageUrlFromLessonId(lessonId) {
-  // Define a mapping object that maps lesson IDs to their corresponding page URLs
-  const lessonIdToPageUrlMap = {
-    'lesson1': '/lessons/lesson1',
-    'lesson2': '/lessons/lesson2',
-    'lesson3': '/lessons/lesson3',
-    // Add more mappings as needed
-  };
-
-  return lessonIdToPageUrlMap[lessonId] || '/lessons/default';
+  // since the lesson Id is in the format of "Vocabulary_1_1", we can extract the level and lesson number from it
+  // and then use it to generate the page URL
 }
 
 function generateReasonForRecommendation(lessonId, statisticsData) {
